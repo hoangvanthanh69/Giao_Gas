@@ -1,0 +1,568 @@
+* {
+    box-sizing: inherit;
+}
+html{
+    box-sizing: border-box;
+
+}
+.header{
+    background-color: rgb(255, 255, 255);
+}
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+
+}
+.header-with{
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-with-logo__name{
+    color: rgb(38, 121, 160);
+    font-size: 35px;
+    font-family:cursive;
+    font-weight: 600;
+    text-decoration: none;
+    padding-right: 40px;
+    
+
+}
+.logo-name-gas{
+    color: #77d020 !important;
+}
+.header-with-search{
+    flex: 1;
+    background-color: white;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+.header-with-search-header{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 60px;
+    
+}
+.header-criteria{
+    text-align: center;
+    padding-left: 35px;
+    padding-right: 20px;
+    padding-top: 27px;
+    
+}
+.header-criteria-h3{
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 550;
+    color: #75b239;
+    cursor: default;
+}
+.header-criteria-quality{
+    text-align: center;
+    padding-left: 16px;
+    padding-right: 35px;
+    padding-top: 27px;
+}
+.header-criteria-p{
+    margin-top: -6px;
+    text-align: center;
+    font-size: 17px;
+    color: rgb(38, 121, 160);
+
+}
+.form{
+    width: 28%;
+    min-height: 100px;
+    background-color: rgb(219, 215, 210);
+    padding: 100px 20px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid rgb(168, 166, 166);
+    margin: 30px;
+    align-self: center;
+    box-shadow: 0 10px 10px 0 rgba(51, 62, 73, 0.1);
+
+}
+.header-with-search-form{
+    align-items: center;
+    border-radius: 3px;
+}
+.header-with-search-icon{
+    font-size: 14px;
+    padding-left: 10px;
+} 
+.header-with-search-input{
+    color: black;
+    outline: none;
+    display: flex;
+    width: 98%;
+    border: none;
+    height: 38px;
+    font-size: 16px;
+    border-radius: 40px;
+    padding-left: 10px;
+}
+.header-with-account{
+    text-align: center;
+    padding-bottom: 17px;
+}
+.header-with-account-span{
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 550;
+}
+.header-with-account-span:hover{
+    color: rgb(70, 70, 70);
+}
+.main{
+    justify-content: center;
+    display: flex;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    margin-top: -10px;
+    padding: 1px 0 50px 180px;
+    margin-right: -22px;
+    display: none;
+    animation: notify ease-in 0.3s;
+}
+.heading{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.form-label,
+.form-mesage{
+   text-align: left;
+   font-size: 18px;
+}
+.form-control{
+    height: 38px;
+    border: 1px solid #b3b3b3;
+    border-radius: 2px;
+    outline: none;
+    padding: 10px;
+}
+.form-control:hover{
+    border-color: rgb(24, 104, 209);
+}
+.form-submit{
+    background-color: #db2727;
+    height: 38px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 14px ;
+}
+.form-submit-register{
+    background-color: rgb(241, 68, 68);
+}
+
+.footer{
+    border-top: 3px solid rgb(151, 150, 149);
+    background-color: rgb(38, 121, 160);
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.grid-row{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 4px 10px 4px;
+    
+} 
+.grid-row-footer{
+    display: flex;
+    justify-content:space-evenly;
+}
+.home-row-column{
+    width: 20%;
+    padding-left: 4px;
+    padding-right: 4px;
+    display: flex;
+    
+}
+.home-row-column-footer{
+    width: 22%;
+    margin-top: -35px;
+
+}
+.contact{
+    display: block;
+    justify-content: space-between;
+}
+.contact-support{
+    display: flex;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    justify-content: center;
+}
+.contact-support-list{
+    padding-right: 6px;
+   padding-left: 12px;
+   margin-top: 10px;
+   cursor: pointer;
+}
+.contact-support-item{
+    list-style: none;
+    font-size: 19px;
+    padding-top: 12px
+
+}
+.contact-support-item-icon-gmail{
+    color: rgb(68, 192, 241);
+}
+.contact-support-item-call-link:hover{
+    color: rgb(117, 178, 57) !important;
+}
+.contact-support-item-call-link{
+    text-decoration: none;
+    padding-left: 4px;
+    color: white;
+
+}
+.contact-support-item-icon-call{
+    color: rgb(232, 40, 40);
+}
+.icon-location{
+    color: #75b239;
+}
+.footer-imge-license{
+    padding: 18px 0 ;
+    display: flex;
+    justify-content: center;
+    color: rgb(228, 234, 237);
+    
+}
+.contact-support-item-icon-facebook{
+    color: white;
+}
+.contact-support-item-icon-youtube{
+    color: rgb(232, 32, 32);
+}
+.contact-support-item-icon-instagram{
+    color: rgb(243, 13, 174);
+}
+.home-filter{
+    display: flex;
+    background-color: rgb(38, 121, 160);
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 12px 50px;
+    width: 100%;
+}
+.home-filter-button{
+    min-width: 100px;
+    font-size: 18px;
+    height: 32px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: Arial;
+    font-weight: 450;
+    margin: 0 5px;
+}
+.actives{
+    background-color: #75b239;
+    color: white;
+
+
+}
+.grid-nav{
+    padding-top: 10px;
+}
+.slide-main-carousel{
+    width: 100%;
+    min-height: 400px;
+    display: block;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+}
+div#loai-error {
+    padding-top: 25px;
+}
+.slide-main{
+    position: absolute;
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    filter: brightness(0.6);
+}
+
+.gas-advertisement{
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    text-align: center;
+    left: 16%;
+    top:40%
+}
+.tech-name{
+    color: rgb(41 149 198);
+    
+}
+.carousel-inner{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.gas-advertisement-name-h1{
+    color: #f5f5f5;
+    font-size: 45px;
+    font-weight: 800;
+}
+.name-trademark{
+    font-size: 25px;
+    font-weight: 500;
+    color: #ff9621;
+}
+.product-nav-span{
+    color: #f71616 !important;
+}
+.gas-delivery{
+    margin-top: 4px;
+    border-color: rgb(203, 203, 202); 
+    /* height: 500px; */
+}
+/* .delivery-location{
+     display: flex; 
+} */
+
+.header-with-search-input:focus, input.form-control:focus {
+ 
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.gas-delivery-information{
+    
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.form-product-specials{
+    margin-bottom: 18px;
+}
+.card-infor{
+    box-shadow: 0 6px 6px 2px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+div#country-error {
+    padding-top: 16px;
+    margin-bottom: 2px !important
+}
+.delivery-location.form-product-specials.form-product-specials-location {
+    margin-bottom: 20px;
+}
+.card-heder-name{
+   background-color: rgb(38, 121, 160) !important;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+}
+.special-product-address{
+    margin-right: 6px;
+    width: 167px !important;
+}
+.special-product-address-input{
+    resize: none;
+}
+
+.invalid-feedback{
+    margin-top: -17px !important;
+    margin-bottom: 20px !important;
+}
+.product-type{
+    display: block;
+    
+}
+.form-product-specials-location{
+    display: flex;
+}
+.label.form-label {
+    margin-top: 20px;
+}
+.header-img-grid{
+    background-color: #F1F1F1;
+}
+.support-oder-product{
+    margin-top: 70px;
+}
+.support-oder-product-item{
+    display: flex;
+    width: 100%;
+    list-style: none;
+    padding-left: 1px;
+    text-align: center;
+}
+.support-oder-product-list{
+    width: 25%;
+
+}
+.support-text {
+    font-size: 18px;
+}
+i.fa-solid.fa-hand-point-up {
+    font-size: 60px;
+    color: rgb(216, 36, 56);
+}
+.icon-img{
+    height: 100px;
+}
+i.fa-solid.fa-pencil {
+    font-size: 58px;
+    color: rgb(216, 36, 56);
+}
+.img-support-oder {
+    width: 83px;
+}
+.hot-line a{
+    background: #FD9C2C;
+    border-radius: 58px;
+    font-size: 24px;
+    line-height: 150%;
+    color: #D82438;
+    font-weight: bold;
+    height: 53px;
+    padding-left: 21px;
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    margin-top: 30px;
+}
+.card-support{
+    border: none !important;
+    margin-top: 20px;
+}
+
+.service-support-client {
+    padding-left: 19px;
+    padding-top: 18px;
+    font-size: 19px;
+}
+
+.name-gas-tech{
+    color:rgb(38, 121, 160);
+}
+.service-client-strong {
+    font-size: 22px;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-left: -21px;
+}
+.service-support-client-list {
+    padding-top: 10px;
+}
+select#type {
+    margin-bottom: 22px;
+}
+a.log-in {
+    text-decoration: none;
+    color: rgb(117, 178, 57);
+}
+a.log-in:hover{
+    color: rgb(117, 178, 57);
+}
+
+.login-form-header {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(249 249 249);
+}
+
+.product-order-all{
+    width: 133%;
+    padding-left: 10px;
+}
+
+
+.image-product-order-all {
+    text-align: center;
+    border: 1px solid;
+    border-radius: 3px;   
+    margin-top: 9px;
+    padding-bottom: 16px;
+    margin-right: 5px;
+}
+.image-product-order {
+    width: 100%;
+    height: 160px;
+    padding-top: 20px;
+}
+.image-product-order img {
+    width: 100%;
+    height: 100%;
+}
+
+.heading-login {
+    padding-bottom: 16px;
+}
+
+.product-address-district{
+    margin-bottom: 16px;
+}
+.amount{
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    height: 37px;
+    border-radius: 3px;
+    outline: none;
+}
+.notie{
+    outline: none !important;
+}
+input.amount.is-invalid {
+    margin-bottom: 24px;
+}
+
+.notification {
+    /* text-align: center; */
+    color: #eb0d0d;
+    position: absolute;
+    top: 52px;
+    left: 41%;
+    animation: ease .6s, fadeout linear 1s 0.8s forwards;
+    font-size: 20px;
+}
+@keyframes fadeout{
+    to{
+        opacity: 0;
+    }
+}
+
+.mystyle{
+    background-color: #94c564;
+    border: 2px solid #3996c2;
+}
+
+.productchoose{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

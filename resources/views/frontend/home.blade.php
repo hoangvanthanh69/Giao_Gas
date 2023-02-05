@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Gas Tech</title>
+    <link rel="icon" type="image/png" href="{{asset('frontend/img/kisspng-light-fire-flame-logo-symbol-fire-letter-5ac5dab338f111.3018131215229160192332.jpg')}}">
+    <link rel="stylesheet" href="{{asset('frontend/css/index.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+</head>
+<body>
+    <header class="header">
+        <div class="grid">
+            <div class="header-with">
+                <div class="header-with-logo">
+                    <a href="#" class="header-with-logo__name">
+                        <strong class="logo-name-gas">
+                            Gas
+                        </strong>
+                        Tech
+                    </a>
+                </div>
+
+                <!-- <div class="header-with-search"> -->
+                    <div class="header-with-search-header">
+                        <form action="" method="POST" id="input_filter" class="header-with-search-form"></form>
+                            <i class="header-with-search-icon fas fa-search"></i>
+                            <input type="text" id="search_item" name="fullname" autocapitalize="off" class="header-with-search-input" placeholder="Nhập để tìm kiếm">
+
+                        </form>
+                    </div>
+                <!-- </div> -->
+
+                <div class="header-criteria">
+                    <h3 class="header-criteria-h3">Nhanh chóng</h3>
+                    <p class="header-criteria-p">Uy tính</p>
+                </div>
+
+                <div class="header-criteria-quality">
+                    <h3 class="header-criteria-h3">Chất lượng</h3>
+                    <p class="header-criteria-p">Đảm bảo</p>
+                </div>
+
+                <!-- <div class="header-with-account">
+                    <div id="myBtn1" class="header-with-account-span">
+                        <div class="add-product-div-admin">
+                            <a class="log-in">Đăng Nhập</a>
+                        </div>
+                        
+                    </div>
+
+                </div> -->
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="web-container">
+            <div class="grid-nav">
+                <div class="grid-row-12">
+                    <div class="home-filter grid" id="filter_button">
+                        <a href="{{route('home')}}" data-filter="all">
+                            <button class="btnbtn home-filter-button actives" >
+                                Trang chủ
+                            </button>
+                        </a>
+                        
+                        <button class="btnbtn home-filter-button" data-filter="introduce">
+                            Giới thiệu
+                        </button>
+
+                        <button class="btnbtn home-filter-button" data-filter="guide">
+                          Hướng dẫn đổi gas
+                        </button>
+                        
+                        <button class="btnbtn home-filter-button" data-filter="order_page">
+                            Đổi gas
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-img-grid element_columns" data-item="img">
+                <div id="carouselExampleControls" class="carousel slide grid" data-bs-ride="carousel">
+                    <div class="carousel-inner ">
+                        <div class="carousel-item active slide-main-carousel">
+                            <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" class="slide-main d-block" alt="...">
+                            <div class="gas-advertisement">
+                                <div class="gas-advertisement-name ">
+                                    <h1 class="gas-advertisement-name-h1">
+                                        <span class="logo-name-gas">
+                                            Gas
+                                        </span>
+                                        <span class="tech-name">
+                                            Tech
+                                        </span>giao gas công nghệ 24/7
+                                    </h1>
+                                </div>
+    
+                                <div>
+                                    <p class="name-trademark">Nhanh chóng tiện lợi niềm tin của mọi nhà</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item slide-main-carousel">
+                            <img src="{{asset('frontend/img/binh-gas.jpg')}}" class="slide-main d-block " alt="...">
+                            <div class="gas-advertisement">
+                                <div class="gas-advertisement-name ">
+                                    <h1 class="gas-advertisement-name-h1 product-nav-span">
+                                        </span class="">Sản phẩm chất lượng uy tính hàng đầu<span>
+                                    </h1>
+                                </div>
+    
+                                <div>
+                                    <p class="name-trademark">Dịch vụ khách hàng tốt, giá cả hợp lí</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+    
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span class="visually-hidden">Next</span>
+                    </button>
+    
+                </div>
+            </div>
+            
+
+            <!-- đổi gas -->
+            <div class="grid element_column">
+                <div class="gas-delivery infor">
+                    <div class="card card-infor element_columns" data-item="order_page">
+                        <div class="card-header card-heder-name">Đổi gas</div>
+                        @if (session('mesage'))
+                            <div class="notification">
+                            {{ session('mesage') }}
+                            </div>
+                        @endif
+                        <div class="card-body gas-delivery-information ">
+                        
+                            <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
+                            @csrf
+
+                                <div class="form-gas-delivery-information">
+
+                                    <label class="form-label" for="firstname">Tên khách hàng:</label>
+                                    <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" />
+    
+                                    <label class="form-label" for="number">Số điện thoại khách hàng:</label>
+                                    <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" />
+    
+                                    <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:</label> 
+                                    <div class="delivery-location form-product-specials form-product-specials-location">
+                                        <div>
+                                            <select onchange="print_state('state',this.selectedIndex);" id="country" name="country" class="country form-select form-control special-product-address" aria-label="Default select example">
+                                            </select>
+                                        </div>
+    
+                                        <div>
+                                            <select onchange="print_district('district',this.selectedIndex);" name="state" id="state" class="state form-select special-product-address product-address-district" aria-label="Default select example">
+                                            </select>
+                                        </div>
+    
+                                        <div>
+                                            <select name="district" id="district" class="district form-select special-product-address product-address-district" aria-label="Default select example">
+                                            </select>
+                                        </div>
+    
+                                        <div>
+                                            <textarea name="diachi" type="resize:none" class="diachi form-control special-product-address-input special-product-address product-address-district" id="exampleFormControlInput1" placeholder="địa chỉ nhà cụ thể" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <label for="loai" class="form-label">Loại bình gas:</label>
+                                    <div class="delivery-location form-product-specials product-type">
+                                        <select class="form-select handle_order select-option" id="type" name="type" aria-label="Default select example">
+                                            <option  value="0">Chọn loại gas</option>
+                                            <option name="cn" value="1">Gas công nghiệp</option>
+                                            <option name="dd" value="2">Gas dân dụng</option>
+                                        </select>
+                                        
+                                        <div class="product-order-all btnt row" id='results'>
+                                           
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="number-product-order product-address-amount">
+                                        <div class="product-address-district">
+                                            <label for="loai" class="form-label">Số lượng:</label>
+                                            <input type="number" step="1" class="amount quantity" max="50" min="1" name="amount">
+                                        </div>
+                                    </div>
+                                    
+
+                                    
+                                    <label for="exampleFormControlInput1" class="form-label ">Ghi chú:</label>
+                                    <input class="ghichu form-control form-product-specials notie" id="exampleFormControlInput1" name="ghichu" cols="30" rows="10"></input>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-5 offset-sm-4">
+                                            <button class="btn btn-primary submit">Giao gas</button>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                          
+                            </form>
+
+                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- hướng dẫn đổi gas -->
+            <div class="grid element_column">
+                <div class="card card-support element_columns infor" data-item="guide">
+                    <div class="card-header card-heder-name">Hướng dẫn</div>
+                    <div class="support-oder-product">
+                        <ul class="support-oder-product-item">
+                            <li class="support-oder-product-list">
+                                <div class="icon-img">
+                                    <img class="img-support-oder" src="https://gas24h.com.vn/themes/gas/ecommerce/images/icon-1.png" alt="">
+                                </div>
+    
+                                <p class="support-text">
+                                    <strong>Bước 1:</strong> 
+                                    <br>
+                                    Vào hệ thống website gastech.com
+                                </p>
+                            </li>
+    
+                            <li class="support-oder-product-list">
+                                <div class="icon-img">
+                                    <i class="fa-solid fa-hand-point-up"></i>
+                                </div>
+    
+                                <p class="support-text">
+                                    <strong>Bước 2:</strong> 
+                                    <br>
+                                    Click chọn ô đổi gas
+                                </p>
+                            </li >
+    
+                            <li class="support-oder-product-list">
+                                <div class="icon-img">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </div>
+    
+                                <p class="support-text">
+                                    <strong>Bước 3:</strong> 
+                                    <br>
+                                    Điền các thông tin vào hệ thống 
+                                </p>
+                            </li>
+    
+                            <li class="support-oder-product-list">
+                                <div class="icon-img">
+                                    <img class="img-support-oder" src="https://gas24h.com.vn/themes/gas/ecommerce/images/icon-4.png" alt="">
+                                </div>
+    
+                                <p class="support-text">
+                                    <strong>Bước 4:</strong> 
+                                    <br>
+                                    Chọn đặt đơn hàng, kết thúc
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- giới thiệu -->
+            <div class="grid element_columns element_column" data-item="introduce">
+                <div class="card card-support infor">
+                    <div class="card-header card-heder-name">Giới thiệu</div>
+                    <div class="service-support-client">
+                        <span>
+                            <strong class="logo-name-gas">Gas</strong> 
+                            <strong class="name-gas-tech">Tech</strong> cung cấp các bình gas công ngiệp và gas dân dụng cho các nhà hàng, khách sạn, nhà ăn gia đình..., dịch vụ chất lượng cao an toàn trên tiêu chí “Nhanh chóng - An toàn - Chất lượng - Hiệu quả” Tầm nhìn và sứ mệnh.
+                        </span>
+                        <ul >
+                            <p class="service-client-strong">Dịch vụ:</p>
+                            <li class="service-support-client-list">
+                                Tư vấn, hướng dẫn miễn phí cho khách hàng.
+                            </li>
+                            <li class="service-support-client-list">
+                                Giao gas nhanh chóng trong khoảng 30 phút, đáp ứng tối đa nhu cầu của quý khách.
+                            </li>
+                            <li class="service-support-client-list">
+                                Đội ngũ kỹ thuật viên, nhân viên giao hàng giàu kinh nghiệm, nhiệt tình, được đào tạo bài bản mang lại hiệu quả cao.
+                            </li>
+                            <li class="service-support-client-list">
+                                Website tiện lợi dễ dàng sử dụng cho mọi khách hàng.
+                            </li>
+                            <li class="service-support-client-list">
+                                Luôn dành nhiều ưu đãi tốt nhất cho khách hàng thân thiết.
+                            </li>
+                            <li class="service-support-client-list">
+                                Cam kết 100% bình gas mà Tech Gas cung cấp là sản phẩm chính hãng, có giấy chứng nhận chất lượng.
+                            </li>
+                            <li class="service-support-client-list">
+                                Giúp khách hàng tiệt kiệm được nhiều thời gian, chỉ cần ở nhà đặt hàng gas sẽ mang tới cho bạn.
+                            </li>
+                            <li class="service-support-client-list">
+                                Đạt được sự tín nhiệm của khách hàng và các đối tác chính là nhân tố quan trọng góp phần vào sự thành công của chúng tôi.
+                            </li>
+                           <li class="service-support-client-list">
+                                Bạn muốn đổi gas chỉ cần lên Gastech.com website giao đổi gas tiện lợi cho mọi khách hàng.
+                           </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="footer">
+            <div class="grid">
+                <div class="grid-row grid-row-footer">
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Hổ trợ khách hàng
+                                </span>
+                                <ul class="contact-support-list">
+                                    
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-call fas fa-tty"></i>
+                                        <a href="tel:0837641469" class="contact-support-item-call-link">
+                                            <span>Tư vấn: </span>
+                                            0837641469
+                                        </a>
+                                    </li>
+
+                                    <li class="contact-support-item">
+                                        <a href="" class="contact-support-item-call-link">
+                                            <i class="fa-solid fa-location-dot icon-location"></i>
+                                        </a>
+                                        <span class="contact-support-item-call contact-support-item-call-link">Đường 3/2, phường Xuân Khánh, quận Ninh Kiều, thành phố Cần Thơ</span>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Theo dõi chúng tôi trên
+                                </span>
+                                <ul class="contact-support-list">
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-facebook fab fa-facebook"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Facebook
+                                        </a>
+                                    </li>
+                                   
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-youtube fab fa-youtube"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Youtube
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Về chúng tôi
+                                </span>
+                                <ul class="contact-support-list">
+                                    <li class="contact-support-item">
+                                        <a href="" class="contact-support-item-call-link">
+                                            Hướng dẫn mua hàng
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="contact-support-item">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Giới thiệu
+                                        </a>
+                                        
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <h4 class="contact-support">
+                                    Tổng đài gọi gas
+                                </h4>
+                                <div class="hot-line">
+                                    <a href="tel:19001011">
+                                        19001011
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="footer-imge">
+                    <div class="footer-imge-license">
+                        © HoangThanh
+                    </div>
+                </div>
+            </div>
+    </footer>
+    <script src="{{asset('frontend/js/style.js')}}"></script>
+    <script src="{{asset('frontend/js/doigas.js')}}"></script>
+
+    <script language="javascript">print_country("country");</script>
+    <!-- <script language="javascript">print_type("type");</script> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
+
+
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+			$("#signupForm").validate({
+				rules: {
+					nameCustomer: "required",
+					phoneCustomer: "required",
+					country: "required",
+                    state: "required",
+                    district: "required",
+					dd: "required",
+					cn: "required",
+                    diachi: "required",
+                    ghichu: "required",
+                    amount: "required",
+					// cnmail: {required: true, email: true},
+					// agree: "required"
+				},
+				messages: {
+					nameCustomer: "Nhập tên",
+					phoneCustomer: "Nhập số điện thoại",
+					country: "Nhập địa chỉ",
+					state: "Nhập huyện",
+					district: "Nhập phường/xã",
+					diachi: "Nhập hẻm/số nhà",
+					dd: "chọn loại",
+					cn: "chọn loại",
+                    ghichu: "Nhập ghi chú",
+                    amount: "Nhập số lượng",
+					// confirm_password: {
+					// 	required: " Bạn  nhập mật khẩu",
+					// 	minlength: "Mật khẩu phải có ít nhất 5 ký tự",
+					// 	equalTo: "Mật khẩu không trùng khớp với mật khẩu đã nhập",
+					// },
+					// email: "Hộp thư điện tử không hợp lệ",
+					// agree: "Bạn phải đồng ỳ với các quy định của chúng tôi"
+				},
+				errorElement: "div",
+				errorPlacement: function (error, element) {
+					error.addClass("invalid-feedback");
+					if (element.prop("type") === "checkbox"){
+						error.insertAfter(element.siblings("label"));
+					} else {
+						error.insertAfter(element);
+					}
+				},
+				highlight: function (element, errorClass, validClass) {
+					$(element).addClass("is-invalid").removeClass("is-valid");
+				},
+				unhighlight: function(element, errorClass, validClass) {
+					$(element).addClass("is-valid").removeClass("is-invalid");
+				} 
+
+			});
+
+    
+        
+        });
+	</script>
+
+
+    <script>
+        var handle_order =  document.querySelector('.handle_order');
+        var submit =  document.querySelector('.submit');
+       
+
+            handle_order.onchange = ()=>{
+
+            var id = handle_order.value;
+            $.ajax({
+            url: "{{route('handle-order')}}",
+            method: "post",
+            data: {
+                id : id,
+                _token: '{{csrf_token()}}',
+            },
+            success: function(html){
+                $("#results").html(html);
+                var idProduct;
+                var product = document.querySelectorAll('.productchoose');
+                var nameCustomer = document.querySelector('.nameCustomer');
+                var phoneCustomer = document.querySelector('.phoneCustomer');
+                var country = document.querySelector('.country');
+                var state = document.querySelector('.state');
+                var district = document.querySelector('.district');
+                var diachi = document.querySelector('.diachi');
+                var amount = document.querySelector('.amount');
+                var ghichu = document.querySelector('.ghichu');
+                var type = document.querySelector('.type');
+
+
+                // var idProduct = document.querySelector('.idProduct');
+                // var price = document.querySelector('.price');
+
+
+                for(let i =0; i< product.length ; i++){
+                    product[i].onclick = ()=>{
+                       var idProduct = product[i].getAttribute('id');
+
+                       $.ajax({
+                        url: "{{route('idProduct')}}",
+                        method: "post",
+                        data: {
+                            id : idProduct,
+                            _token: '{{csrf_token()}}',
+                        },
+                        success: function(html){}
+                    })
+
+                    }
+                }
+
+                submit.onclick = ()=>{
+                    $.ajax({
+                        url: "{{route('order')}}",
+                        method: "post",
+                        data: {
+                            nameCustomer : nameCustomer.value,
+                            phoneCustomer : phoneCustomer.value,
+                            country : country.value,
+                            state : state.value,
+                            district : district.value,
+                            diachi : diachi.value,
+                            amount : amount.value,
+                            ghichu : ghichu.value,
+                            type : type.value,
+
+                            // name_product : name_product.value,
+                            // price : price.value,
+
+
+
+                            _token: '{{csrf_token()}}',
+                        },
+                        success: function(html){}
+                    })
+
+                }
+                var filter_button = document.querySelectorAll('.productchoose');
+                    
+                    Array.from(filter_button).forEach(function(element){
+                        element.addEventListener('click', function(event){
+                            for(let i=0; i<filter_button.length; i++){
+                                filter_button[i].classList.remove('mystyle');
+                            }
+                            this.classList.add('mystyle');
+
+                        })
+                        
+                    })
+                
+            }
+
+            
+            });
+            
+
+        }
+
+            		
+ 
+    
+  
+    </script>
+
+    
+
+
+
+
+</body>
+
+</html>
