@@ -45,15 +45,14 @@
                     <p class="header-criteria-p">Đảm bảo</p>
                 </div>
 
-                <!-- <div class="header-with-account">
-                    <div id="myBtn1" class="header-with-account-span">
-                        <div class="add-product-div-admin">
-                            <a class="log-in">Đăng Nhập</a>
+                <div class="header-with-account">
+                        <div class="header-with-account-span">
+                            <a class="header-with-account-link" href="{{route('dangnhap')}}">
+                                Đăng nhập
+                            </a>
+                            
                         </div>
-                        
-                    </div>
-
-                </div> -->
+                </div>
 
             </div>
         </div>

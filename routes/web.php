@@ -95,4 +95,6 @@ Route:: get('/admin/quan-ly-thong-ke', [index_backend::class, 'quan_ly_thong_ke'
 // in đơn hàng
 Route:: get('/print-order/{checkout_code}', [index_backend::class, 'print_order'] )->name('print-order');
 
+//đăng nhập user
+Route::get('/dangnhap', [index::class, 'dangnhap'] )->name('dangnhap');
 

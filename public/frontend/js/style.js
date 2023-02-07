@@ -1,25 +1,4 @@
-// var modal2 = document.getElementById("myModal2");
-// var btn1 = document.getElementById("myBtn1");
-// var myModalcart = document.getElementById("myModalcart");
-// var myBtncart = document.getElementById("myBtncart");
 
-/* thiết lập nút đóng modal */
-// var span = document.getElementsByClassName("close")[0];
-
-/* Sẽ hiển thị modal khi người dùng click vào */
-
-
-/* Sẽ đóng modal khi nhấn dấu x */
-// span.onclick = function() {
-//     modal2.style.display = "none";
-// }
-
-/*Sẽ đóng modal khi nhấp ra ngoài màn hình*/
-// window.onclick = function(event) {
-//     if (event.target == modal2) {
-//         modal2.style.display = "none";
-//     }
-// }
 
 var element_columns = document.querySelectorAll('.element_columns');
 var filter_button = document.querySelectorAll('#filter_button .btnbtn');
