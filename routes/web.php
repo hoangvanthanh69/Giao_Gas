@@ -98,3 +98,5 @@ Route:: get('/print-order/{checkout_code}', [index_backend::class, 'print_order'
 //đăng nhập user
 Route::get('/dangnhap', [index::class, 'dangnhap'] )->name('dangnhap');
 
+//đăng kí user
+Route::get('/dangky', [index::class, 'dangky'] )->name('dangky');

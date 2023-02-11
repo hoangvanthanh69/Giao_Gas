@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập tài khoản</title>
+    <title>Đăng ký tài khoản</title>
     <link rel="icon" type="image/png" href="{{asset('frontend/img/kisspng-light-fire-flame-logo-symbol-fire-letter-5ac5dab338f111.3018131215229160192332.jpg')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/index.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -21,7 +21,7 @@
                             Tech
                     </a>
                 </div>
-                <div>Đăng nhập</div>
+                <div>Đăng ký</div>
         </div>
     </div> 
 
@@ -31,7 +31,7 @@
         </div>
         <div class="col-4 form-user">
             <form action="" method="POST" class="" id="form-1">
-                <h3 class="heading">Đăng nhập</h3>
+                <h3 class="heading">Đăng ký</h3>
                 <div class="form-group form-submit-user">
                     <label for="email" class="form-label">Email</label>
                     <input type="text" id="email" name="email" class="form-control" placeholder="VD vanthanh@gmail.com">
@@ -47,10 +47,11 @@
                     <input type="password" id="password-confirmation" name="password-confirmation" class="form-control" placeholder="Nhập lại mật khẩu">
                     <span class="form-mesage"></span>
                 </div> -->
-                <button class="form-submit form-submit-user">Đăng Nhập</button>
+                <!-- <button class="form-submit form-submit-user">Đăng Nhập</button> -->
+                <button class="form-submit form-submit-register">Đăng Ký</button>
                 <p class="">
-                    Bạn chưa có tài khoản? 
-                    <a href="{{route('dangky')}}"> Đăng Ký</a>
+                    Bạn đã có tài khoản? 
+                    <a href="{{route('dangnhap')}}"> Đăng Nhập</a>
                 </p>
             </form>
         </div>

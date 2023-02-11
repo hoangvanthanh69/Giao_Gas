@@ -31,6 +31,10 @@ class index extends Controller
       return view('frontend.dangnhap');
   }
 
+  function dangky(){
+   return view('frontend.dangky');
+   }
+
    function getlogin(Request $request){
   
 

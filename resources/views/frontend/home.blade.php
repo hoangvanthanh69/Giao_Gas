@@ -54,6 +54,14 @@
                         </div>
                 </div>
 
+                <div class="header-with-account header-with-account-dk">
+                        <div class="header-with-account-span">
+                            <a class="header-with-account-link" href="{{route('dangky')}}">
+                                Đăng ký
+                            </a>
+                        </div>
+                </div>
+
             </div>
         </div>
     </header>
@@ -433,7 +441,7 @@
                     
                 </div>
                 <div class="footer-imge">
-                    <div class="footer-imge-license">
+                    <div class="footer-imge-license footer-imge-user">
                         © HoangThanh
                     </div>
                 </div>
