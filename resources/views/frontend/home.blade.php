@@ -56,7 +56,7 @@
 
                 <div class="header-with-account header-with-account-dk">
                         <div class="header-with-account-span">
-                            <a class="header-with-account-link" href="{{route('dangky')}}">
+                            <a class="header-with-account-link" href="{{route('register')}}">
                                 Đăng ký
                             </a>
                         </div>

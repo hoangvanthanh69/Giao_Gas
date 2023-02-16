@@ -32,8 +32,7 @@
 
               <div class="row mt-4">
                 <label class="name-add-product-all col-3" for="">Giá ban đầu:</label>
-                <input class="input-add-product col-9" type="text" name="
-                ">
+                <input class="input-add-product col-9" type="text" name="price">
               </div>
 
               <div class="row mt-4">
@@ -42,7 +41,7 @@
               </div>
 
               <div class="row mt-4">
-                <label class="name-add-product-all col-3" for="">Số lượng:</label>
+                <label class="name-add-product-all col-3" for="">Mã sản phẩm:</label>
                 <input class="input-add-product col-9" type="text" name="code_product">
               </div>
                 

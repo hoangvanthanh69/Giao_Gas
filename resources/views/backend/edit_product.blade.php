@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="row mt-4">
-                  <label class="name-add-product-all col-3" for="">Số lượng:</label>
+                  <label class="name-add-product-all col-3" for="">Mã sp:</label>
                   <input class="input-add-product col-9" type="text" name="code_product" value="{{ $product->code_product}}">
                 </div>
                 

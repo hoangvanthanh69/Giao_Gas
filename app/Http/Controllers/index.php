@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\order_product;
 use App\Models\product;
 use App\Models\tbl_admin;
+use App\Models\users;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 use Session;
 
@@ -17,7 +20,8 @@ class index extends Controller
    }
    
 
-   function login(){
+   function login()
+   {
       if(!Session::get('admin')){
          return view('frontend.login');
 
@@ -27,13 +31,65 @@ class index extends Controller
       return view('frontend.login');
    }
 
-   function dangnhap(){
-      return view('frontend.dangnhap');
-  }
-
-  function dangky(){
-   return view('frontend.dangky');
+   public function showLoginForm()
+   {
+        return view('frontend.dangnhap');
    }
+
+   function register()
+   {
+      return view('frontend.register');
+   }
+///
+   function registers(Request $request)
+   {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = new users([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ]);
+        $user->save();
+
+        return redirect('/dangnhap');
+   }
+
+   public function dangnhap(Request $request)
+   {
+      $data =  $request->all();
+      $password = $data['password'];
+      $result = users::where(['email' =>  $data['email']])->get()->toArray();
+      if(isset($result) && $result != NULL){
+         if($password === $result[0]['password'] ){
+            Session::put('home', [
+               'email'  => $result[0]['email'],
+               'password'  => $result[0]['password'],
+           ]);
+
+           if(Session::get('home') != NULL){
+               return redirect()->route('home');
+           }
+           else{
+            return redirect()->back();
+           }
+         }
+         else{
+            return redirect()->back();
+
+         }
+      }
+ 
+   }
+
+
+/// 
+
+
 
    function getlogin(Request $request){
   

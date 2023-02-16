@@ -30,35 +30,47 @@
             <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
         </div>
         <div class="col-4 form-user">
-            <form action="" method="POST" class="" id="form-1">
-                <h3 class="heading">Đăng ký</h3>
-                <div class="form-group form-submit-user">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="VD vanthanh@gmail.com">
-                    <span class="form-mesage"></span>
-                </div>
-                <div class="form-group form-submit-user">
-                    <label for="password" class="form-label">Mật khẩu</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu">
-                    <span class="form-mesage"></span>
-                </div>
-                <!-- <div class="form-group">
-                    <label for="password-confirmation" class="form-label">Nhập lại mật khẩu</label>
-                    <input type="password" id="password-confirmation" name="password-confirmation" class="form-control" placeholder="Nhập lại mật khẩu">
-                    <span class="form-mesage"></span>
-                </div> -->
-                <!-- <button class="form-submit form-submit-user">Đăng Nhập</button> -->
-                <button class="form-submit form-submit-register">Đăng Ký</button>
-                <p class="">
+            
+        <form method="POST" action="{{route('registers')}}">
+            @csrf
+            <h3 class="heading">Đăng ký</h3>
+            <div class="form-group form-submit-user">
+                <label for="name" class="form-label">Họ tên</label>
+                <input id="name" type="text" name="name" class="form-control" value="{{ old('name') }}" required autofocus>
+                <span class="form-mesage"></span>
+            </div>
+            <div class="form-group form-submit-user">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required>
+                <span class="form-mesage"></span>
+            </div>
+            
+            <div class="form-group form-submit-user">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input id="password" type="password" name="password" class="form-control" required>
+                <span class="form-mesage"></span>
+            </div>
+            <div class="form-group form-submit-user">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
+                <span class="form-mesage"></span>
+            </div>
+            <div>
+                <button type="submit" class="form-submit form-submit-register">
+                    Đăng ký
+                </button>
+            </div>
+            <p class="">
                     Bạn đã có tài khoản? 
                     <a href="{{route('dangnhap')}}"> Đăng Nhập</a>
                 </p>
-            </form>
+        </form>
+            
         </div>
     </div>
-    <div class="footer-imge">
+    <!-- <div class="footer-imge">
         <div class="footer-imge-license footer-imge-user">
             © HoangThanh
         </div>
-    </div>
+    </div> -->
 </body>

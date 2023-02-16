@@ -26,11 +26,10 @@
                     <th>Tên sản phẩm</th>
                     <th>Ảnh</th>
                     <th>Loại gas</th>
-                    <th>Số lượng</th>
+                    <th>Mã sản phẩm</th>
                     <th>Giá ban đầu</th>
                     <th>Giá bán</th>
                     <th>Chức năng</th>
-                    <th>a</th>
                   </tr>
                 </thead>
                 
@@ -52,7 +51,6 @@
                       
                       
                       <td class="function-icon">
-                        
                         <form action="{{route('edit-product', $val['id'])}}">
                           <button class="summit-add-product-button infor-product" type='submit'>
                             <i class="fa fa-wrench icon-wrench" aria-hidden="true"></i>
@@ -66,21 +64,11 @@
                         </form>
                       </td>
                     </tr>
-                  @endforeach
-
-                  
-                  
-                  @foreach($order_product as $key => $val)
-                    <tr class="order-product-height hover-color">
-                      <td>
-                        {{number_format($val['amount'])}}
-                      </td>
-                    </tr>
                     
-                  @endforeach
 
-                     
-                      
+                  @endforeach 
+                  
+
                   
                 </tbody>
                 <h1 id="showtext">
@@ -89,5 +77,6 @@
             </div>
           </div>
         </div>
+
 @endsection
         

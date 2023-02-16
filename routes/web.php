@@ -96,7 +96,17 @@ Route:: get('/admin/quan-ly-thong-ke', [index_backend::class, 'quan_ly_thong_ke'
 Route:: get('/print-order/{checkout_code}', [index_backend::class, 'print_order'] )->name('print-order');
 
 //đăng nhập user
-Route::get('/dangnhap', [index::class, 'dangnhap'] )->name('dangnhap');
+Route::get('/dangnhap', [index::class, 'showLoginForm'] )->name('dangnhap');
+Route::post('/dangnhap', [index::class, 'dangnhap'] )->name('dangnhap');
 
 //đăng kí user
-Route::get('/dangky', [index::class, 'dangky'] )->name('dangky');
+Route::get('/register', [index::class, 'register'] )->name('register');
+Route::post('/registers', [index::class, 'registers'] )->name('registers');
+
+Route::get('/', function () {
+    if (Auth::check()) {
+        return view('home');
+    } else {
+        return redirect('/dangnhap');
+    }
+});

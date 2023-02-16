@@ -49,31 +49,27 @@ class index_backend extends Controller
 
     
 
-    function add(Request $request, $id){
-
-       $data =  $request->all();
-        //    echo " <pre>";
-        //    print_r($data);
-        $product = new product;
-        $product->name_product =  $data['name_product'];
-        $product->loai =  $data['loai'];
-        $product->price =  $data['price'];
-        $product->code_product =  $data['code_product'];
-        $product->original_price =  $data['original_price'];
-        
-        $get_image = $request->image;
-        $path = 'uploads/product/';
-        $get_name_image = $get_image-> getClientOriginalName();
-        $name_image = current(explode('.',$get_name_image));
-        $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
-        $get_image->move($path,$new_image);
-        $product->image = $new_image;
-   
-
-
-        $product -> save();  
-        return redirect()->route('quan-ly-sp');
-    }
+    function add(Request $request){
+        $data =  $request->all();
+         //    echo " <pre>";
+         //    print_r($data);
+         $product = new product;
+         $product->name_product =  $data['name_product'];
+         $product->loai =  $data['loai'];
+         $product->price =  $data['price'];
+         $product->code_product =  $data['code_product'];
+         $product->original_price =  $data['original_price'];
+         
+         $get_image = $request->image;
+         $path = 'uploads/product/';
+         $get_name_image = $get_image-> getClientOriginalName();
+         $name_image = current(explode('.',$get_name_image));
+         $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
+         $get_image->move($path,$new_image);
+         $product->image = $new_image;
+         $product -> save();  
+         return redirect()->route('quan-ly-sp');
+     }
 
     function delete($id){
         $product = product::find($id);
