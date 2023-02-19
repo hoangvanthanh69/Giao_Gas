@@ -45,7 +45,10 @@
                     <p class="header-criteria-p">Đảm bảo</p>
                 </div>
 
-                
+                <div class="header-criteria-quality">
+                    <h3 class="header-criteria-h3">Chất lượng</h3>
+                    <p class="header-criteria-p">Đảm bảo</p>
+                </div>
 
                 <div class="nav-item dropdown ml-2 nav-item-name-user">
                     @if (Session::get('home'))
@@ -117,6 +120,13 @@
                         <button class="btnbtn home-filter-button" data-filter="introduce">
                             Giới thiệu
                         </button>
+
+
+                        <a href="{{route('order-history')}}">
+                            <button class="btnbtn home-filter-button" >
+                                Lịch sử đơn hàng
+                            </button>
+                        </a>
 
                     </div>
                 </div>

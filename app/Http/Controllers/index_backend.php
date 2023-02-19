@@ -85,6 +85,7 @@ class index_backend extends Controller
         //    print_r($product);
         return view('backend.edit_product' , ['product' => $product]);
     }
+
     function update_product(Request $request, $id)
     {
         $product = product::find($id);
@@ -340,5 +341,12 @@ class index_backend extends Controller
 
         
     }
+
+
+
+    ///
+
+    
+
 
 }

@@ -105,3 +105,7 @@ Route::post('/registers', [index::class, 'registers'] )->name('registers');
 
 //đăng xuât người dùng
 Route::get('logoutuser', [index::class, 'logoutuser'] )->name('logoutuser');
+
+//
+// lịch sử đơn hàng
+Route::get('/order-history', [index::class, 'order_history'] )->name('order-history');

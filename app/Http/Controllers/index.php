@@ -20,8 +20,9 @@ class index extends Controller
       if(!Session::get('home')){
          return redirect()->route('dangnhap');
      }
+     $order_product = order_product::get()->toArray(); 
  
-      return view('frontend.home');
+      return view('frontend.home',['order_product' => $order_product]);
    }
    
    function login(){
@@ -64,6 +65,7 @@ class index extends Controller
       $user = users::where(['email' => $data['email'], 'password' => $password])->first();
       if ($user) {
          Session::put('home', [
+               'id' => $user->id,
                'email' => $user->email,
                'password' => $user->password,
                'name' => $user->name,
@@ -133,6 +135,10 @@ class index extends Controller
    }
 
    function order_product(Request $request){
+      //
+      $user_id = Session::get('home')['id'];
+      $order_product = new order_product;
+      //
       $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
       $current_quantity = $product_infor[0]['quantity'];
       $order_quantity = $request['amount'];
@@ -158,9 +164,17 @@ class index extends Controller
       $order_product->amount = $order_quantity; // Số lượng đặt hàng
       $order_product->ghichu = $request['ghichu'];
       $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
-      $order_product -> save();  
+      // $order_product -> save();  
+
+      $order_product->status = 1; // Đơn hàng đang xử lý
+
+      $order_product->user_id = $user_id; // lưu tài khoản vào
+
+      $order_product->save();
+      //
       return redirect()->route('home')->with('mesage','Đặt giao gas thành công');
    }
+
   
   
 
@@ -199,7 +213,12 @@ class index extends Controller
    echo $output;
    }
 
-   
+   //
+   function order_history(){
+      $user_id = Session::get('home')['id'];
+   $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
+   return view('frontend.order_history',['order_product' => $order_product]);
+  }
 
    
     

@@ -34,7 +34,6 @@
                                 <th>Giá</th>
                                 <th>Ghi chú</th>
                                 <th>Ngày tạo</th>
-                                <th>Trạng thái</th>
                                 <th>Tổng giá</th>
                             </tr>
                         
@@ -70,13 +69,7 @@
                                 </td>
                                 
 
-                                <td>
-                                    <select class="form-select " aria-label="Default select example">
-                                        <option value="0">Chọn</option>
-                                        <option value="1">Đang duyệt</option>
-                                        <option value="2">Đã duyệt</option>
-                                    </select>
-                                </td>
+                                
 
                                 <td>
                                     {{number_format($order_product['amount'] * $order_product['price'])}} đ

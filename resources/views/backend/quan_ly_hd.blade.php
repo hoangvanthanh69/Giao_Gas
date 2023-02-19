@@ -24,6 +24,7 @@
                       <th >Ngày tạo</th>
                       <th >Mã SP</th>
                       <th >Giá</th>
+                      <th>Trạng thái</th>
                       <th>Chức năng</th>
                     </tr>
                     
@@ -47,7 +48,10 @@
                       <td>
                         {{number_format($val['price'])}} đ
                       </td>
-                      
+
+                      <td >
+                        <?php if($val['status']==1){echo 'Đang xử lý';}  ?>
+                      </td>
 
                       <td class="function-icon">
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
