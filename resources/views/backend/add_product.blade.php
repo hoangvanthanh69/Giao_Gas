@@ -41,8 +41,8 @@
               </div>
 
               <div class="row mt-4">
-                <label class="name-add-product-all col-3" for="">Mã sản phẩm:</label>
-                <input class="input-add-product col-9" type="text" name="code_product">
+                <label class="name-add-product-all col-3" for="">Số lượng:</label>
+                <input class="input-add-product col-9" type="text" name="quantity">
               </div>
                 
               <div class="back-add-product">
@@ -70,7 +70,7 @@
 					image: "required",
           price: "required",
           original_price: "required",
-          code_product: "required",                        
+          quantity: "required",                        
 				},
 				messages: {
 					name_product: "Nhập tên sản phẩm",
@@ -79,7 +79,7 @@
 					image: "Thêm ảnh",
 					price: "Nhập Giá",
 					original_price: "Nhập giá bán",
-					code_product: "Nhập mã",
+					quantity: "Nhập mã",
 
 				},
 				errorElement: "div",

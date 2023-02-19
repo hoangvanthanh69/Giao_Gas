@@ -39,10 +39,7 @@
                         <input class="input-add-product col-8" type="text" name="dia_chi">
                     </div>
 
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Mã số:</label>
-                        <input class="input-add-product col-8" type="text" name="code_staff">
-                    </div>
+    
 
                     <div class="row mt-4">
                         <label class="name-add-product-all col-4" for="">Ngày vào làm:</label>
@@ -82,7 +79,6 @@
 					cv_nv: "required",
                     taikhoan: {required: true, email: true},
                     dia_chi: "required",
-                    code_staff: "required",  
                     date_input: "required",                        
                     phone: "required",                        
                     luong: "required",                        
@@ -98,7 +94,6 @@
                     },
 
 					dia_chi: "Nhập địa chỉ",
-					code_staff: "Nhập mã",
 					date_input: "Nhập ngày vào làm",
 					phone: "Nhập số điện thoại",
 					luong: "Nhập lương / tháng",

@@ -25,11 +25,11 @@
                 <thead>
                   <tr class="tr-name-table">
                     <th class="align-center">Họ Tên</th>
+                    <th>Mã số </th>
                     <th>Năm sinh</th>
                     <th>Chức vụ</th>
                     <th>Tài khoản gmail@</th>
                     <th class="align-center">Địa chỉ</th>
-                    <th>Mã số </th>
                     <th>Ngày vào làm</th>
                     <th>Số điện thoại</th>
                     <th class="align-center">Lương/Tháng</th>
@@ -42,6 +42,8 @@
                     <tr class="hover-color">
                         <td class="name-product-td">{{$val['last_name']}}</td>
 
+                        <td class="product-order-quantity">{{$val['id']}}</td>
+
                         <td class="product-order-quantity">{{$val['birth']}}</td>
 
                         <td class="roduct-order-quantity"><?php if($val['chuc_vu']==1){echo 'Nhân viên';}else{echo 'Quản lý';}  ?></td>
@@ -50,7 +52,6 @@
 
                         <td class="product-order-quantity">{{$val['dia_chi']}}</td>
 
-                        <td class="product-order-quantity">{{$val['code_staff']}}</td>
 
                         <td class="product-order-quantity">{{$val['date_input']}}</td>
 

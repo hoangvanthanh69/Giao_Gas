@@ -103,10 +103,5 @@ Route::post('/dangnhap', [index::class, 'dangnhap'] )->name('dangnhap');
 Route::get('/register', [index::class, 'register'] )->name('register');
 Route::post('/registers', [index::class, 'registers'] )->name('registers');
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return view('home');
-    } else {
-        return redirect('/dangnhap');
-    }
-});
+//đăng xuât người dùng
+Route::get('logoutuser', [index::class, 'logoutuser'] )->name('logoutuser');

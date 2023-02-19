@@ -39,10 +39,7 @@
                         <input class="input-add-product col-8" type="text" name="dia_chi" value="{{$staff->dia_chi}}">
                     </div>
 
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Mã số:</label>
-                        <input class="input-add-product col-8" type="text" name="code_staff" value="{{$staff->code_staff}}">
-                    </div>
+
 
                     <div class="row mt-4">
                         <label class="name-add-product-all col-4" for="">Ngày vào làm:</label>
@@ -60,7 +57,7 @@
                     </div>
                     
                     <div class="back-add-product">
-                        <a class="back-product" href="{{route('admin')}}">Trở lại</a>
+                        <a class="back-product" href="{{route('quan-ly-nv')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Cập nhật nhân viên</button>
                     </div>
                     

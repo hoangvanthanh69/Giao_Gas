@@ -104,7 +104,7 @@
                     <th>Tên sản phẩm</th>
                     <th>Ảnh</th>
                     <th>Loại gas</th>
-                    <th>Mã sản phẩm</th>
+                    <th>Số lượng</th>
                     <th>Giá ban đầu</th>
                     <th>Giá bán</th>
                     <th>Chức năng</th>
@@ -121,7 +121,7 @@
                         <img class="image-admin-product-edit"  src="uploads/product/{{$val['image']}}" width="100px"  alt="">
                       </td>
                       <td class="name-product-td infor-product"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
-                      <td class="name-product-td infor-product">{{$val['code_product']}}</td>
+                      <td class="name-product-td infor-product">{{$val['quantity']}}</td>
                       <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
                       <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
                       
@@ -199,8 +199,6 @@
                         <td class="product-order-quantity">{{$val['taikhoan']}}</td>
 
                         <td class="product-order-quantity">{{$val['dia_chi']}}</td>
-
-                        <td class="product-order-quantity">{{$val['code_staff']}}</td>
 
                         <td class="product-order-quantity">{{$val['date_input']}}</td>
 

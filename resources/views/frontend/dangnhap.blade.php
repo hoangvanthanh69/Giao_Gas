@@ -14,7 +14,7 @@
     <div class="grid">
         <div class="icon-login-user">
                 <div class="icon-name-login">
-                    <a href="{{route('home')}}">
+                    <a href="{{route('dangnhap')}}">
                         <strong class="logo-name-gas">
                             Gas
                         </strong>
@@ -30,15 +30,7 @@
             <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
         </div>
         <div class="col-4 form-user">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
         <form method="POST" action="{{route('dangnhap')}}">
             @csrf
             <h3 class="heading">Đăng Nhập</h3>
@@ -52,15 +44,24 @@
                 <input id="password" type="password" name="password" class="form-control" required>
                 <span class="form-mesage"></span>
             </div>
+
             <div>
                 <button type="submit" class="form-submit form-submit-user">
                     Đăng Nhập
                 </button>
             </div>
-            <p class="">
-                    Bạn chưa có tài khoản? 
-                    <a href="{{route('register')}}"> Đăng Ký</a>
-                </p>
+
+            <div class="">
+                <button class="form-submit form-submit-user login-user-google">
+                    <i class="fa-brands fa-google"></i>
+                    Đăng nhập với google
+                </button>
+            </div>
+
+            <div class="login-user-register">
+                Bạn chưa có tài khoản? 
+                <a href="{{route('register')}}"> Đăng Ký</a>
+            </div>
         </form>
         </div>
     </div>

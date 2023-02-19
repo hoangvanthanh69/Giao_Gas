@@ -247,7 +247,7 @@ table#dataTable {
 }
 .image-admin-product-edit{
     border-radius: 10px;
-    min-height: 72px;
+    max-height: 72px;
     width: 77px !important;
 }
 

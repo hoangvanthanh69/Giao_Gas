@@ -57,7 +57,7 @@ class index_backend extends Controller
          $product->name_product =  $data['name_product'];
          $product->loai =  $data['loai'];
          $product->price =  $data['price'];
-         $product->code_product =  $data['code_product'];
+         $product->quantity =  $data['quantity'];
          $product->original_price =  $data['original_price'];
          
          $get_image = $request->image;
@@ -110,8 +110,8 @@ class index_backend extends Controller
 
         $product->price = $request->price;
         $product->original_price = $request->original_price;
-        $product->code_product = $request->code_product;
-        // $product->code_product = $request->code_product;
+        $product->quantity = $request->quantity;
+        // $product->quantity = $request->quantity;
         $product->save();
         return redirect()->route('quan-ly-sp');
     }
@@ -129,7 +129,6 @@ class index_backend extends Controller
         $staff->chuc_vu = $request->chuc_vu;
         $staff->taikhoan = $request->taikhoan;
         $staff->dia_chi = $request->dia_chi;
-        $staff->code_staff = $request->code_staff;
         $staff->date_input = $request->date_input;
         $staff->phone = $request->phone;
         $staff->luong = $request->luong;
@@ -152,7 +151,6 @@ class index_backend extends Controller
          $add_staff->chuc_vu =  $data['chuc_vu'];
          $add_staff->dia_chi =  $data['dia_chi'];
          $add_staff->taikhoan =  $data['taikhoan'];
-         $add_staff->code_staff =  $data['code_staff'];
          $add_staff->date_input =  $data['date_input'];
          $add_staff->phone =  $data['phone'];
          $add_staff->luong =  $data['luong'];
@@ -212,7 +210,7 @@ class index_backend extends Controller
         $count_staff_chuvu1 = add_staff::where('chuc_vu','=',1)->count();
         $count_staff_chuvu2 = add_staff::where('chuc_vu','=',2)->count();
         $tong_gia=order_product::sum('tong');
-        $product_all=product::sum('code_product');
+        $product_all=product::sum('quantity');
 
         
 

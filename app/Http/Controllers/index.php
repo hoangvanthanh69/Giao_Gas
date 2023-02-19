@@ -10,128 +10,111 @@ use App\Models\users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+// use Illuminate\Support\Facades\Session;
+
 use Session;
 
 class index extends Controller
 {
    function home(){
+      if(!Session::get('home')){
+         return redirect()->route('dangnhap');
+     }
  
       return view('frontend.home');
    }
    
-
-   function login()
-   {
+   function login(){
       if(!Session::get('admin')){
          return view('frontend.login');
-
-     }else{
+      }
+      else{
          return redirect()->route('admin');
-     }
+      }
       return view('frontend.login');
    }
 
-   public function showLoginForm()
-   {
-        return view('frontend.dangnhap');
+   function showLoginForm(){
+      if(!Session::get('home')){
+         return view('frontend.dangnhap');
+      }
+      else{
+         return redirect()->route('home');
+      }
+      return view('frontend.dangnhap');
    }
 
-   function register()
-   {
+   function register(){
       return view('frontend.register');
    }
-///
-   function registers(Request $request)
-   {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
 
-        $user = new users([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-        ]);
-        $user->save();
-
-        return redirect('/dangnhap');
+   function registers(Request $request){
+      $user = new users([
+         'name' => $request->input('name'),
+         'email' => $request->input('email'),
+         'password' => $request->input('password'),
+      ]);
+      $user->save();
+      return redirect('/dangnhap');
    }
 
-   public function dangnhap(Request $request)
-   {
-      $data =  $request->all();
+   public function dangnhap(Request $request) {
+      $data = $request->all();
       $password = $data['password'];
-      $result = users::where(['email' =>  $data['email']])->get()->toArray();
-      if(isset($result) && $result != NULL){
-         if($password === $result[0]['password'] ){
-            Session::put('home', [
-               'email'  => $result[0]['email'],
-               'password'  => $result[0]['password'],
-           ]);
+      $user = users::where(['email' => $data['email'], 'password' => $password])->first();
+      if ($user) {
+         Session::put('home', [
+               'email' => $user->email,
+               'password' => $user->password,
+               'name' => $user->name,
+         ]);
 
-           if(Session::get('home') != NULL){
-               return redirect()->route('home');
-           }
-           else{
+         if (Session::get('home') != NULL) {
+            return redirect()->route('home');
+         } 
+         else {
             return redirect()->back();
-           }
          }
-         else{
-            return redirect()->back();
-
-         }
+      } 
+      else {
+         return redirect()->back();
       }
- 
+  }
+
+   function logoutuser(){ 
+      Session::forget('home')  ;
+      return redirect()->back();
    }
-
-
-/// 
-
-
 
    function getlogin(Request $request){
-  
-
       $data =  $request->all();
-    
-      // $admin_email = $request->admin_email;
-      // $admin_password = $request->admin_password;
-      // $tbl_admin = new tbl_admin;
       $password = $data['admin_password'];
-      $result = tbl_admin::where(['admin_email' =>  $data['admin_email']])->get()->toArray();
+      $result = tbl_admin::where(['admin_email' =>  $data['admin_email'], 'admin_password' => $data['admin_password']])->first();
       // echo "<pre>";
       // print_r($result[0]['admin_password']);die;
-      if(isset($result) && $result != NULL){
-         if($password === $result[0]['admin_password'] ){
-            Session::put('admin', [
-               'username'  => $result[0]['admin_email'],
-               // 'email'  => $data_admin[0]['email'],
-               'password'  => $result[0]['admin_password'],
-               // 'role'  => $data_admin[0]['role'],
-           ]);
-
-           if(Session::get('admin') != NULL){
-               return redirect()->route('admin');
-           }
-           else{
-            return redirect()->back();
-           }
+      if($result){
+         Session::put('admin', [
+            'username'  => $result -> admin_email,
+            'password'  => $result -> admin_password,
+         ]);
+         if(Session::get('admin') != NULL){
+            return redirect()->route('admin');
          }
          else{
             return redirect()->back();
-
          }
+      }
+      else{
+         return redirect()->back();
+
       }
    }
 
    function logout(){ 
-         Session::forget('admin')  ;
-         return redirect()->back();
-       }
+      Session::forget('admin')  ;
+      return redirect()->back();
+   }
    
- 
    function order(){
       echo "<pre>"; 
       print_r(Session::get('idProduct'));
@@ -144,24 +127,26 @@ class index extends Controller
       print_r($_POST['amount']);
       print_r($_POST['ghichu']);
       print_r($_POST['type']);
-
       print_r($_POST['name_product']);
       print_r($_POST['original_price']);
       print_r($_POST['image']);
-
    }
-   function order_product(Request $request){
-      $order_product = new order_product;
-      $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
-      // print_r($product_infor);die;
 
-      // print_r($product_infor[0]['name_product']);die;
-      // print_r($request['nameCustomer']);
+   function order_product(Request $request){
+      $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
+      $current_quantity = $product_infor[0]['quantity'];
+      $order_quantity = $request['amount'];
+      $new_quantity = $current_quantity - $order_quantity;
+      if ($new_quantity < 0) {
+         return redirect()->route('home')->with('mesage','Số lượng sản phẩm không đủ!');
+      }
+      // echo " <pre>";
+      // print_r($new_quantity);die;
+      product::where(['id' => Session::get('idProduct')])->update(['quantity' => $new_quantity]);
+      $order_product = new order_product;
       $order_product ->name_product = $product_infor[0]['name_product'];
       $order_product ->	price =  $product_infor[0]['original_price'];
       $order_product-> image = $product_infor[0]['image'];
-      print_r($product_infor[0]['image']);
-
       $order_product ->idProduct = Session::get('idProduct');
       $order_product->nameCustomer = $request['nameCustomer'];
       $order_product->phoneCustomer = $request['phoneCustomer'];
@@ -170,36 +155,28 @@ class index extends Controller
       $order_product->state = $request['state'];
       $order_product->district = $request['district'];
       $order_product->diachi = $request['diachi'];
-      $order_product->amount = $request['amount'];
+      $order_product->amount = $order_quantity; // Số lượng đặt hàng
       $order_product->ghichu = $request['ghichu'];
-      $order_product ->tong = $request['amount'] *  $product_infor[0]['original_price'];
-      // print_r($request['amount'] *  $product_infor[0]['original_price']); die;
+      $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
       $order_product -> save();  
-         echo " <pre>";
-
       return redirect()->route('home')->with('mesage','Đặt giao gas thành công');
-  }
+   }
+  
   
 
-  function idProduct(){
-
+   function idProduct(){
       Session::put('idProduct',$_POST['id'] );
   
    }
-   
    function handle_order(){
-    
-    $product = product::where(['loai' => $_POST['id']])->get()->toArray();
+      $product = product::where(['loai' => $_POST['id']])->get()->toArray();
    //  print_r($product);die;
-    $output = "";
+      $output = "";
     ////
       $sum = 0;
 
    foreach($product as $val){
-
       $output .= '
-      
-
       <div class="col-3 image-product-order-all productchoose " id="'.$val['id'].'">
 
          <div class="activeq">
@@ -214,17 +191,12 @@ class index extends Controller
             <span>Giá sản phẩm: '. number_format($val['original_price']).' đ</span>
          </div>
 
-         
-
       </div> '
       ;
-      
-      
+        
    }
 
- 
    echo $output;
-
    }
 
    

@@ -197,7 +197,7 @@ CREATE TABLE `tbl_product` (
   `name_product` varchar(100) NOT NULL,
   `loai` varchar(20) NOT NULL,
   `price` double NOT NULL,
-  `code_product` int(10) NOT NULL,
+  `quantity` int(10) NOT NULL,
   `original_price` double NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -206,7 +206,7 @@ CREATE TABLE `tbl_product` (
 -- Dumping data for table `tbl_product`
 --
 
-INSERT INTO `tbl_product` (`id`, `name_product`, `loai`, `price`, `code_product`, `original_price`, `image`) VALUES
+INSERT INTO `tbl_product` (`id`, `name_product`, `loai`, `price`, `quantity`, `original_price`, `image`) VALUES
 (170, 'gas magic flame 45kg', '1', 925000, 6630, 1550000, 'binh-gas-cong-nghiep-45kg98.jpg'),
 (171, 'Gas dầu khí 45kg', '1', 974000, 6631, 1630000, 'binh-gas-dau-khi-45kg85.png'),
 (172, 'gas bình minh 45kg vàng', '1', 841000, 6632, 1600000, 'gas-binhminh-45kg8.png'),

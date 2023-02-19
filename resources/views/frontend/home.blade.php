@@ -45,7 +45,36 @@
                     <p class="header-criteria-p">Đảm bảo</p>
                 </div>
 
-                <div class="header-with-account">
+                
+
+                <div class="nav-item dropdown ml-2 nav-item-name-user">
+                    @if (Session::get('home'))
+                        @if (isset(Session::get('home')['name']))
+                        <p href="#" aria-expanded="true" id="dropdownMenuAcc" data-bs-toggle="dropdown" class="nav-item nav-link user-action header-criteria-h3 name-login-user">
+                            <img src="{{asset('frontend/img/logo-login.png')}}" class="img-login-user" alt="...">
+                            {{ Session::get('home')['name'] }}
+                        </p>
+                        @else
+                            <p>Welcome</p>
+                        @endif
+                    @endif
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAcc">
+                        <div class="">
+                            <div class="header-with-account-span">
+                                <a  href="{{route('logoutuser')}}">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Đăng xuất
+                                </a>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+                
+                <!--  -->
+
+                <!-- <div class="header-with-account">
                         <div class="header-with-account-span">
                             <a class="header-with-account-link" href="{{route('dangnhap')}}">
                                 Đăng nhập
@@ -60,7 +89,7 @@
                                 Đăng ký
                             </a>
                         </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -76,17 +105,17 @@
                                 Trang chủ
                             </button>
                         </a>
-                        
-                        <button class="btnbtn home-filter-button" data-filter="introduce">
-                            Giới thiệu
+
+                        <button class="btnbtn home-filter-button" data-filter="order_page">
+                            Đổi gas
                         </button>
 
                         <button class="btnbtn home-filter-button" data-filter="guide">
                           Hướng dẫn đổi gas
                         </button>
                         
-                        <button class="btnbtn home-filter-button" data-filter="order_page">
-                            Đổi gas
+                        <button class="btnbtn home-filter-button" data-filter="introduce">
+                            Giới thiệu
                         </button>
 
                     </div>
@@ -456,9 +485,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
-
-
-
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
