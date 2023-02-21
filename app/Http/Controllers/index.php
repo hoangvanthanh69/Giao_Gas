@@ -165,23 +165,17 @@ class index extends Controller
       $order_product->ghichu = $request['ghichu'];
       $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
       // $order_product -> save();  
-
       $order_product->status = 1; // Đơn hàng đang xử lý
-
-      $order_product->user_id = $user_id; // lưu tài khoản vào
-
+      $order_product->user_id = $user_id; // lưu tài khoản
       $order_product->save();
-      //
       return redirect()->route('home')->with('mesage','Đặt giao gas thành công');
    }
-
-  
-  
 
    function idProduct(){
       Session::put('idProduct',$_POST['id'] );
   
    }
+
    function handle_order(){
       $product = product::where(['loai' => $_POST['id']])->get()->toArray();
    //  print_r($product);die;
@@ -189,23 +183,23 @@ class index extends Controller
     ////
       $sum = 0;
 
-   foreach($product as $val){
-      $output .= '
-      <div class="col-3 image-product-order-all productchoose " id="'.$val['id'].'">
+      foreach($product as $val){
+         $output .= '
+         <div class="col-3 image-product-order-all productchoose " id="'.$val['id'].'">
 
-         <div class="activeq">
-            <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
-         </div>
+            <div class="activeq">
+               <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
+            </div>
 
-         <div class="name-product-order ">
-            <span>Tên sản phẩm: '. $val['name_product'].'</span>
-         </div>
+            <div class="name-product-order ">
+               <span>Tên sản phẩm: '. $val['name_product'].'</span>
+            </div>
 
-         <div class="price-product-order price ">
-            <span>Giá sản phẩm: '. number_format($val['original_price']).' đ</span>
-         </div>
+            <div class="price-product-order price ">
+               <span>Giá sản phẩm: '. number_format($val['original_price']).' đ</span>
+            </div>
 
-      </div> '
+         </div> '
       ;
         
    }
@@ -216,8 +210,8 @@ class index extends Controller
    //
    function order_history(){
       $user_id = Session::get('home')['id'];
-   $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
-   return view('frontend.order_history',['order_product' => $order_product]);
+      $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
+      return view('frontend.order_history',['order_product' => $order_product]);
   }
 
    
