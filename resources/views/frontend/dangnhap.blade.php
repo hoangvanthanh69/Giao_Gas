@@ -33,7 +33,7 @@
 
         <form method="POST" action="{{route('dangnhap')}}">
             @csrf
-            <h3 class="heading">Đăng Nhập</h3>
+            <h3 class="heading-login-user">Đăng Nhập</h3>
             <div class="form-group form-submit-user">
                 <label for="email" class="form-label">Email</label>
                 <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required autofocus>

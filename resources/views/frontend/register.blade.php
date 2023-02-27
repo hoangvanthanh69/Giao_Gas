@@ -33,7 +33,7 @@
             
         <form id="signupForms" method="POST" action="{{route('registers')}}">
             @csrf
-            <h3 class="heading">Đăng ký</h3>
+            <h3 class="heading-login-user">Đăng ký</h3>
             <div class="form-group form-submit-user-register">
                 <label for="name" class="form-label">Họ tên</label>
                 <input id="name" type="text" name="name" class="form-control name" value="{{ old('name') }}" required autofocus>

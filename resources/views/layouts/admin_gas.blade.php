@@ -65,6 +65,18 @@
                               Quản lý thống kê
                            </a>
                         </div>
+                        <br>
+
+                        <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <a class="@yield('sidebar-active-tai-khoan')" href="{{route('quan-ly-tk-admin')}}">
+                              <i class="fas fa-file-invoice-dollar"></i>
+                              Tài khoản admin
+                           </a>
+                        </div>
+
+                        
+
+                        
                      </div>
 
                      

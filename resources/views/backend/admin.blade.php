@@ -164,7 +164,7 @@
             <div class="table-responsive table-list-product">
 
               <div class="add-product-div-admin add-staff-admin">
-                <a class="add-staff" href="{{route('add-staff')}}">Thêm Nhân viên</a>
+                <a class="add-staffs" href="{{route('add-staff')}}">Thêm Nhân viên</a>
               </div>
               @if (session('mesage'))
                 <div class="notification">

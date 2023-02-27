@@ -12,19 +12,19 @@
 </head>
 <body>
     <div class="login-form-header">
-        <form action="{{route('getlogin')}}" method="post" class="form">
+        <form action="{{route('getlogin')}}" method="post" class="form form-login-admin">
             @csrf
             <div class="heading-login">
-                <h3 class="heading">Đăng nhập</h3>
+                <h3 class="heading">Đăng Nhập</h3>
             </div>
             <div class="form-group invalid">
-                <label for="fullnamee" class="form-label">Email</label>
+                <label for="fullnamee" class="form-label form-label-name-login-admin">Email</label>
                 <input type="text" name="admin_email" class="form-control" placeholder="@gmail.com" required="">
                 <span class="form-mesage"></span>
             </div>
             
             <div class="form-group">
-                <label for="password" class="form-label">Mật khẩu</label>
+                <label for="password" class="form-label form-label-name-login-admin">Mật khẩu</label>
                 <input type="password" name="admin_password" class="form-control" placeholder="Nhập mật khẩu" required="">
                 <span class="form-mesage"></span>
             </div>

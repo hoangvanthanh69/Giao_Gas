@@ -171,6 +171,21 @@ class index extends Controller
       return redirect()->route('home')->with('mesage','Đặt giao gas thành công');
    }
 
+
+   // hủy đơn hàng của khách hàng
+   public function cancelOrder($id) {
+      $order_product = order_product::find($id);
+      if ($order_product) {
+            $order_product->status = 4; // đã hủy
+            $order_product->save();
+          return redirect()->route('order-history')->with('message', 'Đã hủy đơn hàng thành công');
+      } else {
+            return redirect()->route('order-history')->with('message', 'Không tìm thấy đơn hàng');
+      }
+  }
+ 
+
+
    function idProduct(){
       Session::put('idProduct',$_POST['id'] );
   
@@ -213,9 +228,6 @@ class index extends Controller
       $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
       return view('frontend.order_history',['order_product' => $order_product]);
   }
-
-   
-    
 
 
 }

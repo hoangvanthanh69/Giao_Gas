@@ -77,13 +77,14 @@ html{
 
 }
 .form{
-    width: 28%;
+    width: 25%;
     min-height: 100px;
-    background-color: rgb(219, 215, 210);
-    padding: 100px 20px;
+    background-color: rgb(61 53 53); 
+    font-size: 25px;
+    padding: 70px 20px;
     text-align: center;
-    border-radius: 4px;
-    border: 1px solid rgb(168, 166, 166);
+    border-radius: 8px;
+    border: 3px solid rgb(61 53 53);
     margin: 30px;
     align-self: center;
     box-shadow: 0 10px 10px 0 rgba(51, 62, 73, 0.1);
@@ -95,7 +96,7 @@ html{
     background-color: rgb(219, 215, 210);
     padding: 32px 20px;
     text-align: center;
-    border-radius: 2px;
+    border-radius: 3px;
     margin: 30px;
     align-self: center;
     box-shadow: 0 2px 5px 0 rgb(51 62 73 / 10%);
@@ -150,20 +151,27 @@ html{
     animation: notify ease-in 0.3s;
 }
 .heading{
-    font-size: 30px;
+    font-size: 36px;
     text-align: center;
-    margin-bottom: 20px;
-    color: black;
+    margin-bottom: 50px;
+    color: white;
+}
+
+.heading-login-user{
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: black !important;
 }
 .form-group{
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .form-label,
 .form-mesage{
    text-align: left;
-   font-size: 18px;
+   font-size: 20px;
 }
 .form-control{
     height: 38px;
@@ -510,7 +518,7 @@ a.log-in:hover{
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    background-color: rgb(249 249 249);
+    background-color: rgb(243 243 243);
 }
 
 .product-order-all{
@@ -690,4 +698,92 @@ input.amount.is-invalid {
 }
 .nav-item-name-user {
     margin-top: 10px;
+}
+.history-list {
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    padding-right: 14px;
+    margin-top: 48px;
+}
+
+.button-history-orders{
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid red;
+}
+.history-button-back {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    border: none;
+    border-radius: 5px;
+}
+
+.history-button-back a {
+    background: #288ad6;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    line-height: -32px;
+    min-height: 50px;
+    border: 1px solid transparent;
+    width: calc(16% - 6px);
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.history-button-back a:hover{
+    color: white !important;
+}
+tbody.history-order-product {
+    line-height: 87px;
+}
+.thead-infor-history{
+    background-color: rgb(38, 121, 160);
+}
+.infor-name{
+    color:#a3e95d;
+    font-size: 18px;
+}
+
+.card-header-chitiet, .history-orders-list {
+    text-align: center;
+}
+
+.notification-orders {
+    text-align: center;
+    color: #eb0d0d;
+    /* animation: ease .6s, fadeout linear 15s 0.8s forwards; */
+    font-size: 14px;
+}
+/* @keyframes fadeout{
+    to{
+        opacity: 0;
+    }
+} */
+
+.btn-cancel-order {
+    color: black;
+    display: flex;
+    height: 32px;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin-top: -30px;
+}
+.btn-cancel-order:hover{
+    color: rgb(255, 0, 0);
+}
+
+
+
+.form-label-name-login-admin{
+    color: white !important;
+    font-size: 20px;
 }

@@ -109,3 +109,19 @@ Route::get('logoutuser', [index::class, 'logoutuser'] )->name('logoutuser');
 //
 // lịch sử đơn hàng
 Route::get('/order-history', [index::class, 'order_history'] )->name('order-history');
+
+// hủy đơn hàng cập nhật lại trạng thái cho khách hàng
+Route::get('/cancel_order/{id}', [index::class, 'cancelOrder'])->name('cancel_order');
+
+// lộc hóa đơn
+Route::get('/loc-hd', [index_backend::class, 'loc_hd'] )->name('loc-hd');
+
+
+// tìm kiếm hóa đơn
+Route::post('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
+
+// tài khoản admin
+Route::get('/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin');
+
+//cập nhậttrạng thái cho admin
+Route::post('/status_admin/{id}', [index_backend::class, 'status_admin'])->name('status_admin');

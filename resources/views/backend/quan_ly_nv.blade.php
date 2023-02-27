@@ -10,15 +10,35 @@
             <span class="product-list-name">Admin / Nhân viên</span>
           </div>
 
+          <div class="search-option-infor-amdin">
+
+            <div class="add-product-div-admin add-staff-admin">
+              <a class="add-staffs" href="{{route('add-staff')}}">Thêm Nhân viên</a>
+            </div>
+
+            <div class="search-infor-amdin-form">
+                <form action="{{ route('admin.search_order') }}" method="POST" class="header-with-search-form ">
+                  @csrf
+                  <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
+                  <span class="header_search button">
+                    <i class="header-with-search-icon fas fa-search"></i>
+                  </span>
+                </form>
+            </div>
+
+          </div>
           <div class="card-body">
             <div class="table-responsive table-list-product">
 
-              <div class="add-product-div-admin add-staff-admin">
-                <a class="add-staff" href="{{route('add-staff')}}">Thêm Nhân viên</a>
-              </div>
               @if (session('mesage'))
                 <div class="notification">
                   {{ session('mesage') }}
+                </div>
+              @endif
+
+              @if (session('mesages'))
+                <div class="notification-search">
+                  {{ session('mesages') }}
                 </div>
               @endif
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,7 +48,7 @@
                     <th>Mã số </th>
                     <th>Năm sinh</th>
                     <th>Chức vụ</th>
-                    <th>Tài khoản gmail@</th>
+                    <th class="align-center">Tài khoản gmail@</th>
                     <th class="align-center">Địa chỉ</th>
                     <th>Ngày vào làm</th>
                     <th>Số điện thoại</th>

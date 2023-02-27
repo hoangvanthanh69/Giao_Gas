@@ -24,9 +24,11 @@ class index_backend extends Controller
         $count_product = product::count();
         $count_staff = add_staff::count();
         $count_order = order_product::count();
+
+        $tbl_admin = tbl_admin::get()->toArray();
         // print_r($count_order);
         
-        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product], compact('count_product', 'count_staff', 'count_order'));
+        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], compact('count_product', 'count_staff', 'count_order'));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -46,8 +48,6 @@ class index_backend extends Controller
     function add_product(){
         return view('backend.add_product');
     }
-
-    
 
     function add(Request $request){
         $data =  $request->all();
@@ -137,7 +137,6 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-nv');
     }
 
-
     // trang thêm nv
     function add_staff(){
         return view('backend.add_staff');
@@ -174,7 +173,6 @@ class index_backend extends Controller
 
     }
 
-
     // quan ly san pham
     function quan_ly_sp(){
         $product = product::get()->toArray();
@@ -191,14 +189,14 @@ class index_backend extends Controller
     // quản lý hóa đơn
     function quan_ly_hd(){
         $order_product = order_product::get()->toArray(); 
-        return view('backend.quan_ly_hd',['order_product' => $order_product]);
-
+        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+        return view('backend.quan_ly_hd',['order_product' => $order_product, 'status' => $status]);
     }
+    
 
     // quản lý thống kê
     function quan_ly_thong_ke(Request $request){
         $data =  $request->all();
-        
         $count_product = product::count();
         $count_staff = add_staff::count();
         $count_order = order_product::count();
@@ -213,9 +211,6 @@ class index_backend extends Controller
         $tong_gia=order_product::sum('tong');
         $product_all=product::sum('quantity');
 
-        
-
-        
         // print_r($product_all);
         // print_r($tong_gia);
         return view('backend.quan_ly_thong_ke', compact('count_product', 'count_staff', 'count_order', 
@@ -230,6 +225,7 @@ class index_backend extends Controller
         $pdf->loadHTML($this->print_order_convert($checkout_code));
         return $pdf->stream();
     }
+
     function print_order_convert($checkout_code){
         $order_product = order_product::where('id', $checkout_code)->get();
         foreach($order_product as $key => $val){
@@ -343,10 +339,39 @@ class index_backend extends Controller
     }
 
 
+    // tìm kiếm nhân viên
+    function searchOrder(Request $request){
+        if ($request->isMethod('post')) {
+            $search = $request->input('search');
+            $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->get()->toArray();
+            if(empty($staff)){
+                return back()->with('mesages', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.quan_ly_nv', ['staff' => $staff, 'search' => $search]);
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
 
-    ///
+    // tài khoản admin
+    function quan_ly_tk_admin(){
+        $tbl_admin = tbl_admin::get()->toArray();
+        return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin]);
+    }
 
-    
-
+  // trạng thái đơn hàng của admin
+  function status_admin(Request $request, $id) {
+    $order_product = order_product::find($id);
+    if ($order_product) {
+        if ($order_product->status != 3) {
+            $order_product->status = $request->input('status');
+            $order_product->save();
+        }
+        return redirect()->back();
+    } else {
+        return redirect()->back();
+    }
+}
 
 }
