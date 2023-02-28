@@ -341,7 +341,7 @@ class index_backend extends Controller
 
     // tìm kiếm nhân viên
     function searchOrder(Request $request){
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('get')) {
             $search = $request->input('search');
             $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->get()->toArray();
             if(empty($staff)){
@@ -360,18 +360,53 @@ class index_backend extends Controller
         return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin]);
     }
 
-  // trạng thái đơn hàng của admin
-  function status_admin(Request $request, $id) {
-    $order_product = order_product::find($id);
-    if ($order_product) {
-        if ($order_product->status != 3) {
-            $order_product->status = $request->input('status');
-            $order_product->save();
+    // trạng thái đơn hàng của admin
+    function status_admin(Request $request, $id) {
+        $order_product = order_product::find($id);
+        if ($order_product) {
+            if ($order_product->status != 3) {
+                $order_product->status = $request->input('status');
+                $order_product->save();
+            }
+            return redirect()->back();
         }
-        return redirect()->back();
-    } else {
+        else {
+            return redirect()->back();
+        }
+    }
+    // quản lý giao hàng
+
+    function quan_ly_giao_hang(){
+        $status = isset($_POST['status']) ? $_POST['status'] : 'all';
+        if ($status == '1') {
+            $order_product = order_product::where('status', 1)->get()->toArray(); 
+        } else if ($status == '2') {
+            $order_product = order_product::where('status', 2)->get()->toArray(); 
+        } else {
+            $order_product = order_product::whereIn('status', [1, 2])->get()->toArray(); 
+        }
+        $tbl_admin = tbl_admin::get();
+        $admin_name = session()->get('admin_name');
+        $product_id = session()->get('product_id');
+        return view('backend.quan_ly_giao_hang', ['order_product' => $order_product, 'status' => $status, 'tbl_admin' => $tbl_admin]);
+    }
+    
+
+    
+
+    public function quan_ly_giao_hangs(Request $request){
+        $product_id = $request->input('id');
+        $id = $request->input('id');
+        $admin_name = $request->input('admin_name');
+        $admin_id = $request->input('admin_id');
+
+        $order_product = DB::table('order_product')->where('id',$id)->update(['admin_name' => $admin_name,]);
+
+        $order_product = DB::table('tbl_admin')->where('admin_id',$admin_id)->update(['product_id' => $product_id,]);
+        
         return redirect()->back();
     }
-}
+    
+
 
 }

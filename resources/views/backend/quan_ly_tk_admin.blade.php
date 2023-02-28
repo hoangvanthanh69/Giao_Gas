@@ -19,6 +19,7 @@
             <th>Email</th>
             <th>password</th>
             <th>name</th>
+            <th>Giao hàng</th>
           </tr>
         </thead>
         
@@ -32,6 +33,9 @@
                 <td class="product-order-quantity">{{$val['admin_password']}}</td>
 
                 <td class="product-order-quantity">{{$val['admin_name']}}</td>
+
+                <td class="product-order-quantity">{{$val['product_id']}}</td>
+
 
             </tr>
           @endforeach 

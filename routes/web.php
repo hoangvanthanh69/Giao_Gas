@@ -118,10 +118,17 @@ Route::get('/loc-hd', [index_backend::class, 'loc_hd'] )->name('loc-hd');
 
 
 // tìm kiếm hóa đơn
-Route::post('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
+Route::get('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
 
 // tài khoản admin
 Route::get('/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin');
 
-//cập nhậttrạng thái cho admin
+//cập nhật trạng thái cho admin
 Route::post('/status_admin/{id}', [index_backend::class, 'status_admin'])->name('status_admin');
+
+// quản lý đơn hàng giao
+Route::get('/quan-ly-giao-hang', [index_backend::class, 'quan_ly_giao_hang'])->name('quan-ly-giao-hang');
+
+Route::post('/quan_ly_giao_hangs', [index_backend::class, 'quan_ly_giao_hangs'])->name('quan_ly_giao_hangs');
+
+

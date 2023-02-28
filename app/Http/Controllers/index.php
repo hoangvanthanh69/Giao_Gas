@@ -135,10 +135,8 @@ class index extends Controller
    }
 
    function order_product(Request $request){
-      //
       $user_id = Session::get('home')['id'];
       $order_product = new order_product;
-      //
       $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
       $current_quantity = $product_infor[0]['quantity'];
       $order_quantity = $request['amount'];
@@ -165,8 +163,11 @@ class index extends Controller
       $order_product->ghichu = $request['ghichu'];
       $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
       // $order_product -> save();  
-      $order_product->status = 1; // Đơn hàng đang xử lý
-      $order_product->user_id = $user_id; // lưu tài khoản
+      $order_product->status = 1;
+      $order_product->user_id = $user_id;
+      $order_product->admin_name = 'chưa giao';
+
+
       $order_product->save();
       return redirect()->route('home')->with('mesage','Đặt giao gas thành công');
    }

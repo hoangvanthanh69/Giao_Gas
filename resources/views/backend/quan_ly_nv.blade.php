@@ -17,7 +17,7 @@
             </div>
 
             <div class="search-infor-amdin-form">
-                <form action="{{ route('admin.search_order') }}" method="POST" class="header-with-search-form ">
+                <form action="{{ route('admin.search_order') }}" method="GET" class="header-with-search-form ">
                   @csrf
                   <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
                   <span class="header_search button">
@@ -48,7 +48,7 @@
                     <th>Mã số </th>
                     <th>Năm sinh</th>
                     <th>Chức vụ</th>
-                    <th class="align-center">Tài khoản gmail@</th>
+                    <th class="align-center">Tài khoản @gmail</th>
                     <th class="align-center">Địa chỉ</th>
                     <th>Ngày vào làm</th>
                     <th>Số điện thoại</th>

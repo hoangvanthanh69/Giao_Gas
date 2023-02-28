@@ -38,7 +38,7 @@
                         <div class="btnbtn home-filter-button" data-filter="product">
                            <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                               <i class="fas fa-box"></i>
-                              Quản lý sản phẩm 
+                              Sản phẩm 
                            </a>
                         </div>
                         <br>
@@ -46,7 +46,7 @@
                         <div class="btnbtn home-filter-button" data-filter="staff">
                            <a class="@yield('sidebar-active-customer')" href="{{route('quan-ly-nv')}}">
                               <i class="fas fa-clipboard-user"></i>
-                              Quản lý nhân viên
+                              Nhân viên
                            </a>
                         </div>
                         <br>
@@ -54,14 +54,22 @@
                         <div class="btnbtn home-filter-button" data-filter="receipt">
                            <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
                               <i class="fas fa-file-invoice-dollar"></i>
-                              Quản lý hóa đơn
+                              Đơn hàng
+                           </a>
+                        </div>
+                        <br>
+
+                        <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
+                              <i class="fa-solid fa-truck"></i>
+                              Giao hàng
                            </a>
                         </div>
                         <br>
 
                         <div class="btnbtn home-filter-button" data-filter="receipt">
                            <a class="@yield('sidebar-active-thong-ke')" href="{{route('quan-ly-thong-ke')}}">
-                              <i class="fas fa-file-invoice-dollar"></i>
+                              <i class="fa-solid fa-chart-simple"></i>
                               Quản lý thống kê
                            </a>
                         </div>
@@ -69,14 +77,10 @@
 
                         <div class="btnbtn home-filter-button" data-filter="receipt">
                            <a class="@yield('sidebar-active-tai-khoan')" href="{{route('quan-ly-tk-admin')}}">
-                              <i class="fas fa-file-invoice-dollar"></i>
+                              <i class="fa-solid fa-lock"></i>
                               Tài khoản admin
                            </a>
                         </div>
-
-                        
-
-                        
                      </div>
 
                      

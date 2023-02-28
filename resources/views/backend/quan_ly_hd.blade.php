@@ -33,13 +33,14 @@
                 <thead>
 
                     <tr class="tr-name-table">
+                      <th >Mã</th>
                       <th>Tên Khách hàng</th>
                       <th>Số điện thoại</th>
                       <th >Loại bình gas</th>
                       <th >Ngày tạo</th>
-                      <th >Mã SP</th>
                       <th >Giá</th>
                       <th>Trạng thái</th>
+                      <th>Người giao</th>
                       <th>Chức năng</th>
                     </tr>
                     
@@ -49,9 +50,9 @@
                   @foreach($order_product as $key => $val)
                   
                     @if ($status == 'all' || $val['status'] == $status)
-
                     
                       <tr class="order-product-height hover-color">
+                        <td class="order-product-infor-admin"> {{$val['id']}}</td> 
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
                         <td class="order-product-infor-admin"><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
@@ -60,9 +61,7 @@
                           {{$val['created_at']}}
                         </td>
 
-                        <td class="order-product-infor-admin">
-                          {{$val['id']}}
-                        </td> 
+                        
 
                         <td class="order-product-infor-admin">
                           {{number_format($val['price'])}} đ
@@ -81,6 +80,7 @@
     
                             </form>
                         </td>
+                        <td class="order-product-infor-admin">{{$val['admin_name']}}</td>
 
                         <td class="function-icon ">
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
