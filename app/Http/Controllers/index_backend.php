@@ -9,6 +9,7 @@ use App\Models\order_product;
 use App\Models\tbl_admin;
 use Session;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 use PDF;
 class index_backend extends Controller
@@ -27,8 +28,9 @@ class index_backend extends Controller
 
         $tbl_admin = tbl_admin::get()->toArray();
         // print_r($count_order);
+
         
-        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], compact('count_product', 'count_staff', 'count_order'));
+        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], compact('count_product', 'count_staff', 'count_order',));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -46,6 +48,9 @@ class index_backend extends Controller
     }
 
     function add_product(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         return view('backend.add_product');
     }
 
@@ -139,6 +144,9 @@ class index_backend extends Controller
 
     // trang thêm nv
     function add_staff(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         return view('backend.add_staff');
     }
 
@@ -175,6 +183,9 @@ class index_backend extends Controller
 
     // quan ly san pham
     function quan_ly_sp(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $product = product::get()->toArray();
         $order_product = order_product::get()->toArray(); 
         return view('backend.quan_ly_sp', ['product'=> $product,'order_product' => $order_product]);
@@ -182,12 +193,18 @@ class index_backend extends Controller
 
     // quản lý nhân viên 
     function quan_ly_nv(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $staff = add_staff::get()->toArray();
         return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
     // quản lý hóa đơn
     function quan_ly_hd(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $order_product = order_product::get()->toArray(); 
         $status = isset($_GET['status']) ? $_GET['status'] : 'all';
         return view('backend.quan_ly_hd',['order_product' => $order_product, 'status' => $status]);
@@ -196,6 +213,9 @@ class index_backend extends Controller
 
     // quản lý thống kê
     function quan_ly_thong_ke(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $data =  $request->all();
         $count_product = product::count();
         $count_staff = add_staff::count();
@@ -377,6 +397,9 @@ class index_backend extends Controller
     // quản lý giao hàng
 
     function quan_ly_giao_hang(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $status = isset($_POST['status']) ? $_POST['status'] : 'all';
         if ($status == '1') {
             $order_product = order_product::where('status', 1)->get()->toArray(); 
@@ -388,25 +411,26 @@ class index_backend extends Controller
         $tbl_admin = tbl_admin::get();
         $admin_name = session()->get('admin_name');
         $product_id = session()->get('product_id');
-        return view('backend.quan_ly_giao_hang', ['order_product' => $order_product, 'status' => $status, 'tbl_admin' => $tbl_admin]);
+
+        //
+
+        return view('backend.quan_ly_giao_hang', ['order_product' => $order_product, 'status' => $status, 'tbl_admin' => $tbl_admin,
+        'admin_name' => $admin_name,]);
     }
     
-
-    
-
     public function quan_ly_giao_hangs(Request $request){
         $product_id = $request->input('id');
         $id = $request->input('id');
-        $admin_name = $request->input('admin_name');
         $admin_id = $request->input('admin_id');
+        $admin_name = $request->input('admin_name');
 
-        $order_product = DB::table('order_product')->where('id',$id)->update(['admin_name' => $admin_name,]);
+        $order_product = DB::table('order_product')->where('id',$id)->update(['admin_id' => $admin_id,]);
 
         $order_product = DB::table('tbl_admin')->where('admin_id',$admin_id)->update(['product_id' => $product_id,]);
         
         return redirect()->back();
     }
     
-
+   
 
 }

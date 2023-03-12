@@ -45,11 +45,11 @@
                                 <td class="order-product-infor-admin">
                                     <form method="POST" action="{{route('quan_ly_giao_hangs')}}">
                                         @csrf
-                                        {{$val['admin_name']}}
-                                        <select name="admin_name" class="form-control" onchange="this.form.submit()">
+                                        {{$val['admin_id']}}
+                                        <select name="admin_id" class="form-control" onchange="this.form.submit()">
                                             <option value="">Chọn</option>
                                             @foreach($tbl_admin as $admin)
-                                                <option value="{{$admin->admin_name}}">{{$admin->admin_name}}</option>
+                                                <option value="{{$admin->admin_id}}">{{$admin-> admin_name}}</option>
                                             @endforeach
                                         </select>
                                         <input type="hidden" name="id" value="{{ $val['id'] }}">

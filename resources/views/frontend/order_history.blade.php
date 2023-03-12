@@ -19,77 +19,184 @@
                 <h4 class="product-list-name">Lịch sử đơn hàng</h4>
             </div>
 
+            <div class="history-status-nav">
+                <a href="?status=all" class="{{ ($status == 'all') ? 'activess' : '' }}">Tất cả đơn hàng</a>
+                <a href="?status=1" class="{{ ($status == '1') ? 'activess-1' : '' }}">Đang xử lý</a>
+                <a href="?status=2" class="{{ ($status == '2') ? 'activess-2' : '' }}">Đang giao</a>
+                <a href="?status=3" class="{{ ($status == '3') ? 'activess-3' : '' }}">Đã giao</a>
+                <a href="?status=4" class="{{ ($status == '4') ? 'activess-4' : '' }}">Đã hủy</a>
+            </div>
+
             <div class="card-body history-orders-list">
-                <div class="table-responsive table-list-product">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-infor-history">
-                            <tr>
-                                <th class="infor-name">Mã</th>
-                                <th class="infor-name">Sản phẩm</th>
-                                <th class="infor-name">Ảnh</th>
-                                <th class="infor-name">Loại bình gas</th>
-                                <th class="infor-name">Ngày đặt</th>
-                                <th class="infor-name">SL</th>
-                                <th class="infor-name">Giá</th>
-                                <th class="infor-name">Tổng</th>
-                                <th class="infor-name">Trạng thái</th>
-                                
-                            </tr>
-                        </thead>
+                @foreach($order_product as $key => $val)
                     
-                        <tbody class="history-order-product">
-                            @foreach($order_product as $key => $val)
-                                <tr class="">
-                                    <td>{{$val['id']}}</td>
-                                    <td>{{$val['name_product']}}</td>
-                                    <td>
-                                        <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image']) }}" width="100px"  alt="">       
-                                    </td>
-                                    <td><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
-                                    <td>{{$val['created_at']}}</td>
-                                    <td>{{$val['amount']}}</td>
-                                    <td>{{number_format($val['price'])}}</td>
-                                    <td>
-                                    {{number_format($val['amount'] * $val['price'])}} đ
-                                    </td>
-                                    <td>
+                    @if ($status == 'all' || $val['status'] == $status)
+                        
+                        <div class="row list-order-user-history">
+                            <a href="{{route('thong_tin_don_hang', $val['id'])}}" class="col-11 row link-infor-order-user-history">
+                                <div  class="col-2 infor-order-user-history">
+                                    <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image']) }}" width="70%" height="70%" alt="">       
+                                </div>
+                                <div class="col-3 infor-order-user-history">{{$val['name_product']}}</div>
+                                <div class="col-2 infor-order-user-history"><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
+                                <div class="col-2 infor-order-user-history">x{{$val['amount']}}</div>
+                                <div class="col-2 infor-order-user-history"> Thành tiền:
+                                    <span class="total-order-user-history">{{number_format($val['amount'] * $val['price'])}} đ</span>
+                                </div>
+                            </a>
+
+                            <div class="col-1 status-order-user-history">
+                                <div class="infor-order-user-history">
+                                    <div>
                                         <?php 
                                             if ($val['status'] == 1) {
                                                 echo '<span style="color: orange;">Đang xử lý</span>';
-                                                echo "<a href='" . route('cancel_order', ['id' => $val['id']]) . "'class='btn-cancel-order'>Hủy đơn hàng</a>";
+                                                echo "<a href='" . route('cancel_order', ['id' => $val['id']]) . "'class='btn-cancel-order'>Hủy đơn</a>";
                                             }
                                             else if ($val['status'] == 2) {
                                                 echo '<span style="color: #52de20;">Đang giao</span>';
                                             }
                                             else if ($val['status'] == 3) {
-                                                echo '<span style="color: blue;">Đã giao</span>';
+                                                echo '<span style="color: rgb(216, 17, 179);">Đã giao</span>';
                                             }
                                             else if ($val['status'] == 4) {
                                                 echo '<span style="color: red;">Đã hủy</span>';
                                             }
                                         ?>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                
+                               
+                        </div>
+                    @endif
+                @endforeach
 
                             @if (session('message'))
                                 <div class="notification-orders">
                                     {{ session('message') }}
                                 </div>
                             @endif
-                        </tbody>
-                    </table>
+                       
+
+                    
                     <div class="button-history-orders">
                         <div class="history-button-back">
-                            <a class="" href="{{route('home')}}">Quay lại trang chủ</a>
+                            <a class="" href="{{route('home')}}">Mua tiếp</a>
                         </div>
                     </div>
                     
                 </div>
-            </div>
         </div>
     </div>
     
 </div>
+<footer>
+        <div class="footer">
+            <div class="grid">
+                <div class="grid-row grid-row-footer">
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Hổ trợ khách hàng
+                                </span>
+                                <ul class="contact-support-list">
+                                    
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-call fas fa-tty"></i>
+                                        <a href="tel:0837641469" class="contact-support-item-call-link">
+                                            <span>Tư vấn: </span>
+                                            0837641469
+                                        </a>
+                                    </li>
 
+                                    <li class="contact-support-item">
+                                        <a href="" class="contact-support-item-call-link">
+                                            <i class="fa-solid fa-location-dot icon-location"></i>
+                                        </a>
+                                        <span class="contact-support-item-call contact-support-item-call-link">Đường 3/2, phường Xuân Khánh, quận Ninh Kiều, thành phố Cần Thơ</span>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Theo dõi chúng tôi trên
+                                </span>
+                                <ul class="contact-support-list">
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-facebook fab fa-facebook"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Facebook
+                                        </a>
+                                    </li>
+                                   
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-youtube fab fa-youtube"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Youtube
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Về chúng tôi
+                                </span>
+                                <ul class="contact-support-list">
+                                    <li class="contact-support-item">
+                                        <a href="" class="contact-support-item-call-link">
+                                            Hướng dẫn mua hàng
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="contact-support-item">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Giới thiệu
+                                        </a>
+                                        
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <h4 class="contact-support">
+                                    Liên hệ cửa hàng
+                                </h4>
+                                <div class="hot-line">
+                                    <a href="tel:19001011">
+                                        19001011
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="footer-imge">
+                    <div class="footer-imge-license footer-imge-user">
+                        © HoangThanh
+                    </div>
+                </div>
+            </div>
+    </footer>
 </body>
+</html>

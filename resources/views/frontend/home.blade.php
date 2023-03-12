@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="header-criteria-quality">
-                    <h3 class="header-criteria-h3">Chất lượng</h3>
-                    <p class="header-criteria-p">Đảm bảo</p>
+                    <h3 class="header-criteria-h3">Miễn phí</h3>
+                    <p class="header-criteria-p">Giao hàng</p>
                 </div>
 
                 <div class="nav-item dropdown ml-2 nav-item-name-user">
@@ -467,7 +467,7 @@
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <h4 class="contact-support">
-                                    Tổng đài gọi gas
+                                Liên hệ cửa hàng
                                 </h4>
                                 <div class="hot-line">
                                     <a href="tel:19001011">

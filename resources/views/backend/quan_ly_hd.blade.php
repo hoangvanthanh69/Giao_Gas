@@ -80,7 +80,7 @@
     
                             </form>
                         </td>
-                        <td class="order-product-infor-admin">{{$val['admin_name']}}</td>
+                        <td class="order-product-infor-admin">{{$val['admin_id']}}</td>
 
                         <td class="function-icon ">
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">

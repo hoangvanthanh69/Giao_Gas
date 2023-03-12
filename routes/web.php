@@ -80,8 +80,6 @@ Route::get('/edit-staff/{id}', [index_backend::class, 'edit_staff'] )->name('edi
 Route::post('/update-staff/{id}', [index_backend::class, 'update_staff'] )->name('update-staff');
 
 
-
-
 //quản lý nhân viên
 Route:: get('/admin/quan-ly-nv', [index_backend::class, 'quan_ly_nv'] )->name('quan-ly-nv');
 
@@ -128,7 +126,11 @@ Route::post('/status_admin/{id}', [index_backend::class, 'status_admin'])->name(
 
 // quản lý đơn hàng giao
 Route::get('/quan-ly-giao-hang', [index_backend::class, 'quan_ly_giao_hang'])->name('quan-ly-giao-hang');
-
 Route::post('/quan_ly_giao_hangs', [index_backend::class, 'quan_ly_giao_hangs'])->name('quan_ly_giao_hangs');
 
+// phân quyền nhân viên
+Route::get('/don_hang_nhan_vien', [index_backend::class, 'hien_thi_don_hang_nhan_vien'])->name('don_hang_nhan_vien');
 
+// thông tin đơn hàng của khách hàng
+
+Route::get('/thong_tin_don_hang/{id}', [index::class, 'thong_tin_don_hang'])->name('thong_tin_don_hang');

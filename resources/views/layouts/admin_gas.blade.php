@@ -18,7 +18,16 @@
                <div class="row-2-ul">
                   <ul class="nav flex-column ">
                      <div class="logout-admin">
-                        <span>Admin</span>
+                        <span>
+                           @if (Session::get('admin'))
+                              @if (isset(Session::get('admin')['admin_name']))
+                                 {{ Session::get('admin')['admin_name'] }}
+                              @else
+                                 <p>Welcome</p>
+                              @endif
+                           @endif
+                        </span>
+                        
                         <span>
                         <a href="{{route('logout')}}">Logout
                         <i class="fa-solid fa-right-from-bracket"></i>
@@ -81,6 +90,8 @@
                               Tài khoản admin
                            </a>
                         </div>
+
+                        
                      </div>
 
                      

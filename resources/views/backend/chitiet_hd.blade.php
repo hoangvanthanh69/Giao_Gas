@@ -12,6 +12,7 @@
 </head>
 <body>
 <div class="main ">
+
     <div class="row main-row container-fluid main-row-chitiet">
         <div class="card mb-3 product-list element_column" data-item="receipt">
             <div class="card-header card-header-chitiet">
@@ -67,9 +68,7 @@
                                 <td>
                                     {{$order_product['created_at']}}
                                 </td>
-                                
-
-                                
+                            
 
                                 <td>
                                     {{number_format($order_product['amount'] * $order_product['price'])}} đ

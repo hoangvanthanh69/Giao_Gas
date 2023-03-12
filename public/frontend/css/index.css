@@ -704,7 +704,8 @@ input.amount.is-invalid {
     align-items: center;
     display: flex;
     padding-right: 14px;
-    margin-top: 48px;
+    margin-top: 13px;
+    background-color: #fffcfc;
 }
 
 .button-history-orders{
@@ -731,7 +732,7 @@ input.amount.is-invalid {
     line-height: -32px;
     min-height: 50px;
     border: 1px solid transparent;
-    width: calc(16% - 6px);
+    width: calc(16% - 100px);
     font-size: 20px;
     text-decoration: none;
 }
@@ -775,15 +776,70 @@ tbody.history-order-product {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    margin-top: -30px;
 }
 .btn-cancel-order:hover{
     color: rgb(255, 0, 0);
 }
 
-
-
 .form-label-name-login-admin{
     color: white !important;
     font-size: 20px;
+}
+
+.history-status-nav {
+    display: flex;
+    justify-content: space-around;
+    font-size: 20px;
+    margin-top: 19px;
+}
+
+.history-status-nav a{
+    color: rgb(10, 88, 202);
+    text-decoration: none;
+}
+.activess{
+    color: #75b239 !important;
+    border-bottom: 2px solid #75b239;
+}
+.infor-order-user-history {
+    /* display: flex; */
+    align-items: center;
+}
+.activess-1{
+    color: orange !important;
+}
+.activess-2{
+    color: #52de20 !important; 
+}
+.activess-3{
+    color: rgb(216, 17, 179) !important;
+}
+.activess-4{
+    color: red !important;
+}
+.card-body.history-orders-list .list-order-user-history {
+    margin-top: 13px;
+    margin: -1px;
+    border-top: 3px solid #f1f0f0;
+}
+.product-list-name {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+.total-order-user-history{
+    padding-left: 10px;
+    color: rgb(235, 80, 9);
+}
+.link-infor-order-user-history {
+    text-decoration: none;
+    align-items: center;
+    color: black;
+    padding: 4px;
+}
+.link-infor-order-user-history:hover{
+    color:#585858;
+}
+.col-1.status-order-user-history {
+    display: flex;
+    align-items: center;
 }

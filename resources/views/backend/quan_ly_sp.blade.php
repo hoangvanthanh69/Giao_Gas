@@ -2,6 +2,7 @@
 @section('sidebar-active-product', 'active' )
 @section('content')
 
+
       <div class="col-10 nav-row-10 ">   
 
         <div class="card mb-3 product-list element_column " data-item="product">

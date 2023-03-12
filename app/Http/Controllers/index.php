@@ -98,6 +98,7 @@ class index extends Controller
          Session::put('admin', [
             'username'  => $result -> admin_email,
             'password'  => $result -> admin_password,
+            'admin_name' => $result -> admin_name,
          ]);
          if(Session::get('admin') != NULL){
             return redirect()->route('admin');
@@ -136,6 +137,7 @@ class index extends Controller
 
    function order_product(Request $request){
       $user_id = Session::get('home')['id'];
+
       $order_product = new order_product;
       $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
       $current_quantity = $product_infor[0]['quantity'];
@@ -165,7 +167,12 @@ class index extends Controller
       // $order_product -> save();  
       $order_product->status = 1;
       $order_product->user_id = $user_id;
-      $order_product->admin_name = 'chưa giao';
+
+      if(isset($admin_id)){
+         $order_product->admin_id = $admin_id;
+     } else {
+         $order_product->admin_id = 'Chưa có người giao';
+     }
 
 
       $order_product->save();
@@ -227,8 +234,18 @@ class index extends Controller
    function order_history(){
       $user_id = Session::get('home')['id'];
       $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
-      return view('frontend.order_history',['order_product' => $order_product]);
+      $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+      return view('frontend.order_history',['order_product' => $order_product, 'status'=>$status]);
   }
+
+  // thông tin đơn hàng của khách hàng
+  function thong_tin_don_hang(Request $request, $id){
+   if(!Session::get('home')){
+      return redirect()->route('dangnhap');
+  }
+   $order_product = order_product::find($id);
+   return view('frontend.thong_tin_don_hang' , ['order_product' => $order_product]);
+   }
 
 
 }
