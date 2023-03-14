@@ -436,3 +436,23 @@ select#status {
 .order-product-infor-admin{
     line-height: 78px;
 }
+.statistical-all-delivery {
+    background-color: #52de20 !important;
+}
+.statistical-all-processing{
+    background-color: rgb(181, 137, 56) !important;
+}
+.statistical-all-canceled{
+    background-color: rgb(230, 53, 53)!important;
+}
+.statistical-all-delivered{
+   background-color: #198754 !important;
+}
+.back-order-statistics{
+    text-decoration: none;
+    font-size: 18px;
+    color: #0a58ca;;
+}
+img.image-admin-product-edit {
+    object-fit: contain;
+}

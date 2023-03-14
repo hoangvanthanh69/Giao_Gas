@@ -54,7 +54,8 @@
                             <span class="count-all">{{$count_order}}</span>
                             Đơn hàng
                     </div>
-                    <p class="m-0 text-md text-gray-600 text-danger">Tổng số hóa đơn trong tháng</p>
+                    <p class="m-0 text-md text-gray-600 text-danger">Tổng số đơn hàng</p>
+                    <a class="back-order-statistics" href="{{route('thong_ke_chi_tiet_dh')}}">Xem chi tiết</a>
                 </div>
                 <div class="col-auto card-icon">
                     <i class="fas fa-calendar-check fa-2x text-danger"></i>
@@ -117,7 +118,7 @@
             </div>
         </div>
         
-        <!-- tong gia sp ban ra -->
+        <!-- tong gia trung binh sp ban ra -->
         <div class="col-6 mb-4">
             <div class="card statistical-all bg-total-product">
                 <div class="row no-gutters ">
@@ -143,7 +144,7 @@
                 <div class="row no-gutters ">
                     <div class="col mr-2 p-3 text-info">
                         <div class="text-xs font-weight-bold text-uppercase mb-1 text-success">
-                            Tổng giá ban đầu với số lượng từng sản phẩm 1
+                            Tổng giá ban đầu với số lượng từng sản phẩm 
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                             <span class="count-all">{{number_format($data_price)}} đ</span> 

@@ -21,15 +21,12 @@ class index_backend extends Controller
         $product = product::get()->toArray();
         $staff = add_staff::get()->toArray();
         $order_product = order_product::get()->toArray(); 
-
         $count_product = product::count();
         $count_staff = add_staff::count();
         $count_order = order_product::count();
 
         $tbl_admin = tbl_admin::get()->toArray();
         // print_r($count_order);
-
-        
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], compact('count_product', 'count_staff', 'count_order',));
     }
 
@@ -200,17 +197,27 @@ class index_backend extends Controller
         return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
-    // quản lý hóa đơn
-    function quan_ly_hd(){
-        if(!Session::get('admin')){
+
+    function quan_ly_hd() {
+        if (!Session::get('admin')) {
             return redirect()->route('login');
         }
-        $order_product = order_product::get()->toArray(); 
-        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-        return view('backend.quan_ly_hd',['order_product' => $order_product, 'status' => $status]);
-    }
-    
 
+        $admin_name = Session::get('admin')['admin_name'];
+        if($admin_name == 'admin'){
+            $order_product = order_product::get()->toArray();
+
+        }
+        else{
+            $order_product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
+        }
+        
+        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+        return view('backend.quan_ly_hd', ['order_product' => $order_product, 'status' => $status]);
+    }
+
+    
+    
     // quản lý thống kê
     function quan_ly_thong_ke(Request $request){
         if(!Session::get('admin')){
@@ -219,25 +226,42 @@ class index_backend extends Controller
         $data =  $request->all();
         $count_product = product::count();
         $count_staff = add_staff::count();
-        $count_order = order_product::count();
-        $data_price=product::sum('price');
         $data_original_price=product::sum('original_price');
         $count_product1 = product::where('loai','=',1)->count();
         $count_product2 = product::where('loai','=',2)->count();
-        $data_price1= product::where('loai','=',1)->sum('price');
-        $data_price2= product::where('loai','=',2)->sum('price');
         $count_staff_chuvu1 = add_staff::where('chuc_vu','=',1)->count();
         $count_staff_chuvu2 = add_staff::where('chuc_vu','=',2)->count();
-        $tong_gia=order_product::sum('tong');
+        $tong_gia=order_product::where('status','=',3)->sum('tong');
         $product_all=product::sum('quantity');
+        $count_order = order_product::count();
+       
+        $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        // $data_price1= product::where('loai','=',1)->sum('price');
+        $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        
 
-        // print_r($product_all);
+        // print_r($data_price1); die;
         // print_r($tong_gia);
         return view('backend.quan_ly_thong_ke', compact('count_product', 'count_staff', 'count_order', 
         'data_price', 'data_original_price', 'count_product1', 'count_product2', 'data_price1', 
-        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all'));
+        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all',));
     }
 
+    // thống kê chi tiết đơn hàng
+    function thong_ke_chi_tiet_dh(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $data =  $request->all();
+        $count_order = order_product::count();
+        $count_order_delivered = order_product::where('status','=',3)->count();
+        $count_order_delivery = order_product::where('status','=',2)->count();
+        $count_order_processing = order_product::where('status','=',1)->count();
+        $count_order_canceled = order_product::where('status','=',4)->count();
+        return view('backend.thong_ke_chi_tiet_dh', compact('count_order', 'count_order_delivered',
+        'count_order_delivery','count_order_processing', 'count_order_canceled'));
+    }
 
     // in đơn hàng
     function print_order($checkout_code){
@@ -358,7 +382,6 @@ class index_backend extends Controller
         
     }
 
-
     // tìm kiếm nhân viên
     function searchOrder(Request $request){
         if ($request->isMethod('get')) {
@@ -376,6 +399,9 @@ class index_backend extends Controller
 
     // tài khoản admin
     function quan_ly_tk_admin(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $tbl_admin = tbl_admin::get()->toArray();
         return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin]);
     }
@@ -394,8 +420,8 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
-    // quản lý giao hàng
 
+    // quản lý giao hàng
     function quan_ly_giao_hang(){
         if(!Session::get('admin')){
             return redirect()->route('login');
@@ -424,13 +450,17 @@ class index_backend extends Controller
         $admin_id = $request->input('admin_id');
         $admin_name = $request->input('admin_name');
 
-        $order_product = DB::table('order_product')->where('id',$id)->update(['admin_id' => $admin_id,]);
+        $order_product = DB::table('order_product')->where('id',$id)->update(['admin_name' => $admin_name]);
 
         $order_product = DB::table('tbl_admin')->where('admin_id',$admin_id)->update(['product_id' => $product_id,]);
         
         return redirect()->back();
     }
     
-   
-
+    function delete_account($id){
+        $tbl_admin = tbl_admin::find($id);
+        $tbl_admin->delete();
+        return redirect()->route('quan-ly-tk-admin');
+    }
+    
 }

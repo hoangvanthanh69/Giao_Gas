@@ -49,7 +49,7 @@
                 </form>
                 <div class="button-history-orders">
                     <div class="history-button-back">
-                        <a class="" href="{{route('home')}}">Trở lại</a>
+                        <a class="" href="{{route('order-history')}}">Trở lại</a>
                     </div>
                 </div>
                     

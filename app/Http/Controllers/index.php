@@ -89,29 +89,34 @@ class index extends Controller
    }
 
    function getlogin(Request $request){
-      $data =  $request->all();
+      $data = $request->all();
       $password = $data['admin_password'];
-      $result = tbl_admin::where(['admin_email' =>  $data['admin_email'], 'admin_password' => $data['admin_password']])->first();
-      // echo "<pre>";
-      // print_r($result[0]['admin_password']);die;
+      $result = tbl_admin::where(['admin_email' => $data['admin_email'], 'admin_password' => $data['admin_password']])->first();
       if($result){
+         Session::put('admin_name', $result->admin_name); 
          Session::put('admin', [
-            'username'  => $result -> admin_email,
-            'password'  => $result -> admin_password,
-            'admin_name' => $result -> admin_name,
+            'admin_id' => $result->admin_id,
+            'username'  => $result->admin_email,
+            'password'  => $result->admin_password,
+            'admin_name' => $result->admin_name,
          ]);
          if(Session::get('admin') != NULL){
-            return redirect()->route('admin');
-         }
-         else{
-            return redirect()->back();
-         }
-      }
-      else{
-         return redirect()->back();
+            if(Session::get('admin')['admin_name'] == "admin"){
+               return redirect()->route('admin');
 
+            }
+            else{
+               return redirect()->route('quan-ly-hd');
+
+            }
+          } else {
+              return redirect()->back();
+          }
+      } else {
+         return redirect()->back();
       }
-   }
+  }
+  
 
    function logout(){ 
       Session::forget('admin')  ;
@@ -137,7 +142,6 @@ class index extends Controller
 
    function order_product(Request $request){
       $user_id = Session::get('home')['id'];
-
       $order_product = new order_product;
       $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
       $current_quantity = $product_infor[0]['quantity'];
@@ -168,10 +172,10 @@ class index extends Controller
       $order_product->status = 1;
       $order_product->user_id = $user_id;
 
-      if(isset($admin_id)){
-         $order_product->admin_id = $admin_id;
+      if(isset($admin_name)){
+         $order_product->admin_name = $admin_name;
      } else {
-         $order_product->admin_id = 'Chưa có người giao';
+         $order_product->admin_name = 'Chưa có người giao';
      }
 
 
@@ -238,13 +242,13 @@ class index extends Controller
       return view('frontend.order_history',['order_product' => $order_product, 'status'=>$status]);
   }
 
-  // thông tin đơn hàng của khách hàng
-  function thong_tin_don_hang(Request $request, $id){
-   if(!Session::get('home')){
-      return redirect()->route('dangnhap');
-  }
-   $order_product = order_product::find($id);
-   return view('frontend.thong_tin_don_hang' , ['order_product' => $order_product]);
+   // thông tin đơn hàng của khách hàng
+   function thong_tin_don_hang(Request $request, $id){
+      if(!Session::get('home')){
+         return redirect()->route('dangnhap');
+      }
+      $order_product = order_product::find($id);
+      return view('frontend.thong_tin_don_hang' , ['order_product' => $order_product]);
    }
 
 

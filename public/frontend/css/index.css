@@ -812,7 +812,7 @@ tbody.history-order-product {
     color: #52de20 !important; 
 }
 .activess-3{
-    color: rgb(216, 17, 179) !important;
+    color: #198754 !important;
 }
 .activess-4{
     color: red !important;
@@ -842,4 +842,7 @@ tbody.history-order-product {
 .col-1.status-order-user-history {
     display: flex;
     align-items: center;
+}
+img.image-product-order {
+    object-fit: contain;
 }

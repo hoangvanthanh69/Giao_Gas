@@ -1,4 +1,5 @@
 @extends('layouts.admin_gas')
+@section('sidebar-active-customer', 'active' )
 @section('content')
 
 
@@ -122,6 +123,5 @@
 
         </div>
 
-      
     </div>
 </div>

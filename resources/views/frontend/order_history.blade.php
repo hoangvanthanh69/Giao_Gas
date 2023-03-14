@@ -57,7 +57,7 @@
                                                 echo '<span style="color: #52de20;">Đang giao</span>';
                                             }
                                             else if ($val['status'] == 3) {
-                                                echo '<span style="color: rgb(216, 17, 179);">Đã giao</span>';
+                                                echo '<span style="color: #198754;">Đã giao</span>';
                                             }
                                             else if ($val['status'] == 4) {
                                                 echo '<span style="color: red;">Đã hủy</span>';

@@ -1,5 +1,5 @@
 @extends('layouts.admin_gas')
-
+@section('sidebar-active-product', 'active' )
 @section('content')
 
       <div class="col-10 nav-row-10 ">

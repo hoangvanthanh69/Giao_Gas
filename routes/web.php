@@ -41,10 +41,8 @@ Route::get('/add-product-admin', [index_backend::class, 'add_product'] )->name('
 
 // chi tiết đơn hàng
 Route::get('/chitiet-hd/{id}', [index_backend::class, 'chitiet_hd'] )->name('chitiet-hd');
-
-// 
 Route::get('/chitiet/{id}', [index_backend::class, 'chitiet'] )->name('chitiet');
-// 
+
 
 //  quản lý sản phẩm
 Route:: get('/admin/quan-ly-sp', [index_backend::class, 'quan_ly_sp'] )->name('quan-ly-sp');
@@ -79,7 +77,6 @@ Route::get('/edit-staff/{id}', [index_backend::class, 'edit_staff'] )->name('edi
 // cập nhật nhân viên
 Route::post('/update-staff/{id}', [index_backend::class, 'update_staff'] )->name('update-staff');
 
-
 //quản lý nhân viên
 Route:: get('/admin/quan-ly-nv', [index_backend::class, 'quan_ly_nv'] )->name('quan-ly-nv');
 
@@ -104,7 +101,6 @@ Route::post('/registers', [index::class, 'registers'] )->name('registers');
 //đăng xuât người dùng
 Route::get('logoutuser', [index::class, 'logoutuser'] )->name('logoutuser');
 
-//
 // lịch sử đơn hàng
 Route::get('/order-history', [index::class, 'order_history'] )->name('order-history');
 
@@ -113,7 +109,6 @@ Route::get('/cancel_order/{id}', [index::class, 'cancelOrder'])->name('cancel_or
 
 // lộc hóa đơn
 Route::get('/loc-hd', [index_backend::class, 'loc_hd'] )->name('loc-hd');
-
 
 // tìm kiếm hóa đơn
 Route::get('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
@@ -125,12 +120,17 @@ Route::get('/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->na
 Route::post('/status_admin/{id}', [index_backend::class, 'status_admin'])->name('status_admin');
 
 // quản lý đơn hàng giao
-Route::get('/quan-ly-giao-hang', [index_backend::class, 'quan_ly_giao_hang'])->name('quan-ly-giao-hang');
+Route::get('/admin/quan-ly-giao-hang', [index_backend::class, 'quan_ly_giao_hang'])->name('quan-ly-giao-hang');
 Route::post('/quan_ly_giao_hangs', [index_backend::class, 'quan_ly_giao_hangs'])->name('quan_ly_giao_hangs');
 
 // phân quyền nhân viên
 Route::get('/don_hang_nhan_vien', [index_backend::class, 'hien_thi_don_hang_nhan_vien'])->name('don_hang_nhan_vien');
 
 // thông tin đơn hàng của khách hàng
-
 Route::get('/thong_tin_don_hang/{id}', [index::class, 'thong_tin_don_hang'])->name('thong_tin_don_hang');
+
+// thống kế chi tiết tổng đơn hàng
+Route::get('/admin/quan-ly-thong-ke/thong_ke_chi_tiet_dh', [index_backend::class, 'thong_ke_chi_tiet_dh'])->name('thong_ke_chi_tiet_dh');
+
+// xóa tk admin
+Route::get('/delete_account/{admin_id}/tbl_admin', [index_backend::class, 'delete_account'] )->name('delete_account');

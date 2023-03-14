@@ -24,11 +24,11 @@
           
           <div class="card-body">
             <div class="table-responsive table-list-product">
-            @if (session('mesage'))
+            @if (session('success'))
                 <div class="notification-order">
-                  {{ session('mesage') }}
+                  {{ session('success') }}
                 </div>
-              @endif
+            @endif
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
 
@@ -42,6 +42,7 @@
                       <th>Trạng thái</th>
                       <th>Người giao</th>
                       <th>Chức năng</th>
+
                     </tr>
                     
                 </thead>
@@ -52,7 +53,7 @@
                     @if ($status == 'all' || $val['status'] == $status)
                     
                       <tr class="order-product-height hover-color">
-                        <td class="order-product-infor-admin"> {{$val['id']}}</td> 
+                        <td class="order-product-infor-admin"> {{$val['id']}}</td>
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
                         <td class="order-product-infor-admin"><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
@@ -80,7 +81,7 @@
     
                             </form>
                         </td>
-                        <td class="order-product-infor-admin">{{$val['admin_id']}}</td>
+                        <td class="order-product-infor-admin">{{$val['admin_name']}}</td>
 
                         <td class="function-icon ">
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
