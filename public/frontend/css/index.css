@@ -846,3 +846,10 @@ tbody.history-order-product {
 img.image-product-order {
     object-fit: contain;
 }
+img.image-admin-product-edit {
+    object-fit: contain;
+}
+.list-account-admin {
+    color: #4f4a4a;
+    padding-top: 19px;
+}

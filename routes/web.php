@@ -134,3 +134,7 @@ Route::get('/admin/quan-ly-thong-ke/thong_ke_chi_tiet_dh', [index_backend::class
 
 // xóa tk admin
 Route::get('/delete_account/{admin_id}/tbl_admin', [index_backend::class, 'delete_account'] )->name('delete_account');
+
+// thêm tài khoản admin
+Route::post('/add_account/{id}', [index_backend::class, 'add_account'] )->name('add_account');
+

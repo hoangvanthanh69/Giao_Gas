@@ -179,7 +179,6 @@
                     <th>Chức vụ</th>
                     <th>Tài khoản gmail@</th>
                     <th class="align-center">Địa chỉ</th>
-                    <th>Mã số </th>
                     <th>Ngày vào làm</th>
                     <th>Số điện thoại</th>
                     <th class="align-center">Lương/Tháng</th>

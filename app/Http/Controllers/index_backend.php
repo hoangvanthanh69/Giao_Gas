@@ -10,7 +10,6 @@ use App\Models\tbl_admin;
 use Session;
 use DB;
 use Illuminate\Support\Facades\Auth;
-
 use PDF;
 class index_backend extends Controller
 {
@@ -55,22 +54,22 @@ class index_backend extends Controller
         $data =  $request->all();
          //    echo " <pre>";
          //    print_r($data);
-         $product = new product;
-         $product->name_product =  $data['name_product'];
-         $product->loai =  $data['loai'];
-         $product->price =  $data['price'];
-         $product->quantity =  $data['quantity'];
-         $product->original_price =  $data['original_price'];
+        $product = new product;
+        $product->name_product =  $data['name_product'];
+        $product->loai =  $data['loai'];
+        $product->price =  $data['price'];
+        $product->quantity =  $data['quantity'];
+        $product->original_price =  $data['original_price'];
          
-         $get_image = $request->image;
-         $path = 'uploads/product/';
-         $get_name_image = $get_image-> getClientOriginalName();
-         $name_image = current(explode('.',$get_name_image));
-         $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
-         $get_image->move($path,$new_image);
-         $product->image = $new_image;
-         $product -> save();  
-         return redirect()->route('quan-ly-sp');
+        $get_image = $request->image;
+        $path = 'uploads/product/';
+        $get_name_image = $get_image-> getClientOriginalName();
+        $name_image = current(explode('.',$get_name_image));
+        $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
+        $get_image->move($path,$new_image);
+        $product->image = $new_image;
+        $product -> save();  
+        return redirect()->route('quan-ly-sp');
      }
 
     function delete($id){
@@ -150,17 +149,19 @@ class index_backend extends Controller
     // thêm nv
     function staff_add(Request $request){
         $data =  $request->all();
-         $add_staff = new add_staff;
-         $add_staff->last_name =  $data['last_name'];
-         $add_staff->birth =  $data['birth'];
-         $add_staff->chuc_vu =  $data['chuc_vu'];
-         $add_staff->dia_chi =  $data['dia_chi'];
-         $add_staff->taikhoan =  $data['taikhoan'];
-         $add_staff->date_input =  $data['date_input'];
-         $add_staff->phone =  $data['phone'];
-         $add_staff->luong =  $data['luong'];
-         $add_staff -> save();  
-         return redirect()->route('quan-ly-nv');
+        $add_staff = new add_staff;
+        $add_staff->last_name =  $data['last_name'];
+        $add_staff->birth =  $data['birth'];
+        $add_staff->chuc_vu =  $data['chuc_vu'];
+        $add_staff->dia_chi =  $data['dia_chi'];
+        $add_staff->taikhoan =  $data['taikhoan'];
+        $add_staff->date_input =  $data['date_input'];
+        $add_staff->phone =  $data['phone'];
+        $add_staff->luong =  $data['luong'];
+        $add_staff->status_add = false;
+
+        $add_staff -> save();  
+        return redirect()->route('quan-ly-nv');
     }
 
     // xóa nv
@@ -197,7 +198,6 @@ class index_backend extends Controller
         return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
-
     function quan_ly_hd() {
         if (!Session::get('admin')) {
             return redirect()->route('login');
@@ -216,8 +216,6 @@ class index_backend extends Controller
         return view('backend.quan_ly_hd', ['order_product' => $order_product, 'status' => $status]);
     }
 
-    
-    
     // quản lý thống kê
     function quan_ly_thong_ke(Request $request){
         if(!Session::get('admin')){
@@ -403,7 +401,8 @@ class index_backend extends Controller
             return redirect()->route('login');
         }
         $tbl_admin = tbl_admin::get()->toArray();
-        return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin]);
+        $staff = add_staff::get()->toArray();
+        return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
     }
 
     // trạng thái đơn hàng của admin
@@ -437,9 +436,6 @@ class index_backend extends Controller
         $tbl_admin = tbl_admin::get();
         $admin_name = session()->get('admin_name');
         $product_id = session()->get('product_id');
-
-        //
-
         return view('backend.quan_ly_giao_hang', ['order_product' => $order_product, 'status' => $status, 'tbl_admin' => $tbl_admin,
         'admin_name' => $admin_name,]);
     }
@@ -449,17 +445,34 @@ class index_backend extends Controller
         $id = $request->input('id');
         $admin_id = $request->input('admin_id');
         $admin_name = $request->input('admin_name');
-
         $order_product = DB::table('order_product')->where('id',$id)->update(['admin_name' => $admin_name]);
-
-        $order_product = DB::table('tbl_admin')->where('admin_id',$admin_id)->update(['product_id' => $product_id,]);
-        
         return redirect()->back();
     }
     
-    function delete_account($id){
-        $tbl_admin = tbl_admin::find($id);
+    
+    function delete_account($admin_id){
+        $tbl_admin = tbl_admin::find($admin_id);
+        $add_staff = add_staff::where('taikhoan', $tbl_admin->admin_email)->first();
+        if($add_staff) {
+            $add_staff->status_add = false;
+            $add_staff->save();
+        }
         $tbl_admin->delete();
+        return redirect()->route('quan-ly-tk-admin')->with('success','Xóa tài khoản thành công');
+    }
+    
+
+    // thêm tài khoản admin
+    function add_account(Request $request, $id){
+        $staff = add_staff::find($id);
+        $admin = new tbl_admin;
+        $admin->admin_name = $staff->last_name;
+        $admin->admin_password = $request->password;
+        $admin->admin_email = $staff->taikhoan;
+        $admin->save();
+
+        $staff->status_add = true;
+        $staff->save();
         return redirect()->route('quan-ly-tk-admin');
     }
     

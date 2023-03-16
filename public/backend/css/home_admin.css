@@ -456,3 +456,19 @@ select#status {
 img.image-admin-product-edit {
     object-fit: contain;
 }
+.input-password-admin {
+    border-radius: 2px;
+    border: 2px;
+    outline: none;
+    text-align: center;
+}
+.status-add-admin {
+    color: #19e92f;
+}
+.status-add-button{
+    color: #1052ce;
+    
+}
+.tr-name-table-list{
+    background-color: #20b49c !important;
+}

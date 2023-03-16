@@ -66,7 +66,7 @@
 				rules: {
 					name_product: "required",
 					cn: "required",
-					dd: "required",dd
+					dd: "required",
 					image: "required",
           price: "required",
           original_price: "required",
