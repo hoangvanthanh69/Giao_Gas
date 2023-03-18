@@ -11,26 +11,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
-    <div class="login-form-header">
-        <form action="{{route('getlogin')}}" method="post" class="form form-login-admin">
-            @csrf
-            <div class="heading-login">
-                <h3 class="heading">Đăng Nhập</h3>
+    <div class="grid">
+        <div class="icon-login-user">
+            <div class="icon-name-login">
+                <a href="{{route('dangnhap')}}">
+                    <strong class="logo-name-gas">
+                        Đăng nhập
+                    </strong>
+                        Admin
+                </a>
             </div>
-            <div class="form-group invalid">
-                <label for="fullnamee" class="form-label form-label-name-login-admin">Email</label>
-                <input type="text" name="admin_email" class="form-control" placeholder="@gmail.com" required="">
-                <span class="form-mesage"></span>
-            </div>
-            
-            <div class="form-group">
-                <label for="password" class="form-label form-label-name-login-admin">Mật khẩu</label>
-                <input type="password" name="admin_password" class="form-control" placeholder="Nhập mật khẩu" required="">
-                <span class="form-mesage"></span>
-            </div>
+        </div>
+    </div> 
+    <div class="login-form-header home-filter-user-login">
+        
+        <div class="col-8 form-img-user">
+            <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
+        </div>
 
-            <button type="submit" class="form-submit">Đăng Nhập</button>
-        </form>   
+        <div class="col-4 form form-login-admin">
+            <form action="{{route('getlogin')}}" method="post" >
+                @csrf
+                <div class="heading-login">
+                    <h3 class="heading">Đăng Nhập</h3>
+                </div>
+                <div class="form-group invalid">
+                    <label for="fullnamee" class="form-label form-label-name-login-admin">Email</label>
+                    <input type="text" name="admin_email" class="form-control" placeholder="@gmail.com" required="">
+                    <span class="form-mesage"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label form-label-name-login-admin">Mật khẩu</label>
+                    <input type="password" name="admin_password" class="form-control" placeholder="Nhập mật khẩu" required="">
+                    <span class="form-mesage"></span>
+                </div>
+
+                <button type="submit" class="form-submit">Đăng Nhập</button>
+            </form> 
+        </div>
+          
     </div>
    
 

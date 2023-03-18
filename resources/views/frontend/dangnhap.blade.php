@@ -29,40 +29,40 @@
         <div class="col-8 form-img-user">
             <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
         </div>
+        
         <div class="col-4 form-user">
+            <form method="POST" action="{{route('dangnhap')}}">
+                @csrf
+                <h3 class="heading-login-user">Đăng Nhập</h3>
+                <div class="form-group form-submit-user">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required autofocus>
+                    <span class="form-mesage"></span>
+                </div>
+                <div class="form-group form-submit-user">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input id="password" type="password" name="password" class="form-control" required>
+                    <span class="form-mesage"></span>
+                </div>
 
-        <form method="POST" action="{{route('dangnhap')}}">
-            @csrf
-            <h3 class="heading-login-user">Đăng Nhập</h3>
-            <div class="form-group form-submit-user">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required autofocus>
-                <span class="form-mesage"></span>
-            </div>
-            <div class="form-group form-submit-user">
-                <label for="password" class="form-label">Mật khẩu</label>
-                <input id="password" type="password" name="password" class="form-control" required>
-                <span class="form-mesage"></span>
-            </div>
+                <div>
+                    <button type="submit" class="form-submit form-submit-user">
+                        Đăng Nhập
+                    </button>
+                </div>
 
-            <div>
-                <button type="submit" class="form-submit form-submit-user">
-                    Đăng Nhập
-                </button>
-            </div>
+                <div class="">
+                    <button class="form-submit form-submit-user login-user-google">
+                        <i class="fa-brands fa-google"></i>
+                        Đăng nhập với google
+                    </button>
+                </div>
 
-            <div class="">
-                <button class="form-submit form-submit-user login-user-google">
-                    <i class="fa-brands fa-google"></i>
-                    Đăng nhập với google
-                </button>
-            </div>
-
-            <div class="login-user-register">
-                Bạn chưa có tài khoản? 
-                <a href="{{route('register')}}"> Đăng Ký</a>
-            </div>
-        </form>
+                <div class="login-user-register">
+                    Bạn chưa có tài khoản? 
+                    <a href="{{route('register')}}"> Đăng Ký</a>
+                </div>
+            </form>
         </div>
     </div>
     <div class="footer-imge">

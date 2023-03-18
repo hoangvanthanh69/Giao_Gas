@@ -9,7 +9,6 @@
             <thead>
                <h5 class="list-account-admin">Tài khoản admin đã duyệt</h5>
                <tr class="tr-name-table">
-                  <th class="">Mã</th>
                   <th class="">Email</th>
                   <th class="">Password</th>
                   <th class="">Name</th>
@@ -19,7 +18,6 @@
             <tbody class="infor">
                @foreach($tbl_admin as $key => $val)
                <tr class="hover-color">
-                  <td class="name-product-td infor-product">{{$val['id']}}</td>
                   <td class="product-order-quantity infor-product">{{$val['admin_email']}}</td>
                   <td class="product-order-quantity infor-product">{{$val['admin_password']}}</td>
                   <td class="product-order-quantity infor-product">{{$val['admin_name']}}</td>
@@ -53,7 +51,7 @@
                      @csrf
                      <td>
                         @if($val['status_add'])
-                          <span class="status-add-admin">Đã thêm</span>
+                          
                         @else
                         <input class="input-password-admin" type="text" name="password" placeholder="Nhập mật khẩu" required autofocus>
                         @endif
