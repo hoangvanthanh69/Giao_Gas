@@ -2,24 +2,42 @@
 @section('sidebar-active-product', 'active' )
 @section('content')
 
-
       <div class="col-10 nav-row-10 ">   
 
         <div class="card mb-3 product-list element_column " data-item="product">
           <div class="card-header">
-            <span class="product-list-name btnbtn">Admin / Gas</span>
+            <span class="product-list-name btnbtn">Admin / Sản Phẩm</span>
           </div>
           <div class="card-body">
             
             <div class="table-responsive table-list-product">
-              <div class="add-product-div-admin">
-                <a class="add-product" href="{{route('add-product-admin')}}">Thêm sản phẩm</a>
+              <div class="search-option-infor-amdin">
+                <div class="search-infor-amdin-form-staff">
+                  <a class="add-product" href="{{route('add-product-admin')}}">Thêm sản phẩm</a>
+                </div>
+                <div class=" search-infor-amdin-form-staff">
+                  <form action="{{ route('admin.searchOrder_product') }}" method="GET" class="header-with-search-form ">
+                    @csrf
+                    <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
+                    <span class="header_search button">
+                      <i class="header-with-search-icon fas fa-search"></i>
+                    </span>
+                  </form>
+                </div>
               </div>
+              
                 @if (session('success'))
                     <div class="notification">
                         {{ session('success') }}
                     </div>
                 @endif
+
+                @if (session('mesages'))
+                <div class="notification-search">
+                  {{ session('mesages') }}
+                </div>
+              @endif
+              
               
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -33,8 +51,6 @@
                     <th>Chức năng</th>
                   </tr>
                 </thead>
-                
-                
                 
                 <tbody class="infor">
                   @foreach($product as $key => $val)

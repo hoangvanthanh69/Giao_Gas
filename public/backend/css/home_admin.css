@@ -28,7 +28,7 @@
     padding-left: 6px;
     font-size: 22px;
     font-weight: 500;
-    color: #75b239;
+    color: #ffffff;
 
 }
 .logout-admin a{
@@ -113,7 +113,7 @@ td.name-product-td {
     display: block;
     /* text-align: center; */
     font-size: 20px;
-    /* margin-left: 40px; */
+    margin-left: -12px;
 }
 .add-product{
     text-decoration: none;
@@ -121,7 +121,7 @@ td.name-product-td {
     font-size: 20px;
     font-weight: 500;
     border: 1px solid rgb(147, 147, 156);
-    padding: 4px;
+    padding: 7px;
     background-color: rgb(241, 241, 238);
     border-radius: 4px;
 }
@@ -471,4 +471,21 @@ img.image-admin-product-edit {
 }
 .tr-name-table-list{
     background-color: #20b49c !important;
+}
+
+.hover-logout-admin{
+    display: none;
+    color: red;
+
+}
+.hove-admin-login-icon:hover .hover-logout-admin{
+    display: block;
+}
+.icon-all-admin-nav{
+    padding-right: 10px;
+}
+.search-infor-amdin-form-staff {
+    padding-right: 10px;
+    margin-top: -20px;
+    margin-bottom: 12px;
 }

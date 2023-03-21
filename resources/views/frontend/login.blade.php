@@ -14,7 +14,7 @@
     <div class="grid">
         <div class="icon-login-user">
             <div class="icon-name-login">
-                <a href="{{route('dangnhap')}}">
+                <a href="{{route('login')}}">
                     <strong class="logo-name-gas">
                         Đăng nhập
                     </strong>

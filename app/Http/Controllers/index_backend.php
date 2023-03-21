@@ -7,6 +7,8 @@ use App\Models\product;
 use App\Models\add_staff;
 use App\Models\order_product;
 use App\Models\tbl_admin;
+use App\Models\users;
+
 use Session;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -198,6 +200,7 @@ class index_backend extends Controller
         return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
+    // quản lý hóa đơn
     function quan_ly_hd() {
         if (!Session::get('admin')) {
             return redirect()->route('login');
@@ -239,7 +242,7 @@ class index_backend extends Controller
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         
 
-        // print_r($data_price1); die;
+        // print_r($products); die;
         // print_r($tong_gia);
         return view('backend.quan_ly_thong_ke', compact('count_product', 'count_staff', 'count_order', 
         'data_price', 'data_original_price', 'count_product1', 'count_product2', 'data_price1', 
@@ -449,7 +452,7 @@ class index_backend extends Controller
         return redirect()->back();
     }
     
-    
+    //xoa tai khoan admin
     function delete_account($admin_id){
         $tbl_admin = tbl_admin::find($admin_id);
         $add_staff = add_staff::where('taikhoan', $tbl_admin->admin_email)->first();
@@ -461,7 +464,6 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-tk-admin')->with('success','Xóa tài khoản thành công');
     }
     
-
     // thêm tài khoản admin
     function add_account(Request $request, $id){
         $staff = add_staff::find($id);
@@ -475,5 +477,35 @@ class index_backend extends Controller
         $staff->save();
         return redirect()->route('quan-ly-tk-admin');
     }
+
+    // quan ly tk khach hang
+    function quan_ly_tk_user(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $users = users::get()->toArray();
+        return view('backend.quan_ly_tk_user', ['users'=>$users]);
+    }
     
+    // xoas tai khoan nhana vien
+    function delete_account_users($id){
+        $users = users::find($id);
+        $users->delete();
+        return redirect()->route('quan-ly-tk-user')->with(['message'=> 'xóa thành công']);
+    }
+
+    // tim kiếm sản phẩm
+    function searchOrder_product(Request $request){
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get()->toArray();
+            if(empty($product)){
+                return back()->with('mesages', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.quan_ly_sp', ['product' => $product, 'search' => $search]);
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
 }

@@ -110,7 +110,7 @@ Route::get('/cancel_order/{id}', [index::class, 'cancelOrder'])->name('cancel_or
 // lộc hóa đơn
 Route::get('/loc-hd', [index_backend::class, 'loc_hd'] )->name('loc-hd');
 
-// tìm kiếm hóa đơn
+// tìm kiếm nhân viên
 Route::get('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
 
 // tài khoản admin
@@ -138,3 +138,11 @@ Route::get('/delete_account/{admin_id}/tbl_admin', [index_backend::class, 'delet
 // thêm tài khoản admin
 Route::post('/add_account/{id}', [index_backend::class, 'add_account'] )->name('add_account');
 
+// tài khoản khách hàng
+Route::get('/quan-ly-tk-user', [index_backend::class, 'quan_ly_tk_user'] )->name('quan-ly-tk-user');
+
+//xoa tai khoan khach hang
+Route::get('/delete_account_users/{id}/users', [index_backend::class, 'delete_account_users'] )->name('delete_account_users');
+
+// tìm kiếm sản phẩm
+Route::get('/admin/searchOrder_product', [index_backend::class, 'searchOrder_product'])->name('admin.searchOrder_product');
