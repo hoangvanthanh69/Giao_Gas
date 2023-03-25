@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{asset('frontend/css/index.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    
 </head>
 <body>
     <header class="header">
@@ -97,7 +96,6 @@
             </div>
         </div>
     </header>
-
     <main>
         <div class="web-container">
             <div class="grid-nav">
@@ -183,7 +181,6 @@
     
                 </div>
             </div>
-            
 
             <!-- đổi gas -->
             <div class="grid element_column">
@@ -199,38 +196,71 @@
                         
                             <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
                             @csrf
-
                                 <div class="form-gas-delivery-information">
 
                                     <label class="form-label" for="firstname">Tên khách hàng:</label>
-                                    <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" />
-    
+                                    <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" value="{{ Session::get('home')['name'] }}" />
                                     <label class="form-label" for="number">Số điện thoại khách hàng:</label>
-                                    <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" />
-    
-                                    <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:</label> 
+                                    @if (empty($order_product))
+                                    <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" required/>
+                                    @else
+                                        <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ $order_product[0]['phoneCustomer'] }}" required/>
+                                    @endif
+
+                                    <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:</label>
                                     <div class="delivery-location form-product-specials form-product-specials-location">
-                                        <div>
-                                            <select onchange="print_state('state',this.selectedIndex);" id="country" name="country" class="country form-select form-control special-product-address" aria-label="Default select example">
-                                            </select>
-                                        </div>
-    
-                                        <div>
-                                            <select onchange="print_district('district',this.selectedIndex);" name="state" id="state" class="state form-select special-product-address product-address-district" aria-label="Default select example">
-                                            </select>
-                                        </div>
-    
-                                        <div>
-                                            <select name="district" id="district" class="district form-select special-product-address product-address-district" aria-label="Default select example">
-                                            </select>
-                                        </div>
-    
-                                        <div>
-                                            <textarea name="diachi" type="resize:none" class="diachi form-control special-product-address-input special-product-address product-address-district" id="exampleFormControlInput1" placeholder="địa chỉ nhà cụ thể" cols="30" rows="10"></textarea>
-                                        </div>
+                                        @if (empty($order_product))
+                                            <div >
+                                                <select onchange="print_state('state',this.selectedIndex);" id="country" name="country" class="country form-select form-control special-product-address" aria-label="Default select example">
+                                                </select>
+                                            </div>
+        
+                                            <div>
+                                                <select onchange="print_district('district',this.selectedIndex);" name="state" id="state" class="state form-select special-product-address product-address-district" aria-label="Default select example">
+                                                </select>
+                                            </div>
+        
+                                            <div>
+                                                <select name="district" id="district" class="district form-select special-product-address product-address-district" aria-label="Default select example">
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <textarea name="diachi" type="resize:none" class="diachi form-control special-product-address-input special-product-address product-address-district" id="exampleFormControlInput1" placeholder="địa chỉ nhà cụ thể" cols="30" rows="10"></textarea>
+                                            </div>
+                                        @else
+                                            <div id="address">
+                                                <div>
+                                                    <span class="adress-customer-span">{{$country}}, {{$state}}, {{$district}}, {{$diachi}}</span>
+                                                </div>
+                                                <div id="change-address">Thay đổi địa chỉ:</div>
+                                                <div class="select-address-user hidden">
+                                                    <div class="change-addres-user-select">
+                                                        <div>
+                                                            <select onchange="print_state('state',this.selectedIndex);" id="country" name="country" class="country form-select form-control special-product-address" aria-label="Default select example">
+                                                            </select>
+                                                        </div>
+                    
+                                                        <div>
+                                                            <select onchange="print_district('district',this.selectedIndex);" name="state" id="state" class="state form-select special-product-address product-address-district" aria-label="Default select example">
+                                                            </select>
+                                                        </div>
+                    
+                                                        <div>
+                                                            <select name="district" id="district" class="district form-select special-product-address product-address-district" aria-label="Default select example">
+                                                            </select>
+                                                        </div>
+
+                                                        <div>
+                                                            <textarea name="diachi" type="resize:none" class="diachi form-control special-product-address-input special-product-address product-address-district" id="exampleFormControlInput1" placeholder="địa chỉ nhà cụ thể" cols="30" rows="10"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+
                                     </div>
-
-
+                                    
                                     <label for="loai" class="form-label">Loại bình gas:</label>
                                     <div class="delivery-location form-product-specials product-type">
                                         <select class="form-select handle_order select-option" id="type" name="type" aria-label="Default select example">
@@ -238,11 +268,7 @@
                                             <option name="cn" value="1">Gas công nghiệp</option>
                                             <option name="dd" value="2">Gas dân dụng</option>
                                         </select>
-                                        
-                                        <div class="product-order-all btnt row" id='results'>
-                                           
-                                        </div>
-                                        
+                                        <div class="product-order-all btnt row" id='results'></div>
                                     </div>
 
                                     <div class="number-product-order product-address-amount">
@@ -251,9 +277,7 @@
                                             <input type="number" step="1" class="amount quantity" max="50" min="1" name="amount">
                                         </div>
                                     </div>
-                                    
 
-                                    
                                     <label for="exampleFormControlInput1" class="form-label ">Ghi chú:</label>
                                     <input class="ghichu form-control form-product-specials notie" id="exampleFormControlInput1" name="ghichu" cols="30" rows="10"></input>
                                     
@@ -263,7 +287,6 @@
                                         </div>
                                     </div>
 
-                                    
                                 </div>
                           
                             </form>
@@ -274,7 +297,6 @@
                 </div>
             </div>
             
-
             <!-- hướng dẫn đổi gas -->
             <div class="grid element_column">
                 <div class="card card-support element_columns infor" data-item="guide">
@@ -378,7 +400,6 @@
             </div>
         </div>
     </main>
-
 
     <footer>
         <div class="footer">
@@ -491,14 +512,11 @@
 
     <script language="javascript">print_country("country");</script>
     <!-- <script language="javascript">print_type("type");</script> -->
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
-
 
 	<script type="text/javascript">
 		
@@ -515,8 +533,6 @@
                     diachi: "required",
                     ghichu: "required",
                     amount: "required",
-					// cnmail: {required: true, email: true},
-					// agree: "required"
 				},
 				messages: {
 					nameCustomer: "Nhập tên",
@@ -529,13 +545,6 @@
 					cn: "chọn loại",
                     ghichu: "Nhập ghi chú",
                     amount: "Nhập số lượng",
-					// confirm_password: {
-					// 	required: " Bạn  nhập mật khẩu",
-					// 	minlength: "Mật khẩu phải có ít nhất 5 ký tự",
-					// 	equalTo: "Mật khẩu không trùng khớp với mật khẩu đã nhập",
-					// },
-					// email: "Hộp thư điện tử không hợp lệ",
-					// agree: "Bạn phải đồng ỳ với các quy định của chúng tôi"
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {
@@ -560,12 +569,9 @@
         });
 	</script>
 
-
     <script>
         var handle_order =  document.querySelector('.handle_order');
         var submit =  document.querySelector('.submit');
-       
-
             handle_order.onchange = ()=>{
 
             var id = handle_order.value;
@@ -658,18 +664,7 @@
             
 
         }
-
-            		
- 
-    
   
     </script>
-
-    
-
-
-
-
 </body>
-
 </html>

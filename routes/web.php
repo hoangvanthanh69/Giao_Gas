@@ -146,3 +146,6 @@ Route::get('/delete_account_users/{id}/users', [index_backend::class, 'delete_ac
 
 // tìm kiếm sản phẩm
 Route::get('/admin/searchOrder_product', [index_backend::class, 'searchOrder_product'])->name('admin.searchOrder_product');
+
+// lấy thông tin khách hàng để hiển thị
+// Route::get('/home/id', [index::class, 'home'])->name('home');

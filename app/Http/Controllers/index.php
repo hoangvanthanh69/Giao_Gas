@@ -17,14 +17,42 @@ use Session;
 class index extends Controller
 {
    function home(){
-      if(!Session::get('home')){
-         return redirect()->route('dangnhap');
-     }
-     $order_product = order_product::get()->toArray(); 
- 
-      return view('frontend.home',['order_product' => $order_product]);
-   }
-   
+      if (!Session::get('home')) {
+          return redirect()->route('dangnhap');
+      }
+    
+      $user_id = Session::get('home')['id'];
+      $order_product = order_product::where('user_id', $user_id)->get()->toArray();
+      $phoneCustomer = null;
+      $diachi = null;
+      $country = null;
+      $state = null;
+      $district = null;
+
+
+      if (!empty($order_product)) {
+         $phoneCustomer = $order_product[0]['phoneCustomer'];
+         $diachi = $order_product[0]['diachi'];
+         $country = $order_product[0]['country'];
+         $state = $order_product[0]['state'];
+         $district = $order_product[0]['district'];
+
+      } 
+      
+      elseif (empty($order_product) && Session::has('phoneCustomer', 'diachi', 'country', 'state', 'district')) {
+         $phoneCustomer = Session::get('phoneCustomer');
+         $diachi = Session::get('diachi');
+         $country = Session::get('country');
+         $state = Session::get('state');
+         $district = Session::get('district');
+
+      }
+    
+      return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
+      'country' => $country, 'state' => $state, 'district' => $district, 
+      ]);
+    }
+  
    function login(){
       if(!Session::get('admin')){
          return view('frontend.login');
@@ -143,6 +171,13 @@ class index extends Controller
    function order_product(Request $request){
       $user_id = Session::get('home')['id'];
       $order_product = new order_product;
+      Session::put('phoneCustomer', $request['phoneCustomer']);
+      Session::put('country', $request['country']);
+      Session::put('diachi', $request['diachi']);
+      Session::put('state', $request['state']);
+      Session::put('district', $request['district']);
+      
+
       $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
       $current_quantity = $product_infor[0]['quantity'];
       $order_quantity = $request['amount'];
@@ -178,9 +213,8 @@ class index extends Controller
          $order_product->admin_name = 'Chưa có người giao';
      }
 
-
       $order_product->save();
-      return redirect()->route('home')->with('mesage','Đặt giao gas thành công');
+      return redirect()->route('home',)->with('mesage','Đặt giao gas thành công');
    }
 
 
@@ -196,8 +230,6 @@ class index extends Controller
       }
   }
  
-
-
    function idProduct(){
       Session::put('idProduct',$_POST['id'] );
   

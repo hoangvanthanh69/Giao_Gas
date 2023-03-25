@@ -2,6 +2,7 @@ var country_arr = new Array("Cần Thơ");
 var s_a = new Array();
 s_a[0] = "";
 s_a[1] = "Ninh Kiều|Cái Răng|Bình Thủy|Ô Môn"; // cần thơ
+
 var s_b = new Array();
 s_b[1, 1] = "Cái Khế|Xuân Khánh|Hưng Lợi|An Hòa|Thới Bình|An Nghiệp|An Cư|Tân An|An Phú|An Khánh"; // ninh kiều
 s_b[1, 2] = "Lê Bình|Hưng Phú|Hưng Thạnh|Ba Láng|Thường Thạnh|Phú Thứ|Tân Phú" // cái răng
@@ -39,8 +40,6 @@ function print_district(district_id, district_index) {
   }
 }
 
-
-
 function print_product(product_id, product_index) {
   var option_str = document.getElementById(product_id);
   option_str.length = 0;
@@ -51,10 +50,6 @@ function print_product(product_id, product_index) {
     option_str.options[option_str.length] = new Option(product_arr[i], product_arr[i]);
   }
 }
-
-
-
-
 // search 
 var element_column = document.querySelectorAll('.element_column');
 var search_item = document.getElementById('search_item');
@@ -87,7 +82,41 @@ var search_item = document.getElementById('search_item');
     }
   }
 
+  function fillAddressFields() {
+    var address = document.querySelector('.delivery-location span').textContent.split(', ');
+    var country = address[0];
+    var state = address[1];
+    var district = address[2];
+    var diachi = address[3];
 
+    document.querySelector('#country').value = country;
+    print_state('state', document.querySelector('#country').selectedIndex);
+    document.querySelector('#state').value = state;
+    print_district('district', document.querySelector('#state').selectedIndex);
+    document.querySelector('#district').value = district;
+    document.querySelector('#exampleFormControlInput1').value = diachi;
+  }
+
+  document.getElementById("address").onchange = function() {
+    var country = document.getElementById("country").value;
+    var state = document.getElementById("state").value;
+    var district = document.getElementById("district").value;
+    var diachi = document.getElementById("exampleFormControlInput1").value;
+    document.querySelector(".delivery-location span").innerHTML = country + ", " + state + ", " + district + ", " + diachi;
+  }
+  document.querySelector('.submit').addEventListener('click', function() {
+    fillAddressFields();
+  });
+
+  document.getElementById("change-address").addEventListener("click", function() {
+    var selectAddressUser = document.querySelector(".select-address-user");
+    document.querySelector('.select-address-user').style.display = 'block';
+    if (selectAddressUser.classList.contains("hidden")) {
+      selectAddressUser.classList.remove("hidden");
+    } else {
+      selectAddressUser.classList.add("hidden");
+    }
+  });
 
 
 

@@ -25,7 +25,6 @@ class index_backend extends Controller
         $count_product = product::count();
         $count_staff = add_staff::count();
         $count_order = order_product::count();
-
         $tbl_admin = tbl_admin::get()->toArray();
         // print_r($count_order);
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], compact('count_product', 'count_staff', 'count_order',));
@@ -62,7 +61,6 @@ class index_backend extends Controller
         $product->price =  $data['price'];
         $product->quantity =  $data['quantity'];
         $product->original_price =  $data['original_price'];
-         
         $get_image = $request->image;
         $path = 'uploads/product/';
         $get_name_image = $get_image-> getClientOriginalName();
@@ -280,7 +278,6 @@ class index_backend extends Controller
         $order_product = order_product:: where('id', $id)->first();
         $order_product = order_product:: where('idProduct', $idProduct)->first();
         // print_r($order_product);
-
         $output = '';
         $output.= '<style>
         body{
@@ -311,7 +308,6 @@ class index_backend extends Controller
                     <span>Nhanh chóng - An toàn - Chất lượng - Hiệu quả</span>
                     <p>SĐT 0837641469</p>
                 </div>
-                
                 
                 <h3 class="receipt-h3"> HÓA ĐƠN THANH TOÁN </h3>
                 <div class="infor-customer">
@@ -379,8 +375,6 @@ class index_backend extends Controller
                 ';
 
         return $output;
-
-        
     }
 
     // tìm kiếm nhân viên
@@ -397,7 +391,6 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
-
     // tài khoản admin
     function quan_ly_tk_admin(){
         if(!Session::get('admin')){
@@ -422,7 +415,6 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
-
     // quản lý giao hàng
     function quan_ly_giao_hang(){
         if(!Session::get('admin')){
@@ -487,7 +479,7 @@ class index_backend extends Controller
         return view('backend.quan_ly_tk_user', ['users'=>$users]);
     }
     
-    // xoas tai khoan nhana vien
+    // xoas tai khoan khach hang
     function delete_account_users($id){
         $users = users::find($id);
         $users->delete();
