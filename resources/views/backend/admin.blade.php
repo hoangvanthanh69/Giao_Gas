@@ -3,293 +3,174 @@
 @section('content')
 
 <div class="col-10 nav-row-10 ">
+    <div class="container-fluid">
 
-      <div class="container-fluid">
-        <div class="row">
-            <div class="col-4 mb-4">
-                <div class="card statistical-all bg-success">
-                    <div class="row no-gutters ">
+    <div class="row">
+
+        <!-- sản phẩm -->
+        <div class="col-4 min-height-prodcuct">
+            <div class="statistical-all img-admin-chart">
+                <img class="img-statistical-admin img-statistical-product" src="{{asset('backend/img/png-clipart-line-chart-graph-of-a-function-line-angle-text-thumbnail.png')}}" alt="">
+                <div class="row no-gutters infor-statisticala-admin">
                     <div class="col mr-2 p-3 text-light">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-dark">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
                             Tổng sản phẩm
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <span class="count-all">{{$count_product}}</span>
-                                Sản phầm
+                            <span class="count-all">{{$count_product}}</span>
+                            Sản phầm
                         </div>
-                        <p class="m-0 text-md text-gray-600 text-dark">Tổng số sản phẩm được quản lý</p>
+
+                        <div class="mb-0 text-warning">
+                            <span class="count-product">{{$count_product1}}</span>
+                            sản phẩm gas công nghiệp
+                        </div>
+                        
+                        <div class="mb-0 text-info">
+                            <span class="count-product">{{$count_product2}}</span>
+                            sản phẩm gas dân dụng
+                        </div>
+
+                        <div class="mb-0 text-info">
+                            <span class="count-product">{{$product_all}}</span>
+                            Tổng số lượng sản phẩm
+                        </div>
+
                     </div>
                     <div class="col-auto card-icon">
                         <i class="fas fa-database fa-2x "></i>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-4 mb-4">
-                <div class="card statistical-all bg-warning">
-                    <div class="row no-gutters ">
+        <!-- đơn hàng-->
+        <div class="col-4 min-height-prodcuct">
+            <div class="statistical-all img-admin-chart">
+                <img class="img-statistical-admin img-statistical-order" src="{{asset('backend/img/images-pie.png')}}" alt="">
+                <div class="row no-gutters infor-statisticala-admin">
                     <div class="col mr-2 p-3 text-light">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-danger">
-                            Tổng đơn hàng / tháng
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
+                            Tổng đơn hàng
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <span class="count-all">{{$count_order}}</span>
-                                Đơn hàng
+                        <div class="h5 mb-2 font-weight-bold text-gray-800">
+                            <span class="count-all">{{$count_order}}</span>
+                            Đơn hàng
                         </div>
-                        <p class="m-0 text-md text-gray-600 text-danger">Tổng số hóa đơn bán hàng trong tháng</p>
+                        <a class="back-order-statistics" href="{{route('thong_ke_chi_tiet_dh')}}">Xem chi tiết</a>
                     </div>
                     <div class="col-auto card-icon">
                         <i class="fas fa-calendar-check fa-2x text-danger"></i>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-4 mb-4">
-                <div class="card statistical-all bg-info">
-                    <div class="row no-gutters ">
+        <!-- nhân viên -->
+        <div class="col-4 min-height-prodcuct">
+            <div class="statistical-all img-admin-chart ">
+                <img class="img-statistical-admin img-statistical-staff" src="{{asset('backend/img/28-280057_flat-icon-bar-graphics-statistics-chart-graph-graph.png')}}" alt="">
+                <div class="row no-gutters infor-statisticala-admin ">
                     <div class="col mr-2 p-3 text-light">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-success">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
                             Tổng nhân viên
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <span class="count-all">{{$count_staff}}</span> 
-                                Nhân viên
+                            <span class="count-all">{{$count_staff}}</span> 
+                            Nhân viên
                         </div>
-                        <p class="m-0 text-md text-gray-600 text-success">Tổng số nhân viên được quản lý</p>
+
+                        <div class="mb-0 text-Warning">
+                            <span class="count-product">{{$count_staff_chuvu2}}</span>
+                            Quản lý
+                        </div>
+                        
+                        <div class="mb-0 text-dark">
+                            <span class="count-product">{{$count_staff_chuvu1}}</span>
+                            Giao gas
+                        </div>
                     </div>
                     <div class="col-auto card-icon">
                         <i class="fas fa-users fa-2x text-success"></i>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- tổng doanh thu -->
+        <div class="col-4 min-height-prodcuct">
+            <div class="statistical-all bg-total-product img-admin-chart">
+                <img class="img-statistical-admin" src="{{asset('backend/img/Graph-PNG-Transparent-Image.png')}}" alt="">
+                <div class="row no-gutters infor-statisticala-admin">
+                    <div class="col mr-2 p-3 text-light">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
+                            Tổng Doanh thu 
+                        </div>
+                        <div class="h5 mb-2 font-weight-bold text-gray-800">
+                            <span class="count-all">{{number_format($tong_gia)}} đ</span>
+                        </div>
+                        <a class="back-order-statistics" href="{{route('chi_tiet_doanh_thu')}}">Xem chi tiết</a>
+                    </div>
+                    <div class="col-auto card-icon text-success" style="font-size: 38px;">
+                        <i class="fa-sharp fa-solid fa-money-check-dollar"></i>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
 
-      <!-- tìm kiếm -->
-        <div class="header-with-search">
-
-          <div class="header-with-search-header">
-            <form action="" method="POST" id="input_filter" class="header-with-search-form"></form>
-                <input type="text" id="search_item" name="fullname" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm">
-                <span class="header__search button">
-                  <i class="header-with-search-icon fas fa-search"></i>
-                </span>
-            </form>
-          </div>  
-
-        </div>
-
-        <div class="card mb-3 product-list element_column " data-item="product">
-          <div class="card-header">
-            <span class="product-list-name btnbtn">Gas</span>
-          </div>
-          <div class="card-body">
-            
-            <div class="table-responsive table-list-product">
-              <div class="add-product-div-admin">
-                <a class="add-product" href="{{route('add-product-admin')}}">Thêm sản phẩm</a>
-              </div>
-                @if (session('success'))
-                    <div class="notification">
-                        {{ session('success') }}
+        <!-- tong sp ban ra -->
+        <div class="col-4 ">
+            <div class="statistical-all img-admin-chart">
+            <img class="img-statistical-admin img-statistical-sell-products" src="{{asset('backend/img/candlestick-trading-graph-isolated-png-transparent-background-investing-stocks-market-buy-sell-sign-vector-illustration-224529770.jpg')}}" alt="">
+                <div class="row no-gutters infor-statisticala-admin">
+                    <div class="col mr-2 p-3 text-light">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
+                            Tổng giá sản phẩm bán ra
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold ">
+                            <span class="count-all saleprice-product">{{number_format($data_original_price)}} đ</span> 
+                        </div>
                     </div>
-                @endif
-              
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr class="tr-name-table">
-                    <th>Tên sản phẩm</th>
-                    <th>Ảnh</th>
-                    <th>Loại gas</th>
-                    <th>Số lượng</th>
-                    <th>Giá ban đầu</th>
-                    <th>Giá bán</th>
-                    <th>Chức năng</th>
-                  </tr>
-                </thead>
-                
-
-                <tbody class="infor">
-                  @foreach($product as $key => $val)
-
-                    <tr >
-                      <td class="name-product-td infor-product">{{$val['name_product']}}</td>
-                      <td class="img-product-td">
-                        <img class="image-admin-product-edit"  src="uploads/product/{{$val['image']}}" width="100px"  alt="">
-                      </td>
-                      <td class="name-product-td infor-product"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
-                      <td class="name-product-td infor-product">{{$val['quantity']}}</td>
-                      <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
-                      <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
-                      
-                      
-                      <td class="function-icon">
-                        <form action="{{route('edit-product', $val['id'])}}">
-                          <button class="summit-add-product-button infor-product" type='submit'>
-                            <i class="fa fa-wrench icon-wrench" aria-hidden="true"></i>
-                          </button>
-                        </form>
-                        
-                        <form action="{{route('delete-product', $val['id'])}}">
-                          <button class="summit-add-product-button infor-product" type='submit'>
-                            <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                    
-
-                  @endforeach 
-                  
-
-                  
-                </tbody>
-                <h1 id="showtext">
-
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3 product-list element_column" data-item="staff">
-
-          <div class="card-header">
-            <span class="product-list-name">Nhân viên</span>
-          </div>
-
-          <div class="card-body">
-            <div class="table-responsive table-list-product">
-
-              <div class="add-product-div-admin add-staff-admin">
-                <a class="add-staffs" href="{{route('add-staff')}}">Thêm Nhân viên</a>
-              </div>
-              @if (session('mesage'))
-                <div class="notification">
-                  {{ session('mesage') }}
+                    <div class="col-auto card-icon text-success" style="font-size: 38px;">
+                        <i class="fa-solid fa-money-bill"></i>
+                    </div>
                 </div>
-              @endif
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr class="tr-name-table">
-                    <th class="align-center">Họ Tên</th>
-                    <th>Năm sinh</th>
-                    <th>Chức vụ</th>
-                    <th>Tài khoản gmail@</th>
-                    <th class="align-center">Địa chỉ</th>
-                    <th>Ngày vào làm</th>
-                    <th>Số điện thoại</th>
-                    <th class="align-center">Lương/Tháng</th>
-                    <th>Chức năng</th>
-                  </tr>
-                </thead>
-                
-                <tbody class="infor">
-                  @foreach($staff as $key => $val)
-                    <tr>
-                        <td class="name-product-td">{{$val['last_name']}}</td>
-
-                        <td class="product-order-quantity">{{$val['birth']}}</td>
-
-                        <td class="roduct-order-quantity"><?php if($val['chuc_vu']==1){echo 'Nhân viên';}else{echo 'Quản lý';}  ?></td>
-
-                        <td class="product-order-quantity">{{$val['taikhoan']}}</td>
-
-                        <td class="product-order-quantity">{{$val['dia_chi']}}</td>
-
-                        <td class="product-order-quantity">{{$val['date_input']}}</td>
-
-                        <td class="product-order-quantity">{{$val['phone']}}</td>
-
-                        <td class="product-order-quantity">{{$val['luong']}}</td>
-
-                        <td class="function-icon function-icon-staff">
-                          <form action="{{route('edit-staff', $val['id'])}}">
-                            <button class="summit-add-product-button" type='submit'>
-                              <i class="fa fa-wrench icon-wrench" aria-hidden="true"></i>
-                            </button>
-                          </form>
-                          
-                          <form action="{{route('delete-staff', $val['id'])}}">
-                            <button class="summit-add-product-button" type='submit'>
-                              <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-                            </button>
-                          </form>
-                        </td>
-
-                    </tr>
-                  @endforeach 
-                </tbody>
-              </table>
             </div>
-          </div>
         </div>
 
-        <div class="card mb-3 product-list element_column" data-item="receipt">
-          <div class="card-header">
-            <span class="product-list-name">Đơn hàng</span>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive table-list-product">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+        <!-- tong gia sp ban dau -->
+        <div class="col-4  total-product-initial">
+            <div class="statistical-all img-admin-chart">
+                <img class="img-statistical-admin img-statistical-total-products" src="{{asset('backend/img/lovepik-pie-chart-png-image_400509540_wh1200.png')}}" alt="">
+                <div class="row no-gutters infor-statisticala-admin ">
+                    <div class="col mr-2 p-3 text-info">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
+                            Tổng giá ban đầu nhập
+                        </div>
+                        <div class="mb-0 font-weight-bold text-gray-800">
+                            <span class="count-all">{{number_format($data_price)}} đ</span>
+                        </div>
 
-                    <tr class="tr-name-table">
-                      <th>Tên Khách hàng</th>
-                      <th>Số điện thoại</th>
-                      <th >Loại bình gas</th>
-                      <th >Ngày tạo</th>
-                      <th >Mã SP</th>
-                      <th >Giá</th>
-                      <th>Chức năng</th>
-                    </tr>
-                    
-                </thead>
-                
-                <tbody class="infor">
-                  @foreach($order_product as $key => $val)
-                    <tr class="order-product-height">
-                      <td>{{$val['nameCustomer']}}</td>
-                      <td>{{$val['phoneCustomer']}}</td>
-                      <td><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
-                      
-                      <td>
-                        {{$val['created_at']}}
-                      </td>
+                        <div class="mb-0 text-Warning">
+                            <span class="count-price">{{number_format($data_price1)}} đ</span> 
+                            Gas công nghiệp
+                        </div>
 
-                      <td >
-                        {{$val['idProduct']}}
-                      </td> 
+                        <div class="mb-0 text-light">
+                            <span class="count-price">{{number_format($data_price2)}} đ</span> 
+                            Gas dân dụng
+                        </div>
+                            
+                    </div>
 
-                      <td>
-                        {{number_format($val['price'])}} đ
-                      </td>
-                      
-                      <td class="function-icon">
-                          <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
-                           Xem chi tiết
-                          </a>
-                          <form action="{{route('delete-client', $val['id'])}}">
-                            <button class="summit-add-product-button" type='submit'>
-                              <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-                            </button>
-                          </form>
-                      </td>
-                      
-                    </tr>
-                    
-                  @endforeach
-                </tbody>
-              </table>
-
+                </div>
             </div>
-          </div>
         </div>
-        
-
 
         
-
+    </div>
+    
+    </div>
 @endsection
+
+</div>

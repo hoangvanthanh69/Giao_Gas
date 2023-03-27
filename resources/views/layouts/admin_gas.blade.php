@@ -39,7 +39,7 @@
                            <div class="btnbtn home-filter-button " data-filter="all">
                               <a class="@yield('sidebar-active-home')" href="{{route('admin')}}">
                                  <i class=" fa fa-home icon-all-admin-nav" aria-hidden="true"></i>
-                                 Trang chủ
+                                 Tổng quan
                               </a>
                            </div>
                            <br>
@@ -72,14 +72,6 @@
                               <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
                                  <i class="fa-solid fa-truck icon-all-admin-nav"></i>
                                  Giao hàng
-                              </a>
-                           </div>
-                           <br>
-
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
-                              <a class="@yield('sidebar-active-thong-ke')" href="{{route('quan-ly-thong-ke')}}">
-                                 <i class="fa-solid fa-chart-simple icon-all-admin-nav"></i>
-                                 Quản lý thống kê
                               </a>
                            </div>
                            <br>

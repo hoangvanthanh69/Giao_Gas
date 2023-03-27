@@ -83,10 +83,6 @@ Route:: get('/admin/quan-ly-nv', [index_backend::class, 'quan_ly_nv'] )->name('q
 //quản lý hóa đơn
 Route:: get('/admin/quan-ly-hd', [index_backend::class, 'quan_ly_hd'] )->name('quan-ly-hd');
 
-// quản lý thống kê
-Route:: get('/admin/quan-ly-thong-ke', [index_backend::class, 'quan_ly_thong_ke'] )->name('quan-ly-thong-ke');
-
-
 // in đơn hàng
 Route:: get('/print-order/{checkout_code}', [index_backend::class, 'print_order'] )->name('print-order');
 
@@ -130,7 +126,7 @@ Route::get('/don_hang_nhan_vien', [index_backend::class, 'hien_thi_don_hang_nhan
 Route::get('/thong_tin_don_hang/{id}', [index::class, 'thong_tin_don_hang'])->name('thong_tin_don_hang');
 
 // thống kế chi tiết tổng đơn hàng
-Route::get('/admin/quan-ly-thong-ke/thong_ke_chi_tiet_dh', [index_backend::class, 'thong_ke_chi_tiet_dh'])->name('thong_ke_chi_tiet_dh');
+Route::get('/admin/thong_ke_chi_tiet_dh', [index_backend::class, 'thong_ke_chi_tiet_dh'])->name('thong_ke_chi_tiet_dh');
 
 // xóa tk admin
 Route::get('/delete_account/{admin_id}/tbl_admin', [index_backend::class, 'delete_account'] )->name('delete_account');
@@ -147,5 +143,5 @@ Route::get('/delete_account_users/{id}/users', [index_backend::class, 'delete_ac
 // tìm kiếm sản phẩm
 Route::get('/admin/searchOrder_product', [index_backend::class, 'searchOrder_product'])->name('admin.searchOrder_product');
 
-// lấy thông tin khách hàng để hiển thị
-// Route::get('/home/id', [index::class, 'home'])->name('home');
+// chi tiet doanh thu
+Route::get('/admin/chi_tiet_doanh_thu',[index_backend::class,'chi_tiet_doanh_thu'])->name('chi_tiet_doanh_thu');

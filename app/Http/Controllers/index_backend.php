@@ -15,19 +15,34 @@ use Illuminate\Support\Facades\Auth;
 use PDF;
 class index_backend extends Controller
 {
-    function home(){
+    function home(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
         $product = product::get()->toArray();
         $staff = add_staff::get()->toArray();
         $order_product = order_product::get()->toArray(); 
+        $tbl_admin = tbl_admin::get()->toArray();
+        $data =  $request->all();
         $count_product = product::count();
         $count_staff = add_staff::count();
+        $data_original_price=product::sum('original_price');
+        $count_product1 = product::where('loai','=',1)->count();
+        $count_product2 = product::where('loai','=',2)->count();
+        $count_staff_chuvu1 = add_staff::where('chuc_vu','=',1)->count();
+        $count_staff_chuvu2 = add_staff::where('chuc_vu','=',2)->count();
+        $tong_gia=order_product::where('status','=',3)->sum('tong');
+        $product_all=product::sum('quantity');
         $count_order = order_product::count();
-        $tbl_admin = tbl_admin::get()->toArray();
-        // print_r($count_order);
-        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], compact('count_product', 'count_staff', 'count_order',));
+        $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        // print_r($products); die;
+        // print_r($tong_gia);
+        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
+        compact('count_product', 'count_staff', 'count_order', 
+        'data_price', 'data_original_price', 'count_product1', 'count_product2', 'data_price1', 
+        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all',));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -39,8 +54,6 @@ class index_backend extends Controller
 
     function chitiet(Request $request, $id){
         $order_product = order_product::find($id);
-        //    echo " <pre>";
-        //    print_r($staff);
         return view('backend.chitiet' , ['order_product' => $order_product]);
     }
 
@@ -215,36 +228,6 @@ class index_backend extends Controller
         
         $status = isset($_GET['status']) ? $_GET['status'] : 'all';
         return view('backend.quan_ly_hd', ['order_product' => $order_product, 'status' => $status]);
-    }
-
-    // quản lý thống kê
-    function quan_ly_thong_ke(Request $request){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        $data =  $request->all();
-        $count_product = product::count();
-        $count_staff = add_staff::count();
-        $data_original_price=product::sum('original_price');
-        $count_product1 = product::where('loai','=',1)->count();
-        $count_product2 = product::where('loai','=',2)->count();
-        $count_staff_chuvu1 = add_staff::where('chuc_vu','=',1)->count();
-        $count_staff_chuvu2 = add_staff::where('chuc_vu','=',2)->count();
-        $tong_gia=order_product::where('status','=',3)->sum('tong');
-        $product_all=product::sum('quantity');
-        $count_order = order_product::count();
-       
-        $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        // $data_price1= product::where('loai','=',1)->sum('price');
-        $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        
-
-        // print_r($products); die;
-        // print_r($tong_gia);
-        return view('backend.quan_ly_thong_ke', compact('count_product', 'count_staff', 'count_order', 
-        'data_price', 'data_original_price', 'count_product1', 'count_product2', 'data_price1', 
-        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all',));
     }
 
     // thống kê chi tiết đơn hàng
@@ -499,5 +482,27 @@ class index_backend extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    // chi tiet doanh thu
+    function chi_tiet_doanh_thu(request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $date = $request->input('date', date('d-m-Y'));
+        $tong_gia_ngay = order_product::where('status', '=', 3)->whereDate('created_at', '=', $date)->sum('tong');
+        $dates = $request->input('dates', date('d-m-Y'));
+        $total_price_today = order_product::where('status', '=', 3)->whereDate('created_at', '=',$dates)->sum('tong');
+        $month = $request->input('month', date('m-Y'));
+        $total_price_month = order_product::where('status', '=', 3)->whereYear('created_at', '=', date('Y', strtotime($month)))
+            ->whereMonth('created_at', '=', date('m', strtotime($month)))->sum('tong');
+        $year = $request->input('year', date('Y'));
+        $total_price_year = order_product::where('status', '=', 3)->whereYear ('created_at', '=',$year)->sum('tong');
+        $start_date = $request->input('start_date', date('d-m-Y'));
+        $end_date = $request->input('end_date', date('d-m-Y'));
+        $total_revenue = order_product::where('status', '=', 3)->whereBetween('created_at', [$start_date, $end_date])->sum('tong');
+        return view('backend.chi_tiet_doanh_thu',['total_price_today' => $total_price_today, 'dates'=> $dates,], 
+        compact(
+        'tong_gia_ngay', 'date','year', 'total_price_year', 'start_date', 'end_date', 'total_revenue', 'month', 'total_price_month'));
     }
 }

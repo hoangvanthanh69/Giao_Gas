@@ -63,36 +63,23 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAcc">
                         <div class="">
                             <div class="header-with-account-span">
-                                <a  href="{{route('logoutuser')}}">
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-                                    Đăng xuất
-                                </a>  
+                                <li>
+                                    <a href="{{route('logoutuser')}}">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        Đăng xuất
+                                    </a>
+                                </li>
+
+                                <li>
+                                   <a href="">
+                                        Thông tin tài khoản
+                                    </a>   
+                                </li>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!--  -->
-                
-                <!--  -->
-
-                <!-- <div class="header-with-account">
-                        <div class="header-with-account-span">
-                            <a class="header-with-account-link" href="{{route('dangnhap')}}">
-                                Đăng nhập
-                            </a>
-                            
-                        </div>
-                </div>
-
-                <div class="header-with-account header-with-account-dk">
-                        <div class="header-with-account-span">
-                            <a class="header-with-account-link" href="{{route('register')}}">
-                                Đăng ký
-                            </a>
-                        </div>
-                </div> -->
-
             </div>
         </div>
     </header>

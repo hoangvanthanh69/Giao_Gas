@@ -20,7 +20,6 @@ class index extends Controller
       if (!Session::get('home')) {
           return redirect()->route('dangnhap');
       }
-    
       $user_id = Session::get('home')['id'];
       $order_product = order_product::where('user_id', $user_id)->get()->toArray();
       $phoneCustomer = null;
@@ -28,8 +27,6 @@ class index extends Controller
       $country = null;
       $state = null;
       $district = null;
-
-
       if (!empty($order_product)) {
          $phoneCustomer = $order_product[0]['phoneCustomer'];
          $diachi = $order_product[0]['diachi'];
@@ -38,7 +35,6 @@ class index extends Controller
          $district = $order_product[0]['district'];
 
       } 
-      
       elseif (empty($order_product) && Session::has('phoneCustomer', 'diachi', 'country', 'state', 'district')) {
          $phoneCustomer = Session::get('phoneCustomer');
          $diachi = Session::get('diachi');
@@ -47,9 +43,8 @@ class index extends Controller
          $district = Session::get('district');
 
       }
-    
       return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
-      'country' => $country, 'state' => $state, 'district' => $district, 
+      'country' => $country, 'state' => $state, 'district' => $district,
       ]);
     }
   
@@ -219,7 +214,7 @@ class index extends Controller
 
 
    // hủy đơn hàng của khách hàng
-   public function cancelOrder($id) {
+   function cancelOrder($id) {
       $order_product = order_product::find($id);
       if ($order_product) {
             $order_product->status = 4; // đã hủy

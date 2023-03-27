@@ -133,6 +133,7 @@ html{
 
 .header-with-account-span a{
     text-decoration: none !important;
+    color: rgb(29, 28, 28);
 }
 
 .header-with-account-span:hover{
@@ -235,7 +236,7 @@ html{
 .contact-support{
     display: flex;
     text-align: center;
-    color: white;
+    color: wheat;
     font-size: 20px;
     font-weight: 600;
     justify-content: center;
@@ -256,7 +257,7 @@ html{
     color: rgb(68, 192, 241);
 }
 .contact-support-item-call-link:hover{
-    color: rgb(117, 178, 57) !important;
+    color: white !important;
 }
 .contact-support-item-call-link{
     text-decoration: none;
@@ -401,7 +402,7 @@ div#country-error {
     margin-bottom: 2px !important
 }
 .delivery-location.form-product-specials.form-product-specials-location {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 .card-heder-name{
    background-color: rgb(38, 121, 160) !important;
@@ -504,7 +505,7 @@ i.fa-solid.fa-pencil {
     padding-top: 10px;
 }
 select#type {
-    margin-bottom: 22px;
+    margin-bottom: 12px;
 }
 a.log-in {
     text-decoration: none;
@@ -820,7 +821,7 @@ tbody.history-order-product {
 .card-body.history-orders-list .list-order-user-history {
     margin-top: 13px;
     margin: -1px;
-    border-top: 3px solid #f1f0f0;
+    border-top: 2px solid #f1f0f0;
 }
 .product-list-name {
     padding-bottom: 20px;
@@ -837,7 +838,7 @@ tbody.history-order-product {
     padding: 4px;
 }
 .link-infor-order-user-history:hover{
-    color:#585858;
+    color:#1fbb3b;
 }
 .col-1.status-order-user-history {
     display: flex;
@@ -865,14 +866,23 @@ img.image-admin-product-edit {
 span.adress-customer-span {
     font-size: 16px;
     color: #ff7100;
-    padding-left: 9px;
 }
 #change-address {
+    color: #ff0000;
     cursor: pointer;
     padding-top: 10px;
-    padding-left: 9px;
     font-size: 17px;
 }
 #change-address:hover{
     color: #75B239;
+}
+.back-order-statistics {
+    text-decoration: none;
+    font-size: 18px;
+    color: #0a58ca;
+    float: left;
+}
+a i.fa-solid.fa-right-from-bracket {
+    padding-right: 16px;
+    margin-bottom: 25px;
 }

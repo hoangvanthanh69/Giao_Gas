@@ -48,9 +48,9 @@
                         </div>
                 </form>
                 <div class="button-history-orders">
-                    <div class="history-button-back">
-                        <a class="" href="{{route('order-history')}}">Trở lại</a>
-                    </div>
+                        <a class="back-order-statistics" href="{{route('order-history')}}">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Quay lại</a>
                 </div>
                     
             </div>

@@ -82,9 +82,10 @@
 
                     
                     <div class="button-history-orders">
-                        <div class="history-button-back">
-                            <a class="" href="{{route('home')}}">Mua tiếp</a>
-                        </div>
+                        <a class="back-order-statistics" href="{{route('home')}}">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Quay lại
+                        </a>
                     </div>
                     
                 </div>

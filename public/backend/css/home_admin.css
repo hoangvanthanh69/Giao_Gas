@@ -360,16 +360,15 @@ tr.order-product-height.hover-color {
 }
 
 .statistical-all{
+    margin-right: -2px;
     padding: 13px;
     min-height: 90%;
     margin-top: 19px;
-    font-size: 18px;    
-    background-color: #3a2046 !important;
+    font-size: 18px; 
 }
 .count-all{
-    /* color: rgb(108, 178, 57); */
-    color: rgb(138, 73, 236);
-    font-size: 25px;
+    color: rgb(0, 242, 255);
+    font-size: 23px;
 }
 .text-gray-600.text-dark, .text-gray-600.text-danger, .text-gray-600 {
     padding-top: 9px;
@@ -378,29 +377,24 @@ tr.order-product-height.hover-color {
     font-weight: 500 !important;
 }
 .count-product{
-    color: rgb(174, 131, 238);
+    color: rgb(30 35 37);
     font-size: 20px;
 }
 .count-price{
-    color: rgb(174, 131, 238);
+    color: rgb(19, 22, 23);
     font-size: 20px;
+    font-weight: 500;
 
 }
 
-.col-8.mb-4.total-product-initial {
-    margin-left: 17%;
+.col-6.mb-4.total-product-initial {
+    margin-left: 26%;
     text-align: center;
 }
 
-/* .saleprice-product{
-    color: #6a0bf9ed;
-} */
-
 .bg-total-product{
-   background-color: #488107!important ;
+   background-color: #e57272!important
 }
-
-
 .select-form-option {
     width: 164px;
     height: 43px;
@@ -437,13 +431,13 @@ select#status {
     line-height: 78px;
 }
 .statistical-all-delivery {
-    background-color: #52de20 !important;
+    background-color: #3d1640 !important
 }
 .statistical-all-processing{
     background-color: rgb(181, 137, 56) !important;
 }
 .statistical-all-canceled{
-    background-color: rgb(230, 53, 53)!important;
+    background-color: rgb(165 35 35)!important;
 }
 .statistical-all-delivered{
    background-color: #198754 !important;
@@ -451,7 +445,7 @@ select#status {
 .back-order-statistics{
     text-decoration: none;
     font-size: 18px;
-    color: #0a58ca;;
+    color: #071fca;;
 }
 img.image-admin-product-edit {
     object-fit: contain;
@@ -488,4 +482,77 @@ img.image-admin-product-edit {
     padding-right: 10px;
     margin-top: -20px;
     margin-bottom: 12px;
+}
+.center-total-product{
+    text-align: center;
+}
+.min-height-prodcuct{
+    min-height: 234px;
+}
+.order-detail-overview {
+    color: #0f4c7b;
+    text-decoration: underline;
+    cursor: context-menu;
+}
+.statistical-delivered-date {
+    background-color: #3d4d46 !important;
+}
+.statistical-delivered-year {
+    background-color: #4f583c !important;
+}
+.statistical-delivered-month {
+    background-color: #517b10 !important
+}
+.statistical-delivered-period {
+    background-color: #1d635f !important;
+}
+.input-total-revenue {
+    outline: none;
+    border-radius: 3px;
+    border: 3px;
+    width: 160px;
+    padding-left: 7px;
+    line-height: 35px;
+}
+.button-total-revenue {
+    line-height: 33px;
+    border: 3px;
+    border-radius: 3px;
+    background-color: white;
+}
+.img-statistical-admin {
+    border: 3px;
+    border-radius: 3px;
+    margin-top: -14px;
+    margin: -13px;
+    position: absolute;
+    height: 207px;
+    width: 100%;
+    background-size: cover;
+}
+.infor-statisticala-admin {
+    position: relative;
+}
+.img-admin-chart {
+    border: 3px;
+    border-radius: 3px;
+    position: relative;
+    width: 100%;
+    backface-visibility: hidden;
+    transition: transform .6s ease-in-out;
+}
+.img-statistical-product{
+    filter: contrast(1.2) brightness(0.5) sepia(0.3) saturate(1.5) hue-rotate(-20deg);
+}
+.img-statistical-order{
+    filter: contrast(1.2) brightness(0.5) sepia(0.8) saturate(2.1) hue-rotate(49deg);
+}
+.img-statistical-staff{    
+    filter: contrast(0.8) brightness(0.8) sepia(0.3) saturate(2) hue-rotate(30deg);
+}
+.img-statistical-sell-products{
+    filter: contrast(0.8) brightness(0.5) sepia(0.6) saturate(5) hue-rotate(240deg);
+}
+.img-statistical-total-products{
+    filter: contrast(0.8) brightness(0.5) sepia(0.6) saturate(8) hue-rotate(118deg);
 }
