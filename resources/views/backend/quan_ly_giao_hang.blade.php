@@ -17,7 +17,7 @@
                 <div class="table-responsive table-list-product">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr class="tr-name-table">
+                            <tr class="tr-name-table-list">
                                 <th>Mã Đơn</th>
                                 <th>Tên Khách hàng</th>
                                 <th>Địa chỉ</th>
@@ -49,7 +49,9 @@
                                         <select name="admin_name" class="form-control" onchange="this.form.submit()">
                                             <option value="">Chọn</option>
                                             @foreach($tbl_admin as $admin)
-                                                <option value="{{$admin->admin_name}}">{{$admin-> admin_name}}</option>
+                                                @if($admin -> chuc_vu != 2)
+                                                    <option value="{{$admin->admin_name}}">{{$admin-> admin_name}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                         <input type="hidden" name="id" value="{{ $val['id'] }}">

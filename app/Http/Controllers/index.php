@@ -122,9 +122,10 @@ class index extends Controller
             'username'  => $result->admin_email,
             'password'  => $result->admin_password,
             'admin_name' => $result->admin_name,
+            'chuc_vu' => $result->chuc_vu,
          ]);
          if(Session::get('admin') != NULL){
-            if(Session::get('admin')['admin_name'] == "admin"){
+            if(Session::get('admin')['chuc_vu'] == "2"){
                return redirect()->route('admin');
 
             }

@@ -540,12 +540,16 @@ a.log-in:hover{
     width: 100%;
     height: 160px;
     padding-top: 20px;
+    object-fit: cover;
+    transition: transform 0.2s ease-out;
+}
+img.image-product-order:hover {
+    transform: scale(0.9);
 }
 .image-product-order img {
     width: 100%;
     height: 100%;
 }
-
 .heading-login {
     padding-bottom: 16px;
 }
@@ -850,7 +854,7 @@ img.image-product-order {
 img.image-admin-product-edit {
     object-fit: cover;
     width: auto;
-    height: 100px;
+    height: 60px;
 }
 .list-account-admin {
     color: #4f4a4a;
@@ -885,4 +889,12 @@ span.adress-customer-span {
 a i.fa-solid.fa-right-from-bracket {
     padding-right: 16px;
     margin-bottom: 25px;
+}
+.infor-address-delivery-customer {
+    color: #ffcf00;
+    font-size: 17px;
+}
+.name-product-p {
+    color: #312e2e;
+    font-weight: 500;
 }

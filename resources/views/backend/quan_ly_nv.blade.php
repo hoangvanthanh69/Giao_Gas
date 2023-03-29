@@ -44,8 +44,8 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr class="tr-name-table">
-                    <th class="align-center">Họ Tên</th>
                     <th>Mã số </th>
+                    <th class="align-center">Họ Tên</th>
                     <th>Năm sinh</th>
                     <th>Chức vụ</th>
                     <th class="align-center">Tài khoản @gmail</th>
@@ -60,18 +60,21 @@
                 <tbody class="infor">
                   @foreach($staff as $key => $val)
                     <tr class="hover-color">
-                        <td class="name-product-td">{{$val['last_name']}}</td>
+                      <td class="product-order-quantity">{{$val['id']}}</td>
 
-                        <td class="product-order-quantity">{{$val['id']}}</td>
+                        <td class="name-product-td">{{$val['last_name']}}</td>
 
                         <td class="product-order-quantity">{{$val['birth']}}</td>
 
-                        <td class="roduct-order-quantity"><?php if($val['chuc_vu']==1){echo 'Nhân viên';}else{echo 'Quản lý';}  ?></td>
+                        <td class="roduct-order-quantity">
+                          <?php if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
+                          elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
+                          else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
+                        </td>
 
                         <td class="product-order-quantity">{{$val['taikhoan']}}</td>
 
                         <td class="product-order-quantity">{{$val['dia_chi']}}</td>
-
 
                         <td class="product-order-quantity">{{$val['date_input']}}</td>
 

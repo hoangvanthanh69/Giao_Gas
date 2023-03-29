@@ -1,5 +1,5 @@
 @extends('layouts.admin_gas')
-
+@section('sidebar-active-customer', 'active' )
 @section('content')
 
 
@@ -22,8 +22,9 @@
                         <div class='col-8 p-0'>
                             <select id="chuc_vu" name="chuc_vu"  class="form-select " aria-label="Default select example">
                                 <option value="">Chọn Chức vụ</option>
-                                <option value="1" <?php echo  $staff['chuc_vu']==1?'selected':'' ?>>Nhân viên</option>
+                                <option value="1" <?php echo  $staff['chuc_vu']==1?'selected':'' ?>>Giao hàng</option>
                                 <option value="2" <?php echo  $staff['chuc_vu']==2?'selected':'' ?>>Quản lý</option>
+                                <option value="3" <?php echo  $staff['chuc_vu']==3?'selected':'' ?>>Biên tập</option>
                             </select>    
 
                         </div>

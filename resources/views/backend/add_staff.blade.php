@@ -22,8 +22,9 @@
                         <div class='col-8 p-0'>
                             <select id="chuc_vu" name="chuc_vu" class="form-select " aria-label="Default select example">
                                 <option value="0">Chọn chức vụ</option>
-                                <option value="1" name="cv_nv">Nhân viên</option>
+                                <option value="1" name="cv_nv">Giao hàng</option>
                                 <option value="2">Quản lý</option>
+                                <option value="3">Biên tập</option>
                             </select>    
 
                         </div>

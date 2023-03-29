@@ -37,12 +37,13 @@ class index_backend extends Controller
         $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        // print_r($products); die;
+        $bestseller = order_product::select('name_product')->groupBy('name_product')->havingRaw('COUNT(*) >= 2')->get();
+        // print_r($data_price2); die;
         // print_r($tong_gia);
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
         compact('count_product', 'count_staff', 'count_order', 
         'data_price', 'data_original_price', 'count_product1', 'count_product2', 'data_price1', 
-        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all',));
+        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all','bestseller'));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -197,6 +198,14 @@ class index_backend extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
+        $admin_name = Session::get('admin')['admin_name'];
+        $chuc_vu = Session::get('admin')['chuc_vu'];
+        if($chuc_vu == '2'){
+            $product = product::get()->toArray();
+        }
+        elseif($chuc_vu == '3'){
+            $product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
+        }
         $product = product::get()->toArray();
         $order_product = order_product::get()->toArray(); 
         return view('backend.quan_ly_sp', ['product'=> $product,'order_product' => $order_product]);
@@ -218,9 +227,9 @@ class index_backend extends Controller
         }
 
         $admin_name = Session::get('admin')['admin_name'];
-        if($admin_name == 'admin'){
+        $chuc_vu = Session::get('admin')['chuc_vu'];
+        if($chuc_vu == '2'){
             $order_product = order_product::get()->toArray();
-
         }
         else{
             $order_product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
@@ -384,6 +393,16 @@ class index_backend extends Controller
         return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
     }
 
+    // thêm tài khoản admin
+    function add_account_admin(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $tbl_admin = tbl_admin::get()->toArray();
+        $staff = add_staff::get()->toArray();
+        return view('backend.add_account_admin', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
+    }
+
     // trạng thái đơn hàng của admin
     function status_admin(Request $request, $id) {
         $order_product = order_product::find($id);
@@ -446,6 +465,7 @@ class index_backend extends Controller
         $admin->admin_name = $staff->last_name;
         $admin->admin_password = $request->password;
         $admin->admin_email = $staff->taikhoan;
+        $admin->chuc_vu = $staff->chuc_vu;
         $admin->save();
 
         $staff->status_add = true;
@@ -489,10 +509,11 @@ class index_backend extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
+        $dates = now()->setTimezone('Asia/Ho_Chi_Minh');;
+        $total_price_today = order_product::where('status', '=', 3)->whereDate('created_at', '=', $dates)->sum('tong');
+        // print_r($total_price_today);die;
         $date = $request->input('date', date('d-m-Y'));
         $tong_gia_ngay = order_product::where('status', '=', 3)->whereDate('created_at', '=', $date)->sum('tong');
-        $dates = $request->input('dates', date('d-m-Y'));
-        $total_price_today = order_product::where('status', '=', 3)->whereDate('created_at', '=',$dates)->sum('tong');
         $month = $request->input('month', date('m-Y'));
         $total_price_month = order_product::where('status', '=', 3)->whereYear('created_at', '=', date('Y', strtotime($month)))
             ->whereMonth('created_at', '=', date('m', strtotime($month)))->sum('tong');

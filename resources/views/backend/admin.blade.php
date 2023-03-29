@@ -167,6 +167,27 @@
             </div>
         </div>
 
+        <div class="col-6 mb-2">
+                <div class="card statistical-all statistical-all-canceled">
+                    <div class="row no-gutters ">
+                        <div class="col mr-2 p-3 text-light center-total-product">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1 text-info">
+                                Sản phẩm bán chạy nhất hệ thống
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    @foreach ($bestseller as $sp) 
+                                        <p class="count-all">{{$sp->name_product}}</p>
+                                    @endforeach
+                            </div>
+                            
+                        </div>
+                        <div class="col-auto card-icon">
+                            <i class="fa-solid fa-ban text-warning fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         
     </div>
     

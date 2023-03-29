@@ -22,17 +22,17 @@
                 <form enctype="multipart/form-data" method='post' action="{{route('thong_tin_don_hang', $order_product->id)}}">
                     @csrf
                     <div class="infor-order-customer-detail">
-                        <h6>
+                        <h6 class="infor-address-delivery-customer">
                             <i class="fa-solid fa-location-dot"></i>
                             Địa chỉ nhận hàng
                         </h6>
-                        <p>{{$order_product['nameCustomer']}}</p>
-                        <p>(+84) {{$order_product['phoneCustomer']}}</p>
+                        <h6 class="text-success">{{$order_product['nameCustomer']}}</h6>
+                        <h6 class="text-success">(+84) {{$order_product['phoneCustomer']}}</h6>
                         <p class="name-product-p">{{$order_product['diachi']}}, Phường {{$order_product['district']}}, Quận {{$order_product['state']}}, Thành Phố {{$order_product['country']}}</p>
 
                     </div>
                         <div class="row list-order-user-history">
-                            <div  class="col-2 infor-order-user-history">
+                            <div  class="col-1 infor-order-user-history">
                                 <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$order_product['image']) }}" width="70%" height="70%" alt="">       
                             </div>
 
@@ -40,6 +40,7 @@
                              
                             <div class="col-2 infor-order-user-history"><?php if($order_product['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
                             <div class="col-2 infor-order-user-history">{{$order_product['created_at']}}</div>
+                            <div class="col-1 infor-order-user-history">{{number_format($order_product['price'])}}</div>
                             <div class="col-1 infor-order-user-history">x{{$order_product['amount']}}</div>
                             <div class="col-3 infor-order-user-history"> Thành tiền:
                                 <span class="total-order-user-history">{{number_format($order_product['amount'] * $order_product['price'])}} đ</span>

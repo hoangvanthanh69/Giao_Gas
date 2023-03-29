@@ -8,7 +8,7 @@
          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                <h5 class="list-account-admin">Tài khoản khách hàng</h5>
-                <tr class="tr-name-table">
+                <tr class="tr-name-table bg-success">
                      <th>STT</th>
                      <th class="">Họ tên</th>
                      <th class="">Email</th>

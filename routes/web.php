@@ -110,7 +110,7 @@ Route::get('/loc-hd', [index_backend::class, 'loc_hd'] )->name('loc-hd');
 Route::get('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
 
 // tài khoản admin
-Route::get('/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin');
+Route::get('/admin/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin');
 
 //cập nhật trạng thái cho admin
 Route::post('/status_admin/{id}', [index_backend::class, 'status_admin'])->name('status_admin');
@@ -133,6 +133,7 @@ Route::get('/delete_account/{admin_id}/tbl_admin', [index_backend::class, 'delet
 
 // thêm tài khoản admin
 Route::post('/add_account/{id}', [index_backend::class, 'add_account'] )->name('add_account');
+Route::get('/admin/add_account_admin', [index_backend::class, 'add_account_admin'] )->name('add_account_admin');
 
 // tài khoản khách hàng
 Route::get('/quan-ly-tk-user', [index_backend::class, 'quan_ly_tk_user'] )->name('quan-ly-tk-user');

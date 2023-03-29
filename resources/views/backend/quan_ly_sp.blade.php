@@ -41,7 +41,7 @@
               
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr class="tr-name-table">
+                  <tr class="tr-name-table bg-success">
                     <th>Tên sản phẩm</th>
                     <th>Ảnh</th>
                     <th>Loại gas</th>

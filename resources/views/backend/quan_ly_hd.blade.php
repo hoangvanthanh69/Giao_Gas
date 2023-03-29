@@ -32,13 +32,12 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
 
-                    <tr class="tr-name-table">
+                    <tr class="tr-name-table bg-info">
                       <th >Mã</th>
                       <th>Tên Khách hàng</th>
                       <th>Số điện thoại</th>
                       <th >Loại bình gas</th>
                       <th >Ngày tạo</th>
-                      <th >Giá</th>
                       <th>Trạng thái</th>
                       <th>Người giao</th>
                       <th>Chức năng</th>
@@ -61,13 +60,6 @@
                         <td class="order-product-infor-admin">
                           {{$val['created_at']}}
                         </td>
-
-                        
-
-                        <td class="order-product-infor-admin">
-                          {{number_format($val['price'])}} đ
-                        </td>
-
                         <td class="order-product-infor-admin">
                           
                             <form method='POST' class="status-order-admin-form" action="{{route('status_admin', $val['id'])}}"> 
@@ -81,7 +73,9 @@
     
                             </form>
                         </td>
-                        <td class="order-product-infor-admin">{{$val['admin_name']}}</td>
+                        <td class="order-product-infor-admin">
+                          {{$val['admin_name']}}
+                        </td>
 
                         <td class="function-icon ">
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
