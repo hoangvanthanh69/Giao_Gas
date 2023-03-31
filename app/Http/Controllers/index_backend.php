@@ -8,6 +8,7 @@ use App\Models\add_staff;
 use App\Models\order_product;
 use App\Models\tbl_admin;
 use App\Models\users;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use Session;
 use DB;
@@ -37,13 +38,13 @@ class index_backend extends Controller
         $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        $bestseller = order_product::select('name_product')->groupBy('name_product')->havingRaw('COUNT(*) >= 2')->get();
+        $bestseller = order_product::select('name_product', 'idProduct', 'type')->groupBy('name_product', 'idProduct', 'type')->havingRaw('COUNT(*) >= 2')->get();
         // print_r($data_price2); die;
         // print_r($tong_gia);
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
-        compact('count_product', 'count_staff', 'count_order', 
-        'data_price', 'data_original_price', 'count_product1', 'count_product2', 'data_price1', 
-        'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 'product_all','bestseller'));
+        compact('count_product', 'count_staff', 'count_order','data_price', 'data_original_price', 'count_product1', 
+        'count_product2', 'data_price1', 'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 
+        'product_all','bestseller'));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -206,7 +207,8 @@ class index_backend extends Controller
         elseif($chuc_vu == '3'){
             $product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
         }
-        $product = product::get()->toArray();
+        // $product = product::get()->toArray();
+        $product = product::paginate(10);
         $order_product = order_product::get()->toArray(); 
         return view('backend.quan_ly_sp', ['product'=> $product,'order_product' => $order_product]);
     }
@@ -216,7 +218,8 @@ class index_backend extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
-        $staff = add_staff::get()->toArray();
+        $staff = add_staff::paginate(6);
+        // $staff = add_staff::get()->toArray();
         return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
@@ -234,7 +237,6 @@ class index_backend extends Controller
         else{
             $order_product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
         }
-        
         $status = isset($_GET['status']) ? $_GET['status'] : 'all';
         return view('backend.quan_ly_hd', ['order_product' => $order_product, 'status' => $status]);
     }
@@ -373,8 +375,8 @@ class index_backend extends Controller
     function searchOrder(Request $request){
         if ($request->isMethod('get')) {
             $search = $request->input('search');
-            $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->get()->toArray();
-            if(empty($staff)){
+            $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->paginate(6);
+            if(empty($staff->items())){
                 return back()->with('mesages', 'Không tìm thấy kết quả');
             } else {
                 return view('backend.quan_ly_nv', ['staff' => $staff, 'search' => $search]);
@@ -493,8 +495,8 @@ class index_backend extends Controller
     function searchOrder_product(Request $request){
         if ($request->isMethod('get')) {
             $search = $request->input('search');
-            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get()->toArray();
-            if(empty($product)){
+            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->paginate(10);
+            if(empty($product->items())){
                 return back()->with('mesages', 'Không tìm thấy kết quả');
             } else {
                 return view('backend.quan_ly_sp', ['product' => $product, 'search' => $search]);

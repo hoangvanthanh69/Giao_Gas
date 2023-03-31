@@ -66,29 +66,21 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                                
-                               
                         </div>
                     @endif
                 @endforeach
-
-                            @if (session('message'))
-                                <div class="notification-orders">
-                                    {{ session('message') }}
-                                </div>
-                            @endif
-                       
-
-                    
+                    @if (session('message'))
+                        <div class="notification-orders">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     <div class="button-history-orders">
                         <a class="back-order-statistics" href="{{route('home')}}">
                             <i class="fa-solid fa-arrow-left"></i>
                             Quay lại
                         </a>
                     </div>
-                    
-                </div>
+            </div>
         </div>
     </div>
     

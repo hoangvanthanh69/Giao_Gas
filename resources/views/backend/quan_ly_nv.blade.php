@@ -25,8 +25,8 @@
                   </span>
                 </form>
             </div>
-
           </div>
+          
           <div class="card-body">
             <div class="table-responsive table-list-product">
 
@@ -95,11 +95,19 @@
                             </button>
                           </form>
                         </td>
-
                     </tr>
                   @endforeach 
                 </tbody>
               </table>
+              <nav aria-label="Page navigation example" class="nav-link-page">
+                <ul class="pagination">
+                  @for ($i = 1; $i <= $staff->lastPage(); $i++)
+                    <li class="page-item{{ ($staff->currentPage() == $i) ? ' active' : '' }}">
+                      <a class="page-link a-link-page" href="{{ $staff->url($i) }}">{{ $i }}</a>
+                    </li>
+                  @endfor
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

@@ -31,19 +31,16 @@
             @endif
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-
-                    <tr class="tr-name-table bg-info">
-                      <th >Mã</th>
-                      <th>Tên Khách hàng</th>
-                      <th>Số điện thoại</th>
-                      <th >Loại bình gas</th>
-                      <th >Ngày tạo</th>
-                      <th>Trạng thái</th>
-                      <th>Người giao</th>
-                      <th>Chức năng</th>
-
-                    </tr>
-                    
+                  <tr class="tr-name-table bg-info">
+                    <th >Mã</th>
+                    <th>Tên Khách hàng</th>
+                    <th>Số điện thoại</th>
+                    <th >Loại bình gas</th>
+                    <th >Ngày tạo</th>
+                    <th>Trạng thái</th>
+                    <th>Người giao</th>
+                    <th>Chức năng</th>
+                  </tr>
                 </thead>
                 
                 <tbody class="infor">
@@ -65,12 +62,11 @@
                             <form method='POST' class="status-order-admin-form" action="{{route('status_admin', $val['id'])}}"> 
                                 @csrf
                                 <select class="select-option-update" onchange="this.form.submit()" name="status">
-                                    <option value="1" <?php echo  ($val['status'] == 1 ? 'selected' : ''); ?>> Đang xử lý</option>
-                                    <option value="2" <?php echo ($val['status'] == 2 ? 'selected' : ''); ?>> Đang giao</option>
-                                    <option value="3" <?php echo ($val['status'] == 3 ? 'selected' : ''); ?>> Đã giao</option>
-                                    <option value="4" <?php echo ($val['status'] == 4 ? 'selected' : ''); ?>> Đã hủy</option>
+                                  <option value="1" <?php echo  ($val['status'] == 1 ? 'selected' : ''); ?>> Đang xử lý</option>
+                                  <option value="2" <?php echo ($val['status'] == 2 ? 'selected' : ''); ?>> Đang giao</option>
+                                  <option value="3" <?php echo ($val['status'] == 3 ? 'selected' : ''); ?>> Đã giao</option>
+                                  <option value="4" <?php echo ($val['status'] == 4 ? 'selected' : ''); ?>> Đã hủy</option>
                                 </select>
-    
                             </form>
                         </td>
                         <td class="order-product-infor-admin">

@@ -131,7 +131,7 @@
                             <span class="count-all saleprice-product">{{number_format($data_original_price)}} đ</span> 
                         </div>
                     </div>
-                    <div class="col-auto card-icon text-success" style="font-size: 38px;">
+                    <div class="col-auto card-icon text-Warning" style="font-size: 38px;">
                         <i class="fa-solid fa-money-bill"></i>
                     </div>
                 </div>
@@ -167,31 +167,35 @@
             </div>
         </div>
 
-        <div class="col-6 mb-2">
-                <div class="card statistical-all statistical-all-canceled">
-                    <div class="row no-gutters ">
-                        <div class="col mr-2 p-3 text-light center-total-product">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1 text-info">
-                                Sản phẩm bán chạy nhất hệ thống
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    @foreach ($bestseller as $sp) 
-                                        <p class="count-all">{{$sp->name_product}}</p>
-                                    @endforeach
-                            </div>
-                            
+        <!-- sản phẩm bán chạy -->
+        <div class="col-6">
+            <div class="card statistical-all">
+                <div class="row no-gutters ">
+                    <div class="col mr-2 p-3 text-light center-total-product">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-Dark">
+                            Sản phẩm bán chạy nhất hệ thống
                         </div>
-                        <div class="col-auto card-icon">
-                            <i class="fa-solid fa-ban text-warning fs-3"></i>
-                        </div>
+                        <table class="table">
+                            <tbody>
+                                @foreach ($bestseller as $sp) 
+                                    <tr>
+                                        <td class="col-3">{{$sp->idProduct}}</td>
+                                        <td class="col-9">{{$sp->name_product}}</td>
+                                    </tr>
+                                @endforeach
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-auto card-icon text-Secondary" style="font-size: 38px;">
+                        <i class="fa-solid fa-thumbs-up"></i>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-        
-    </div>
-    
-    </div>
+</div>
 @endsection
 
 </div>

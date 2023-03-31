@@ -65,8 +65,7 @@
                       <td class="name-product-td infor-product">{{$val['quantity']}}</td>
                       <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
                       <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
-                      
-                      
+
                       <td class="function-icon">
                         <form action="{{route('edit-product', $val['id'])}}">
                           <button class="summit-add-product-button infor-product" type='submit'>
@@ -81,17 +80,21 @@
                         </form>
                       </td>
                     </tr>
-                    
-
                   @endforeach 
-                  
-
-                  
                 </tbody>
                 <h1 id="showtext">
-
               </table>
+              <nav aria-label="Page navigation example" class="nav-link-page">
+                <ul class="pagination">
+                  @for ($i = 1; $i <= $product->lastPage(); $i++)
+                    <li class="page-item{{ ($product->currentPage() == $i) ? ' active' : '' }}">
+                      <a class="page-link a-link-page" href="{{ $product->url($i) }}">{{ $i }}</a>
+                    </li>
+                  @endfor
+                </ul>
+              </nav>
             </div>
+            
           </div>
         </div>
 
