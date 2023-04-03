@@ -14,9 +14,9 @@
                <h5 class="list-account-admin">Tài khoản admin đã duyệt</h5>
                <tr class="tr-name-table">
                   <th>STT</th>
+                  <th>Name</th>
                   <th>Email</th>
                   <th>Password</th>
-                  <th>Name</th>
                   <th>Chức vụ</th>
                   <th>Chức năng</th>
                </tr>
@@ -25,9 +25,9 @@
                @foreach($tbl_admin as $key => $val)
                <tr class="hover-color">
                   <td>{{$key+1}}</td>
+                  <td class="product-order-quantity">{{$val['admin_name']}}</td>
                   <td class="product-order-quantity">{{$val['admin_email']}}</td>
                   <td class="product-order-quantity">{{$val['admin_password']}}</td>
-                  <td class="product-order-quantity">{{$val['admin_name']}}</td>
                   <td class="product-order-quantity"><?php 
                      if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
                      elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 

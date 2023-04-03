@@ -10,10 +10,11 @@
                <h5 class="list-account-admin">Tài khoản khách hàng</h5>
                 <tr class="tr-name-table bg-success">
                      <th>STT</th>
-                     <th class="">Họ tên</th>
-                     <th class="">Email</th>
-                     <th class="">Mật khẩu</th>
-                     <th class="">Chức năng</th>
+                     <th>Họ tên</th>
+                     <th>Email</th>
+                     <th>Mật khẩu</th>
+                     <th>Số đơn hàng</th>
+                     <th>Chức năng</th>
                 </tr>
             </thead>
             <tbody class="infor">
@@ -23,6 +24,7 @@
                   <td class="product-order-quantity">{{$val['name']}}</td>
                   <td class="product-order-quantity">{{$val['email']}}</td>
                   <td class="product-order-quantity">{{$val['password']}}</td>
+                  <td class="product-order-quantity">{{$val['order_count']}}</td>
                   <td class="product-order-quantity">
                      <form action="{{route('delete_account_users', $val['id'])}}">
                         <button class="summit-add-product-button" type='submit'>

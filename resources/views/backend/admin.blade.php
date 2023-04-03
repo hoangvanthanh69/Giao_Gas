@@ -89,6 +89,11 @@
                             <span class="count-product">{{$count_staff_chuvu1}}</span>
                             Giao gas
                         </div>
+
+                        <div class="mb-0 text-Info">
+                            <span class="count-product">{{$count_staff_chuvu3}}</span>
+                            Biên tập
+                        </div>
                     </div>
                     <div class="col-auto card-icon">
                         <i class="fas fa-users fa-2x text-success"></i>
@@ -169,26 +174,65 @@
 
         <!-- sản phẩm bán chạy -->
         <div class="col-6">
-            <div class="card statistical-all">
+            <div class="card statistical-all bg-Secondary">
                 <div class="row no-gutters ">
-                    <div class="col mr-2 p-3 text-light center-total-product">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-Dark">
+                    <div class="col mr-2 text-light center-total-product m-3">
+                        <div class="text-xs fw-bolder text-uppercase mb-1 text-dark">
                             Sản phẩm bán chạy nhất hệ thống
                         </div>
                         <table class="table">
                             <tbody>
-                                @foreach ($bestseller as $sp) 
-                                    <tr>
-                                        <td class="col-3">{{$sp->idProduct}}</td>
-                                        <td class="col-9">{{$sp->name_product}}</td>
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>STT</th>
+                                        <th>Mã SP</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                    </tr>
+                                </thead>
+                                @foreach ($bestseller as $key => $sp) 
+                                    <tr class="text-light text-center">
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$sp->idProduct}}</td>
+                                        <td>{{$sp->name_product}}</td>
+                                        <td>{{$sp->total_amount}}</td>
                                     </tr>
                                 @endforeach
                                 
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-auto card-icon text-Secondary" style="font-size: 38px;">
-                        <i class="fa-solid fa-thumbs-up"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- khách hàng thân thiết -->
+        <div class="col-6">
+            <div class="card statistical-all bg-Secondary">
+                <div class="row no-gutters ">
+                    <div class="col mr-2 text-light center-total-product m-3">
+                        <div class="text-xs fw-bolder text-uppercase mb-1 text-light">
+                            Khách hàng thân thiết
+                        </div>
+                        <table class="table">
+                            <tbody>
+                                <thead>
+                                    <tr class="text-center text-light">
+                                        <th>STT</th>
+                                        <th>Tên Khách hàng</th>
+                                        <th>Số đơn hàng</th>
+                                    </tr>
+                                </thead>
+                                @foreach ($loyal_customer as $key => $sp) 
+                                    <tr class="text-center list-loyal-customer">
+                                        <td>{{$key+1}}</td>
+                                        <td class="">{{$sp->nameCustomer}}</td>
+                                        <td class="">{{$sp->total_amounts}}</td>
+                                    </tr>
+                                @endforeach
+                                
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

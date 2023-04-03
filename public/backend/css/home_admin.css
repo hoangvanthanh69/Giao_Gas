@@ -584,3 +584,9 @@ a.page-link.a-link-page {
     padding-right: 25px;
     line-height: 26px;
 }
+.card.statistical-all.bg-Secondary {
+    min-height: 298px !important;
+}
+.list-loyal-customer{
+    color: rgb(0, 0, 0);
+}

@@ -32,19 +32,23 @@ class index_backend extends Controller
         $count_product2 = product::where('loai','=',2)->count();
         $count_staff_chuvu1 = add_staff::where('chuc_vu','=',1)->count();
         $count_staff_chuvu2 = add_staff::where('chuc_vu','=',2)->count();
+        $count_staff_chuvu3 = add_staff::where('chuc_vu','=',3)->count();
         $tong_gia=order_product::where('status','=',3)->sum('tong');
         $product_all=product::sum('quantity');
         $count_order = order_product::count();
         $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        $bestseller = order_product::select('name_product', 'idProduct', 'type')->groupBy('name_product', 'idProduct', 'type')->havingRaw('COUNT(*) >= 2')->get();
-        // print_r($data_price2); die;
+        $bestseller = order_product::select('name_product', 'idProduct', DB::raw('sum(amount) as total_amount'))
+        ->groupBy('name_product', 'idProduct')->havingRaw('COUNT(*) >= 2')->get();
+        $loyal_customer = order_product::select('nameCustomer', DB::raw('count(distinct id) as total_amounts'))
+        ->groupBy('nameCustomer')->havingRaw('COUNT(distinct id) >= 2')->get();
+        // print_r($bestseller); die;
         // print_r($tong_gia);
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
         compact('count_product', 'count_staff', 'count_order','data_price', 'data_original_price', 'count_product1', 
         'count_product2', 'data_price1', 'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 
-        'product_all','bestseller'));
+        'product_all','bestseller', 'count_staff_chuvu3', 'loyal_customer'));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -481,6 +485,10 @@ class index_backend extends Controller
             return redirect()->route('login');
         }
         $users = users::get()->toArray();
+        foreach($users as &$user){
+            $order_count = order_product::where('user_id', $user['id'])->count();
+            $user['order_count'] = $order_count;
+        }
         return view('backend.quan_ly_tk_user', ['users'=>$users]);
     }
     

@@ -28,6 +28,9 @@ class index extends Controller
       $state = null;
       $district = null;
       if (!empty($order_product)) {
+         usort($order_product, function($a, $b) {
+            return strcmp($b['created_at'], $a['created_at']);
+        });
          $phoneCustomer = $order_product[0]['phoneCustomer'];
          $diachi = $order_product[0]['diachi'];
          $country = $order_product[0]['country'];
