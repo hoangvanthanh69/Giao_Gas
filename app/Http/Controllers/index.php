@@ -253,8 +253,8 @@ class index extends Controller
                <span>Tên sản phẩm: '. $val['name_product'].'</span>
             </div>
 
-            <div class="price-product-order price ">
-               <span>Giá sản phẩm: '. number_format($val['original_price']).' đ</span>
+            <div class="price-product-order price " id="price">
+               <span class="gia">Giá sản phẩm: '. number_format($val['original_price']).' đ</span>
             </div>
 
          </div> '

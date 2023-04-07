@@ -182,7 +182,7 @@
                         <div class="card-body gas-delivery-information ">
                         
                             <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
-                            @csrf
+                                @csrf
                                 <div class="form-gas-delivery-information">
 
                                     <label class="form-label" for="firstname">Tên khách hàng:</label>
@@ -245,7 +245,6 @@
                                                 </div>
                                             </div>
                                         @endif
-
                                     </div>
                                     
                                     <label for="loai" class="form-label">Loại bình gas:</label>
@@ -259,26 +258,61 @@
                                     </div>
 
                                     <div class="number-product-order product-address-amount">
-                                        <div class="product-address-district">
+                                        <div class="product-address-district" id="amountss">
                                             <label for="loai" class="form-label">Số lượng:</label>
-                                            <input type="number" step="1" class="amount quantity" max="50" min="1" name="amount">
+                                            <input type="number" step="1" class="amount quantity" max="50" min="1" name="amount" id="amount">
                                         </div>
                                     </div>
 
                                     <label for="exampleFormControlInput1" class="form-label ">Ghi chú:</label>
                                     <input class="ghichu form-control form-product-specials notie" id="exampleFormControlInput1" name="ghichu" cols="30" rows="10"></input>
                                     
-                                    <div class="row">
-                                        <div class="col-sm-5 offset-sm-4">
-                                            <button class="btn btn-primary submit">Giao gas</button>
-                                        </div>
+                                    <div class="col-sm-5 offset-sm-4" id="show_infor">
+                                        <button type="button" class="btn btn-primary" id="view-order-info">Tiếp tục</button>
                                     </div>
 
                                 </div>
-                          
-                            </form>
 
-                                    
+                                <!-- hiển thị thông tin đặt hàng trước khi đặt -->
+                                <div class="modal fade" id="orderInfoModal" tabindex="-1" aria-labelledby="orderInfoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="orderInfoModalLabel">Thông tin đặt hàng</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="d-flex">
+                                                    <label class="me-2">Tên khách hàng: </label>
+                                                    <p id="nameCustomer"></p>
+                                                </div>
+
+                                                <div class="d-flex">
+                                                    <label class="me-2">Số điện thoại: </label>
+                                                    <p id="phoneCustomer"></p>
+                                                </div>
+
+                                                <div class="d-flex">
+                                                    <label class="me-2">Loại bình gas:  </label>
+                                                    <p id="typeCustomer"></p>
+                                                </div>
+
+                                                <div class="d-flex">
+                                                    <label class="me-2">Số lượng:  </label>
+                                                    <p id="amountCustomer"></p>
+                                                </div>
+
+                                                <div>Tổng giá tiền: <span class="total-price"></span></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="col-sm-5 offset-sm-4">
+                                                    <button class="btn btn-primary submit">Giao gas</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -503,6 +537,7 @@
                 </div>
             </div>
     </footer>
+
     <script src="{{asset('frontend/js/style.js')}}"></script>
     <script src="{{asset('frontend/js/doigas.js')}}"></script>
 
@@ -515,7 +550,6 @@
     <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
 
 	<script type="text/javascript">
-		
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
@@ -586,8 +620,6 @@
                         var amount = document.querySelector('.amount');
                         var ghichu = document.querySelector('.ghichu');
                         var type = document.querySelector('.type');
-                        // var idProduct = document.querySelector('.idProduct');
-                        // var price = document.querySelector('.price');
                         for(let i =0; i< product.length ; i++){
                             product[i].onclick = ()=>{
                             var idProduct = product[i].getAttribute('id');
@@ -598,7 +630,9 @@
                                     id : idProduct,
                                     _token: '{{csrf_token()}}',
                                 },
-                                success: function(html){}
+                                success: function(html){
+                                    
+                                }
                             })
                             }
                         }
@@ -616,22 +650,87 @@
                                     amount : amount.value,
                                     ghichu : ghichu.value,
                                     type : type.value,
-                                    // name_product : name_product.value,
-                                    // price : price.value,
                                     _token: '{{csrf_token()}}',
                                 },
-                                success: function(html){}
+                                success: function(html){
+                                    
+                                }
                             })
                         }
+
+                        var totalPrice = 0;
                         var filter_button = document.querySelectorAll('.productchoose');
-                        Array.from(filter_button).forEach(function(element){
-                            element.addEventListener('click', function(event){
-                                for(let i=0; i<filter_button.length; i++){
+                        Array.from(filter_button).forEach(function(element) {
+                            element.addEventListener('click', function(event) {
+                                for(let i = 0; i < filter_button.length; i++) {
                                     filter_button[i].classList.remove('mystyle');
                                 }
                                 this.classList.add('mystyle');
-                            })
-                        })
+
+                                var amountCustomer = document.getElementById("amount").value;
+                                if (isNaN(amountCustomer) || amountCustomer == '') {
+                                    // console.log("Invalid amount input");
+                                    return;
+                                }
+
+                                var original_price_element = this.querySelector('.gia');
+                                if (original_price_element) {
+                                    var original_price = parseInt(original_price_element.innerText.replace(/\D/g,''));
+                                } else {
+                                    console.log('');
+                                }
+
+                                // console.log("original_price:", original_price);
+                                totalPrice = original_price * amountCustomer;
+                                var totalPriceElement = document.querySelector('.total-price');
+                                // console.log("totalPrice:", totalPrice);
+                                totalPriceElement.innerText = totalPrice.toLocaleString() + ' đ';
+                            });
+                        });
+
+                        var amountInput = document.getElementById("amount");
+                        amountInput.addEventListener("input", function() {
+                        var amountCustomer = amountInput.value;
+                        if (isNaN(amountCustomer) || amountCustomer == '') {
+                            console.log("Invalid amount input");
+                            return;
+                        }
+
+                        var totalPriceElement = document.querySelector('.total-price');
+                        var selectedProduct = document.querySelector('.mystyle');
+                        if (selectedProduct) {
+                            var original_price_element = selectedProduct.querySelector('.gia');
+                            if (original_price_element) {
+                            var original_price = parseInt(original_price_element.innerText.replace(/\D/g,''));
+                            totalPrice = original_price * amountCustomer;
+                            console.log("original_price:", original_price);
+                            console.log("totalPrice:", totalPrice);
+                            totalPriceElement.innerText = totalPrice.toLocaleString() + ' đ';
+                            } else {
+                            console.log('');
+                            }
+                        }
+                        });
+
+                        $(function() {
+                            $('#show_infor').on('submit', function(event) {
+                                event.preventDefault();
+                                var nameCustomer = $('#firstname').val();
+                                var phoneCustomer = $('#number').val();
+                                var typeCustomer = $('#type option:selected').text();
+                                var amountCustomer = $('.amount').val();
+                                var ghichuCustomer = $('.ghichu').val();
+                                $('#nameCustomer').text(nameCustomer);
+                                $('#phoneCustomer').text(phoneCustomer);
+                                $('#typeCustomer').text(typeCustomer);
+                                $('#amountCustomer').text(amountCustomer);
+                                $('#orderInfoModal').modal('show');
+                            });
+                            $('#view-order-info').on('click', function(event) {
+                                event.preventDefault();
+                                $('#show_infor').submit();
+                            });
+                        });
                     }
                 });
             }
