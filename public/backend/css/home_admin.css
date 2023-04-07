@@ -590,3 +590,6 @@ a.page-link.a-link-page {
 .list-loyal-customer{
     color: rgb(0, 0, 0);
 }
+.hover-color:hover{
+    background-color: rgb(250, 247, 247);
+}

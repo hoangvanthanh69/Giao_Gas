@@ -48,9 +48,15 @@
                                         {{$val['admin_name']}}
                                         <select name="admin_name" class="form-control" onchange="this.form.submit()">
                                             <option value="">Chọn</option>
+                                            @php
+                                                $count = 0;
+                                            @endphp
                                             @foreach($tbl_admin as $admin)
                                                 @if($admin -> chuc_vu != 2)
-                                                    <option value="{{$admin->admin_name}}">{{$admin-> admin_name}}</option>
+                                                    @php
+                                                        $count ++;
+                                                    @endphp
+                                                    <option value="{{$admin->admin_name}}">{{$count}} {{$admin-> admin_name}}</option>
                                                 @endif
                                             @endforeach
                                         </select>

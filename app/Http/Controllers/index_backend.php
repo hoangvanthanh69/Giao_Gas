@@ -40,9 +40,9 @@ class index_backend extends Controller
         $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $bestseller = order_product::select('name_product', 'idProduct', DB::raw('sum(amount) as total_amount'))
-        ->groupBy('name_product', 'idProduct')->havingRaw('COUNT(*) >= 2')->get();
+        ->groupBy('name_product', 'idProduct')->havingRaw('COUNT(*) >= 2')->orderByDesc('total_amount')->get();
         $loyal_customer = order_product::select('nameCustomer', DB::raw('count(distinct id) as total_amounts'))
-        ->groupBy('nameCustomer')->havingRaw('COUNT(distinct id) >= 2')->get();
+        ->groupBy('nameCustomer')->havingRaw('COUNT(distinct id) >= 3')->orderByDesc('total_amounts')->get();
         // print_r($bestseller); die;
         // print_r($tong_gia);
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 

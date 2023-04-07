@@ -29,9 +29,7 @@
 
             <div class="card-body history-orders-list">
                 @foreach($order_product as $key => $val)
-                    
                     @if ($status == 'all' || $val['status'] == $status)
-                        
                         <div class="row list-order-user-history">
                             <a href="{{route('thong_tin_don_hang', $val['id'])}}" class="col-11 row link-infor-order-user-history">
                                 <div  class="col-2 infor-order-user-history">
@@ -69,21 +67,21 @@
                         </div>
                     @endif
                 @endforeach
-                    @if (session('message'))
-                        <div class="notification-orders">
-                            {{ session('message') }}
-                        </div>
-                    @endif
-                    <div class="button-history-orders">
-                        <a class="back-order-statistics" href="{{route('home')}}">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            Quay lại
-                        </a>
+                
+                @if (session('message'))
+                    <div class="notification-orders">
+                        {{ session('message') }}
                     </div>
+                @endif
+                <div class="button-history-orders">
+                    <a class="back-order-statistics" href="{{route('home')}}">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Quay lại
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    
 </div>
 <footer>
         <div class="footer">
@@ -138,6 +136,12 @@
                                         </a>
                                     </li>
 
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-instagram fa-brands fa-instagram"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Instargram
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -163,6 +167,11 @@
                                         
                                     </li>
 
+                                    <li class="contact-support-item">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Đổi gas
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

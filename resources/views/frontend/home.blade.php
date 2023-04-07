@@ -83,6 +83,7 @@
             </div>
         </div>
     </header>
+
     <main>
         <div class="web-container">
             <div class="grid-nav">
@@ -105,7 +106,6 @@
                         <button class="btnbtn home-filter-button" data-filter="introduce">
                             Giới thiệu
                         </button>
-
 
                         <a href="{{route('order-history')}}">
                             <button class="btnbtn home-filter-button" >
@@ -441,6 +441,12 @@
                                         </a>
                                     </li>
 
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-instagram fa-brands fa-instagram"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Instargram
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -469,7 +475,6 @@
                                             Đổi gas
                                         </a>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -504,7 +509,7 @@
     <script language="javascript">print_country("country");</script>
     <!-- <script language="javascript">print_type("type");</script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
@@ -552,11 +557,7 @@
 				unhighlight: function(element, errorClass, validClass) {
 					$(element).addClass("is-valid").removeClass("is-invalid");
 				} 
-
 			});
-
-    
-        
         });
 	</script>
 
@@ -564,98 +565,76 @@
         var handle_order =  document.querySelector('.handle_order');
         var submit =  document.querySelector('.submit');
             handle_order.onchange = ()=>{
-
-            var id = handle_order.value;
-            $.ajax({
-            url: "{{route('handle-order')}}",
-            method: "post",
-            data: {
-                id : id,
-                _token: '{{csrf_token()}}',
-            },
-            success: function(html){
-                $("#results").html(html);
-                var idProduct;
-                var product = document.querySelectorAll('.productchoose');
-                var nameCustomer = document.querySelector('.nameCustomer');
-                var phoneCustomer = document.querySelector('.phoneCustomer');
-                var country = document.querySelector('.country');
-                var state = document.querySelector('.state');
-                var district = document.querySelector('.district');
-                var diachi = document.querySelector('.diachi');
-                var amount = document.querySelector('.amount');
-                var ghichu = document.querySelector('.ghichu');
-                var type = document.querySelector('.type');
-
-
-                // var idProduct = document.querySelector('.idProduct');
-                // var price = document.querySelector('.price');
-
-
-                for(let i =0; i< product.length ; i++){
-                    product[i].onclick = ()=>{
-                       var idProduct = product[i].getAttribute('id');
-
-                       $.ajax({
-                        url: "{{route('idProduct')}}",
-                        method: "post",
-                        data: {
-                            id : idProduct,
-                            _token: '{{csrf_token()}}',
-                        },
-                        success: function(html){}
-                    })
-
-                    }
-                }
-
-                submit.onclick = ()=>{
-                    $.ajax({
-                        url: "{{route('order')}}",
-                        method: "post",
-                        data: {
-                            nameCustomer : nameCustomer.value,
-                            phoneCustomer : phoneCustomer.value,
-                            country : country.value,
-                            state : state.value,
-                            district : district.value,
-                            diachi : diachi.value,
-                            amount : amount.value,
-                            ghichu : ghichu.value,
-                            type : type.value,
-
-                            // name_product : name_product.value,
-                            // price : price.value,
-
-
-
-                            _token: '{{csrf_token()}}',
-                        },
-                        success: function(html){}
-                    })
-
-                }
-                var filter_button = document.querySelectorAll('.productchoose');
-                    
-                    Array.from(filter_button).forEach(function(element){
-                        element.addEventListener('click', function(event){
-                            for(let i=0; i<filter_button.length; i++){
-                                filter_button[i].classList.remove('mystyle');
+                var id = handle_order.value;
+                $.ajax({
+                    url: "{{route('handle-order')}}",
+                    method: "post",
+                    data: {
+                        id : id,
+                        _token: '{{csrf_token()}}',
+                    },
+                    success: function(html){
+                        $("#results").html(html);
+                        var idProduct;
+                        var product = document.querySelectorAll('.productchoose');
+                        var nameCustomer = document.querySelector('.nameCustomer');
+                        var phoneCustomer = document.querySelector('.phoneCustomer');
+                        var country = document.querySelector('.country');
+                        var state = document.querySelector('.state');
+                        var district = document.querySelector('.district');
+                        var diachi = document.querySelector('.diachi');
+                        var amount = document.querySelector('.amount');
+                        var ghichu = document.querySelector('.ghichu');
+                        var type = document.querySelector('.type');
+                        // var idProduct = document.querySelector('.idProduct');
+                        // var price = document.querySelector('.price');
+                        for(let i =0; i< product.length ; i++){
+                            product[i].onclick = ()=>{
+                            var idProduct = product[i].getAttribute('id');
+                            $.ajax({
+                                url: "{{route('idProduct')}}",
+                                method: "post",
+                                data: {
+                                    id : idProduct,
+                                    _token: '{{csrf_token()}}',
+                                },
+                                success: function(html){}
+                            })
                             }
-                            this.classList.add('mystyle');
-
+                        }
+                        submit.onclick = ()=>{
+                            $.ajax({
+                                url: "{{route('order')}}",
+                                method: "post",
+                                data: {
+                                    nameCustomer : nameCustomer.value,
+                                    phoneCustomer : phoneCustomer.value,
+                                    country : country.value,
+                                    state : state.value,
+                                    district : district.value,
+                                    diachi : diachi.value,
+                                    amount : amount.value,
+                                    ghichu : ghichu.value,
+                                    type : type.value,
+                                    // name_product : name_product.value,
+                                    // price : price.value,
+                                    _token: '{{csrf_token()}}',
+                                },
+                                success: function(html){}
+                            })
+                        }
+                        var filter_button = document.querySelectorAll('.productchoose');
+                        Array.from(filter_button).forEach(function(element){
+                            element.addEventListener('click', function(event){
+                                for(let i=0; i<filter_button.length; i++){
+                                    filter_button[i].classList.remove('mystyle');
+                                }
+                                this.classList.add('mystyle');
+                            })
                         })
-                        
-                    })
-                
+                    }
+                });
             }
-
-            
-            });
-            
-
-        }
-  
     </script>
 </body>
 </html>
