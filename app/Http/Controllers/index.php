@@ -250,7 +250,7 @@ class index extends Controller
             </div>
 
             <div class="name-product-order ">
-               <span>Tên sản phẩm: '. $val['name_product'].'</span>
+               <span class="name_product">Tên sản phẩm: '. $val['name_product'].'</span>
             </div>
 
             <div class="price-product-order price " id="price">

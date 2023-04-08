@@ -183,15 +183,14 @@
                         
                             <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
                                 @csrf
-                                <div class="form-gas-delivery-information">
-
+                                <div class="form-gas-delivery-information" >
                                     <label class="form-label" for="firstname">Tên khách hàng:</label>
-                                    <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" value="{{ Session::get('home')['name'] }}" />
+                                    <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" value="{{ Session::get('home')['name'] }}" required/>
                                     <label class="form-label" for="number">Số điện thoại khách hàng:</label>
                                     @if (empty($order_product))
-                                    <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" required/>
+                                    <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" />
                                     @else
-                                        <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ $order_product[0]['phoneCustomer'] }}" required/>
+                                        <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ $order_product[0]['phoneCustomer'] }}" />
                                     @endif
 
                                     <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:</label>
@@ -268,7 +267,9 @@
                                     <input class="ghichu form-control form-product-specials notie" id="exampleFormControlInput1" name="ghichu" cols="30" rows="10"></input>
                                     
                                     <div class="col-sm-5 offset-sm-4" id="show_infor">
-                                        <button type="button" class="btn btn-primary" id="view-order-info">Tiếp tục</button>
+                                        <div class="col-sm-5 offset-sm-4">
+                                            <button class="btn btn-primary submit" id="view-order-info">Tiếp tục</button>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -283,7 +284,11 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="d-flex">
-                                                    <label class="me-2">Tên khách hàng: </label>
+                                                    <p class="name-product"></p>
+                                                </div>
+
+                                                <div class="d-flex">
+                                                    <label class="me-2">Họ Tên: </label>
                                                     <p id="nameCustomer"></p>
                                                 </div>
 
@@ -296,18 +301,20 @@
                                                     <label class="me-2">Loại bình gas:  </label>
                                                     <p id="typeCustomer"></p>
                                                 </div>
-
+                                                
                                                 <div class="d-flex">
                                                     <label class="me-2">Số lượng:  </label>
                                                     <p id="amountCustomer"></p>
                                                 </div>
 
-                                                <div>Tổng giá tiền: <span class="total-price"></span></div>
+                                                <div class="fw-bolder text-danger">
+                                                    <label class="me-2">Tổng tiền:  </label>
+                                                    <span class="total-price "></span>
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <div class="col-sm-5 offset-sm-4">
-                                                    <button class="btn btn-primary submit">Giao gas</button>
-                                                </div>
+                                                <h6 class="text-success payment-delivery">Thanh toán khi nhận hàng</h6>
+                                                <button class="btn btn-primary submit">Giao gas</button>
                                             </div>
                                         </div>
                                     </div>
@@ -667,6 +674,10 @@
                                 }
                                 this.classList.add('mystyle');
 
+                                var name_product = this.querySelector('.name_product');
+                                var nameProductElement = document.querySelector('.name-product');
+                                nameProductElement.textContent  = name_product.textContent.trim() ;
+                                
                                 var amountCustomer = document.getElementById("amount").value;
                                 if (isNaN(amountCustomer) || amountCustomer == '') {
                                     // console.log("Invalid amount input");
@@ -685,6 +696,7 @@
                                 var totalPriceElement = document.querySelector('.total-price');
                                 // console.log("totalPrice:", totalPrice);
                                 totalPriceElement.innerText = totalPrice.toLocaleString() + ' đ';
+                                
                             });
                         });
 
@@ -703,8 +715,8 @@
                             if (original_price_element) {
                             var original_price = parseInt(original_price_element.innerText.replace(/\D/g,''));
                             totalPrice = original_price * amountCustomer;
-                            console.log("original_price:", original_price);
-                            console.log("totalPrice:", totalPrice);
+                            // console.log("original_price:", original_price);
+                            // console.log("totalPrice:", totalPrice);
                             totalPriceElement.innerText = totalPrice.toLocaleString() + ' đ';
                             } else {
                             console.log('');

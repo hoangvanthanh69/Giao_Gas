@@ -898,3 +898,12 @@ a i.fa-solid.fa-right-from-bracket {
     color: #312e2e;
     font-weight: 500;
 }
+div#show_infor {
+    text-align: center;
+}
+h5#orderInfoModalLabel {
+    margin-left: 30%;
+}
+h6.payment-delivery {
+    margin-right: 39%;
+}

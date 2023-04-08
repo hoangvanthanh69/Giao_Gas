@@ -29,10 +29,11 @@
                   {{ session('success') }}
                 </div>
             @endif
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable" cellspacing="0" style="width: 100%">
                 <thead>
                   <tr class="tr-name-table bg-info">
-                    <th >Mã</th>
+                    <th>STT</th>
+                    <th >Mã ĐH</th>
                     <th>Tên Khách hàng</th>
                     <th>Số điện thoại</th>
                     <th >Loại bình gas</th>
@@ -43,12 +44,13 @@
                   </tr>
                 </thead>
                 
-                <tbody class="infor">
+                <tbody class="infor inforaaaa">
                   @foreach($order_product as $key => $val)
                   
                     @if ($status == 'all' || $val['status'] == $status)
                     
-                      <tr class="order-product-height hover-color">
+                      <tr class="order-product-height hover-color" style="{{ $loop->index >= 6 ? 'display: none;' : '' }}">
+                        <td class="order-product-infor-admin">{{$key+1}}</td>
                         <td class="order-product-infor-admin"> {{$val['id']}}</td>
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
@@ -88,11 +90,22 @@
                   @endforeach
                 </tbody>
               </table>
-
+              <p id="showmore" class="text-primary showmore-order">Show more</p>
             </div>
           </div>
         </div>
 
+<script>
+  const showmore = document.getElementById('showmore');
+  const hiddenRows = document.querySelectorAll('tr[style*="display: none;"]');
+  showmore.addEventListener('click', () => {
+    hiddenRows.forEach(row => {
+      row.style.display = 'table-row';
+    });
+
+    showmore.style.display = 'none';
+  });
+</script>
 
 @endsection
         
