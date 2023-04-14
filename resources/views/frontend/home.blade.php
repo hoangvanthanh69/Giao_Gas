@@ -284,10 +284,6 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="d-flex">
-                                                    <p class="name-product"></p>
-                                                </div>
-
-                                                <div class="d-flex">
                                                     <label class="me-2">Họ Tên: </label>
                                                     <p id="nameCustomer"></p>
                                                 </div>
@@ -297,6 +293,10 @@
                                                     <p id="phoneCustomer"></p>
                                                 </div>
 
+                                                <div class="d-flex">
+                                                    <p class="name-product"></p>
+                                                </div>
+                                                
                                                 <div class="d-flex">
                                                     <label class="me-2">Loại bình gas:  </label>
                                                     <p id="typeCustomer"></p>
@@ -568,7 +568,7 @@
 					dd: "required",
 					cn: "required",
                     diachi: "required",
-                    ghichu: "required",
+                    // ghichu: "required",
                     amount: "required",
 				},
 				messages: {
@@ -580,7 +580,7 @@
 					diachi: "Nhập hẻm/số nhà",
 					dd: "chọn loại",
 					cn: "chọn loại",
-                    ghichu: "Nhập ghi chú",
+                    // ghichu: "Nhập ghi chú",
                     amount: "Nhập số lượng",
 				},
 				errorElement: "div",

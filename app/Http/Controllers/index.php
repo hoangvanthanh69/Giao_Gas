@@ -200,7 +200,7 @@ class index extends Controller
       $order_product->district = $request['district'];
       $order_product->diachi = $request['diachi'];
       $order_product->amount = $order_quantity; // Số lượng đặt hàng
-      $order_product->ghichu = $request['ghichu'];
+      $order_product->ghichu = 'null';
       $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
       // $order_product -> save();  
       $order_product->status = 1;

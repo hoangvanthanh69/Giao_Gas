@@ -89,7 +89,7 @@ class index_backend extends Controller
         $product->image = $new_image;
         $product -> save();  
         return redirect()->route('quan-ly-sp');
-     }
+    }
 
     function delete($id){
         $product = product::find($id);
@@ -98,16 +98,14 @@ class index_backend extends Controller
     }
 
 
-    function edit_product($id)
-    {
+    function edit_product($id){
         $product = product::find($id);
         //    echo " <pre>";
         //    print_r($product);
         return view('backend.edit_product' , ['product' => $product]);
     }
 
-    function update_product(Request $request, $id)
-    {
+    function update_product(Request $request, $id){
         $product = product::find($id);
         $product->name_product = $request->name_product;
         $product->loai = $request->loai;
@@ -143,6 +141,7 @@ class index_backend extends Controller
         //    print_r($staff);
         return view('backend.edit_staff' , ['staff' => $staff]);
     }
+    
     function update_staff(Request $request, $id){
         $staff = add_staff::find($id);
         $staff->last_name = $request->last_name;
@@ -153,6 +152,21 @@ class index_backend extends Controller
         $staff->date_input = $request->date_input;
         $staff->phone = $request->phone;
         $staff->luong = $request->luong;
+        $get_image = $request->image_staff;
+        if($get_image){
+            // Bỏ hình ảnh cũ
+            $path_unlink = 'uploads/staff/'.$staff->image_staff;
+            if($staff->image_staff && file_exists($path_unlink)){
+                unlink($path_unlink);
+            }
+            // Thêm mới
+            $path = 'uploads/staff/';
+            $get_name_image = $get_image-> getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
+            $get_image->move($path,$new_image);
+            $staff->image_staff = $new_image;
+        }
         $staff->save();
         return redirect()->route('quan-ly-nv');
     }
@@ -178,7 +192,12 @@ class index_backend extends Controller
         $add_staff->phone =  $data['phone'];
         $add_staff->luong =  $data['luong'];
         $add_staff->status_add = false;
-
+        $image = $request->file('image_staff');
+        $name = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/uploads/staff');
+        $image->move($destinationPath, $name);
+        $add_staff->image_staff = $name;
+        // print_r($get_image);die;
         $add_staff -> save();  
         return redirect()->route('quan-ly-nv');
     }
@@ -443,7 +462,7 @@ class index_backend extends Controller
         'admin_name' => $admin_name,]);
     }
     
-    public function quan_ly_giao_hangs(Request $request){
+    function quan_ly_giao_hangs(Request $request){
         $product_id = $request->input('id');
         $id = $request->input('id');
         $admin_id = $request->input('admin_id');
@@ -535,5 +554,11 @@ class index_backend extends Controller
         return view('backend.chi_tiet_doanh_thu',['total_price_today' => $total_price_today, 'dates'=> $dates,], 
         compact(
         'tong_gia_ngay', 'date','year', 'total_price_year', 'start_date', 'end_date', 'total_revenue', 'month', 'total_price_month'));
+    }
+
+    // hủy giao hàng cho nhân viên
+    function cancelDelivery($id) {
+        $order_product = order_product::where('id', $id)->update(['admin_name' => 'Người giao hủy']);
+        return redirect()->back();
     }
 }

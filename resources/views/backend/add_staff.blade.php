@@ -5,8 +5,13 @@
 
         <div class="col-10 nav-row-10 ">
             <div class="add-product-each w-50 ">
-                <form id="signupForm" action="{{route('staff_add')}}">
+                <form id="signupForm" enctype="multipart/form-data" method='post' action="{{route('staff_add')}}">
+                    @csrf
                     <div class="row">
+                        <label class="name-add-product-all col-4" for="">Thêm ảnh:</label>
+                        <input  class="input-add-product name-add-product-all-img col-8" type="file" name="image_staff">
+                    </div>
+                    <div class="row mt-4">
                         <label class="name-add-product-all col-4" for="">Họ và Tên:</label>
                         <input class="input-add-product col-8" type="text" name="last_name">
                     </div>

@@ -45,6 +45,7 @@
                 <thead>
                   <tr class="tr-name-table">
                     <th>Mã số </th>
+                    <th class="align-center">Ảnh</th>
                     <th class="align-center">Họ Tên</th>
                     <th>Năm sinh</th>
                     <th>Chức vụ</th>
@@ -61,6 +62,10 @@
                   @foreach($staff as $key => $val)
                     <tr class="hover-color">
                       <td class="product-order-quantity">{{$val['id']}}</td>
+
+                      <td class="img-product-td">
+                        <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$val['image_staff'])}}" width="100px"  alt="">
+                      </td>
 
                         <td class="name-product-td">{{$val['last_name']}}</td>
 

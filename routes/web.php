@@ -57,7 +57,7 @@ Route::get('/delete/{id}/product', [index_backend::class, 'delete'] )->name('del
 Route::get('/add-staff', [index_backend::class, 'add_staff'] )->name('add-staff');
 
 // Add 
-Route::get('/staff_add', [index_backend::class, 'staff_add'] )->name('staff_add');
+Route::post('/staff_add', [index_backend::class, 'staff_add'] )->name('staff_add');
 
 // xóa nhân viên
 Route::get('/delete-staff/{id}/staff-add', [index_backend::class, 'delete_staff'] )->name('delete-staff');
@@ -146,3 +146,6 @@ Route::get('/admin/searchOrder_product', [index_backend::class, 'searchOrder_pro
 
 // chi tiet doanh thu
 Route::get('/admin/chi_tiet_doanh_thu',[index_backend::class,'chi_tiet_doanh_thu'])->name('chi_tiet_doanh_thu');
+
+// hủy giao hành cho nhân viên
+Route::get('/cancel-delivery/{id}', [index_backend::class, 'cancelDelivery'])->name('cancel_delivery');

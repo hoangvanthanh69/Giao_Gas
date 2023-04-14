@@ -296,7 +296,7 @@ th.align-center{
     line-height: 74px;
 }
 .order-product-height td {
-    height: 103px;
+    height: 74px;
     align-items: center;
 }
 .function-icon-staff {
@@ -428,7 +428,7 @@ select#status {
     margin-right: 25px;
 }
 .order-product-infor-admin{
-    line-height: 78px;
+    line-height: 60px;
 }
 .statistical-all-delivery {
     background-color: #3d1640 !important
@@ -595,4 +595,22 @@ a.page-link.a-link-page {
 }
 .showmore-order{
     cursor: pointer;
+}
+.cancel-delivery{
+    text-decoration: none;
+    color: red;
+}
+.cancel-delivery-orders {
+    position: absolute;
+    margin-top: -35px;
+    font-size: 14px;
+    padding-left: 8px;
+    color: #e18e08;
+    display: none;
+  }
+.cancel-delivery:hover{
+    color: red;
+}
+.cancel-delivery:hover + .cancel-delivery-orders {
+    display: block;
 }

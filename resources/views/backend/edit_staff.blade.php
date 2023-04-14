@@ -7,6 +7,19 @@
             <div class="add-product-each w-50 ">
                 <form enctype="multipart/form-data" method='post' action="{{route('update-staff',$staff->id)}}">
                     @csrf
+                    <div class="row mt-4 img-row-product">
+                        <div class="col-4">
+                            <label class="name-add-product-all" for="">Thêm ảnh:</label>
+                        </div>
+
+                        <div class="col-8">
+                            <input  class="input-add-product name-add-product-all-img input-add-product-edit" type="file" name="image_staff" >
+                            <img class="image-admin-product-edit" src="{{asset('uploads/staff/'.$staff['image_staff']) }}" alt="" style="width: 130px">
+
+                        </div>
+                        
+                    </div>
+
                     <div class="row">
                         <label class="name-add-product-all col-4" for="">Họ và Tên:</label>
                         <input class="input-add-product col-8" type="text" name="last_name" value="{{$staff->last_name}}">
