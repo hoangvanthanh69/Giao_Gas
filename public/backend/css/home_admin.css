@@ -17,6 +17,7 @@
     width: 30px ;
 }
 .logout-admin {
+    text-align: center;
     align-items: center;
     padding-bottom: 16px;
     
@@ -25,8 +26,7 @@
     margin-left: -25px;
 }
 .logout-admin span{
-    padding-left: 6px;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 500;
     color: #ffffff;
 
@@ -597,20 +597,51 @@ a.page-link.a-link-page {
     cursor: pointer;
 }
 .cancel-delivery{
+    position: relative;
     text-decoration: none;
     color: red;
 }
 .cancel-delivery-orders {
     position: absolute;
-    margin-top: -35px;
+    margin-top: -11px;
     font-size: 14px;
     padding-left: 8px;
     color: #e18e08;
     display: none;
-  }
+}
 .cancel-delivery:hover{
     color: red;
 }
-.cancel-delivery:hover + .cancel-delivery-orders {
+.cancel-delivery:hover+.cancel-delivery-orders {
     display: block;
+}
+.img-admin-login img {
+    height: 55px;
+    border-radius: 50%;
+    width: 55px;
+    margin-left: 70px;
+    border: 1px solid #ccc;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: white;
+}
+.header-with-logo-name{
+    color: rgb(38, 121, 160);
+    font-size: 30px;
+    font-family:cursive;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    padding-left: 35px;
+}
+.logo-name-gas{
+    color: #77d020 !important;
+}
+.cancel-delivery::before {
+    position: absolute;
+    content: "";
+    width: 30px;
+    height: 20px;
+    top: 1px;
+    /* background-color: #161515; */
 }

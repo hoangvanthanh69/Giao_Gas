@@ -10,6 +10,7 @@
                 <h5 class="list-account-admin">Dang sách tài khoản nhân viên</h5>
                <tr class="tr-name-table-list">
                   <th>STT</th>
+                  <th>Ảnh</th>
                   <th class="">Name</th>
                   <th class="">Email</th>
                   <th>Chức vụ</th>
@@ -21,6 +22,9 @@
                @foreach($staff as $key => $val)
                <tr class="hover-color">
                   <td>{{$key+1}}</td>
+                  <td>
+                     <img class="image-admin-product-edit" src="{{asset('uploads/staff/'.$val['image_staff'])}}" width="100px"  alt="">
+                  </td>
                   <td class="name-product-td">{{$val['last_name']}}</td>
                   <td class="product-order-quantity">{{$val['taikhoan']}}</td>
                   <td><?php 

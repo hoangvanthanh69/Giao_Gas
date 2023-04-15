@@ -17,11 +17,23 @@
             <div class="col-2 nav-row-2">
                <div class="row-2-ul">
                   <ul class="nav flex-column ">
+                     <div class="header-with-logo-name mb-2">
+                        <strong class="logo-name-gas">
+                           Gas
+                           </strong>
+                           Tech
+                     </div>
+                     <div class="img-admin-login mb-3">
+                        @if (Session::has('admin_img'))
+                           <img src="{{ asset('uploads/staff/' . Session::get('admin_img')) }}" alt="admin_img"  width="60px">
+                        @endif
+                     </div>
                      <div class="logout-admin">
                         <span>
+                           Xin chào
                            @if (Session::get('admin'))
                               @if (isset(Session::get('admin')['admin_name']))
-                                 {{ Session::get('admin')['admin_name'] }}
+                                 {{ Session::get('admin')['admin_name'] }} !
                               @else
                                  <p>Welcome</p>
                               @endif
@@ -34,6 +46,7 @@
                            </a>
                         </span>
                      </div>
+                     
                      <?php if(Session::get('admin')['chuc_vu'] == "2"){?>
                         <div class="home-filter border-filet-butoon" id="filter_button">
                            <div class="btnbtn home-filter-button " data-filter="all">

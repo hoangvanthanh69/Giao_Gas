@@ -14,6 +14,7 @@
                <h5 class="list-account-admin">Tài khoản admin đã duyệt</h5>
                <tr class="tr-name-table">
                   <th>STT</th>
+                  <th>Ảnh</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Password</th>
@@ -25,6 +26,9 @@
                @foreach($tbl_admin as $key => $val)
                <tr class="hover-color">
                   <td>{{$key+1}}</td>
+                  <td class="img-product-td">
+                     <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$val['image_staff'])}}" width="100px"  alt="">
+                  </td>
                   <td class="product-order-quantity">{{$val['admin_name']}}</td>
                   <td class="product-order-quantity">{{$val['admin_email']}}</td>
                   <td class="product-order-quantity">{{$val['admin_password']}}</td>

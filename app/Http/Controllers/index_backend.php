@@ -491,8 +491,9 @@ class index_backend extends Controller
         $admin->admin_password = $request->password;
         $admin->admin_email = $staff->taikhoan;
         $admin->chuc_vu = $staff->chuc_vu;
-        $admin->save();
 
+        $admin->image_staff = $staff->image_staff;
+        $admin->save();
         $staff->status_add = true;
         $staff->save();
         return redirect()->route('quan-ly-tk-admin');

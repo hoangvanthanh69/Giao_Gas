@@ -77,7 +77,7 @@
                             <a href="{{route('cancel_delivery', $val['id'])}}" class='cancel-delivery'>
                               <i class="ps-2 fs-5 fa-solid fa-xmark"></i>
                             </a>
-                            <p class="cancel-delivery-orders">Không nhận đơn giao</p>
+                            <h6 class="cancel-delivery-orders">Không nhận đơn giao</h6>
                           @endif
                         </td>
 

@@ -11,7 +11,7 @@ class tbl_admin extends Model
     public $timestamps = false;
     protected $table = 'tbl_admin';
     protected $fillable = [
-        'id', 'admin_email', 'admin_password', 'admin_name','chuc_vu',
+        'id', 'admin_email', 'admin_password', 'admin_name','chuc_vu','image_staff',
     ];
 }
 

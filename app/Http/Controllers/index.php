@@ -119,6 +119,7 @@ class index extends Controller
       $password = $data['admin_password'];
       $result = tbl_admin::where(['admin_email' => $data['admin_email'], 'admin_password' => $data['admin_password']])->first();
       if($result){
+         Session::put('admin_img', $result->image_staff);
          Session::put('admin_name', $result->admin_name); 
          Session::put('admin', [
             'admin_id' => $result->admin_id,
@@ -200,7 +201,11 @@ class index extends Controller
       $order_product->district = $request['district'];
       $order_product->diachi = $request['diachi'];
       $order_product->amount = $order_quantity; // Số lượng đặt hàng
-      $order_product->ghichu = 'null';
+      if(empty($request['ghichu'])){
+         $order_product->ghichu = 'null';
+      }else {
+         $order_product->ghichu =$request['ghichu'];
+      }
       $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
       // $order_product -> save();  
       $order_product->status = 1;
