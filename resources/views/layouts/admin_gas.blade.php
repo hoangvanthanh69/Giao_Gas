@@ -90,6 +90,14 @@
                            <br>
 
                            <div class="btnbtn home-filter-button" data-filter="receipt">
+                              <a class="@yield('sidebar-active-danh-gia-giao-hang')" href="{{route('danh-gia-giao-hang')}}">
+                                 <i class="fa-solid fa-star"></i>
+                                 Đánh giá giao hàng
+                              </a>
+                           </div>
+                           <br>
+
+                           <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-tai-khoan')" href="{{route('quan-ly-tk-admin')}}">
                                  <i class="fa-solid fa-lock icon-all-admin-nav"></i>
                                  Tài khoản admin

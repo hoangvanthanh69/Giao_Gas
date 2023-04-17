@@ -5,7 +5,6 @@
       <div class="col-10 nav-row-10 ">
         <div class="add-product-each w-50 ">
             <form enctype="multipart/form-data" method='post' action="{{route('update-product',$product->id)}}">
-            <!-- @method('PATCH') -->
             @csrf
             
               <div class="row ">

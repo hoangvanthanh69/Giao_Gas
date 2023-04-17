@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
-<div class="history-list">
+<div class="history-list m-4">
     <div class="row main-row container-fluid main-row-chitiet">
         <div class="mb-3 product-list element_column" data-item="receipt">
             <div class="card-header-chitiet">
@@ -199,6 +199,6 @@
                     </div>
                 </div>
             </div>
-    </footer>
+</footer>
 </body>
 </html>

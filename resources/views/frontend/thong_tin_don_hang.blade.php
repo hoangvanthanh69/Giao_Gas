@@ -29,11 +29,12 @@
                         <h6 class="text-success">{{$order_product['nameCustomer']}}</h6>
                         <h6 class="text-success">(+84) {{$order_product['phoneCustomer']}}</h6>
                         <p class="name-product-p">{{$order_product['diachi']}}, Phường {{$order_product['district']}}, Quận {{$order_product['state']}}, Thành Phố {{$order_product['country']}}</p>
-
                     </div>
+
                     <div class="row list-order-user-history">
-                        <div  class="col-1 infor-order-user-history">
-                            <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$order_product['image']) }}" width="70%" height="70%" alt="">       
+                        <div  class="col-1 infor-order-user-history d-flex ">
+                            <span class="pb-4 pe-1">{{$order_product['id']}}</span>
+                            <img class="image-admin-product-edit" src="{{asset('uploads/product/'.$order_product['image']) }}" width="70%" height="70%" alt="">  
                         </div>
                         <div class="col-2 infor-order-user-history">{{$order_product['name_product']}}</div>
                         <div class="col-2 infor-order-user-history"><?php if($order_product['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
@@ -44,7 +45,73 @@
                             <span class="total-order-user-history">{{number_format($order_product['amount'] * $order_product['price'])}} đ</span>
                         </div>
                     </div>
+
+                    <h6 class="text-danger mt-4">Người giao hàng</h6>
+                    <div class="infor-deliver-customers d-flex text-center align-items-center mb-2">
+                        @if ($delivery_info)
+                        <div class="col-1">
+                            <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$delivery_info['image_staff'])}}" width="100px"  alt="{{ $delivery_info->admin_name }}">
+                        </div>
+                        <div class="col-2">
+                            <p class="name-product-p">{{$order_product['admin_name']}}</p>
+                        </div>
+                        <div>
+                            <div class="star-ratings">
+                                <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                    <?php
+                                    $star_color = '';
+                                    if ($i <= $average_rating) {
+                                        $star_color = 'checked';
+                                    } elseif ($i - $average_rating < 0.5) {
+                                        $star_color = 'half-checked';
+                                    }
+                                    ?>
+                                    <i class="fa fa-star <?php echo $star_color; ?>"></i>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        @else
+                            <span class="text-muted">Chưa có người giao</span>
+                        @endif
+                        <div class="col-3">
+                            <span>
+                                <?php 
+                                    if ($order_product['status'] == 1) {
+                                        echo '<p style="color: #52de20;">Đang chuẩn bị hàng</p>';
+                                    }
+                                    else if ($order_product['status'] == 2) {
+                                        echo '<p style="color: #52de20;">Đang giao</p>';
+                                    }
+                                    else if ($order_product['status'] == 3) {
+                                        echo '<p style="color: #198754;">Giao hàng thành công</p>';
+                                    }
+                                ?>
+                            </span>
+                        </div>
+                    </div>
                 </form>
+                @if ($delivery_info)
+                    <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
+                        @csrf
+                        <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
+                        <input type="hidden" name="order_id" value="{{ $order_product->id }}">
+                        <span>Đánh giá:</span>    
+                        <div class="rating mb-1" id="signupForm">
+                            <i class="star star-rating fa fa-star" data-value="1"></i>
+                            <i class="star star-rating fa fa-star" data-value="2"></i>
+                            <i class="star star-rating fa fa-star" data-value="3"></i>
+                            <i class="star star-rating fa fa-star" data-value="4"></i>
+                            <i class="star star-rating fa fa-star" data-value="5"></i>
+                            <input type="hidden" name="rating" class="rating-value" value="">
+                        </div>
+                        <div class="comment-rating-staff">
+                            <label class="mb-2" for="Comment">Nhận xét của bạn:</label>
+                            <textarea class="comment-user-staff" id="Comment" name="Comment" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
+                    </form>
+                @endif
+
                 <div class="button-history-orders">
                     <a class="back-order-statistics" href="{{route('order-history')}}">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -54,6 +121,157 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div class="footer">
+            <div class="grid">
+                <div class="grid-row grid-row-footer">
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Hổ trợ khách hàng
+                                </span>
+                                <ul class="contact-support-list">
+                                    
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-call fas fa-tty"></i>
+                                        <a href="tel:0837641469" class="contact-support-item-call-link">
+                                            <span>Tư vấn: </span>
+                                            0837641469
+                                        </a>
+                                    </li>
 
+                                    <li class="contact-support-item">
+                                        <a href="" class="contact-support-item-call-link">
+                                            <i class="fa-solid fa-location-dot icon-location"></i>
+                                        </a>
+                                        <span class="contact-support-item-call contact-support-item-call-link">Đường 3/2, phường Xuân Khánh, quận Ninh Kiều, thành phố Cần Thơ</span>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Theo dõi chúng tôi trên
+                                </span>
+                                <ul class="contact-support-list">
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-facebook fab fa-facebook"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Facebook
+                                        </a>
+                                    </li>
+                                   
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-youtube fab fa-youtube"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Youtube
+                                        </a>
+                                    </li>
+
+                                    <li class="contact-support-item">
+                                        <i class="contact-support-item-icon-instagram fa-brands fa-instagram"></i>
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Instargram
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <span class="contact-support">
+                                    Về chúng tôi
+                                </span>
+                                <ul class="contact-support-list">
+                                    <li class="contact-support-item">
+                                        <a href="" class="contact-support-item-call-link">
+                                            Hướng dẫn mua hàng
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="contact-support-item">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Giới thiệu
+                                        </a>
+                                        
+                                    </li>
+
+                                    <li class="contact-support-item">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            Đổi gas
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="home-row-column home-row-column-footer">
+                        <div class="home-product-image home-product-image-footer">
+                            <div class="contact">
+                                <h4 class="contact-support">
+                                    Liên hệ cửa hàng
+                                </h4>
+                                <div class="hot-line">
+                                    <a href="tel:19001011">
+                                        19001011
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="footer-imge">
+                    <div class="footer-imge-license footer-imge-user">
+                        © HoangThanh
+                    </div>
+                </div>
+            </div>
+    </footer>
 </body>
 </html>
+
+<script>
+    // hiển thị thông báo khi không chọn sao
+    function validateRating() {
+        const ratingValue = document.querySelector('.rating-value').value;
+        if (!ratingValue) {
+            alert('Bạn phải chọn số sao trước khi gửi đánh giá!');
+            return false;
+        }
+        return true;
+    }
+    document.querySelector('#submit-rating').addEventListener('click', function(event) {
+        if (!validateRating()) {
+            event.preventDefault();
+        }
+    });
+
+    // thêm class vào các sao khi click chọn
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.querySelector('.rating-value');
+    stars.forEach(star => {
+    star.addEventListener('click', () => {
+        const value = star.getAttribute('data-value');
+        ratingInput.value = value;
+        stars.forEach(s => {
+            if (s.getAttribute('data-value') <= value) {
+                s.classList.add('selected');
+            } else {
+                s.classList.remove('selected');
+            }
+        });
+        });
+    });
+    
+</script>

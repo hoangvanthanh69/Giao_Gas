@@ -711,6 +711,7 @@ input.amount.is-invalid {
     padding-right: 14px;
     margin-top: 13px;
     background-color: #fffcfc;
+    box-shadow: 0px 3px 6px 6px rgba(0,0,0,0.2);
 }
 
 .button-history-orders{
@@ -906,4 +907,29 @@ h5#orderInfoModalLabel {
 }
 h6.payment-delivery {
     margin-right: 39%;
+}
+.star-rating {
+    color: #ccc;
+}
+.star.selected {
+    color: yellow;
+}
+.star-ratings .fa {
+    font-size: 24px;
+    color: #ddd;
+    transition: all .2s;
+}
+.star-ratings .checked,
+.star-ratings .half-checked {
+    color: #f39c12;
+}
+.comment-user-staff {
+    outline: none;
+    width: 35%;
+    padding-left: 10px;
+}
+.comment-rating-staff{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
 }

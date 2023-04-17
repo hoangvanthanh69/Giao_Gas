@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tbl_admin extends Model
+
+
+class danh_gia extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'tbl_admin';
+    protected $table = 'danh_gia';
     protected $fillable = [
-        'id', 'admin_email', 'admin_password', 'admin_name','chuc_vu','image_staff','evaluate'
+        'Comment', 'created_at','staff_id', 'order_id', 'rating'
     ];
 }
-

@@ -10,6 +10,7 @@ use App\Models\users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+use App\Models\danh_gia;
 // use Illuminate\Support\Facades\Session;
 
 use Session;
@@ -276,16 +277,51 @@ class index extends Controller
       $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
       $status = isset($_GET['status']) ? $_GET['status'] : 'all';
       return view('frontend.order_history',['order_product' => $order_product, 'status'=>$status]);
-  }
+   }
 
    // thông tin đơn hàng của khách hàng
    function thong_tin_don_hang(Request $request, $id){
       if(!Session::get('home')){
-         return redirect()->route('dangnhap');
+          return redirect()->route('dangnhap');
       }
       $order_product = order_product::find($id);
-      return view('frontend.thong_tin_don_hang' , ['order_product' => $order_product]);
+      $delivery_info = tbl_admin::where('admin_name', $order_product->admin_name)->first();
+      if($delivery_info) {
+         $staff_id = $delivery_info->id;
+      } else {
+         $staff_id = null;
+      }
+      $order_id = $request->input('order_id');
+      $danh_gia = danh_gia::where('staff_id', $staff_id)->where('order_id', $order_id)->first();
+      $ratings = danh_gia::where('staff_id', $staff_id)->pluck('rating');
+      $total_stars = $ratings->sum();
+      $count_ratings = count($ratings);
+      $average_rating = $count_ratings > 0 ? $total_stars / $count_ratings : 0;
+      return view('frontend.thong_tin_don_hang', [
+         'order_product' => $order_product,
+         'delivery_info' => $delivery_info,
+         'danh_gia' => $danh_gia,
+         'average_rating' => $average_rating,
+         'staff_id' => $staff_id,
+      ]);
    }
-
-
+  
+   function danh_gia_giao_hangs(Request $request, $id){
+      $staff_id = $request->input('staff_id');
+      $order_id = $request->input('order_id');
+      $Comment = $request->input('Comment');
+      $rating = $request->input('rating');
+      $new_rating = new danh_gia;
+      $new_rating->staff_id = $staff_id;
+      $new_rating->order_id = $order_id;
+      // $new_rating->Comment = $Comment;
+      if(empty($request['Comment'])){
+         $new_rating->Comment = 'null';
+      }else {
+         $new_rating->Comment =$request['Comment'];
+      }
+      $new_rating->rating = $rating; 
+      $new_rating->save();
+      return redirect()->back()->with('success', 'Cảm ơn bạn đã');
+   }
 }

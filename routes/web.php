@@ -149,3 +149,7 @@ Route::get('/admin/chi_tiet_doanh_thu',[index_backend::class,'chi_tiet_doanh_thu
 
 // hủy giao hành cho nhân viên
 Route::get('/cancel-delivery/{id}', [index_backend::class, 'cancelDelivery'])->name('cancel_delivery');
+
+// đánh giá giao hàng
+Route::get('/admin/danh-gia-giao-hang', [index_backend::class, 'danh_gia_giao_hang'])->name('danh-gia-giao-hang');
+Route::post('/admin/danh_gia_giao_hangs/{id?}', [index::class, 'danh_gia_giao_hangs'])->name('danh_gia_giao_hangs');

@@ -8,6 +8,7 @@ use App\Models\add_staff;
 use App\Models\order_product;
 use App\Models\tbl_admin;
 use App\Models\users;
+use App\Models\danh_gia;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use Session;
@@ -409,7 +410,7 @@ class index_backend extends Controller
         }
     }
     // tài khoản admin
-    function quan_ly_tk_admin(){
+    function quan_ly_tk_admin(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
@@ -562,4 +563,22 @@ class index_backend extends Controller
         $order_product = order_product::where('id', $id)->update(['admin_name' => 'Người giao hủy']);
         return redirect()->back();
     }
+
+    //hien thi danh gia giao hang
+    function danh_gia_giao_hang(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $tbl_admin = tbl_admin::where('chuc_vu', 1)->get();
+        foreach($tbl_admin as $key => $val) {
+            $danh_gia = danh_gia::where('staff_id', $val->id)->first();
+            $ratings = danh_gia::where('staff_id', $val->id)->pluck('rating');
+            $total_stars = $ratings->sum();
+            $count_ratings = count($ratings);
+            $average_rating = $count_ratings > 0 ? round($total_stars / $count_ratings, 2) : 0;
+            $val->ratings = $average_rating;
+        }
+        return view('backend.danh_gia_giao_hang', ['tbl_admin' => $tbl_admin,]);
+    }
+    
 }
