@@ -457,7 +457,7 @@
                                 Đạt được sự tín nhiệm của khách hàng và các đối tác chính là nhân tố quan trọng góp phần vào sự thành công của chúng tôi.
                             </li>
                            <li class="service-support-client-list">
-                                Bạn muốn đổi gas chỉ cần lên Gastech.com website giao đổi gas tiện lợi cho mọi khách hàng.
+                                Bạn muốn đổi gas chỉ cần lên Gastech.com website giao gas tiện lợi cho mọi khách hàng.
                            </li>
                         </ul>
                     </div>
