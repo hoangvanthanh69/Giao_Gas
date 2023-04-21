@@ -291,8 +291,11 @@ class index extends Controller
       } else {
          $staff_id = null;
       }
-      $order_id = $request->input('order_id');
-      $danh_gia = danh_gia::where('staff_id', $staff_id)->where('order_id', $order_id)->first();
+      $user_id = $order_product->user_id;
+      $danh_gia = danh_gia::where('staff_id', $staff_id)
+         ->where('user_id', $user_id)
+         ->orderBy('created_at', 'desc')
+         ->first();
       $ratings = danh_gia::where('staff_id', $staff_id)->pluck('rating');
       $total_stars = $ratings->sum();
       $count_ratings = count($ratings);
@@ -304,9 +307,11 @@ class index extends Controller
          'average_rating' => $average_rating,
          'staff_id' => $staff_id,
       ]);
-   }
+    }
+    
   
    function danh_gia_giao_hangs(Request $request, $id){
+      $user_id = Session::get('home')['id'];
       $staff_id = $request->input('staff_id');
       $order_id = $request->input('order_id');
       $Comment = $request->input('Comment');
@@ -314,6 +319,7 @@ class index extends Controller
       $new_rating = new danh_gia;
       $new_rating->staff_id = $staff_id;
       $new_rating->order_id = $order_id;
+      $new_rating->user_id = $user_id;
       // $new_rating->Comment = $Comment;
       if(empty($request['Comment'])){
          $new_rating->Comment = 'null';
@@ -322,6 +328,6 @@ class index extends Controller
       }
       $new_rating->rating = $rating; 
       $new_rating->save();
-      return redirect()->back()->with('success', 'Cảm ơn bạn đã');
+      return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá');
    }
 }

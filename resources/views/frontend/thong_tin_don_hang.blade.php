@@ -91,27 +91,68 @@
                     </div>
                 </form>
                 @if ($delivery_info)
-                    <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
-                        @csrf
-                        <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
-                        <input type="hidden" name="order_id" value="{{ $order_product->id }}">
-                        <span>Đánh giá:</span>    
-                        <div class="rating mb-1" id="signupForm">
-                            <i class="star star-rating fa fa-star" data-value="1"></i>
-                            <i class="star star-rating fa fa-star" data-value="2"></i>
-                            <i class="star star-rating fa fa-star" data-value="3"></i>
-                            <i class="star star-rating fa fa-star" data-value="4"></i>
-                            <i class="star star-rating fa fa-star" data-value="5"></i>
-                            <input type="hidden" name="rating" class="rating-value" value="">
+                    @if ($danh_gia)
+                        <p>Đánh giá của bạn:
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $danh_gia->rating)
+                                    <i class="fa fa-star text-warning"></i>
+                                @else
+                                    <i class="star-rating fa fa-star"></i>
+                                @endif
+                            @endfor
+                        </p>
+
+                        <div id="change-rating">Thay đồi đánh giá</div>
+                        <div class="select-address-user hidden">
+                            <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
+                                @csrf
+                                <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
+                                <input type="hidden" name="order_id" value="{{ $order_product->id }}">
+                                <span>Đánh giá:</span>    
+                                <div class="rating mb-1" id="signupForm">
+                                    <i class="star star-rating fa fa-star" data-value="1"></i>
+                                    <i class="star star-rating fa fa-star" data-value="2"></i>
+                                    <i class="star star-rating fa fa-star" data-value="3"></i>
+                                    <i class="star star-rating fa fa-star" data-value="4"></i>
+                                    <i class="star star-rating fa fa-star" data-value="5"></i>
+                                    <input type="hidden" name="rating" class="rating-value" value="">
+                                </div>
+                                <div class="comment-rating-staff">
+                                    <label class="mb-2" for="Comment">Nhận xét của bạn:</label>
+                                    <textarea class="comment-user-staff" id="Comment" name="Comment" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
+                            </form>
                         </div>
-                        <div class="comment-rating-staff">
-                            <label class="mb-2" for="Comment">Nhận xét của bạn:</label>
-                            <textarea class="comment-user-staff" id="Comment" name="Comment" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
-                    </form>
+                        
+                    @else
+                        <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
+                            @csrf
+                            <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
+                            <input type="hidden" name="order_id" value="{{ $order_product->id }}">
+                            <span>Đánh giá:</span>    
+                            <div class="rating mb-1" id="signupForm">
+                                <i class="star star-rating fa fa-star" data-value="1"></i>
+                                <i class="star star-rating fa fa-star" data-value="2"></i>
+                                <i class="star star-rating fa fa-star" data-value="3"></i>
+                                <i class="star star-rating fa fa-star" data-value="4"></i>
+                                <i class="star star-rating fa fa-star" data-value="5"></i>
+                                <input type="hidden" name="rating" class="rating-value" value="">
+                            </div>
+                            <div class="comment-rating-staff">
+                                <label class="mb-2" for="Comment">Nhận xét của bạn:</label>
+                                <textarea class="comment-user-staff" id="Comment" name="Comment" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
+                        </form>
+                    @endif
                 @endif
 
+                @if (session('success'))
+                    <div class="notification-orders">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="button-history-orders">
                     <a class="back-order-statistics" href="{{route('order-history')}}">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -273,5 +314,16 @@
         });
         });
     });
+
+    // thay đổi đánh giá
+    document.getElementById("change-rating").addEventListener("click", function() {
+    var selectAddressUser = document.querySelector(".select-address-user");
+    document.querySelector('.select-address-user').style.display = 'block';
+    if (selectAddressUser.classList.contains("hidden")) {
+      selectAddressUser.classList.remove("hidden");
+    } else {
+      selectAddressUser.classList.add("hidden");
+    }
+  });
     
 </script>

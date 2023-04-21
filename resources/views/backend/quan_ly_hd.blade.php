@@ -10,15 +10,28 @@
             <span class="product-list-name">Admin / Đơn hàng</span>
           </div>
 
-          <div>
+          <div class="">
             <form method="get"> 
-              <select name="status" id="status" class="form-select select-form-option" onchange="this.form.submit()">
-                <option value="all" {{ (isset($_GET['status']) && $_GET['status'] == 'all') ? 'selected' : '' }}>Tất cả đơn hàng</option>
-                <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
-                <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
-                <option value="3" {{ (isset($_GET['status']) && $_GET['status'] == '3') ? 'selected' : '' }}>Đã giao</option>
-                <option value="4" {{ (isset($_GET['status']) && $_GET['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
-              </select>
+              <div class="d-flex">
+                <select name="status" id="status" class="form-select select-form-option" onchange="this.form.submit()">
+                  <option value="all" {{ (isset($_GET['status']) && $_GET['status'] == 'all') ? 'selected' : '' }}>Trạng thái</option>
+                  <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
+                  <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
+                  <option value="3" {{ (isset($_GET['status']) && $_GET['status'] == '3') ? 'selected' : '' }}>Đã giao</option>
+                  <option value="4" {{ (isset($_GET['status']) && $_GET['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
+                </select>
+
+                <div id="type" class="d-flex m-3">
+                  <div class="form-check me-5">
+                    <input class="form-check-input" type="radio" name="type" value="1" id="type1" {{ (isset($_GET['type']) && $_GET['type'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <label class="form-check-label" for="type1">Gas công nghiệp</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="type" value="2" id="type2" {{ (isset($_GET['type']) && $_GET['type'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <label class="form-check-label" for="type2">Gas dân dụng</label>
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
           
@@ -46,30 +59,27 @@
                 
                 <tbody class="infor">
                   @foreach($order_product as $key => $val)
-                  
-                    @if ($status == 'all' || $val['status'] == $status)
-                    
+                    @if (($filters['status'] == 'all' || $val['status'] == $filters['status']) && ($filters['type'] == 'all' || $val['type'] == $filters['type']))
                       <tr class="order-product-height hover-color">
                         <td class="order-product-infor-admin">{{$key+1}}</td>
                         <td class="order-product-infor-admin"> {{$val['id']}}</td>
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
                         <td class="order-product-infor-admin"><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
-                        
+
                         <td class="order-product-infor-admin">
                           {{$val['created_at']}}
                         </td>
                         <td class="order-product-infor-admin">
-                          
-                            <form method='POST' class="status-order-admin-form" action="{{route('status_admin', $val['id'])}}"> 
-                                @csrf
-                                <select class="select-option-update" onchange="this.form.submit()" name="status">
-                                  <option value="1" <?php echo  ($val['status'] == 1 ? 'selected' : ''); ?>> Đang xử lý</option>
-                                  <option value="2" <?php echo ($val['status'] == 2 ? 'selected' : ''); ?>> Đang giao</option>
-                                  <option value="3" <?php echo ($val['status'] == 3 ? 'selected' : ''); ?>> Đã giao</option>
-                                  <option value="4" <?php echo ($val['status'] == 4 ? 'selected' : ''); ?>> Đã hủy</option>
-                                </select>
-                            </form>
+                          <form method='POST' class="status-order-admin-form" action="{{route('status_admin', $val['id'])}}"> 
+                            @csrf
+                              <select class="select-option-update" onchange="this.form.submit()" name="status">
+                                <option value="1" <?php echo  ($val['status'] == 1 ? 'selected' : ''); ?>> Đang xử lý</option>
+                                <option value="2" <?php echo ($val['status'] == 2 ? 'selected' : ''); ?>> Đang giao</option>
+                                <option value="3" <?php echo ($val['status'] == 3 ? 'selected' : ''); ?>> Đã giao</option>
+                                <option value="4" <?php echo ($val['status'] == 4 ? 'selected' : ''); ?>> Đã hủy</option>
+                              </select>
+                          </form>
                         </td>
                         <td class="order-product-infor-admin">
                           {{$val['admin_name']}}

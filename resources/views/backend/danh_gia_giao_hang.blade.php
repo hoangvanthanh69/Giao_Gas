@@ -8,7 +8,9 @@
       <div class="table-responsive table-list-product">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <tr class="tr-name-table">
+                    <h5 class="list-account-admin text-success">Số điểm đánh giá của nhân viên</h5>
+                    <tr class="tr-name-table bg-secondary">
+                        <th>STT</th>
                         <th>Ảnh</th>
                         <th>Name</th>
                         <th>Chức vụ</th>
@@ -16,9 +18,13 @@
                     </tr>
                 </thead>
                 <tbody class="infor">
+                @php
+                    $count = 1;
+                @endphp
                     @foreach($tbl_admin as $key => $val)
                     @if($val['chuc_vu']!=2)
-                    <tr class="hover-color">
+                        <tr class="hover-color">
+                            <td>{{$count++}}</td>
                             <td class="img-product-td">
                                 <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$val['image_staff'])}}" width="100px"  alt="">
                             </td>

@@ -261,8 +261,11 @@ class index_backend extends Controller
         else{
             $order_product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
         }
-        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-        return view('backend.quan_ly_hd', ['order_product' => $order_product, 'status' => $status]);
+        $filters = array(
+            'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
+            'type' => isset($_GET['type']) ? $_GET['type'] : 'all'
+        );
+        return view('backend.quan_ly_hd', ['order_product' => $order_product, 'filters' => $filters,]);
     }
 
     // thống kê chi tiết đơn hàng
@@ -569,7 +572,7 @@ class index_backend extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
-        $tbl_admin = tbl_admin::where('chuc_vu', 1)->get();
+        $tbl_admin = tbl_admin::get();
         foreach($tbl_admin as $key => $val) {
             $danh_gia = danh_gia::where('staff_id', $val->id)->first();
             $ratings = danh_gia::where('staff_id', $val->id)->pluck('rating');

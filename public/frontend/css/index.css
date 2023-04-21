@@ -764,14 +764,14 @@ tbody.history-order-product {
 .notification-orders {
     text-align: center;
     color: #eb0d0d;
-    /* animation: ease .6s, fadeout linear 15s 0.8s forwards; */
-    font-size: 14px;
+    animation: ease .6s, fadeout linear 15s 0.8s forwards;
+    font-size: 17px;
 }
-/* @keyframes fadeout{
+@keyframes fadeout{
     to{
         opacity: 0;
     }
-} */
+}
 
 .btn-cancel-order {
     color: black;
@@ -932,4 +932,7 @@ h6.payment-delivery {
     display: flex;
     flex-direction: column;
     margin-bottom: 16px;
+}
+#change-rating{
+    cursor: pointer;
 }

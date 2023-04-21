@@ -13,6 +13,6 @@ class danh_gia extends Model
     public $timestamps = false;
     protected $table = 'danh_gia';
     protected $fillable = [
-        'Comment', 'created_at','staff_id', 'order_id', 'rating'
+        'Comment', 'created_at','staff_id', 'order_id', 'rating', 'user_id'
     ];
 }

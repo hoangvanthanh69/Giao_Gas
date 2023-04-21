@@ -65,20 +65,57 @@
                             <div class="header-with-account-span">
                                 <li>
                                     <a href="{{route('logoutuser')}}">
-                                        <i class="fa-solid fa-right-from-bracket"></i>
                                         Đăng xuất
+                                        <i class="fa-solid fa-right-from-bracket text-warning ps-2"></i>
                                     </a>
                                 </li>
 
                                 <li>
-                                   <a href="">
-                                        Thông tin tài khoản
-                                    </a>   
+                                    <a class="" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Quản lý tài khoản</a>
                                 </li>
                                 
                             </div>
                         </div>
                     </div>
+
+                    <!--  -->
+                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel">Thông tin tài khoản</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    @if (Session::get('home'))
+                                        <div class="modal-account-users">
+                                            <div class="d-flex mb-3">
+                                                <label class="text-secondary col-3" for="">Chọn ảnh:</label>
+                                                <input class="ps-3" type="file" name="image_customer">
+                                            </div>
+                                            <div class="d-flex">
+                                                <label class="text-secondary col-3" for="">Họ tên:</label>
+                                                <p class="ps-3">{{ Session::get('home')['name'] }}</p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <label class="text-secondary col-3" for="">Tài khoản:</label>
+                                                <p class="ps-3">{{ Session::get('home')['email'] }}</p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <label class="text-secondary col-3" for="">Mật khẩu:</label>
+                                                <p class="ps-3">{{ str_repeat('*', strlen(Session::get('home')['password'])) }}</p>
+                                            </div>
+                                            <div class="d-flex">
+                                                <a href="" class="text-secondary col-3 text-decoration-none" for="">Đổi mật khẩu:</a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
                 </div>
             </div>
         </div>
@@ -391,7 +428,7 @@
                     <div class="service-support-client">
                         <span>
                             <strong class="logo-name-gas">Gas</strong> 
-                            <strong class="name-gas-tech">Tech</strong> cung cấp các bình gas công ngiệp và gas dân dụng cho các nhà hàng, khách sạn, nhà ăn gia đình..., dịch vụ chất lượng cao an toàn trên tiêu chí “Nhanh chóng - An toàn - Chất lượng - Hiệu quả” Tầm nhìn và sứ mệnh.
+                            <strong class="name-gas-tech">Tech</strong> cung cấp các bình gas công nghiệp và gas dân dụng cho các nhà hàng, khách sạn, nhà ăn gia đình..., dịch vụ chất lượng cao an toàn trên tiêu chí “Nhanh chóng - An toàn - Chất lượng - Hiệu quả” Tầm nhìn và sứ mệnh.
                         </span>
                         <ul >
                             <p class="service-client-strong">Dịch vụ:</p>
