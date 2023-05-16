@@ -51,12 +51,12 @@
                     </button>
                 </div>
 
-                <div class="">
+                <!-- <div class="">
                     <button class="form-submit form-submit-user login-user-google">
                         <i class="fa-brands fa-google"></i>
                         Đăng nhập với google
                     </button>
-                </div>
+                </div> -->
 
                 <div class="login-user-register">
                     Bạn chưa có tài khoản? 

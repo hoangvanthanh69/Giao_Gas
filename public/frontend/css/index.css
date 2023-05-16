@@ -343,7 +343,8 @@ div#loai-error {
     position: absolute;
     text-align: center;
     left: 16%;
-    top:40%
+    top:40%;
+    font-family: cursive;
 }
 .tech-name{
     color: rgb(41 149 198);
@@ -376,7 +377,6 @@ div#loai-error {
 } */
 
 .header-with-search-input:focus, input.form-control:focus {
- 
     outline:none !important;
     outline-width: 0 !important;
     box-shadow: none;
@@ -935,4 +935,10 @@ h6.payment-delivery {
 }
 #change-rating{
     cursor: pointer;
+}
+.logo-gas-gas{
+    width: 60px;
+}
+.logo-gas-gas img{
+    width: 60px;
 }

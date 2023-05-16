@@ -15,6 +15,9 @@
     <header class="header">
         <div class="grid">
             <div class="header-with">
+                <div class="logo-gas-gas">
+                     <img src="{{asset('frontend/img/kisspng-light-fire-flame-logo-symbol-fire-letter-5ac5dab338f111.3018131215229160192332.jpg')}}" class="" alt="...">
+                </div>
                 <div class="header-with-logo">
                     <a href="#" class="header-with-logo__name">
                         <strong class="logo-name-gas">
@@ -179,7 +182,7 @@
                         </div>
                         
                         <div class="carousel-item slide-main-carousel">
-                            <img src="{{asset('frontend/img/binh-gas.jpg')}}" class="slide-main d-block " alt="...">
+                            <img src="{{asset('frontend/img/gas-tank-design.jpg')}}" class="slide-main d-block " alt="...">
                             <div class="gas-advertisement">
                                 <div class="gas-advertisement-name ">
                                     <h1 class="gas-advertisement-name-h1 product-nav-span">
