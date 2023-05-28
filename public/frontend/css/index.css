@@ -535,11 +535,12 @@ a.log-in:hover{
     margin-top: 9px;
     padding-bottom: 16px;
     margin-right: 5px;
+    position: relative;
 }
 .image-product-order {
     width: 100%;
     height: 160px;
-    padding-top: 20px;
+    padding-top: 36px;
     object-fit: cover;
     transition: transform 0.2s ease-out;
 }
@@ -941,4 +942,62 @@ h6.payment-delivery {
 }
 .logo-gas-gas img{
     width: 60px;
+}
+.home-product-item-sale-off {
+    margin-left: 153px;
+    width: 59px;
+    height: 32px;
+    text-align: center;
+    background-color: #f1f50a;
+    position: absolute;
+    top: 0;
+}
+.home-product-item-sale-off-label {
+    color: rgb(44, 59, 68);
+    font-weight: 500;
+    line-height: 2rem;
+}
+.home-product-item-sale-off::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    border-width: 0px 30px 5px;
+    border-style: solid;
+    border-color: transparent #f1f50a transparent #f1f50a;
+}
+.home-product-item-selling{
+    position: absolute;
+    top: 10px;
+    left: -4px;
+    background-color: red;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6rem;
+    padding-right: 4px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.home-product-item-selling {
+    position: absolute;
+    top: 7px;
+    left: 1px;
+    width: 84px;
+    background-color: red;
+    color: white;
+    font-weight: 400;
+    padding-right: 4px;
+    line-height: 23px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.price-product-order-span{
+    color: red;
+    font-weight: 500;
+}
+.name-product-span{
+    color: #299a06;
+    font-weight: 500;
+
 }

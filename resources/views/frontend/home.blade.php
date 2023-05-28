@@ -56,7 +56,7 @@
                     @if (Session::get('home'))
                         @if (isset(Session::get('home')['name']))
                         <p href="#" aria-expanded="true" id="dropdownMenuAcc" data-bs-toggle="dropdown" class="nav-item nav-link user-action header-criteria-h3 name-login-user">
-                            <img src="{{asset('frontend/img/logo-login.png')}}" class="img-login-user" alt="...">
+                            <img class="image-admin-product-edit" src="{{ asset('uploads/users/' . $users->img) }}" width="100px" alt="">
                             {{ Session::get('home')['name'] }}
                         </p>
                         @else
@@ -93,10 +93,17 @@
                                 <div class="modal-body">
                                     @if (Session::get('home'))
                                         <div class="modal-account-users">
+                                        <form enctype="multipart/form-data" method="post" action="{{ route('update_image_user', $users->id) }}">
+                                            @csrf
                                             <div class="d-flex mb-3">
                                                 <label class="text-secondary col-3" for="">Chọn ảnh:</label>
-                                                <input class="ps-3" type="file" name="image_customer">
+                                                <input class="ps-3" type="file" name="img">
                                             </div>
+                                            <div>
+                                                <button class="submit" type="submit">Lưu</button>
+                                            </div>
+                                        </form>
+
                                             <div class="d-flex">
                                                 <label class="text-secondary col-3" for="">Họ tên:</label>
                                                 <p class="ps-3">{{ Session::get('home')['name'] }}</p>
@@ -787,5 +794,7 @@
                 });
             }
     </script>
+
+
 </body>
 </html>

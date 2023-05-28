@@ -19,6 +19,7 @@
                   <th>Email</th>
                   <th>Password</th>
                   <th>Chức vụ</th>
+                  <th>Số đơn</th>
                   <th>Chức năng</th>
                </tr>
             </thead>
@@ -37,6 +38,7 @@
                      elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
                      else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
                   </td>
+                  <td class="product-order-quantity">{{$val['order_count']}}</td>
                   <td class="product-order-quantity">
                      <form action="{{route('delete_account', $val['id'])}}">
                         <button class="summit-add-product-button" type='submit'>

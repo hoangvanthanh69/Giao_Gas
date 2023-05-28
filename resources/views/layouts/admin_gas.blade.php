@@ -60,7 +60,7 @@
                            <div class="btnbtn home-filter-button" data-filter="product">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                                  <i class="fas fa-box icon-all-admin-nav"></i>
-                                 Sản phẩm 
+                                 Quản lý sản phẩm 
                               </a>
                            </div>
                            <br>
@@ -68,7 +68,7 @@
                            <div class="btnbtn home-filter-button" data-filter="staff">
                               <a class="@yield('sidebar-active-customer')" href="{{route('quan-ly-nv')}}">
                                  <i class="fas fa-clipboard-user icon-all-admin-nav"></i>
-                                 Nhân viên
+                                 Quản lý nhân viên
                               </a>
                            </div>
                            <br>
@@ -76,7 +76,7 @@
                            <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
                                  <i class="fas fa-file-invoice-dollar icon-all-admin-nav"></i>
-                                 Đơn hàng
+                                 Quản lý đơn hàng
                               </a>
                            </div>
                            <br>
@@ -84,7 +84,7 @@
                            <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
                                  <i class="fa-solid fa-truck icon-all-admin-nav"></i>
-                                 Giao hàng
+                                 Quản lý giao hàng
                               </a>
                            </div>
                            <br>

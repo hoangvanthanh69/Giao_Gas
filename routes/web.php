@@ -153,3 +153,7 @@ Route::get('/cancel-delivery/{id}', [index_backend::class, 'cancelDelivery'])->n
 // đánh giá giao hàng
 Route::get('/admin/danh-gia-giao-hang', [index_backend::class, 'danh_gia_giao_hang'])->name('danh-gia-giao-hang');
 Route::post('/admin/danh_gia_giao_hangs/{id?}', [index::class, 'danh_gia_giao_hangs'])->name('danh_gia_giao_hangs');
+
+// cap nhat anh cho khach hang
+Route::post('update_image_user/{id}', [index::class, 'update_image_user'])->name('update_image_user');
+

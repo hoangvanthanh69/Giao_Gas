@@ -61,7 +61,10 @@
                         <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image'])}}" width="100px"  alt="">
                         
                       </td>
-                      <td class="name-product-td infor-product"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
+                      <td class="name-product-td infor-product">
+                        <?php if($val['loai']==1){echo "<span style='color: #ef5f0e; font-weight: 500'>Gas công nghiệp</span>";}
+                        else{echo "<span style='color: #09b6a6; font-weight: 500'>Gas dân dụng</span>";} ?>
+                      </td>
                       <td class="name-product-td infor-product">{{$val['quantity']}}</td>
                       <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
                       <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>

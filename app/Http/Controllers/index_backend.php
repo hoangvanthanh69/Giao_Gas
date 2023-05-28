@@ -226,14 +226,14 @@ class index_backend extends Controller
         $admin_name = Session::get('admin')['admin_name'];
         $chuc_vu = Session::get('admin')['chuc_vu'];
         if($chuc_vu == '2'){
-            $product = product::get()->toArray();
+            $product = product::orderByDesc('id')->paginate(10);
         }
         elseif($chuc_vu == '3'){
-            $product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
+            $product = order_product::where(['admin_name' =>$admin_name])->orderByDesc('id')->paginate(10);
         }
         // $product = product::get()->toArray();
-        $product = product::paginate(10);
-        $order_product = order_product::get()->toArray(); 
+        // $product = product::paginate(10);
+        $order_product = order_product::get()->toArray();
         return view('backend.quan_ly_sp', ['product'=> $product,'order_product' => $order_product]);
     }
 
@@ -256,10 +256,10 @@ class index_backend extends Controller
         $admin_name = Session::get('admin')['admin_name'];
         $chuc_vu = Session::get('admin')['chuc_vu'];
         if($chuc_vu == '2'){
-            $order_product = order_product::get()->toArray();
+            $order_product = order_product::orderByDesc('created_at')->get()->toArray();
         }
         else{
-            $order_product = order_product::where(['admin_name' =>$admin_name])->get()->toArray();
+            $order_product = order_product::where(['admin_name' =>$admin_name])->orderByDesc('created_at')->get()->toArray();
         }
         $filters = array(
             'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
@@ -419,6 +419,11 @@ class index_backend extends Controller
         }
         $tbl_admin = tbl_admin::get()->toArray();
         $staff = add_staff::get()->toArray();
+        foreach ($tbl_admin as &$tbl_admins) {
+            $admin_name = $tbl_admins['admin_name'];
+            $order_count = order_product::where('admin_name', $admin_name)->count();
+            $tbl_admins['order_count'] = $order_count;
+        }
         return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
     }
 

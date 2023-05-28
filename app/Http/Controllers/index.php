@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 use App\Models\danh_gia;
 // use Illuminate\Support\Facades\Session;
-
+use DB;
 use Session;
 
 class index extends Controller
@@ -47,8 +47,9 @@ class index extends Controller
          $district = Session::get('district');
 
       }
+      $users = users::find($user_id);
       return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
-      'country' => $country, 'state' => $state, 'district' => $district,
+      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users
       ]);
     }
   
@@ -86,7 +87,7 @@ class index extends Controller
       return redirect('/dangnhap');
    }
 
-   public function dangnhap(Request $request) {
+   function dangnhap(Request $request) {
       $data = $request->all();
       $password = $data['password'];
       $user = users::where(['email' => $data['email'], 'password' => $password])->first();
@@ -242,33 +243,49 @@ class index extends Controller
 
    function handle_order(){
       $product = product::where(['loai' => $_POST['id']])->get()->toArray();
-   //  print_r($product);die;
+      $bestsellerIds = order_product::select('idProduct', DB::raw('sum(amount) as total_amount'))->groupBy('idProduct')
+         ->havingRaw('COUNT(*) >= 2')
+         ->orderByDesc('total_amount')
+         ->pluck('idProduct')
+         ->toArray();
       $output = "";
-    ////
-      $sum = 0;
-
-      foreach($product as $val){
+   
+      foreach ($product as $val) {
+         $isBestseller = in_array($val['id'], $bestsellerIds);
          $output .= '
-         <div class="col-3 image-product-order-all productchoose " id="'.$val['id'].'">
-
-            <div class="activeq">
-               <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
-            </div>
-
-            <div class="name-product-order ">
-               <span class="name_product">Tên sản phẩm: '. $val['name_product'].'</span>
-            </div>
-
-            <div class="price-product-order price " id="price">
-               <span class="gia">Giá sản phẩm: '. number_format($val['original_price']).' đ</span>
-            </div>
-
-         </div> '
-      ;
-        
-   }
-
-   echo $output;
+            <div class="col-3 image-product-order-all productchoose" id="'.$val['id'].'">
+               <div class="activeq">
+                  <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
+               </div>
+   
+               <div class="name-product-order">
+                  Tên sản phẩm:
+                  <span class="name_product name-product-span"> '. $val['name_product'].'</span>
+               </div>
+   
+               <div class="price-product-order price" id="price">
+                  Giá sản phẩm: 
+                  <span class="gia price-product-order-span">'. number_format($val['original_price']).' đ</span>
+               </div>';
+   
+         if ($isBestseller) {
+            $output .= '
+               <div class="home-product-item-selling">
+                  <span class="">Bán chạy</span>
+               </div>';
+         }
+   
+         if ($val['quantity'] == 0) {
+            $output .= '
+               <div class="home-product-item-sale-off">
+                  <span class="home-product-item-sale-off-label">Hết gas</span>
+               </div>';
+         }
+   
+         $output .= '</div>';
+      }
+    
+      echo $output;
    }
 
    //
@@ -307,7 +324,7 @@ class index extends Controller
          'average_rating' => $average_rating,
          'staff_id' => $staff_id,
       ]);
-    }
+   }
     
   
    function danh_gia_giao_hangs(Request $request, $id){
@@ -330,4 +347,22 @@ class index extends Controller
       $new_rating->save();
       return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá');
    }
+
+   // cap nhat anh cho khach hang
+   function update_image_user(Request $request, $id) {
+      $user = users::find($id);
+      if ($request->hasFile('img')) {
+          $image = $request->file('img');
+          $name = time() . '.' . $image->getClientOriginalExtension();
+          $destinationPath = public_path('/uploads/users');
+          $image->move($destinationPath, $name);
+          $user->img = $name;
+          $user->save();
+      }
+      return redirect()->back()->with('success', 'Cập nhật ảnh thành công.');
+   }
+  
+  
+  
+  
 }
