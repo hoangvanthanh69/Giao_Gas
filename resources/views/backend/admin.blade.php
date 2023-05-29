@@ -6,7 +6,6 @@
     <div class="container-fluid">
 
     <div class="row">
-
         <!-- sản phẩm -->
         <div class="col-4 min-height-prodcuct">
             <div class="statistical-all img-admin-chart">

@@ -154,6 +154,8 @@ Route::get('/cancel-delivery/{id}', [index_backend::class, 'cancelDelivery'])->n
 Route::get('/admin/danh-gia-giao-hang', [index_backend::class, 'danh_gia_giao_hang'])->name('danh-gia-giao-hang');
 Route::post('/admin/danh_gia_giao_hangs/{id?}', [index::class, 'danh_gia_giao_hangs'])->name('danh_gia_giao_hangs');
 
-// cap nhat anh cho khach hang
+// cap nhat ảnh cho khach hang
 Route::post('update_image_user/{id}', [index::class, 'update_image_user'])->name('update_image_user');
 
+// cập nhật mật khẩu cho khách hàng
+Route::post('/update-password-customer/{id}', [index::class, 'update_password_customer'])->name('update-password-customer');

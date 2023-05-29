@@ -12,7 +12,6 @@ html{
     width: 1200px;
     max-width: 100%;
     margin: 0 auto;
-
 }
 .header-with{
     display: flex;
@@ -27,8 +26,6 @@ html{
     font-weight: 600;
     text-decoration: none;
     padding-right: 40px;
-    
-
 }
 .logo-name-gas{
     color: #77d020 !important;
@@ -47,14 +44,12 @@ html{
     align-items: center;
     border: 1px solid;
     border-radius: 60px;
-    
 }
 .header-criteria{
     text-align: center;
     padding-left: 35px;
     padding-right: 20px;
     padding-top: 27px;
-    
 }
 .header-criteria-h3{
     font-size: 20px;
@@ -74,7 +69,6 @@ html{
     text-align: center;
     font-size: 17px;
     color: rgb(38, 121, 160);
-
 }
 .form{
     width: 25%;
@@ -88,7 +82,6 @@ html{
     margin: 30px;
     align-self: center;
     box-shadow: 0 10px 10px 0 rgba(51, 62, 73, 0.1);
-
 }
 .form-user{
     width: 360px;
@@ -130,7 +123,6 @@ html{
     font-weight: 550;
     text-align: center;
 }
-
 .header-with-account-span a{
     text-decoration: none !important;
     color: rgb(29, 28, 28);
@@ -157,7 +149,6 @@ html{
     margin-bottom: 50px;
     color: white;
 }
-
 .heading-login-user{
     font-size: 36px;
     text-align: center;
@@ -200,7 +191,6 @@ html{
 .form-submit-register{
     background-color: rgb(241, 68, 68);
 }
-
 .footer{
     border-top: 3px solid rgb(151, 150, 149);
     background-color: rgb(38, 121, 160);
@@ -211,7 +201,6 @@ html{
     display: flex;
     flex-wrap: wrap;
     padding: 40px 4px 10px 4px;
-    
 } 
 .grid-row-footer{
     display: flex;
@@ -222,12 +211,10 @@ html{
     padding-left: 4px;
     padding-right: 4px;
     display: flex;
-    
 }
 .home-row-column-footer{
     width: 22%;
     margin-top: -35px;
-
 }
 .contact{
     display: block;
@@ -251,7 +238,6 @@ html{
     list-style: none;
     font-size: 19px;
     padding-top: 12px
-
 }
 .contact-support-item-icon-gmail{
     color: rgb(68, 192, 241);
@@ -263,7 +249,6 @@ html{
     text-decoration: none;
     padding-left: 4px;
     color: white;
-
 }
 .contact-support-item-icon-call{
     color: rgb(232, 40, 40);
@@ -276,7 +261,6 @@ html{
     display: flex;
     justify-content: center;
     color: rgb(228, 234, 237);
-    
 }
 .contact-support-item-icon-facebook{
     color: white;
@@ -310,8 +294,6 @@ html{
 .actives{
     background-color: #75b239;
     color: white;
-
-
 }
 .grid-nav{
     padding-top: 10px;
@@ -336,7 +318,6 @@ div#loai-error {
     background-position: center center;
     filter: brightness(0.6);
 }
-
 .gas-advertisement{
     margin-left: auto;
     margin-right: auto;
@@ -348,7 +329,6 @@ div#loai-error {
 }
 .tech-name{
     color: rgb(41 149 198);
-    
 }
 .carousel-inner{
     padding-top: 8px;
@@ -375,7 +355,6 @@ div#loai-error {
 /* .delivery-location{
      display: flex; 
 } */
-
 .header-with-search-input:focus, input.form-control:focus {
     outline:none !important;
     outline-width: 0 !important;
@@ -385,11 +364,9 @@ div#loai-error {
 }
 
 .gas-delivery-information{
-    
     margin-left: 20%;
     margin-right: 20%;
 }
-
 .form-product-specials{
     margin-bottom: 18px;
 }
@@ -417,7 +394,6 @@ div#country-error {
 .special-product-address-input{
     resize: none;
 }
-
 .invalid-feedback{
     margin-top: -17px !important;
     margin-bottom: 20px !important;
@@ -447,7 +423,6 @@ div#country-error {
 }
 .support-oder-product-list{
     width: 25%;
-
 }
 .support-text {
     font-size: 18px;
@@ -484,13 +459,11 @@ i.fa-solid.fa-pencil {
     border: none !important;
     margin-top: 20px;
 }
-
 .service-support-client {
     padding-left: 19px;
     padding-top: 18px;
     font-size: 19px;
 }
-
 .name-gas-tech{
     color:rgb(38, 121, 160);
 }
@@ -514,20 +487,16 @@ a.log-in {
 a.log-in:hover{
     color: rgb(117, 178, 57);
 }
-
 .login-form-header {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     background-color: rgb(243 243 243);
 }
-
 .product-order-all{
     width: 133%;
     padding-left: 10px;
 }
-
-
 .image-product-order-all {
     text-align: center;
     border: 1px solid;
@@ -554,7 +523,6 @@ img.image-product-order:hover {
 .heading-login {
     padding-bottom: 16px;
 }
-
 .product-address-district{
     margin-bottom: 16px;
 }
@@ -572,7 +540,6 @@ img.image-product-order:hover {
 input.amount.is-invalid {
     margin-bottom: 24px;
 }
-
 .notification {
     text-align: center;
     color: #eb0d0d;
@@ -587,12 +554,10 @@ input.amount.is-invalid {
         opacity: 0;
     }
 }
-
 .mystyle{
     background-color: #94c564;
     border: 2px solid #3996c2;
 }
-
 .productchoose{
     margin-top: 4px;
     margin-bottom: 4px;
@@ -613,7 +578,6 @@ input.amount.is-invalid {
     align-self: center;
     box-shadow: 0 10px 10px 0 rgb(51 62 73 / 10%);
     z-index: 1;
-
 }
 .icon-login-user{
     display: flex;
@@ -643,7 +607,6 @@ input.amount.is-invalid {
 .form-submit-user {
     margin-bottom: 20px;
 }
-
 .form-img-user{
     margin: 50px;
 }
@@ -654,7 +617,6 @@ input.amount.is-invalid {
     border-radius: 2px;
 
 }
-
 .footer-imge-user{
     color: black !important;
 }
@@ -677,25 +639,21 @@ input.amount.is-invalid {
 .form-submit-user-register {
     margin-bottom: 15px;
 }
-
 .form-img-user-image {
     width: 100%;
     height: 480px !important;
     margin-top: 60px;
 
 }
-
 .name-login-user {
     cursor: pointer;
     font-size: 20px;
     color: rgb(38, 121, 160) !important;
 }
-
 .img-login-user{
     width: 45px;
     height: 45px;
 }
-
 .login-user-google{
     background-color: rgb(38, 121, 160) !important;
 }
@@ -714,7 +672,6 @@ input.amount.is-invalid {
     background-color: #fffcfc;
     box-shadow: 0px 3px 6px 6px rgba(0,0,0,0.2);
 }
-
 .button-history-orders{
     text-align: center;
     padding-top: 10px;
@@ -727,7 +684,6 @@ input.amount.is-invalid {
     border: none;
     border-radius: 5px;
 }
-
 .history-button-back a {
     background: #288ad6;
     border-radius: 3px;
@@ -743,7 +699,6 @@ input.amount.is-invalid {
     font-size: 20px;
     text-decoration: none;
 }
-
 .history-button-back a:hover{
     color: white !important;
 }
@@ -761,7 +716,6 @@ tbody.history-order-product {
 .card-header-chitiet, .history-orders-list {
     text-align: center;
 }
-
 .notification-orders {
     text-align: center;
     color: #eb0d0d;
@@ -773,7 +727,6 @@ tbody.history-order-product {
         opacity: 0;
     }
 }
-
 .btn-cancel-order {
     color: black;
     display: flex;
@@ -787,19 +740,16 @@ tbody.history-order-product {
 .btn-cancel-order:hover{
     color: rgb(255, 0, 0);
 }
-
 .form-label-name-login-admin{
     color: white !important;
     font-size: 20px;
 }
-
 .history-status-nav {
     display: flex;
     justify-content: space-around;
     font-size: 20px;
     margin-top: 19px;
 }
-
 .history-status-nav a{
     color: rgb(10, 88, 202);
     text-decoration: none;
@@ -1000,4 +950,96 @@ h6.payment-delivery {
     color: #299a06;
     font-weight: 500;
 
+}
+button.submit.save-img-customer {
+    background-color: #312aa2;
+    border: 1px solid #a79999;
+    border-radius: 2px;
+    color: white;
+}
+.customer-account-image {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+.text-acount-customer{
+    color: black;
+    font-weight: 500;
+}
+.modal-change-password a {
+    text-decoration: none;
+    float: right;
+    padding-bottom: 15px;
+    padding-right: 43px;
+}
+.input-password-customer-change {
+    outline: none;
+    border: 1px solid;
+    border-radius: 2px;
+}
+.save-password-customer {
+    margin-top: 20px;
+    border: 1px solid;
+    border-radius: 3px;
+    line-height: 28px;
+    background-color: #12287d;
+    color: white;
+    margin-left: 37%;
+}
+
+.change-password-customer-home {
+    text-align: center;
+    color: #000000;
+    position: fixed;
+    top: 193px;
+    right: -100%;
+    font-size: 20px;
+    border: 1px solid #b2a3a3;
+    height: 59px;
+    line-height: 38px;
+    background-color: #f7f7f7;
+    z-index: 999999;
+    padding: 10px;
+    border-radius: 2px;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 25px;
+    box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.2);
+    border-left: 7px solid #27c111;
+}
+.change-password-customer-home.show {
+    right: 32px; 
+}
+.success-customer-home-notification {
+    text-align: center;
+    color: #000000;
+    position: fixed;
+    top: 193px;
+    right: -100%;
+    font-size: 20px;
+    border: 1px solid #b2a3a3;
+    height: 59px;
+    line-height: 38px;
+    background-color: #f7f7f7;
+    z-index: 999999;
+    padding: 10px;
+    border-radius: 2px;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 25px;
+    box-shadow: 0px 1px 2px 2px rgba(0,0,0,0.2);
+    border-left: 7px solid #e9190e;
+}
+.success-customer-home-notification.show {
+    right: 32px; 
+}
+.icon-check-success{
+    color: #27c111;
+    font-size: 28px;
+    padding-top: 7px;
+    padding-right: 10px;
+}
+.icon-check-cancel{
+    color: #e9190e;
+    font-size: 28px;
+    padding-top: 7px;
+    padding-right: 10px;
 }

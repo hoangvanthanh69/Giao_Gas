@@ -23,11 +23,7 @@ Array.from(filter_button).forEach(function(element){
             }
         })
     })
-    
-
-   
 })
-
 
 
 

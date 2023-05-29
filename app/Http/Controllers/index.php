@@ -220,7 +220,7 @@ class index extends Controller
      }
 
       $order_product->save();
-      return redirect()->route('home',)->with('mesage','Đặt giao gas thành công');
+      return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
    }
 
 
@@ -359,10 +359,17 @@ class index extends Controller
           $user->img = $name;
           $user->save();
       }
-      return redirect()->back()->with('success', 'Cập nhật ảnh thành công.');
+      return redirect()->back()->with('success', 'Cập nhật ảnh thành công');
    }
-  
-  
-  
-  
+
+   // cập nhật mật khẩu cho khách hàng
+   function update_password_customer(Request $request, $id) {
+      $user = users::find($id);
+      if ($request->old_password !== $user->password) {
+         return redirect()->back();
+      }
+      $user->password = ($request->new_password);
+      $user->save();
+      return redirect()->back()->with('success', 'Cập nhật mật khẩu thành công');
+   }
 }
