@@ -25,7 +25,7 @@ class index_backend extends Controller
         $staff = add_staff::get()->toArray();
         $order_product = order_product::get()->toArray(); 
         $tbl_admin = tbl_admin::get()->toArray();
-        $data =  $request->all();
+        $data = $request->all();
         $count_product = product::count();
         $count_staff = add_staff::count();
         $data_original_price=product::sum('original_price');
@@ -458,11 +458,11 @@ class index_backend extends Controller
         }
         $status = isset($_POST['status']) ? $_POST['status'] : 'all';
         if ($status == '1') {
-            $order_product = order_product::where('status', 1)->get()->toArray(); 
+            $order_product = order_product::where('status', 1)->orderByDesc('created_at')->get()->toArray(); 
         } else if ($status == '2') {
-            $order_product = order_product::where('status', 2)->get()->toArray(); 
+            $order_product = order_product::where('status', 2)->orderByDesc('created_at')->get()->toArray(); 
         } else {
-            $order_product = order_product::whereIn('status', [1, 2])->get()->toArray(); 
+            $order_product = order_product::whereIn('status', [1, 2])->orderByDesc('created_at')->get()->toArray(); 
         }
         $tbl_admin = tbl_admin::get();
         $admin_name = session()->get('admin_name');
@@ -513,7 +513,7 @@ class index_backend extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
-        $users = users::get()->toArray();
+        $users = users::orderByDesc('id')->get()->toArray();
         foreach($users as &$user){
             $order_count = order_product::where('user_id', $user['id'])->count();
             $user['order_count'] = $order_count;

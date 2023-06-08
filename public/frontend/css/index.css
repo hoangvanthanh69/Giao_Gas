@@ -758,20 +758,39 @@ tbody.history-order-product {
     color: #75b239 !important;
     border-bottom: 2px solid #75b239;
 }
+.status-all {
+    color: #75b239 !important;
+}
 .infor-order-user-history {
     /* display: flex; */
     align-items: center;
 }
 .activess-1{
     color: orange !important;
+    border-bottom: 2px solid orange;
+}
+.status-handle{
+    color: orange !important;
 }
 .activess-2{
     color: #52de20 !important; 
+    border-bottom: 2px solid #52de20;
+}
+.status-delivery{
+    color: #52de20 !important; 
+}
+.status-complete{
+    color: #198754 !important;
 }
 .activess-3{
     color: #198754 !important;
+    border-bottom: 2px solid #198754;
 }
 .activess-4{
+    color: red !important;
+    border-bottom: 2px solid red;
+}
+.status-cancel{
     color: red !important;
 }
 .card-body.history-orders-list .list-order-user-history {
@@ -951,7 +970,7 @@ h6.payment-delivery {
     font-weight: 500;
 
 }
-button.submit.save-img-customer {
+button.save-img-customer {
     background-color: #312aa2;
     border: 1px solid #a79999;
     border-radius: 2px;
@@ -1042,4 +1061,102 @@ button.submit.save-img-customer {
     font-size: 28px;
     padding-top: 7px;
     padding-right: 10px;
+}
+.header-cart-notice {
+    position: absolute;
+    padding: 0px 6px;
+    background-color: white;
+    color: #ff0000;
+    font-size: 19px;
+    line-height: 21px;
+    margin-top: -12px;
+    margin-left: 146px;
+    border-radius: 12px;
+    border: 1px solid #2679A0;
+}
+.home-product-item-selling::before {
+    content: "";
+    position: absolute;
+    border-top: 4px solid rgb(139, 11, 11);
+    border-left: 4px solid transparent;
+    left: 0;
+    bottom: -3px;
+}
+.hotline {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 9000;
+    display: block;
+    background: rgb(113, 213, 12);
+    color: #0985bf ;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 99px;
+}
+.hotline span{
+    font-size: 20px;
+}
+.hotline-phone{
+    font-weight: 500;
+}
+.marquee {
+    height: 30px;
+    overflow: hidden;
+    position: relative;
+    /* background: rgb(241, 241, 241); */
+}
+.marquee p {
+    color: rgb(38, 121, 160);
+    font-size: 19px;
+    white-space: nowrap;
+    position: absolute;
+    animation: marquee linear infinite;
+    animation-duration: 50s;
+    animation-timing-function: linear;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+.header-order-history-status {
+    position: absolute;
+    padding: 0px 5px;
+    background-color: white;
+    font-size: 15px;
+    line-height: 17px;
+    margin-top: -12px;
+    border-radius: 12px;
+}
+.history-status-all{
+    border: 1px solid #75b239;
+    color: #75b239;
+    margin-left: 77px;
+}
+.history-status-handle {
+    margin-left: 54px;
+    border: 1px solid orange;
+    color: orange;
+}
+.history-status-delivery {
+    margin-left: 48px;
+    border: 1px solid #52de20;
+    color: #52de20 !important;
+}
+.history-status-complete {
+    margin-left: 39px;
+    border: 1px solid #198754;
+    color: #198754 !important;
+}
+.history-status-cancel {
+    margin-left: 39px;
+    border: 1px solid red;
+    color: red !important;
 }

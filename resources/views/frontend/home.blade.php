@@ -136,19 +136,19 @@
                                     <h5 class="modal-title" id="exampleModalToggleLabel2">Thay đổi mật khẩu</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body ms-4">
                                     <form id="changepassforms" enctype="multipart/form-data" method="post" action="{{ route('update-password-customer', $users->id) }}">
                                         @csrf
                                         <div class="mb-3">
-                                            <label class="col-4" for="">Nhập Mật khẩu củ: </label>
+                                            <label class="col-5" for="">Nhập Mật khẩu củ: </label>
                                             <input type="password" name="old_password" class="input-password-customer-change">
                                         </div>
                                         <div class="mb-3">
-                                            <label class="col-4" for="">Nhập Mật khẩu mới: </label>
+                                            <label class="col-5" for="">Nhập Mật khẩu mới: </label>
                                             <input type="password" name="new_password" id="new_password" class="input-password-customer-change">
                                         </div>
                                         <div>
-                                            <label class="col-4" for="">Nhập lại Mật khẩu: </label>
+                                            <label class="col-5" for="">Nhập lại Mật khẩu: </label>
                                             <input type="password" name="confirm_password" class="input-password-customer-change">
                                         </div>
                                         <div class="">
@@ -204,6 +204,7 @@
                         </button>
 
                         <a href="{{route('order-history')}}">
+                            <p class="header-cart-notice">{{ $counts_processing }}</p>
                             <button class="btnbtn home-filter-button" >
                                 Lịch sử đơn hàng
                             </button>
@@ -211,6 +212,18 @@
 
                     </div>
                 </div>
+            </div>
+            <div class="marquee">
+                <p>
+                    <strong class="logo-name-gas">
+                        Gas
+                    </strong>
+                    <strong>
+                        Tech
+                    </strong>
+                    cung cấp các bình gas công nghiệp và gas dân dụng cho các nhà hàng, khách sạn, quán ăn gia đình...,
+                    với tiêu chí “Nhanh chóng - An toàn - Chất lượng - Hiệu quả”.
+                </p>
             </div>
 
             <div class="header-img-grid element_columns" data-item="img">
@@ -635,8 +648,12 @@
                 </div>
             </div>
     </footer>
-
-
+    <a href="tel:0837641469">
+        <div class="hotline">
+            <span>Hotline</span>
+            <span class="hotline-phone">19001011</span>
+        </div>
+    </a>
     <script src="{{asset('frontend/js/style.js')}}"></script>
     <script src="{{asset('frontend/js/doigas.js')}}"></script>
 
@@ -861,6 +878,62 @@
             showContent();
         @endif
     </script>
-      
+    <script type="text/javascript">
+		
+		$(document).ready(function(){
+			$("#changepassforms").validate({
+				rules: {
+					old_password: "required",
+                    new_password: {required: true, minlength: 5},
+                    confirm_password: {required: true, minlength: 5, equalTo: "#new_password"},
+				},
+				messages: {
+					old_password: "Nhập mật khẩu củ",
+                    new_password: {
+						required: "Bạn chưa nhập mật khẩu",
+						minlength: "Mật khẩu phải có ít nhất 5 kí tự"
+					},
+                    confirm_password: {
+						required: " Bạn chưa nhập mật khẩu",
+						minlength: "Mật khẩu phải có ít nhất 5 ký tự",
+						equalTo: "Mật khẩu không trùng khớp với mật khẩu đã nhập",
+					},
+				},
+				errorElement: "div",
+				errorPlacement: function (error, element) {
+					error.addClass("invalid-feedbacks");
+					if (element.prop("type") === "checkbox"){
+						error.insertAfter(element.siblings("label"));
+					} else {
+						error.insertAfter(element);
+					}
+				},
+				highlight: function (element, errorClass, validClass) {
+					$(element).addClass("is-invalid").removeClass("is-valid");
+				},
+				unhighlight: function(element, errorClass, validClass) {
+					$(element).addClass("is-valid").removeClass("is-invalid");
+				} 
+
+			});
+
+    
+        
+        });
+	</script>
+    <script>
+       window.onload = function() {
+            var adsText = document.getElementById('adstext');
+            var adsContainer = document.getElementById('adscontainer');
+            var adsContainerWidth = adsContainer.offsetWidth;
+            var adsTextWidth = adsText.offsetWidth;
+        
+            if (adsTextWidth > adsContainerWidth) {
+                adsText.style.animationDuration = (adsTextWidth / 50) + 's';
+            } else {
+                adsText.style.animation = 'none';
+            }
+        };
+    </script>
 </body>
 </html>

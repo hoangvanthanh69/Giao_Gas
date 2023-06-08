@@ -48,10 +48,11 @@ class index extends Controller
 
       }
       $users = users::find($user_id);
+      $counts_processing = order_product::where('user_id', $user_id)->where('status', 1)->count();
       return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
-      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users
+      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,
       ]);
-    }
+   }
   
    function login(){
       if(!Session::get('admin')){
@@ -293,7 +294,16 @@ class index extends Controller
       $user_id = Session::get('home')['id'];
       $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
       $status = isset($_GET['status']) ? $_GET['status'] : 'all';
-      return view('frontend.order_history',['order_product' => $order_product, 'status'=>$status]);
+      $users = users::find($user_id);
+      $counts_processing = order_product::where('user_id', $user_id)->where('status', 1)->count();
+      $counts_delivery = order_product::where('user_id', $user_id)->where('status', 2)->count();
+      $counts_all = order_product::where('user_id', $user_id)->count();
+      $counts_complete = order_product::where('user_id', $user_id)->where('status', 3)->count();
+      $counts_cancel = order_product::where('user_id', $user_id)->where('status', 4)->count();
+      return view('frontend.order_history',['order_product' => $order_product, 'status' => $status,
+         'counts_processing' => $counts_processing, 'counts_all' => $counts_all, 'counts_delivery' => $counts_delivery,
+         'counts_complete' => $counts_complete, 'counts_cancel' => $counts_cancel
+      ]);
    }
 
    // thông tin đơn hàng của khách hàng

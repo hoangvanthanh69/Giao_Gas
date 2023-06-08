@@ -23,7 +23,10 @@
                   <td>{{$key+1}}</td>
                   <td class="product-order-quantity">{{$val['name']}}</td>
                   <td class="product-order-quantity">{{$val['email']}}</td>
-                  <td class="product-order-quantity">{{$val['password']}}</td>
+                  <td class="product-order-quantity">
+                     {{str_repeat('*', strlen($val['password']))}}
+                     <!-- {{$val['password']}} -->
+                  </td>
                   <td class="product-order-quantity">{{$val['order_count']}}</td>
                   <td class="product-order-quantity">
                      <form action="{{route('delete_account_users', $val['id'])}}">

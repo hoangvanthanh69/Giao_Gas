@@ -20,11 +20,41 @@
             </div>
 
             <div class="history-status-nav">
-                <a href="?status=all" class="{{ ($status == 'all') ? 'activess' : '' }}">Tất cả đơn hàng</a>
-                <a href="?status=1" class="{{ ($status == '1') ? 'activess-1' : '' }}">Đang xử lý</a>
-                <a href="?status=2" class="{{ ($status == '2') ? 'activess-2' : '' }}">Đang giao</a>
-                <a href="?status=3" class="{{ ($status == '3') ? 'activess-3' : '' }}">Đã giao</a>
-                <a href="?status=4" class="{{ ($status == '4') ? 'activess-4' : '' }}">Đã hủy</a>
+                <a href="?status=all" class="{{ ($status == 'all') ? 'activess' : '' }}">
+                    <div class="text-center">
+                        <p class="header-order-history-status history-status-all">{{$counts_all}}</p>
+                        <i class="fas fa-database fs-3 pb-2 status-all"></i>    
+                        <p>Tất cả đơn hàng</p>
+                    </div>
+                </a>
+                <a href="?status=1" class="{{ ($status == '1') ? 'activess-1' : '' }}">
+                    <div class="text-center">
+                        <p class="header-order-history-status history-status-handle">{{$counts_processing}}</p>
+                        <i class="fas fa-spinner fs-3 pb-2 status-handle"></i>
+                        <p>Đang xử lý</p>
+                    </div>
+                </a>
+                <a href="?status=2" class="{{ ($status == '2') ? 'activess-2' : '' }}">
+                    <div class="text-center">
+                        <p class="header-order-history-status status-all history-status-delivery">{{$counts_delivery}}</p>
+                        <i class="fas fa-car-side fs-3 pb-2 status-delivery"></i>
+                        <p>Đang giao</p>
+                    </div>
+                </a>
+                <a href="?status=3" class="{{ ($status == '3') ? 'activess-3' : '' }}">
+                    <div class="text-center">
+                        <p class="header-order-history-status status-all history-status-complete">{{$counts_complete}}</p>
+                        <i class="fas fa-check-square fs-3 pb-2 status-complete"></i>    
+                        <p>Đã giao</p>
+                    </div>
+                </a>
+                <a href="?status=4" class="{{ ($status == '4') ? 'activess-4' : '' }}">
+                    <div class="text-center">
+                        <p class="header-order-history-status status-all history-status-cancel">{{$counts_cancel}}</p>
+                        <i class="fas fa-window-close fs-3 pb-2 status-cancel"></i>    
+                        <p>Đã hủy</p>
+                    </div>
+                </a>
             </div>
 
             <div class="card-body history-orders-list">
