@@ -60,7 +60,15 @@
                            <div class="btnbtn home-filter-button" data-filter="product">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                                  <i class="fas fa-box icon-all-admin-nav"></i>
-                                 Quản lý sản phẩm 
+                                 Quản lý xuất sản phẩm 
+                              </a>
+                           </div>
+                           <br>
+
+                           <div class="btnbtn home-filter-button" data-filter="product">
+                              <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
+                                 <i class="fas fa-box icon-all-admin-nav"></i>
+                                 Quản lý kho sản phẩm
                               </a>
                            </div>
                            <br>
@@ -100,7 +108,7 @@
                            <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-tai-khoan')" href="{{route('quan-ly-tk-admin')}}">
                                  <i class="fa-solid fa-lock icon-all-admin-nav"></i>
-                                 Tài khoản admin
+                                 Tài khoản quản trị
                               </a>
                            </div>
                            <br>
@@ -108,7 +116,7 @@
                            <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-tk-user')" href="{{route('quan-ly-tk-user')}}">
                                  <i class="fa-solid fa-user icon-all-admin-nav"></i>
-                                 Khách hàng
+                                 Quản lý khách hàng
                               </a>
                            </div>
                            

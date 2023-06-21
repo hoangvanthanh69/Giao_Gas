@@ -5,13 +5,12 @@
 <div class="card mb-3 product-list element_column" data-item="staff">
    <div class="card-body">
       <div class="table-responsive table-list-product">
-         <div class="add-account-admin-a">
-            <a href="{{route('add_account_admin')}}" class="add-account-admin">Thêm tài khoản admin</a>
+         <div class="add-account-admin-a float-end">
+            <a href="{{route('add_account_admin')}}" class="add-account-admin">Thêm tài khoản quản trị</a>
          </div>
          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
-         
-               <h5 class="list-account-admin">Tài khoản admin đã duyệt</h5>
+               <h5 class="list-account-admin">Tài khoản quản trị đã duyệt</h5>
                <tr class="tr-name-table">
                   <th>STT</th>
                   <th>Ảnh</th>

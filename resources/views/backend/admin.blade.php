@@ -186,7 +186,7 @@
                                         <th>STT</th>
                                         <th>Mã SP</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Số lượng</th>
+                                        <th>Số lượng bán</th>
                                     </tr>
                                 </thead>
                                 @foreach ($bestseller as $key => $sp) 
@@ -207,26 +207,28 @@
 
         <!-- khách hàng thân thiết -->
         <div class="col-6">
-            <div class="card statistical-all bg-Secondary">
+            <div class="card statistical-all bg-success">
                 <div class="row no-gutters ">
                     <div class="col mr-2 text-light center-total-product m-3">
-                        <div class="text-xs fw-bolder text-uppercase mb-1 text-light">
+                        <div class="text-xs fw-bolder text-uppercase mb-1 text-dark">
                             Khách hàng thân thiết
                         </div>
                         <table class="table">
                             <tbody>
                                 <thead>
-                                    <tr class="text-center text-light">
+                                    <tr class="text-center ">
                                         <th>STT</th>
                                         <th>Tên Khách hàng</th>
+                                        <th>SĐT</th>
                                         <th>Số đơn hàng</th>
                                     </tr>
                                 </thead>
                                 @foreach ($loyal_customer as $key => $sp) 
-                                    <tr class="text-center list-loyal-customer">
+                                    <tr class="text-center list-loyal-customer text-light ">
                                         <td>{{$key+1}}</td>
-                                        <td class="">{{$sp->nameCustomer}}</td>
-                                        <td class="">{{$sp->total_amounts}}</td>
+                                        <td>{{$sp->nameCustomer}}</td>
+                                        <td>{{$sp->phoneCustomer}}</td>
+                                        <td>{{$sp->total_amounts}}</td>
                                     </tr>
                                 @endforeach
                                 

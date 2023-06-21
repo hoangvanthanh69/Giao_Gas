@@ -13,7 +13,7 @@
             <div class="table-responsive table-list-product">
               <div class="search-option-infor-amdin">
                 <div class="search-infor-amdin-form-staff">
-                  <a class="add-product" href="{{route('add-product-admin')}}">Thêm sản phẩm</a>
+                  <a class="add-product" href="{{route('add-product-admin')}}">Nhập sản phẩm</a>
                 </div>
                 <div class=" search-infor-amdin-form-staff">
                   <form action="{{ route('admin.searchOrder_product') }}" method="GET" class="header-with-search-form ">
@@ -67,7 +67,7 @@
                       </td>
                       <td class="name-product-td infor-product">{{$val['quantity']}}</td>
                       <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
-                      <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
+                      <td class="name-product-td infor-product">{{number_format($val['original_price'])}} VNĐ</td>
 
                       <td class="function-icon">
                         <form action="{{route('edit-product', $val['id'])}}">

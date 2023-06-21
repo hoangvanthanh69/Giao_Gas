@@ -398,6 +398,7 @@
                                                 </div>
 
                                                 <div class="d-flex">
+                                                    <label class="me-2">Tên bình gas:  </label>
                                                     <p class="name-product"></p>
                                                 </div>
                                                 
@@ -416,6 +417,7 @@
                                                     <span class="total-price "></span>
                                                 </div>
                                             </div>
+                                            <span class="text-warning ms-3">Miễn phí vận chuyển</span>
                                             <div class="modal-footer">
                                                 <h6 class="text-success payment-delivery">Thanh toán khi nhận hàng</h6>
                                                 <button class="btn btn-primary submit">Giao gas</button>
