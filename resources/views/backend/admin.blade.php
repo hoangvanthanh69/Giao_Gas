@@ -111,7 +111,7 @@
                             Tổng Doanh thu 
                         </div>
                         <div class="h5 mb-2 font-weight-bold text-gray-800">
-                            <span class="count-all">{{number_format($tong_gia)}} đ</span>
+                            <span class="count-all">{{number_format($tong_gia)}} VNĐ</span>
                         </div>
                         <a class="back-order-statistics" href="{{route('chi_tiet_doanh_thu')}}">Xem chi tiết</a>
                     </div>
@@ -132,7 +132,7 @@
                             Tổng giá sản phẩm bán ra
                         </div>
                         <div class="h5 mb-0 font-weight-bold ">
-                            <span class="count-all saleprice-product">{{number_format($data_original_price)}} đ</span> 
+                            <span class="count-all saleprice-product">{{number_format($data_original_price)}} VNĐ</span> 
                         </div>
                     </div>
                     <div class="col-auto card-icon text-Warning" style="font-size: 38px;">

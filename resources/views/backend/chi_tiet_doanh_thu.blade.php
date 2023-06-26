@@ -1,5 +1,5 @@
 @extends('layouts.admin_gas')
-@section('sidebar-active-home', 'active' )
+@section('sidebar-active-revenue', 'active' )
 @section('content')
 
 <div class="col-10 nav-row-10 ">
@@ -113,7 +113,7 @@
 
         
     </div>
-    <a class="back-order-statistics" href="{{route('admin')}}"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
+    <!-- <a class="back-order-statistics" href="{{route('admin')}}"><i class="fa-solid fa-arrow-left"></i> Quay lại</a> -->
     
     </div>
 @endsection

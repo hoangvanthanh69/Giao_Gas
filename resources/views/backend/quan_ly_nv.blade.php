@@ -85,7 +85,7 @@
 
                         <td class="product-order-quantity">{{$val['phone']}}</td>
 
-                        <td class="product-order-quantity">{{number_format($val['luong'])}} đ</td>
+                        <td class="product-order-quantity">{{number_format($val['luong'])}} VNĐ</td>
 
                         <td class="function-icon function-icon-staff">
                           <form action="{{route('edit-staff', $val['id'])}}">

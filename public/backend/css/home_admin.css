@@ -631,7 +631,7 @@ a.page-link.a-link-page {
     font-weight: 600;
     text-decoration: none;
     text-align: center;
-    padding-left: 35px;
+    /* padding-left: 35px; */
 }
 .logo-name-gas{
     color: #77d020 !important;

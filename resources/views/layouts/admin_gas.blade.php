@@ -23,7 +23,7 @@
                            </strong>
                            Tech
                      </div>
-                     <div class="img-admin-login mb-3">
+                     <div class="img-admin-login mb-4">
                         @if (Session::has('admin_img'))
                            <img src="{{ asset('uploads/staff/' . Session::get('admin_img')) }}" alt="admin_img"  width="60px">
                         @endif
@@ -49,74 +49,73 @@
                      
                      <?php if(Session::get('admin')['chuc_vu'] == "2"){?>
                         <div class="home-filter border-filet-butoon" id="filter_button">
-                           <div class="btnbtn home-filter-button " data-filter="all">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="all">
                               <a class="@yield('sidebar-active-home')" href="{{route('admin')}}">
                                  <i class=" fa fa-home icon-all-admin-nav" aria-hidden="true"></i>
                                  Tổng quan
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="product">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="product">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                                  <i class="fas fa-box icon-all-admin-nav"></i>
                                  Quản lý xuất sản phẩm 
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="product">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="product">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                                  <i class="fas fa-box icon-all-admin-nav"></i>
                                  Quản lý kho sản phẩm
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="staff">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="staff">
                               <a class="@yield('sidebar-active-customer')" href="{{route('quan-ly-nv')}}">
                                  <i class="fas fa-clipboard-user icon-all-admin-nav"></i>
                                  Quản lý nhân viên
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
                                  <i class="fas fa-file-invoice-dollar icon-all-admin-nav"></i>
                                  Quản lý đơn hàng
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
                                  <i class="fa-solid fa-truck icon-all-admin-nav"></i>
                                  Quản lý giao hàng
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-danh-gia-giao-hang')" href="{{route('danh-gia-giao-hang')}}">
                                  <i class="fa-solid fa-star"></i>
                                  Đánh giá giao hàng
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-tai-khoan')" href="{{route('quan-ly-tk-admin')}}">
                                  <i class="fa-solid fa-lock icon-all-admin-nav"></i>
                                  Tài khoản quản trị
                               </a>
                            </div>
-                           <br>
 
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-tk-user')" href="{{route('quan-ly-tk-user')}}">
                                  <i class="fa-solid fa-user icon-all-admin-nav"></i>
                                  Quản lý khách hàng
+                              </a>
+                           </div>
+
+                           <div class="btnbtn home-filter-button mb-4">
+                              <a class="@yield('sidebar-active-revenue')" href="{{route('chi_tiet_doanh_thu')}}">
+                                 <i class="fa-sharp fa-solid fa-money-check-dollar"></i>
+                                 Quản lý doanh thu
                               </a>
                            </div>
                            
@@ -124,15 +123,14 @@
                      <?php }
 
                      elseif(Session::get('admin')['chuc_vu'] == "3"){?>
-                        <div class="btnbtn home-filter-button" data-filter="all">
+                        <div class="btnbtn home-filter-button mb-4" data-filter="all">
                            <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
                                  <i class="fas fa-file-invoice-dollar icon-all-admin-nav"></i>
                                  Đơn hàng
                               </a>
                            </div>
-                           <br>
-                           <div class="btnbtn home-filter-button" data-filter="product">
+                           <div class="btnbtn home-filter-button mb-4" data-filter="product">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                                  <i class="fas fa-box icon-all-admin-nav"></i>
                                  Sản phẩm 
@@ -142,7 +140,7 @@
                      <?php }
 
                      elseif(Session::get('admin')['chuc_vu'] == "1"){ ?>
-                        <div class="btnbtn home-filter-button " data-filter="all">
+                        <div class="btnbtn home-filter-button mb-4 " data-filter="all">
                            <div class="btnbtn home-filter-button" data-filter="receipt">
                               <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
                                  <i class="fas fa-file-invoice-dollar"></i>
