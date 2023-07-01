@@ -660,8 +660,10 @@ a.page-link.a-link-page {
     color: #f39c12;
 }
 .logo-gas-gas{
-    width: 60px;
+    width: 40px;
 }
 .logo-gas-gas img{
-    width: 60px;
+    width: 40px;
+    align-items: center;
+    text-align: center;
 }

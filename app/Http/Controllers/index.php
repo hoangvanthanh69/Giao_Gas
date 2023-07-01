@@ -48,7 +48,7 @@ class index extends Controller
 
       }
       $users = users::find($user_id);
-      $counts_processing = order_product::where('user_id', $user_id)->where('status', 1)->count();
+      $counts_processing = order_product::where('user_id', $user_id)->count();
       return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
       'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,
       ]);
@@ -267,7 +267,9 @@ class index extends Controller
                <div class="price-product-order price" id="price">
                   Giá sản phẩm: 
                   <span class="gia price-product-order-span">'. number_format($val['original_price']).' đ</span>
-               </div>';
+               </div>
+               '
+               ;
    
          if ($isBestseller) {
             $output .= '
@@ -292,7 +294,7 @@ class index extends Controller
    //
    function order_history(){
       $user_id = Session::get('home')['id'];
-      $order_product = order_product::where(['user_id' => $user_id])->get()->toArray(); 
+      $order_product = order_product::orderByDesc('created_at')->where(['user_id' => $user_id])->get()->toArray(); 
       $status = isset($_GET['status']) ? $_GET['status'] : 'all';
       $users = users::find($user_id);
       $counts_processing = order_product::where('user_id', $user_id)->where('status', 1)->count();

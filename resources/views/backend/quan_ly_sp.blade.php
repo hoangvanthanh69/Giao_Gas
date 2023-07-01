@@ -72,7 +72,7 @@
                       <td class="function-icon">
                         <form action="{{route('edit-product', $val['id'])}}">
                           <button class="summit-add-product-button infor-product" type='submit'>
-                            <i class="fa fa-wrench icon-wrench" aria-hidden="true"></i>
+                            <i class="fa-solid fa-pen-to-square"></i>
                           </button>
                         </form>
                         

@@ -789,7 +789,6 @@
                                 
                                 var amountCustomer = document.getElementById("amount").value;
                                 if (isNaN(amountCustomer) || amountCustomer == '') {
-                                    // console.log("Invalid amount input");
                                     return;
                                 }
 

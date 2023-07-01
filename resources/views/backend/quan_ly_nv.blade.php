@@ -47,12 +47,12 @@
                     <th>Mã số </th>
                     <th class="align-center">Ảnh</th>
                     <th class="align-center">Họ Tên</th>
+                    <th class="align-center">SĐT</th>
                     <th>Năm sinh</th>
                     <th>Chức vụ</th>
                     <th class="align-center">Tài khoản @gmail</th>
                     <th class="align-center">Địa chỉ</th>
                     <th>Ngày vào làm</th>
-                    <th>Số điện thoại</th>
                     <th class="align-center">Lương/Tháng</th>
                     <th>Chức năng</th>
                   </tr>
@@ -69,6 +69,8 @@
 
                         <td class="name-product-td">{{$val['last_name']}}</td>
 
+                        <td class="product-order-quantity">{{$val['phone']}}</td>
+
                         <td class="product-order-quantity">{{$val['birth']}}</td>
 
                         <td class="roduct-order-quantity">
@@ -83,14 +85,12 @@
 
                         <td class="product-order-quantity">{{$val['date_input']}}</td>
 
-                        <td class="product-order-quantity">{{$val['phone']}}</td>
-
                         <td class="product-order-quantity">{{number_format($val['luong'])}} VNĐ</td>
 
                         <td class="function-icon function-icon-staff">
                           <form action="{{route('edit-staff', $val['id'])}}">
                             <button class="summit-add-product-button" type='submit'>
-                              <i class="fa fa-wrench icon-wrench" aria-hidden="true"></i>
+                              <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                           </form>
                           
