@@ -252,21 +252,23 @@ class index_backend extends Controller
         if (!Session::get('admin')) {
             return redirect()->route('login');
         }
-
+    
         $admin_name = Session::get('admin')['admin_name'];
         $chuc_vu = Session::get('admin')['chuc_vu'];
-        if($chuc_vu == '2'){
+        if ($chuc_vu == '2') {
             $order_product = order_product::orderByDesc('created_at')->get()->toArray();
-        }
-        else{
+        } else {
             $order_product = order_product::where(['admin_name' =>$admin_name])->orderByDesc('created_at')->get()->toArray();
         }
         $filters = array(
             'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
             'type' => isset($_GET['type']) ? $_GET['type'] : 'all'
         );
-        return view('backend.quan_ly_hd', ['order_product' => $order_product, 'filters' => $filters,]);
+    
+        return view('backend.quan_ly_hd', compact('order_product', 'filters'));
     }
+    
+    
 
     // thống kê chi tiết đơn hàng
     function thong_ke_chi_tiet_dh(Request $request){
@@ -588,5 +590,26 @@ class index_backend extends Controller
         }
         return view('backend.danh_gia_giao_hang', ['tbl_admin' => $tbl_admin,]);
     }
+
+    //tìm kiếm hóa đơn
+    function search_hd(Request $request) {
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $order_product = order_product::where('nameCustomer', 'LIKE', "%$search%")
+                ->orWhere('order_code', 'LIKE', "%$search%")
+                ->get();
+            if ($order_product->isEmpty()) {
+                return back()->with('mesages', 'Không tìm thấy kết quả');
+            } else {
+                $filters = array(
+                    'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
+                    'type' => isset($_GET['type']) ? $_GET['type'] : 'all'
+                );
     
+                return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search'));
+            }
+        } else {
+            return redirect()->back();
+        }
+    }    
 }

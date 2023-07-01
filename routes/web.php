@@ -159,3 +159,5 @@ Route::post('update_image_user/{id}', [index::class, 'update_image_user'])->name
 
 // cập nhật mật khẩu cho khách hàng
 Route::post('/update-password-customer/{id}', [index::class, 'update_password_customer'])->name('update-password-customer');
+
+Route::get('/admin/search_hd', [index_backend::class, 'search_hd'])->name('admin.search_hd');

@@ -1,13 +1,23 @@
 var country_arr = new Array("Cần Thơ");
 var s_a = new Array();
 s_a[0] = "";
-s_a[1] = "Ninh Kiều|Cái Răng|Bình Thủy|Ô Môn"; // cần thơ
+s_a[1] = "Ninh Kiều|Cái Răng|Bình Thủy|Ô Môn|Phong Điền|Thốt Nốt|Cờ Đỏ|Vĩnh Thạnh|Thới Lai"; // Cần Thơ
 
 var s_b = new Array();
 s_b[1, 1] = "Cái Khế|Xuân Khánh|Hưng Lợi|An Hòa|Thới Bình|An Nghiệp|An Cư|Tân An|An Phú|An Khánh"; // ninh kiều
 s_b[1, 2] = "Lê Bình|Hưng Phú|Hưng Thạnh|Ba Láng|Thường Thạnh|Phú Thứ|Tân Phú" // cái răng
 s_b[1, 3] = "Bình Thủy|Trà An|Trà Nóc|An Đông|An Thới|Bùi Hữu Nghĩa|Long Hòa|Long Tuyền" // bình thủy
 s_b[1, 4] = "Châu Văn Liêm|Thới Hòa|Thới Long|Long Hưng|Thới An|Phước Thới|Trường Lạc" // ổ môn
+s_b[1, 5] = "Giai Xuân|Mỹ Khánh| Nhơn Ái| Nhơn Nghĩa| Tân Thới| Trường Long" // Phong Điền
+s_b[1, 6] = "Thới Thuận|Trung Nhứt|Trung Kiên|Thuận Hưng|Tân Hưng|Tân Lộc|thị trấn Thốt Nốt" // Thốt Nốt
+s_b[1, 7] = "Trung An| Trung Thạnh| Thạnh Phú| Trung Hưng|Thị trấn Cờ Đỏ| Thới Hưng| Đông Hiệp| Đông Thắng| Thới Đông| Thới Xuân" // Cờ Đỏ
+s_b[1, 8] = "Thạnh An|Thạnh Lộc|Thạnh Lợi|Thạnh Mỹ|Thạnh Quới|Thạnh Thắng|Thạnh Tiến|Vĩnh Bình|Vĩnh Trinh" // Vĩnh Thạnh
+s_b[1, 9] = "Định Môn|Đông Bình|Đông Thuận|Tân Thạnh|Thới Tân|Thới Thạnh|Trường Thắng|Trường Thành|Trường Xuân|Trường Xuân A|Trường Xuân B|Xuân Thắng" // Thới Lai
+
+
+
+
+
 
 function print_country(country_id) {
   var option_str = document.getElementById(country_id);

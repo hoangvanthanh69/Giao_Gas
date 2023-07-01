@@ -10,29 +10,43 @@
             <span class="product-list-name">Admin / Đơn hàng</span>
           </div>
 
-          <div class="">
+          <div class="d-flex justify-content-between">
             <form method="get"> 
               <div class="d-flex">
                 <select name="status" id="status" class="form-select select-form-option" onchange="this.form.submit()">
-                  <option value="all" {{ (isset($_GET['status']) && $_GET['status'] == 'all') ? 'selected' : '' }}>Trạng thái</option>
-                  <option value="1" {{ (isset($_GET['status']) && $_GET['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
-                  <option value="2" {{ (isset($_GET['status']) && $_GET['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
-                  <option value="3" {{ (isset($_GET['status']) && $_GET['status'] == '3') ? 'selected' : '' }}>Đã giao</option>
-                  <option value="4" {{ (isset($_GET['status']) && $_GET['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
+                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Trạng thái</option>
+                  <option value="1" {{ ($filters['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
+                  <option value="2" {{ ($filters['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
+                  <option value="3" {{ ($filters['status'] == '3') ? 'selected' : '' }}>Đã giao</option>
+                  <option value="4" {{ ($filters['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
                 </select>
 
                 <div id="type" class="d-flex m-3">
                   <div class="form-check me-5">
-                    <input class="form-check-input" type="radio" name="type" value="1" id="type1" {{ (isset($_GET['type']) && $_GET['type'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <input class="form-check-input" type="radio" name="type" value="1" id="type1" {{ ($filters['type'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type1">Gas công nghiệp</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="type" value="2" id="type2" {{ (isset($_GET['type']) && $_GET['type'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <input class="form-check-input" type="radio" name="type" value="2" id="type2" {{ ($filters['type'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type2">Gas dân dụng</label>
                   </div>
                 </div>
               </div>
             </form>
+            <div class="search-infor-amdin-form mt-2 me-4">
+              <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
+                @csrf
+                <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
+                <span class="header_search button">
+                  <i class="header-with-search-icon fas fa-search"></i>
+                </span>
+              </form>
+              @if (session('mesages'))
+                <div class="notification-search">
+                  {{ session('mesages') }}
+                </div>
+              @endif
+            </div>
           </div>
           
           <div class="card-body">
@@ -58,11 +72,15 @@
                 </thead>
                 
                 <tbody class="infor">
+                @php
+                    $statusFilter = $filters['status'] ?? 'all';
+                    $typeFilter = $filters['type'] ?? 'all';
+                @endphp
                   @foreach($order_product as $key => $val)
-                    @if (($filters['status'] == 'all' || $val['status'] == $filters['status']) && ($filters['type'] == 'all' || $val['type'] == $filters['type']))
+                  @if (($statusFilter == 'all' || $val['status'] == $statusFilter) && ($typeFilter == 'all' || $val['type'] == $typeFilter))
                       <tr class="order-product-height hover-color">
                         <td class="order-product-infor-admin">{{$key+1}}</td>
-                        <td class="order-product-infor-admin"> {{$val['id']}}</td>
+                        <td class="order-product-infor-admin"> {{$val['order_code']}}</td>
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
                         <td class="order-product-infor-admin"><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>

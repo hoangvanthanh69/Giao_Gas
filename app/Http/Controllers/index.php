@@ -179,8 +179,6 @@ class index extends Controller
       Session::put('diachi', $request['diachi']);
       Session::put('state', $request['state']);
       Session::put('district', $request['district']);
-      
-
       $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
       $current_quantity = $product_infor[0]['quantity'];
       $order_quantity = $request['amount'];
@@ -192,6 +190,7 @@ class index extends Controller
       // print_r($new_quantity);die;
       product::where(['id' => Session::get('idProduct')])->update(['quantity' => $new_quantity]);
       $order_product = new order_product;
+      $order_product->order_code = uniqid(); // Tạo mã đơn hàng tự động
       $order_product ->name_product = $product_infor[0]['name_product'];
       $order_product ->	price =  $product_infor[0]['original_price'];
       $order_product-> image = $product_infor[0]['image'];
@@ -213,13 +212,11 @@ class index extends Controller
       // $order_product -> save();  
       $order_product->status = 1;
       $order_product->user_id = $user_id;
-
       if(isset($admin_name)){
          $order_product->admin_name = $admin_name;
      } else {
          $order_product->admin_name = 'Chưa có người giao';
      }
-
       $order_product->save();
       return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
    }
@@ -267,8 +264,7 @@ class index extends Controller
                <div class="price-product-order price" id="price">
                   Giá sản phẩm: 
                   <span class="gia price-product-order-span">'. number_format($val['original_price']).' đ</span>
-               </div>
-               '
+               </div>'
                ;
    
          if ($isBestseller) {

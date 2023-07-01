@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="row list-order-user-history">
-                        <div  class="col-1 infor-order-user-history d-flex ">
-                            <span class="pb-4 pe-1">{{$order_product['id']}}</span>
+                        <div  class="col-2 infor-order-user-history d-flex ">
+                            <span class="pb-4 pe-1">{{$order_product['order_code']}}</span>
                             <img class="image-admin-product-edit" src="{{asset('uploads/product/'.$order_product['image']) }}" width="70%" height="70%" alt="">  
                         </div>
                         <div class="col-2 infor-order-user-history">{{$order_product['name_product']}}</div>
@@ -41,7 +41,7 @@
                         <div class="col-2 infor-order-user-history">{{$order_product['created_at']}}</div>
                         <div class="col-1 infor-order-user-history">{{number_format($order_product['price'])}}</div>
                         <div class="col-1 infor-order-user-history">x{{$order_product['amount']}}</div>
-                        <div class="col-3 infor-order-user-history"> Thành tiền:
+                        <div class="col-2 infor-order-user-history"> Tổng:
                             <span class="total-order-user-history">{{number_format($order_product['amount'] * $order_product['price'])}} đ</span>
                         </div>
                     </div>
