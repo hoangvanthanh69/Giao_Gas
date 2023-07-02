@@ -49,8 +49,9 @@ class index extends Controller
       }
       $users = users::find($user_id);
       $counts_processing = order_product::where('user_id', $user_id)->count();
+      $products = product::get();
       return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
-      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,
+      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,'products' => $products
       ]);
    }
   
@@ -171,53 +172,92 @@ class index extends Controller
       print_r($_POST['image']);
    }
 
+   // function order_product(Request $request){
+   //    $inforGas = $request->input('infor_gas');
+   //    $data = [];
+   //    foreach ($inforGas as $productId => $quantity) {
+   //        if ($quantity) {
+   //            $data[] = [
+   //                'product_id' => $productId,
+   //                'quantity' => $quantity,
+   //            ];
+   //        }
+   //    }
+   //    $jsonData = json_encode($data);
+   //    $user_id = Session::get('home')['id'];
+   //    $order_product = new order_product;
+   //    Session::put('phoneCustomer', $request['phoneCustomer']);
+   //    Session::put('country', $request['country']);
+   //    Session::put('diachi', $request['diachi']);
+   //    Session::put('state', $request['state']);
+   //    Session::put('district', $request['district']);
+     
+   //    // echo " <pre>";
+   //    // print_r($new_quantity);die;
+   //    $order_product->order_code = uniqid(); 
+   //    $order_product->nameCustomer = $request['nameCustomer'];
+   //    $order_product->phoneCustomer = $request['phoneCustomer'];
+   //    $order_product->country = $request['country'];
+   //    $order_product->loai = $request['loai'];
+   //    $order_product->state = $request['state'];
+   //    $order_product->district = $request['district'];
+   //    $order_product->diachi = $request['diachi'];
+   //    if(empty($request['ghichu'])){
+   //       $order_product->ghichu = 'null';
+   //    }else {
+   //       $order_product->ghichu =$request['ghichu'];
+   //    }
+   //    $order_product->status = 1;
+   //    $order_product->user_id = $user_id;
+   //    if(isset($admin_name)){
+   //       $order_product->admin_name = $admin_name;
+   //   } else {
+   //       $order_product->admin_name = 'Chưa có người giao';
+   //   }
+   //    $order_product->save();
+   //    return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
+   // }
    function order_product(Request $request){
-      $user_id = Session::get('home')['id'];
-      $order_product = new order_product;
+      $inforGas = $request->input('infor_gas');
+      $data = [];
+      foreach ($inforGas as $productId => $quantity) {
+          if ($quantity) {
+              $data[] = [
+                  'product_id' => $productId,
+                  'quantity' => $quantity,
+              ];
+          }
+      }
+      $jsonData = json_encode($data);
+      $order = new order_product;
+      $order->infor_gas = $jsonData;
       Session::put('phoneCustomer', $request['phoneCustomer']);
       Session::put('country', $request['country']);
       Session::put('diachi', $request['diachi']);
       Session::put('state', $request['state']);
       Session::put('district', $request['district']);
-      $product_infor = product::where(['id' => Session::get('idProduct')])->get()->toArray();
-      $current_quantity = $product_infor[0]['quantity'];
-      $order_quantity = $request['amount'];
-      $new_quantity = $current_quantity - $order_quantity;
-      if ($new_quantity < 0) {
-         return redirect()->route('home')->with('mesage','Số lượng sản phẩm không đủ!');
-      }
-      // echo " <pre>";
-      // print_r($new_quantity);die;
-      product::where(['id' => Session::get('idProduct')])->update(['quantity' => $new_quantity]);
-      $order_product = new order_product;
-      $order_product->order_code = uniqid(); // Tạo mã đơn hàng tự động
-      $order_product ->name_product = $product_infor[0]['name_product'];
-      $order_product ->	price =  $product_infor[0]['original_price'];
-      $order_product-> image = $product_infor[0]['image'];
-      $order_product ->idProduct = Session::get('idProduct');
-      $order_product->nameCustomer = $request['nameCustomer'];
-      $order_product->phoneCustomer = $request['phoneCustomer'];
-      $order_product->country = $request['country'];
-      $order_product->type = $request['type'];
-      $order_product->state = $request['state'];
-      $order_product->district = $request['district'];
-      $order_product->diachi = $request['diachi'];
-      $order_product->amount = $order_quantity; // Số lượng đặt hàng
+      $order->nameCustomer = $request['nameCustomer'];
+      $order->phoneCustomer = $request['phoneCustomer'];
+      $order->country = $request['country'];
+      $order->state = $request['state'];
+      $order->district = $request['district'];
+      $order->diachi = $request['diachi'];
+      $order->loai = $request['loai'];
+      $user_id = Session::get('home')['id'];
+      $order->user_id = $user_id;
       if(empty($request['ghichu'])){
-         $order_product->ghichu = 'null';
+          $order->ghichu = 'null';
       }else {
-         $order_product->ghichu =$request['ghichu'];
+          $order->ghichu =$request['ghichu'];
       }
-      $order_product ->tong = $order_quantity *  $product_infor[0]['original_price'];
-      // $order_product -> save();  
-      $order_product->status = 1;
-      $order_product->user_id = $user_id;
+      $order->status = 1;
       if(isset($admin_name)){
-         $order_product->admin_name = $admin_name;
-     } else {
-         $order_product->admin_name = 'Chưa có người giao';
-     }
-      $order_product->save();
+          $order->admin_name = $admin_name;
+      } else {
+          $order->admin_name = 'Chưa có người giao';
+      }
+      $order->order_code = uniqid();
+      $order->save();
       return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
    }
 
@@ -234,58 +274,58 @@ class index extends Controller
       }
   }
  
-   function idProduct(){
-      Session::put('idProduct',$_POST['id'] );
+   // function idProduct(){
+   //    Session::put('idProduct',$_POST['id'] );
   
-   }
+   // }
 
-   function handle_order(){
-      $product = product::where(['loai' => $_POST['id']])->get()->toArray();
-      $bestsellerIds = order_product::select('idProduct', DB::raw('sum(amount) as total_amount'))->groupBy('idProduct')
-         ->havingRaw('COUNT(*) >= 2')
-         ->orderByDesc('total_amount')
-         ->pluck('idProduct')
-         ->toArray();
-      $output = "";
+   // function handle_order(){
+   //    $product = product::where(['loai' => $_POST['id']])->get()->toArray();
+   //    $bestsellerIds = order_product::select('idProduct', DB::raw('sum(amount) as total_amount'))->groupBy('idProduct')
+   //       ->havingRaw('COUNT(*) >= 2')
+   //       ->orderByDesc('total_amount')
+   //       ->pluck('idProduct')
+   //       ->toArray();
+   //    $output = "";
    
-      foreach ($product as $val) {
-         $isBestseller = in_array($val['id'], $bestsellerIds);
-         $output .= '
-            <div class="col-3 image-product-order-all productchoose" id="'.$val['id'].'">
-               <div class="activeq">
-                  <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
-               </div>
+   //    foreach ($product as $val) {
+   //       $isBestseller = in_array($val['id'], $bestsellerIds);
+   //       $output .= '
+   //          <div class="col-3 image-product-order-all productchoose" id="'.$val['id'].'">
+   //             <div class="activeq">
+   //                <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
+   //             </div>
    
-               <div class="name-product-order">
-                  Tên sản phẩm:
-                  <span class="name_product name-product-span"> '. $val['name_product'].'</span>
-               </div>
+   //             <div class="name-product-order">
+   //                Tên sản phẩm:
+   //                <span class="name_product name-product-span"> '. $val['name_product'].'</span>
+   //             </div>
    
-               <div class="price-product-order price" id="price">
-                  Giá sản phẩm: 
-                  <span class="gia price-product-order-span">'. number_format($val['original_price']).' đ</span>
-               </div>'
-               ;
+   //             <div class="price-product-order price" id="price">
+   //                Giá sản phẩm: 
+   //                <span class="gia price-product-order-span">'. number_format($val['original_price']).' đ</span>
+   //             </div>'
+   //             ;
    
-         if ($isBestseller) {
-            $output .= '
-               <div class="home-product-item-selling">
-                  <span class="">Bán chạy</span>
-               </div>';
-         }
+   //       if ($isBestseller) {
+   //          $output .= '
+   //             <div class="home-product-item-selling">
+   //                <span class="">Bán chạy</span>
+   //             </div>';
+   //       }
    
-         if ($val['quantity'] == 0) {
-            $output .= '
-               <div class="home-product-item-sale-off">
-                  <span class="home-product-item-sale-off-label">Hết gas</span>
-               </div>';
-         }
+   //       if ($val['quantity'] == 0) {
+   //          $output .= '
+   //             <div class="home-product-item-sale-off">
+   //                <span class="home-product-item-sale-off-label">Hết gas</span>
+   //             </div>';
+   //       }
    
-         $output .= '</div>';
-      }
+   //       $output .= '</div>';
+   //    }
     
-      echo $output;
-   }
+   //    echo $output;
+   // }
 
    //
    function order_history(){
@@ -298,6 +338,22 @@ class index extends Controller
       $counts_all = order_product::where('user_id', $user_id)->count();
       $counts_complete = order_product::where('user_id', $user_id)->where('status', 3)->count();
       $counts_cancel = order_product::where('user_id', $user_id)->where('status', 4)->count();
+      foreach ($order_product as &$order) {
+         $infor_gas = json_decode($order['infor_gas'], true);
+         $products = [];
+         if ($infor_gas) {
+             foreach ($infor_gas as $infor) {
+                 $product = product::find($infor['product_id']);
+                 if ($product) {
+                     $products[] = [
+                         'product' => $product,
+                         'quantity' => $infor['quantity'],
+                     ];
+                 }
+             }
+         }
+         $order['products'] = $products;
+     }
       return view('frontend.order_history',['order_product' => $order_product, 'status' => $status,
          'counts_processing' => $counts_processing, 'counts_all' => $counts_all, 'counts_delivery' => $counts_delivery,
          'counts_complete' => $counts_complete, 'counts_cancel' => $counts_cancel

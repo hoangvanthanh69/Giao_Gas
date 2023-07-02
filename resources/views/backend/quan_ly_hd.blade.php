@@ -21,13 +21,13 @@
                   <option value="4" {{ ($filters['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
                 </select>
 
-                <div id="type" class="d-flex m-3">
+                <div id="loai" class="d-flex m-3">
                   <div class="form-check me-5">
-                    <input class="form-check-input" type="radio" name="type" value="1" id="type1" {{ ($filters['type'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <input class="form-check-input" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type1">Gas công nghiệp</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="type" value="2" id="type2" {{ ($filters['type'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <input class="form-check-input" type="radio" name="loai" value="2" id="type2" {{ ($filters['loai'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type2">Gas dân dụng</label>
                   </div>
                 </div>
@@ -74,16 +74,16 @@
                 <tbody class="infor">
                 @php
                     $statusFilter = $filters['status'] ?? 'all';
-                    $typeFilter = $filters['type'] ?? 'all';
+                    $typeFilter = $filters['loai'] ?? 'all';
                 @endphp
                   @foreach($order_product as $key => $val)
-                  @if (($statusFilter == 'all' || $val['status'] == $statusFilter) && ($typeFilter == 'all' || $val['type'] == $typeFilter))
+                  @if (($statusFilter == 'all' || $val['status'] == $statusFilter) && ($typeFilter == 'all' || $val['loai'] == $typeFilter))
                       <tr class="order-product-height hover-color">
                         <td class="order-product-infor-admin">{{$key+1}}</td>
                         <td class="order-product-infor-admin"> {{$val['order_code']}}</td>
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
-                        <td class="order-product-infor-admin"><?php if($val['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
+                        <td class="order-product-infor-admin"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
 
                         <td class="order-product-infor-admin">
                           {{$val['created_at']}}

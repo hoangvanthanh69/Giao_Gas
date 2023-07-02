@@ -118,6 +118,8 @@
                                  Quản lý doanh thu
                               </a>
                            </div>
+
+                           <a href="{{route('order_phone')}}">add</a>
                            
                         </div>
                      <?php }

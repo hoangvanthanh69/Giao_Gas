@@ -52,130 +52,7 @@
                     <p class="header-criteria-p">Giao hàng</p>
                 </div>
 
-                <div class="nav-item dropdown ml-2 nav-item-name-user">
-                    @if (Session::get('home'))
-                        <p href="#" aria-expanded="true" id="dropdownMenuAcc" data-bs-toggle="dropdown" class="nav-item nav-link user-action header-criteria-h3 name-login-user">
-                            @if ($users -> img)
-                                <img class="customer-account-image" src="{{ asset('uploads/users/' . $users->img) }}" alt="">
-                            @else
-                                <img src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
-                            @endif
-                            {{ Session::get('home')['name'] }}
-                        </p>
-                    @endif
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAcc">
-                        <div class="">
-                            <div class="header-with-account-span">
-                                <li>
-                                    <a href="{{route('logoutuser')}}">
-                                        Đăng xuất
-                                        <i class="fa-solid fa-right-from-bracket text-warning ps-2"></i>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a class="" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Quản lý tài khoản</a>
-                                </li>
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- modal thông tin thay đổi tài khoản -->
-                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-secondary" id="exampleModalToggleLabel">Thông tin tài khoản</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    @if (Session::get('home'))
-                                        <div class="modal-account-users">
-                                            <form enctype="multipart/form-data" method="post" action="{{ route('update_image_user', $users->id) }}">
-                                                @csrf
-                                                <div class="d-flex">
-                                                    <div class="d-flex mb-3">
-                                                        <label class="text-acount-customer col-3" for="">Chọn ảnh:</label>
-                                                        <input class="ps-4" type="file" name="img">
-                                                    </div>
-                                                    <div class="save-img-customer">
-                                                        <button class="save-img-customer" type="submit">Lưu</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-
-                                            <div class="d-flex">
-                                                <label class="text-acount-customer col-3" for="">Họ tên:</label>
-                                                <p class="ps-3">{{ Session::get('home')['name'] }}</p>
-                                            </div>
-                                            <div class="d-flex">
-                                                <label class="text-acount-customer col-3" for="">Tài khoản:</label>
-                                                <p class="ps-3">{{ Session::get('home')['email'] }}</p>
-                                            </div>
-                                            <div class="d-flex">
-                                                <label class="text-acount-customer col-3" for="">Mật khẩu:</label>
-                                                <p class="ps-3">{{ str_repeat('*', strlen(Session::get('home')['password'])) }}</p>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                                <!--modal click hiển thị thay đổi mật khẩu -->
-                                <div class="modal-change-password">
-                                    <a href="" class="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Đổi mật khẩu</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--modal thay đổi mật khẩu -->
-                    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalToggleLabel2">Thay đổi mật khẩu</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body ms-4">
-                                    <form id="changepassforms" enctype="multipart/form-data" method="post" action="{{ route('update-password-customer', $users->id) }}">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label class="col-5" for="">Nhập Mật khẩu củ: </label>
-                                            <input type="password" name="old_password" class="input-password-customer-change">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="col-5" for="">Nhập Mật khẩu mới: </label>
-                                            <input type="password" name="new_password" id="new_password" class="input-password-customer-change">
-                                        </div>
-                                        <div>
-                                            <label class="col-5" for="">Nhập lại Mật khẩu: </label>
-                                            <input type="password" name="confirm_password" class="input-password-customer-change">
-                                        </div>
-                                        <div class="">
-                                            <button class="save-password-customer" type="submit">Lưu mật khẩu</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                    @if (session('success'))
-                        <div class="change-password-customer-home d-flex">
-                            <i class="far fa-check-circle icon-check-success"></i>
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('mesage'))
-                        <div class="success-customer-home-notification d-flex">
-                            <i class="fas fa-ban icon-check-cancel"></i>
-                            {{ session('mesage') }}
-                        </div>
-                    @endif
-
-                    
-                    <!--  -->
-                </div>
+               
             </div>
         </div>
     </header>
@@ -202,13 +79,6 @@
                         <button class="btnbtn home-filter-button" data-filter="introduce">
                             Giới thiệu
                         </button>
-
-                        <a href="{{route('order-history')}}">
-                            <p class="header-cart-notice">{{ $counts_processing }}</p>
-                            <button class="btnbtn home-filter-button" >
-                                Lịch sử đơn hàng
-                            </button>
-                        </a>
 
                     </div>
                 </div>
@@ -285,7 +155,7 @@
                         <div class="card-header card-heder-name">Đổi gas</div>
                         <div class="card-body gas-delivery-information ">
                         
-                            <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
+                            <form id="signupForm" method="post" class="form-horizontal" action="{{route('add-order')}}">
                                 @csrf
                                 <div class="form-gas-delivery-information" >
                                     <label class="form-label" for="firstname">Tên khách hàng:</label>
@@ -705,29 +575,6 @@
 			});
         });
 	</script>
-
-        var notificationClasses = [
-            '.change-password-customer-home',
-            '.success-customer-home-notification',
-        ];
-        function showContent() {
-            notificationClasses.forEach(function(classname) {
-                var contentBox = document.querySelector(classname);
-                if (contentBox) {
-                    contentBox.classList.add('show');
-                    setTimeout(function() {
-                        contentBox.classList.remove('show');
-                    }, 6000); 
-                }
-            });
-        }
-        @if(session('success'))
-            showContent();
-        @endif
-        @if(session('mesage'))
-            showContent();
-        @endif
-    </script>
     <script type="text/javascript">
 		
 		$(document).ready(function(){
@@ -785,8 +632,7 @@
             }
         };
     </script>
-
-<script>
+     <script>
             var selectedProducts = [];
             function showProductsByType(selectElement) {
                 var selectedType = selectElement.value;
@@ -860,6 +706,7 @@
                     }
                 }
             }
-        </script>
+    </script>
 </body>
 </html>
+

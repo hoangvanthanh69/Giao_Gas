@@ -30,9 +30,9 @@ Route::get('logout', [index::class, 'logout'] )->name('logout');
 Route::post('/order-product', [index::class, 'order_product'] )->name('order-product');
 
 Route::post('/order', [index::class, 'order'] )->name('order');
-Route::post('/idProduct', [index::class, 'idProduct'] )->name('idProduct');
+// Route::post('/idProduct', [index::class, 'idProduct'] )->name('idProduct');
 
-Route::post('/handle-order', [index::class, 'handle_order'] )->name('handle-order');
+// Route::post('/handle-order', [index::class, 'handle_order'] )->name('handle-order');
 
 Route::get('/admin', [index_backend::class, 'home'] )->name('admin');
 
@@ -160,4 +160,10 @@ Route::post('update_image_user/{id}', [index::class, 'update_image_user'])->name
 // cập nhật mật khẩu cho khách hàng
 Route::post('/update-password-customer/{id}', [index::class, 'update_password_customer'])->name('update-password-customer');
 
+// tìm kiếm hóa đơn
 Route::get('/admin/search_hd', [index_backend::class, 'search_hd'])->name('admin.search_hd');
+
+// đặt hàng cho khách hàng điện thoại
+Route::get('order_phone', [index_backend::class, 'order_phone'])->name('order_phone');
+Route::post('add-order', [index_backend::class, 'add_orders'])->name('add-order');
+

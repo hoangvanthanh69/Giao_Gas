@@ -189,14 +189,7 @@
                                         <th>Số lượng bán</th>
                                     </tr>
                                 </thead>
-                                @foreach ($bestseller as $key => $sp) 
-                                    <tr class="text-light text-center">
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$sp->idProduct}}</td>
-                                        <td>{{$sp->name_product}}</td>
-                                        <td>{{$sp->total_amount}}</td>
-                                    </tr>
-                                @endforeach
+                               
                                 
                             </tbody>
                         </table>
@@ -223,14 +216,7 @@
                                         <th>Số đơn hàng</th>
                                     </tr>
                                 </thead>
-                                @foreach ($loyal_customer as $key => $sp) 
-                                    <tr class="text-center list-loyal-customer text-light ">
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$sp->nameCustomer}}</td>
-                                        <td>{{$sp->phoneCustomer}}</td>
-                                        <td>{{$sp->total_amounts}}</td>
-                                    </tr>
-                                @endforeach
+                               
                                 
                             </tbody>
                         </table>

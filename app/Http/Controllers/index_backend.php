@@ -9,12 +9,15 @@ use App\Models\order_product;
 use App\Models\tbl_admin;
 use App\Models\users;
 use App\Models\danh_gia;
+use App\Models\add_order;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use Session;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+
+
 class index_backend extends Controller
 {
     function home(Request $request){
@@ -40,16 +43,16 @@ class index_backend extends Controller
         $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        $bestseller = order_product::select('name_product', 'idProduct', DB::raw('sum(amount) as total_amount'))
-        ->groupBy('name_product', 'idProduct')->havingRaw('COUNT(*) >= 2')->orderByDesc('total_amount')->get();
-        $loyal_customer = order_product::select('nameCustomer', 'phoneCustomer', DB::raw('count(distinct id) as total_amounts'))
-        ->groupBy('nameCustomer','phoneCustomer')->havingRaw('COUNT(distinct id) >= 3')->orderByDesc('total_amounts')->get();
-        // print_r($bestseller); die;
+        // $bestseller = order_product::select('name_product', 'idProduct', DB::raw('sum(amount) as total_amount'))
+        // ->groupBy('name_product', 'idProduct')->havingRaw('COUNT(*) >= 2')->orderByDesc('total_amount')->get();
+        // $loyal_customer = order_product::select('nameCustomer', 'phoneCustomer', DB::raw('count(distinct id) as total_amounts'))
+        // ->groupBy('nameCustomer','phoneCustomer')->havingRaw('COUNT(distinct id) >= 3')->orderByDesc('total_amounts')->get();
+        // // print_r($bestseller); die;
         // print_r($tong_gia);
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
         compact('count_product', 'count_staff', 'count_order','data_price', 'data_original_price', 'count_product1', 
         'count_product2', 'data_price1', 'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 
-        'product_all','bestseller', 'count_staff_chuvu3', 'loyal_customer'));
+        'product_all','count_staff_chuvu3', ));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -262,7 +265,7 @@ class index_backend extends Controller
         }
         $filters = array(
             'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
-            'type' => isset($_GET['type']) ? $_GET['type'] : 'all'
+            'loai' => isset($_GET['loai']) ? $_GET['loai'] : 'all'
         );
     
         return view('backend.quan_ly_hd', compact('order_product', 'filters'));
@@ -611,5 +614,59 @@ class index_backend extends Controller
         } else {
             return redirect()->back();
         }
-    }    
+    }
+
+
+
+    
+    
+    // dat hang qua sdt
+    function order_phone() {
+        $products = product::get();
+        return view('backend.order_phone', ['products' => $products]);
+    }
+
+    function add_orders(Request $request){
+        $inforGas = $request->input('infor_gas');
+        $data = [];
+        foreach ($inforGas as $productId => $quantity) {
+            if ($quantity) {
+                $data[] = [
+                    'product_id' => $productId,
+                    'quantity' => $quantity,
+                ];
+            }
+        }
+        $jsonData = json_encode($data);
+        $order = new add_order;
+        $order->infor_gas = $jsonData;
+        Session::put('phoneCustomer', $request['phoneCustomer']);
+        Session::put('country', $request['country']);
+        Session::put('diachi', $request['diachi']);
+        Session::put('state', $request['state']);
+        Session::put('district', $request['district']);
+        $order->nameCustomer = $request['nameCustomer'];
+        $order->phoneCustomer = $request['phoneCustomer'];
+        $order->country = $request['country'];
+        $order->state = $request['state'];
+        $order->district = $request['district'];
+        $order->diachi = $request['diachi'];
+        $order->loai = $request['loai'];
+        if(empty($request['ghichu'])){
+            $order->ghichu = 'null';
+        }else {
+            $order->ghichu =$request['ghichu'];
+        }
+        $order->status = 1;
+        if(isset($admin_name)){
+            $order->admin_name = $admin_name;
+        } else {
+            $order->admin_name = 'Chưa có người giao';
+        }
+        $order->order_code = uniqid();
+        $order->save();
+        return redirect()->route('order_phone');
+    }
+    
+    
 }
