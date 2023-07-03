@@ -70,7 +70,7 @@
                                     @foreach ($val['products'] as $product)
                                         <div>
                                             <span>{{ $product['product']->name_product }}</span>
-                                            <span>{{ $product['product']->price }}</span>
+                                            <span>{{ $product['product']->original_price }}</span>
                                             <span>{{ $product['quantity'] }}</span>
                                         </div>
                                     @endforeach
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="col-2 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
                                 <div class="col-2 infor-order-user-history"> Thành tiền:
-                                    <span class="total-order-user-history">đ</span>
+                                    <span class="total-order-user-history">{{number_format($val['tong'])}} VNĐ</span>
                                 </div>
                             </a>
 

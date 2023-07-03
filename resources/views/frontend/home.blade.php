@@ -358,7 +358,7 @@
                                             <option value="2">Gas dân dụng</option>
                                         </select>
                                         <div class="product-order-all btnt row" id="infor_gas">
-                                            <!-- Thông tin sản phẩm sẽ được hiển thị ở đây -->
+                                            <!-- Thông tin sản phẩm sẽ được hiển thị -->
                                         </div>
                                     </div>
 
@@ -382,35 +382,11 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="d-flex">
-                                                    <label class="me-2">Họ Tên: </label>
-                                                    <p id="nameCustomer"></p>
-                                                </div>
-
-                                                <div class="d-flex">
-                                                    <label class="me-2">Số điện thoại: </label>
-                                                    <p id="phoneCustomer"></p>
-                                                </div>
-
-                                                <div class="d-flex">
-                                                    <label class="me-2">Tên bình gas:  </label>
-                                                    <p class="name-product"></p>
-                                                </div>
-                                                
-                                                <div class="d-flex">
-                                                    <label class="me-2">Loại bình gas:  </label>
-                                                    <p id="typeCustomer"></p>
-                                                </div>
-                                                
-                                                <div class="d-flex">
-                                                    <label class="me-2">Số lượng:  </label>
-                                                    <p id="amountCustomer"></p>
-                                                </div>
-
-                                                <div class="fw-bolder text-danger">
-                                                    <label class="me-2">Tổng tiền:  </label>
-                                                    <span class="total-price "></span>
-                                                </div>
+                                                <p>Tên khách hàng: <span id="nameCustomer"></span></p>
+                                                <p>Số điện thoại: <span id="phoneCustomer"></span></p>
+                                                <p>Loại khách hàng: <span id="typeCustomer"></span></p>
+                                                <div id="selectedProducts">
+                                                <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
                                             </div>
                                             <span class="text-warning ms-3">Miễn phí vận chuyển</span>
                                             <div class="modal-footer">
@@ -706,6 +682,7 @@
         });
 	</script>
 
+    <script>
         var notificationClasses = [
             '.change-password-customer-home',
             '.success-customer-home-notification',
@@ -728,6 +705,7 @@
             showContent();
         @endif
     </script>
+
     <script type="text/javascript">
 		
 		$(document).ready(function(){
@@ -771,6 +749,7 @@
         
         });
 	</script>
+
     <script>
        window.onload = function() {
             var adsText = document.getElementById('adstext');
@@ -786,7 +765,7 @@
         };
     </script>
 
-<script>
+    <script>
             var selectedProducts = [];
             function showProductsByType(selectElement) {
                 var selectedType = selectElement.value;
@@ -806,7 +785,7 @@
                             </div>
                             <div class="price-product-order price" id="price">
                                 Giá sản phẩm:
-                                <span class="gia price-product-order-span">${numberFormat(product.original_price)} đ</span>
+                                <span class="original_price gia price-product-order-span">${numberFormat(product.original_price)} đ</span>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
@@ -815,22 +794,37 @@
                                 </label>
                             </div>
                             <div>
-                                <input type="number" name="infor_gas[${product.id}]" min="1" data-id="${product.id}">
+                                <input type="number" id="quantity" name="infor_gas[${product.id}]" min="1" data-id="${product.id}" onchange="updateProductQuantity(this)">
                             </div>
                         </div>
                     `;
                     inforGasDiv.innerHTML += html;
                 }
             }
-
             function numberFormat(number) {
                 return number.toLocaleString("vi-VN");
+            }
+            
+            function updateProductQuantity(input) {
+                var selectedProductId = input.getAttribute("data-id");
+                var selectedProductQuantity = parseInt(input.value);
+                for (var i = 0; i < selectedProducts.length; i++) {
+                    if (selectedProducts[i].id === selectedProductId) {
+                        selectedProducts[i].quantity = selectedProductQuantity;
+                        break;
+                    }
+                }
+                displaySelectedProducts();
             }
 
             function highlightProduct(element) {
                 var selectedProductId = element.id;
-                var selectedProductQuantity = parseInt(element.querySelector("input").value);
+                var selectedProductQuantity = parseInt(element.querySelector("#quantity").value);
+                console.log(selectedProductQuantity);
 
+                var selectedProductName = element.querySelector(".name_product").textContent;
+                var selectedProductPriceText = element.querySelector(".original_price").textContent;
+                var selectedProductPrice = parseFloat(selectedProductPriceText.replace(/\D/g, ''));
                 var checkbox = element.querySelector(".form-check-input");
                 var isChecked = checkbox.checked;
                 if (!isChecked) {
@@ -843,7 +837,9 @@
                 } else {
                     var selectedProduct = {
                         id: selectedProductId,
-                        quantity: selectedProductQuantity
+                        name: selectedProductName,
+                        quantity: selectedProductQuantity,
+                        price: selectedProductPrice
                     };
 
                     var isExist = false;
@@ -859,7 +855,87 @@
                         selectedProducts.push(selectedProduct);
                     }
                 }
+
+                displaySelectedProducts();
             }
-        </script>
+            function getProductByID(productId) {
+                var filteredProducts = <?php echo json_encode($products); ?>;
+                for (var i = 0; i < filteredProducts.length; i++) {
+                    if (filteredProducts[i].id === productId) {
+                        return filteredProducts[i];
+                    }
+                }
+                return null;
+            }
+
+            function displaySelectedProducts() {
+                var selectedProductsDiv = document.getElementById("selectedProducts");
+                selectedProductsDiv.innerHTML = "";
+                var totalPrice = 0;
+
+                for (var i = 0; i < selectedProducts.length; i++) {
+                    var product = selectedProducts[i];
+                    var productId = product.id;
+                    var productName = product.name;
+                    var productQuantity = product.quantity;
+                    var productPrice = product.price;
+                    var productTotalPrice = productQuantity * productPrice;
+                    totalPrice += productTotalPrice;
+
+                    var html = `
+                        <div>
+                            <span class="selected-product-name">${productName}</span>
+                            <span class="selected-product-quantity">Số lượng: ${productQuantity}</span>
+                            <span class="selected-product-price">Giá: ${productPrice}</span>
+                        </div>
+                    `;
+
+                    selectedProductsDiv.innerHTML += html;
+                }
+
+                var totalHTML = `
+                    <div>
+                        <span class="selected-products-total">Tổng giá: ${totalPrice}</span>
+                    </div>
+                `;
+                selectedProductsDiv.innerHTML += totalHTML;
+            }
+
+
+
+            // hiển thị thông tin trước khi submit
+            $(function() {
+                $('#show_infor').on('submit', function(event) {
+                    event.preventDefault();
+
+                    // Kiểm tra số lượng sản phẩm đã chọn
+                    var invalidQuantity = false;
+                    for (var i = 0; i < selectedProducts.length; i++) {
+                        var product = selectedProducts[i];
+                        if (product.quantity === 0 || isNaN(product.quantity)) {
+                            invalidQuantity = true;
+                            break;
+                        }
+                    }
+                    if (invalidQuantity) {
+                        alert("Vui lòng nhập số lượng cho sản phẩm đã chọn");
+                        return;
+                    }
+                    var nameCustomer = $('#firstname').val();
+                    var phoneCustomer = $('#number').val();
+                    var typeCustomer = $('#loai option:selected').text();
+                    var ghichuCustomer = $('.ghichu').val();
+                    $('#nameCustomer').text(nameCustomer);
+                    $('#phoneCustomer').text(phoneCustomer);
+                    $('#typeCustomer').text(typeCustomer);
+                    $('#orderInfoModal').modal('show');
+                });
+                $('#view-order-info').on('click', function(event) {
+                    event.preventDefault();
+                    $('#show_infor').submit();
+                });
+            });
+
+    </script>
 </body>
 </html>

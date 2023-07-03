@@ -34,7 +34,7 @@
                                 <td class="order-product-infor-admin">{{$val['id']}}</td>
                                 <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                                 <td class="order-product-infor-admin">{{$val['diachi']}}, {{$val['district']}},  {{$val['state']}}, {{$val['country']}}</td>
-                                <td class="order-product-infor-admin">{{$val['name_product']}}</td>
+                                <td class="order-product-infor-admin">{{$val['infor_gas']}}</td>
                                 <td class="order-product-infor-admin">
                                     @if($val['status']==1)
                                         <span style="color: orange;">Đang xử lý</span>

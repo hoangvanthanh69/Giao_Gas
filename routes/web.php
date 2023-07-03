@@ -30,7 +30,7 @@ Route::get('logout', [index::class, 'logout'] )->name('logout');
 Route::post('/order-product', [index::class, 'order_product'] )->name('order-product');
 
 Route::post('/order', [index::class, 'order'] )->name('order');
-// Route::post('/idProduct', [index::class, 'idProduct'] )->name('idProduct');
+Route::post('/get-product-by-id', [index::class, 'getProductByID'] )->name('get-product-by-id');
 
 // Route::post('/handle-order', [index::class, 'handle_order'] )->name('handle-order');
 

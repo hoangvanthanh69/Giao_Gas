@@ -217,49 +217,70 @@ class index extends Controller
    //    $order_product->save();
    //    return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
    // }
-   function order_product(Request $request){
-      $inforGas = $request->input('infor_gas');
-      $data = [];
-      foreach ($inforGas as $productId => $quantity) {
-          if ($quantity) {
-              $data[] = [
-                  'product_id' => $productId,
-                  'quantity' => $quantity,
-              ];
-          }
-      }
-      $jsonData = json_encode($data);
-      $order = new order_product;
-      $order->infor_gas = $jsonData;
-      Session::put('phoneCustomer', $request['phoneCustomer']);
-      Session::put('country', $request['country']);
-      Session::put('diachi', $request['diachi']);
-      Session::put('state', $request['state']);
-      Session::put('district', $request['district']);
-      $order->nameCustomer = $request['nameCustomer'];
-      $order->phoneCustomer = $request['phoneCustomer'];
-      $order->country = $request['country'];
-      $order->state = $request['state'];
-      $order->district = $request['district'];
-      $order->diachi = $request['diachi'];
-      $order->loai = $request['loai'];
-      $user_id = Session::get('home')['id'];
-      $order->user_id = $user_id;
-      if(empty($request['ghichu'])){
-          $order->ghichu = 'null';
-      }else {
-          $order->ghichu =$request['ghichu'];
-      }
-      $order->status = 1;
-      if(isset($admin_name)){
-          $order->admin_name = $admin_name;
-      } else {
-          $order->admin_name = 'Chưa có người giao';
-      }
-      $order->order_code = uniqid();
-      $order->save();
-      return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
-   }
+   function order_product(Request $request)
+{
+    $inforGas = $request->input('infor_gas');
+    $data = [];
+    $totalPrice = 0; // Tổng giá trị
+    foreach ($inforGas as $productId => $quantity) {
+        if ($quantity) {
+            // Lấy thông tin sản phẩm từ cơ sở dữ liệu (thay bằng phương thức phù hợp)
+            $product = Product::find($productId);
+            if ($product) {
+                $price = $product->original_price; // Giá của sản phẩm
+                $totalPrice += $price * $quantity; // Cộng tổng giá trị
+
+                $data[] = [
+                    'product_id' => $productId,
+                    'quantity' => $quantity,
+                ];
+            }
+        }
+    }
+
+    $jsonData = json_encode($data);
+
+    $order = new order_product;
+    $order->infor_gas = $jsonData;
+    Session::put('phoneCustomer', $request['phoneCustomer']);
+    Session::put('country', $request['country']);
+    Session::put('diachi', $request['diachi']);
+    Session::put('state', $request['state']);
+    Session::put('district', $request['district']);
+    $order->nameCustomer = $request['nameCustomer'];
+    $order->phoneCustomer = $request['phoneCustomer'];
+    $order->country = $request['country'];
+    $order->state = $request['state'];
+    $order->district = $request['district'];
+    $order->diachi = $request['diachi'];
+    $order->loai = $request['loai'];
+    $user_id = Session::get('home')['id'];
+    $order->user_id = $user_id;
+
+    if (empty($request['ghichu'])) {
+        $order->ghichu = 'null';
+    } else {
+        $order->ghichu = $request['ghichu'];
+    }
+
+    $order->status = 1;
+
+    if (isset($admin_name)) {
+        $order->admin_name = $admin_name;
+    } else {
+        $order->admin_name = 'Chưa có người giao';
+    }
+
+    $order->order_code = uniqid();
+
+    // Lưu tổng giá trị vào dữ liệu
+    $order->tong = $totalPrice;
+
+    $order->save();
+
+    return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
+}
+
 
 
    // hủy đơn hàng của khách hàng
@@ -274,10 +295,25 @@ class index extends Controller
       }
   }
  
-   // function idProduct(){
-   //    Session::put('idProduct',$_POST['id'] );
+   function getProductByID(Request $request){
+      $productID = $request->input('productID');
+
+    // Triển khai logic để lấy thông tin sản phẩm từ ID
+    $product = product::find($productID);
+
+    if ($product) {
+        return response()->json([
+            'success' => true,
+            'product' => $product
+        ]);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Không tìm thấy sản phẩm'
+    ]);
   
-   // }
+   }
 
    // function handle_order(){
    //    $product = product::where(['loai' => $_POST['id']])->get()->toArray();

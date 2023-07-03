@@ -71,7 +71,7 @@
                             
 
                                 <td>
-                                    <strong>{{number_format($order_product['amount'] * $order_product['price'])}} VNĐ</strong>
+                                    <strong>{{number_format($order_product['tong'])}} VNĐ</strong>
                                 </td>
                                 
                             </tr>
