@@ -374,7 +374,7 @@
                                 </div>
 
                                 <!-- hiển thị thông tin đặt hàng trước khi đặt -->
-                                <div class="modal fade" id="orderInfoModal" tabindex="-1" aria-labelledby="orderInfoModalLabel" aria-hidden="true">
+                                <div class="modal fade ms-3" id="orderInfoModal" tabindex="-1" aria-labelledby="orderInfoModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -382,14 +382,23 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Tên khách hàng: <span id="nameCustomer"></span></p>
-                                                <p>Số điện thoại: <span id="phoneCustomer"></span></p>
-                                                <p>Loại khách hàng: <span id="typeCustomer"></span></p>
+                                                <div class="infor-customer-order-div">
+                                                    <span class="infor-customer-order">Tên khách hàng:</span>
+                                                    <span id="nameCustomer" class=""></span>
+                                                </div>
+                                                <div class="infor-customer-order-div">
+                                                    <span class="infor-customer-order">Số điện thoại: </span>
+                                                    <span id="phoneCustomer" class=""></span>
+                                                </div>
+                                                <div class="infor-customer-order-div">
+                                                    <span class="infor-customer-order">Loại gas: </span>
+                                                    <span id="typeCustomer" class=""></span>
+                                                </div>
                                                 <div id="selectedProducts">
                                                 <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
                                             </div>
-                                            <span class="text-warning ms-3">Miễn phí vận chuyển</span>
-                                            <div class="modal-footer">
+                                            <span class="text-warning">Miễn phí vận chuyển</span>
+                                            <div class="modal-footers pt-3">
                                                 <h6 class="text-success payment-delivery">Thanh toán khi nhận hàng</h6>
                                                 <button class="btn btn-primary submit">Giao gas</button>
                                             </div>
@@ -775,7 +784,11 @@
                 for (var i = 0; i < filteredProducts.length; i++) {
                     var product = filteredProducts[i];
                     var html = `
-                        <div class="col-3 image-product-order-all productchoose border border-secondary m-2" id="${product.id}" onclick="highlightProduct(this)">
+                        <div class="col-3 image-product-order-all productchoose border border-secondary mt-2" id="${product.id}" onclick="highlightProduct(this)">
+                            <div class="form-check mt-1">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                            </div>
+
                             <div class="activeq">
                                 <img class="image-product-order" src="uploads/product/${product.image}" alt="" width="50%">
                             </div>
@@ -787,14 +800,10 @@
                                 Giá sản phẩm:
                                 <span class="original_price gia price-product-order-span">${numberFormat(product.original_price)} đ</span>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                                <label class="form-check-label" for="flexCheckIndeterminate">
-                                    Chọn
-                                </label>
-                            </div>
-                            <div>
-                                <input type="number" id="quantity" name="infor_gas[${product.id}]" min="1" data-id="${product.id}" onchange="updateProductQuantity(this)">
+                            
+                            <div class="d-flex mt-1">
+                                <label class="col-7">Nhập số lượng:</label>
+                                <input class="col-5" type="number" id="quantity" name="infor_gas[${product.id}]" min="1" data-id="${product.id}" onchange="updateProductQuantity(this)">
                             </div>
                         </div>
                     `;
@@ -872,7 +881,7 @@
                 var selectedProductsDiv = document.getElementById("selectedProducts");
                 selectedProductsDiv.innerHTML = "";
                 var totalPrice = 0;
-
+                var key = 1;
                 for (var i = 0; i < selectedProducts.length; i++) {
                     var product = selectedProducts[i];
                     var productId = product.id;
@@ -883,19 +892,20 @@
                     totalPrice += productTotalPrice;
 
                     var html = `
-                        <div>
-                            <span class="selected-product-name">${productName}</span>
-                            <span class="selected-product-quantity">Số lượng: ${productQuantity}</span>
-                            <span class="selected-product-price">Giá: ${productPrice}</span>
+                        <div class="infor-customer-order-div">
+                            <span class="infor-customer-order">Sản phẩm ${key++}: </span>
+                            <span class="selected-product-name ">${productName}, </span>
+                            <span class="infor-customer-order">Số lượng: </span>
+                            <span class="selected-product-quantity ">${productQuantity}</span>
                         </div>
                     `;
 
                     selectedProductsDiv.innerHTML += html;
                 }
-
                 var totalHTML = `
-                    <div>
-                        <span class="selected-products-total">Tổng giá: ${totalPrice}</span>
+                    <div class="">
+                        <span><span class="infor-customer-order">Tổng giá: </span>
+                        <span class="selected-products-total fs-5">${numberFormat(totalPrice)}  VNĐ</span></p>
                     </div>
                 `;
                 selectedProductsDiv.innerHTML += totalHTML;
@@ -907,8 +917,6 @@
             $(function() {
                 $('#show_infor').on('submit', function(event) {
                     event.preventDefault();
-
-                    // Kiểm tra số lượng sản phẩm đã chọn
                     var invalidQuantity = false;
                     for (var i = 0; i < selectedProducts.length; i++) {
                         var product = selectedProducts[i];

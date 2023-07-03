@@ -62,19 +62,20 @@
                     @if ($status == 'all' || $val['status'] == $status)
                         <div class="row list-order-user-history">
                             <a href="{{route('thong_tin_don_hang', $val['id'])}}" class="col-11 row link-infor-order-user-history">
-                                <div  class="col-2 infor-order-user-history">
-                                    <img class="image-admin-product-edit"  src="" width="70%" height="70%" alt="">       
-                                </div>
-                                <div class="col-3 infor-order-user-history">
-                                @if (!empty($val['products']))
-                                    @foreach ($val['products'] as $product)
-                                        <div>
-                                            <span>{{ $product['product']->name_product }}</span>
-                                            <span>{{ $product['product']->original_price }}</span>
-                                            <span>{{ $product['quantity'] }}</span>
-                                        </div>
-                                    @endforeach
-                                @endif
+                                
+                                <div class="col-7 infor-order-user-history array-infor-order-user-history">
+                                    @if (!empty($val['products']))
+                                        @foreach ($val['products'] as $product)
+                                            <div class="d-flex">
+                                                <div class="col-3 infor-order-user-history">
+                                                    <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$product['product']->image )}}" width="70%" height="70%" alt="">       
+                                                </div>
+                                                <div class="col-4">{{ $product['product']->name_product }}</div>
+                                                <div class="col-3">{{ number_format($product['product']->original_price) }} VNĐ</div>
+                                                <div class="col-2">{{ $product['quantity'] }}</div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="col-2 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
                                 <div class="col-2 infor-order-user-history"> Thành tiền:

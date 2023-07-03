@@ -712,10 +712,6 @@ tbody.history-order-product {
     color:#a3e95d;
     font-size: 18px;
 }
-
-.card-header-chitiet, .history-orders-list {
-    text-align: center;
-}
 .notification-orders {
     text-align: center;
     color: #eb0d0d;
@@ -824,7 +820,7 @@ img.image-product-order {
 }
 img.image-admin-product-edit {
     object-fit: cover;
-    width: auto;
+    width: 60px;
     height: 60px;
 }
 .list-account-admin {
@@ -875,9 +871,9 @@ div#show_infor {
 h5#orderInfoModalLabel {
     margin-left: 30%;
 }
-h6.payment-delivery {
+/* h6.payment-delivery {
     margin-right: 39%;
-}
+} */
 .star-rating {
     color: #ccc;
 }
@@ -1159,4 +1155,33 @@ button.save-img-customer {
     margin-left: 39px;
     border: 1px solid red;
     color: red !important;
+}
+
+input#quantity {
+    outline: none;
+    border: 1px solid;
+    border-radius: 2px;
+}
+.selected-products-total{
+    color: red;
+}
+.modal-footers{
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
+}
+.infor-customer-order {
+    font-size: 17px;
+    font-weight: 500;
+}
+.infor-customer-order-div {
+    padding-bottom: 10px;
+}
+.array-infor-order-user-history {
+    line-height: 33px;
 }
