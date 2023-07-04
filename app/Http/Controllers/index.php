@@ -364,9 +364,9 @@ class index extends Controller
    // }
 
    //
-   function order_history(){
+   function order_history(Request $request) {
       $user_id = Session::get('home')['id'];
-      $order_product = order_product::orderByDesc('created_at')->where(['user_id' => $user_id])->get()->toArray(); 
+      $order_product = order_product::orderByDesc('created_at')->where('user_id', $user_id);
       $status = isset($_GET['status']) ? $_GET['status'] : 'all';
       $users = users::find($user_id);
       $counts_processing = order_product::where('user_id', $user_id)->where('status', 1)->count();
@@ -374,27 +374,40 @@ class index extends Controller
       $counts_all = order_product::where('user_id', $user_id)->count();
       $counts_complete = order_product::where('user_id', $user_id)->where('status', 3)->count();
       $counts_cancel = order_product::where('user_id', $user_id)->where('status', 4)->count();
+      // Lọc theo ngày
+      $filter = $request->input('filter');
+      $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
+
+      if ($filter == '5') {
+         $order_product->whereDate('created_at', '>=', now()->subDays(5));
+      } elseif ($filter == '10') {
+         $order_product->whereDate('created_at', '>=', now()->subDays(10));
+      } elseif ($filter == '30') {
+         $order_product->whereDate('created_at', '>=', now()->subDays(30));
+      } elseif ($filter == '180') {
+         $order_product->whereDate('created_at', '>=', now()->subMonths(6));
+      }
+      $order_product = $order_product->get()->toArray();
       foreach ($order_product as &$order) {
          $infor_gas = json_decode($order['infor_gas'], true);
          $products = [];
          if ($infor_gas) {
-             foreach ($infor_gas as $infor) {
-                 $product = product::find($infor['product_id']);
-                 if ($product) {
-                     $products[] = [
-                         'product' => $product,
-                         'quantity' => $infor['quantity'],
-                     ];
-                 }
-             }
+            foreach ($infor_gas as $infor) {
+               $product = product::find($infor['product_id']);
+               if ($product) {
+                  $products[] = [
+                     'product' => $product,
+                     'quantity' => $infor['quantity'],
+                  ];
+               }
+            }
          }
          $order['products'] = $products;
-     }
-      return view('frontend.order_history',['order_product' => $order_product, 'status' => $status,
-         'counts_processing' => $counts_processing, 'counts_all' => $counts_all, 'counts_delivery' => $counts_delivery,
-         'counts_complete' => $counts_complete, 'counts_cancel' => $counts_cancel
+      }
+      return view('frontend.order_history', ['order_product' => $order_product,'status' => $status,'counts_processing' => $counts_processing,
+      'counts_all' => $counts_all, 'counts_delivery' => $counts_delivery, 'counts_complete' => $counts_complete, 'counts_cancel' => $counts_cancel,'filter' => $filter,
       ]);
-   }
+  }
 
    // thông tin đơn hàng của khách hàng
    function thong_tin_don_hang(Request $request, $id){

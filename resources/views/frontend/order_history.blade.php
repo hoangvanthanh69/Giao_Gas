@@ -12,116 +12,139 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
-<div class="history-list m-4">
-    <div class="row main-row container-fluid main-row-chitiet">
-        <div class="mb-3 product-list element_column" data-item="receipt">
-            <div class="card-header-chitiet">
-                <h4 class="product-list-name">Lịch sử đơn hàng</h4>
-            </div>
+<div class="all-customer-order-history">
+    <div class="nav-status-history-customer">
+        <div class="card-header-chitiet">
+            <h4 class="product-list-name text-secondary">Đơn hàng của tôi</h4>
+        </div>
 
-            <div class="history-status-nav">
-                <a href="?status=all" class="{{ ($status == 'all') ? 'activess' : '' }}">
-                    <div class="text-center">
-                        <p class="header-order-history-status history-status-all">{{$counts_all}}</p>
-                        <i class="fas fa-database fs-3 pb-2 status-all"></i>    
-                        <p>Tất cả đơn hàng</p>
-                    </div>
-                </a>
-                <a href="?status=1" class="{{ ($status == '1') ? 'activess-1' : '' }}">
-                    <div class="text-center">
-                        <p class="header-order-history-status history-status-handle">{{$counts_processing}}</p>
-                        <i class="fas fa-spinner fs-3 pb-2 status-handle"></i>
-                        <p>Đang xử lý</p>
-                    </div>
-                </a>
-                <a href="?status=2" class="{{ ($status == '2') ? 'activess-2' : '' }}">
-                    <div class="text-center">
-                        <p class="header-order-history-status status-all history-status-delivery">{{$counts_delivery}}</p>
-                        <i class="fas fa-car-side fs-3 pb-2 status-delivery"></i>
-                        <p>Đang giao</p>
-                    </div>
-                </a>
-                <a href="?status=3" class="{{ ($status == '3') ? 'activess-3' : '' }}">
-                    <div class="text-center">
-                        <p class="header-order-history-status status-all history-status-complete">{{$counts_complete}}</p>
-                        <i class="fas fa-check-square fs-3 pb-2 status-complete"></i>    
-                        <p>Đã giao</p>
-                    </div>
-                </a>
-                <a href="?status=4" class="{{ ($status == '4') ? 'activess-4' : '' }}">
-                    <div class="text-center">
-                        <p class="header-order-history-status status-all history-status-cancel">{{$counts_cancel}}</p>
-                        <i class="fas fa-window-close fs-3 pb-2 status-cancel"></i>    
-                        <p>Đã hủy</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="card-body history-orders-list">
-                @foreach($order_product as $key => $val)
-                    @if ($status == 'all' || $val['status'] == $status)
-                        <div class="row list-order-user-history">
-                            <a href="{{route('thong_tin_don_hang', $val['id'])}}" class="col-11 row link-infor-order-user-history">
-                                
-                                <div class="col-7 infor-order-user-history array-infor-order-user-history">
-                                    @if (!empty($val['products']))
-                                        @foreach ($val['products'] as $product)
-                                            <div class="d-flex">
-                                                <div class="col-3 infor-order-user-history">
-                                                    <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$product['product']->image )}}" width="70%" height="70%" alt="">       
-                                                </div>
-                                                <div class="col-4">{{ $product['product']->name_product }}</div>
-                                                <div class="col-3">{{ number_format($product['product']->original_price) }} VNĐ</div>
-                                                <div class="col-2">{{ $product['quantity'] }}</div>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </div>
-                                <div class="col-2 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
-                                <div class="col-2 infor-order-user-history"> Thành tiền:
-                                    <span class="total-order-user-history">{{number_format($val['tong'])}} VNĐ</span>
-                                </div>
-                            </a>
-
-                            <div class="col-1 status-order-user-history">
-                                <div class="infor-order-user-history">
-                                    <div>
-                                        <?php 
-                                            if ($val['status'] == 1) {
-                                                echo '<span style="color: orange;">Đang xử lý</span>';
-                                                echo "<a href='" . route('cancel_order', ['id' => $val['id']]) . "'class='btn-cancel-order'>Hủy đơn</a>";
-                                            }
-                                            else if ($val['status'] == 2) {
-                                                echo '<span style="color: #52de20;">Đang giao</span>';
-                                            }
-                                            else if ($val['status'] == 3) {
-                                                echo '<span style="color: #198754;">Đã giao</span>';
-                                            }
-                                            else if ($val['status'] == 4) {
-                                                echo '<span style="color: red;">Đã hủy</span>';
-                                            }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-                
-                @if (session('message'))
-                    <div class="notification-orders">
-                        {{ session('message') }}
-                    </div>
-                @endif
-                <div class="button-history-orders">
-                    <a class="back-order-statistics" href="{{route('home')}}">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Quay lại
-                    </a>
+        <div class="history-status-nav grid">
+            <a href="?status=all" class="{{ ($status == 'all') ? 'activess' : '' }}">
+                <div class="text-center">
+                    <p class="header-order-history-status history-status-all">{{$counts_all}}</p>
+                    <i class="fas fa-database fs-3 pb-2 status-all"></i>    
+                    <p>Tất cả đơn hàng</p>
                 </div>
-            </div>
+            </a>
+            <a href="?status=1" class="{{ ($status == '1') ? 'activess-1' : '' }}">
+                <div class="text-center">
+                    <p class="header-order-history-status history-status-handle">{{$counts_processing}}</p>
+                    <i class="fas fa-spinner fs-3 pb-2 status-handle"></i>
+                    <p>Đang xử lý</p>
+                </div>
+            </a>
+            <a href="?status=2" class="{{ ($status == '2') ? 'activess-2' : '' }}">
+                <div class="text-center">
+                    <p class="header-order-history-status status-all history-status-delivery">{{$counts_delivery}}</p>
+                    <i class="fas fa-car-side fs-3 pb-2 status-delivery"></i>
+                    <p>Đang giao</p>
+                </div>
+            </a>
+            <a href="?status=3" class="{{ ($status == '3') ? 'activess-3' : '' }}">
+                <div class="text-center">
+                    <p class="header-order-history-status status-all history-status-complete">{{$counts_complete}}</p>
+                    <i class="fas fa-check-square fs-3 pb-2 status-complete"></i>    
+                    <p>Đã giao</p>
+                </div>
+            </a>
+            <a href="?status=4" class="{{ ($status == '4') ? 'activess-4' : '' }}">
+                <div class="text-center">
+                    <p class="header-order-history-status status-all history-status-cancel">{{$counts_cancel}}</p>
+                    <i class="fas fa-window-close fs-3 pb-2 status-cancel"></i>    
+                    <p>Đã hủy</p>
+                </div>
+            </a>
         </div>
     </div>
+
+    <div class="history-list-order grid-history">
+        <div class="row main-row container-fluid main-row-chitiet">
+            <div class="product-list element_column" data-item="receipt">
+                <div class="history-orders-list">
+                <div class="show-order-customer-date list-order-user-history-after">
+                    <span>
+                        Hiển thị:
+                    </span>
+                    <span>
+                        <select class="selected-option-date-customer" aria-label="Default select example" onchange="filterOrderHistory(this.value)">
+                            <option value="0" {{ ($filter == 0) ? 'selected' : '' }}>Tất cả đơn hàng</option>
+                            <option value="5" {{ ($filter == 5) ? 'selected' : '' }}>5 ngày gần nhất</option>
+                            <option value="10" {{ ($filter == 10) ? 'selected' : '' }}>10 ngày gần nhất</option>
+                            <option value="30" {{ ($filter == 30) ? 'selected' : '' }}>30 ngày gần đây nhất</option>
+                            <option value="180" {{ ($filter == 180) ? 'selected' : '' }}>6 tháng gần đây nhất</option>
+                        </select>
+                    </span>
+                </div>
+                
+                    @foreach($order_product as $key => $val)
+                        @if ($status == 'all' || $val['status'] == $status)
+                            <div class="row list-order-user-history list-order-user-history-after">
+                                <div class="d-flex mt-3 justify-content-between infor-date-order-status">
+                                    <div>Ngày đặt hàng 
+                                        <span class="date-customer-order">{{$val['created_at']}}</span>
+                                    </div>
+                                    <div class="status-order-user-history">
+                                        <div>
+                                            <?php 
+                                                if ($val['status'] == 1) {
+                                                    echo "<a href='" . route('cancel_order', ['id' => $val['id']]) . "'class='btn-cancel-order'>Hủy đơn</a>";
+                                                    echo '<span class="border-span-status" style="color: orange;">Đang xử lý</span>';
+                                                }
+                                                else if ($val['status'] == 2) {
+                                                    echo '<span class="border-span-status" style="color: #52de20;">Đang giao</span>';
+                                                }
+                                                else if ($val['status'] == 3) {
+                                                    echo '<span class="border-span-status" style="color: #198754;">Đã giao</span>';
+                                                }
+                                                else if ($val['status'] == 4) {
+                                                    echo '<span class="border-span-status" style="color: red;">Đã hủy</span>';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{route('thong_tin_don_hang', $val['id'])}}" class="row link-infor-order-user-history">
+                                    <div class="col-9 infor-order-user-history array-infor-order-user-history">
+                                        @if (!empty($val['products']))
+                                            @foreach ($val['products'] as $product)
+                                                <div class="d-flex align-items-center">
+                                                    <div class="col-2 infor-order-user-history">
+                                                        <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$product['product']->image )}}" width="70%" height="70%" alt="">       
+                                                    </div>
+                                                    <div class="col-4">{{ $product['product']->name_product }}</div>
+                                                    <div class="col-2 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
+                                                    <div class="col-4">{{ number_format($product['product']->original_price) }} VNĐ</div>
+                                                    <div class="col-2">Số lượng: {{ $product['quantity'] }}</div>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                    <!-- <div class="col-2 infor-order-user-history"> Thành tiền:
+                                        <span class="total-order-user-history">{{number_format($val['tong'])}} VNĐ</span>
+                                    </div> -->
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+                    
+                    @if (session('message'))
+                        <div class="notification-orders">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                    <div class="button-history-orders">
+                        <a class="back-order-statistics" href="{{route('home')}}">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Quay lại
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+
 </div>
 <footer>
         <div class="footer">
@@ -241,4 +264,9 @@
             </div>
 </footer>
 </body>
+<script>
+function filterOrderHistory(filter) {
+    window.location.href = '{{ route("order-history") }}?filter=' + filter;
+}
+</script>
 </html>

@@ -725,12 +725,7 @@ tbody.history-order-product {
 }
 .btn-cancel-order {
     color: black;
-    display: flex;
-    height: 32px;
-    font-size: 16px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+    padding-right: 10px;
     text-decoration: none;
 }
 .btn-cancel-order:hover{
@@ -747,7 +742,7 @@ tbody.history-order-product {
     margin-top: 19px;
 }
 .history-status-nav a{
-    color: rgb(10, 88, 202);
+    color: #6c757d;
     text-decoration: none;
 }
 .activess{
@@ -792,11 +787,11 @@ tbody.history-order-product {
 .card-body.history-orders-list .list-order-user-history {
     margin-top: 13px;
     margin: -1px;
-    border-top: 2px solid #f1f0f0;
 }
 .product-list-name {
-    padding-bottom: 20px;
-    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    text-align: center;
 }
 .total-order-user-history{
     padding-left: 10px;
@@ -811,16 +806,15 @@ tbody.history-order-product {
 .link-infor-order-user-history:hover{
     color:#1fbb3b;
 }
-.col-1.status-order-user-history {
+/* .status-order-user-history {
     display: flex;
     align-items: center;
-}
+} */
 img.image-product-order {
     object-fit: contain;
 }
 img.image-admin-product-edit {
-    object-fit: cover;
-    width: 60px;
+    width: 68px;
     height: 60px;
 }
 .list-account-admin {
@@ -1184,4 +1178,73 @@ input#quantity {
 }
 .array-infor-order-user-history {
     line-height: 33px;
+}
+.infor-date-order-status{
+    height: 56px;
+    padding: 0 12px;
+    padding-top: 16px;
+    border-bottom: 1px solid;
+}
+.grid-history{
+    width: 1260px;
+    max-width: 100%;
+    margin: 14px auto;
+}
+.list-order-user-history-after{
+    position: relative;
+}
+.list-order-user-history-after::after {
+    content: "";
+    position: absolute;
+    width: 1275px;
+    height: 15px;
+    background-color: rgb(239, 240, 244);
+    right: -50px;
+}
+.all-customer-order-history {
+    background-color: rgb(239, 240, 244);
+}
+.history-list-order {
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    padding-right: 14px;
+    margin-top: 13px;
+    background-color: #fffcfc;
+}
+.date-customer-order{
+    color: #75b239;
+    font-size: 15px;
+    margin-left: 12px;
+    line-height: 10px;
+}
+span.border-span-status {
+    background-color: #ecf0f7;
+    font-size: 16px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    padding-bottom: 6px;
+}
+.nav-status-history-customer {
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    height: 160px;
+    z-index: 1;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+.history-list-order.grid-history{
+    margin-top: 10%;
+}
+.show-order-customer-date{
+    height: 80px;
+    line-height: 95px;
+}
+select.selected-option-date-customer {
+    height: 40px;
+    margin-left: 10px;
+    border: 1px solid;
+    border-radius: 2px;
 }
