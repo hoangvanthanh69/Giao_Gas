@@ -755,6 +755,7 @@ tbody.history-order-product {
 .infor-order-user-history {
     /* display: flex; */
     align-items: center;
+    line-height: 74px;
 }
 .activess-1{
     color: orange !important;
@@ -814,8 +815,12 @@ img.image-product-order {
     object-fit: contain;
 }
 img.image-admin-product-edit {
-    width: 68px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 3px;
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+    padding: 2px;
 }
 .list-account-admin {
     color: #4f4a4a;
@@ -875,7 +880,7 @@ h5#orderInfoModalLabel {
     color: yellow;
 }
 .star-ratings .fa {
-    font-size: 24px;
+    font-size: 19px;
     color: #ddd;
     transition: all .2s;
 }
@@ -1183,7 +1188,7 @@ input#quantity {
     height: 56px;
     padding: 0 12px;
     padding-top: 16px;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #c8c8c8;
 }
 .grid-history{
     width: 1260px;
@@ -1214,7 +1219,7 @@ input#quantity {
 }
 .date-customer-order{
     color: #75b239;
-    font-size: 15px;
+    font-size: 17px;
     margin-left: 12px;
     line-height: 10px;
 }
@@ -1243,8 +1248,16 @@ span.border-span-status {
     line-height: 95px;
 }
 select.selected-option-date-customer {
-    height: 40px;
+    height: 42px;
     margin-left: 10px;
-    border: 1px solid;
+    border: 1px solid #787878;
     border-radius: 2px;
+    padding-left: 7px;
+}
+.infor-deliver-customers{
+    line-height: 67px;
+}
+.total-order-customer-infor {
+    line-height: 40px;
+    margin-top: 28px;
 }

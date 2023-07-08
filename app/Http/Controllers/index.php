@@ -217,71 +217,61 @@ class index extends Controller
    //    $order_product->save();
    //    return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
    // }
-   function order_product(Request $request)
-{
-    $inforGas = $request->input('infor_gas');
-    $data = [];
-    $totalPrice = 0; // Tổng giá trị
-    foreach ($inforGas as $productId => $quantity) {
-        if ($quantity) {
-            // Lấy thông tin sản phẩm từ cơ sở dữ liệu (thay bằng phương thức phù hợp)
+   function order_product(Request $request){
+      $inforGas = $request->input('infor_gas');
+      $data = [];
+      $totalPrice = 0;
+      foreach ($inforGas as $productId => $quantity) {
+         if ($quantity) {
             $product = Product::find($productId);
             if ($product) {
-                $price = $product->original_price; // Giá của sản phẩm
-                $totalPrice += $price * $quantity; // Cộng tổng giá trị
-
-                $data[] = [
-                    'product_id' => $productId,
-                    'quantity' => $quantity,
-                ];
+               $price = $product->original_price;
+               $totalPrice += $price * $quantity;
+               $data[] = [
+                  'product_id' => $productId,
+                  'product_name' => $product->name_product,
+                  'product_price' => $price,
+                  'quantity' => $quantity,
+               ];
             }
-        }
-    }
+         }
+      }
 
-    $jsonData = json_encode($data);
+      $jsonData = json_encode($data);
 
-    $order = new order_product;
-    $order->infor_gas = $jsonData;
-    Session::put('phoneCustomer', $request['phoneCustomer']);
-    Session::put('country', $request['country']);
-    Session::put('diachi', $request['diachi']);
-    Session::put('state', $request['state']);
-    Session::put('district', $request['district']);
-    $order->nameCustomer = $request['nameCustomer'];
-    $order->phoneCustomer = $request['phoneCustomer'];
-    $order->country = $request['country'];
-    $order->state = $request['state'];
-    $order->district = $request['district'];
-    $order->diachi = $request['diachi'];
-    $order->loai = $request['loai'];
-    $user_id = Session::get('home')['id'];
-    $order->user_id = $user_id;
+      $order = new order_product;
+      $order->infor_gas = $jsonData;
+      Session::put('phoneCustomer', $request['phoneCustomer']);
+      Session::put('country', $request['country']);
+      Session::put('diachi', $request['diachi']);
+      Session::put('state', $request['state']);
+      Session::put('district', $request['district']);
+      $order->nameCustomer = $request['nameCustomer'];
+      $order->phoneCustomer = $request['phoneCustomer'];
+      $order->country = $request['country'];
+      $order->state = $request['state'];
+      $order->district = $request['district'];
+      $order->diachi = $request['diachi'];
+      $order->loai = $request['loai'];
+      $user_id = Session::get('home')['id'];
+      $order->user_id = $user_id;
+      if (empty($request['ghichu'])) {
+         $order->ghichu = 'null';
+      } else {
+         $order->ghichu = $request['ghichu'];
+      }
+      $order->status = 1;
+      if (isset($admin_name)) {
+         $order->admin_name = $admin_name;
+      } else {
+         $order->admin_name = 'Chưa có người giao';
+      }
+      $order->order_code = uniqid();
+      $order->tong = $totalPrice;
 
-    if (empty($request['ghichu'])) {
-        $order->ghichu = 'null';
-    } else {
-        $order->ghichu = $request['ghichu'];
-    }
-
-    $order->status = 1;
-
-    if (isset($admin_name)) {
-        $order->admin_name = $admin_name;
-    } else {
-        $order->admin_name = 'Chưa có người giao';
-    }
-
-    $order->order_code = uniqid();
-
-    // Lưu tổng giá trị vào dữ liệu
-    $order->tong = $totalPrice;
-
-    $order->save();
-
-    return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
-}
-
-
+      $order->save();
+      return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
+   }
 
    // hủy đơn hàng của khách hàng
    function cancelOrder($id) {
@@ -397,6 +387,8 @@ class index extends Controller
                if ($product) {
                   $products[] = [
                      'product' => $product,
+                     'product_name' => $infor['product_name'],
+                     'product_price' => $infor['product_price'],
                      'quantity' => $infor['quantity'],
                   ];
                }
@@ -415,6 +407,9 @@ class index extends Controller
           return redirect()->route('dangnhap');
       }
       $order_product = order_product::find($id);
+      if (!$order_product) {
+         return redirect()->route('order_history')->with('error', 'Không tìm thấy đơn hàng.');
+      }
       $delivery_info = tbl_admin::where('admin_name', $order_product->admin_name)->first();
       if($delivery_info) {
          $staff_id = $delivery_info->id;
@@ -424,19 +419,31 @@ class index extends Controller
       $user_id = $order_product->user_id;
       $danh_gia = danh_gia::where('staff_id', $staff_id)
          ->where('user_id', $user_id)
-         ->orderBy('created_at', 'desc')
+         ->where('order_id', $id)
          ->first();
       $ratings = danh_gia::where('staff_id', $staff_id)->pluck('rating');
       $total_stars = $ratings->sum();
       $count_ratings = count($ratings);
       $average_rating = $count_ratings > 0 ? $total_stars / $count_ratings : 0;
-      return view('frontend.thong_tin_don_hang', [
-         'order_product' => $order_product,
-         'delivery_info' => $delivery_info,
-         'danh_gia' => $danh_gia,
-         'average_rating' => $average_rating,
-         'staff_id' => $staff_id,
-      ]);
+      $infor_gas = json_decode($order_product['infor_gas'], true);
+      $products = [];
+      if ($infor_gas) {
+         foreach ($infor_gas as $infor) {
+               $product = product::find($infor['product_id']);
+               if ($product) {
+                  $products[] = [
+                     'product' => $product,
+                     'product_name' => $infor['product_name'],
+                     'product_price' => $infor['product_price'],
+                     'quantity' => $infor['quantity'],
+                  ];
+               }
+         }
+      }
+      $productCount = count($products);
+      // print($productCount); die;
+      return view('frontend.thong_tin_don_hang', [ 'order_product' => $order_product, 'delivery_info' => $delivery_info,
+      'danh_gia' => $danh_gia, 'average_rating' => $average_rating, 'staff_id' => $staff_id, 'products' => $products, 'productCount' => $productCount]);
    }
     
   

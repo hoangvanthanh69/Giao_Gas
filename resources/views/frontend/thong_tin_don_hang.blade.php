@@ -30,24 +30,53 @@
                         <h6 class="text-success">(+84) {{$order_product['phoneCustomer']}}</h6>
                         <p class="name-product-p">{{$order_product['diachi']}}, Phường {{$order_product['district']}}, Quận {{$order_product['state']}}, Thành Phố {{$order_product['country']}}</p>
                     </div>
-
-                    <div class="row list-order-user-history">
-                        <div  class="col-2 infor-order-user-history d-flex ">
-                            <span class="pb-4 pe-1">{{$order_product['order_code']}}</span>
-                            <img class="image-admin-product-edit" src="{{asset('uploads/product/'.$order_product['image']) }}" width="70%" height="70%" alt="">  
+                    <div class="d-flex">
+                        <div class="col-3 d-flex ">
+                            <span class="pb-4 pe-1">Đơn hàng: {{$order_product['order_code']}}</span>
                         </div>
-                        <div class="col-2 infor-order-user-history">{{$order_product['name_product']}}</div>
-                        <div class="col-2 infor-order-user-history"><?php if($order_product['type']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
-                        <div class="col-2 infor-order-user-history">{{$order_product['created_at']}}</div>
-                        <div class="col-1 infor-order-user-history">{{number_format($order_product['price'])}}</div>
-                        <div class="col-1 infor-order-user-history">x{{$order_product['amount']}}</div>
-                        <div class="col-2 infor-order-user-history"> Tổng:
-                            <span class="total-order-user-history">{{number_format($order_product['amount'] * $order_product['price'])}} đ</span>
-                        </div>
+                        <div class="col-3 ps-3">Loại: <?php if($order_product['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
+                        <div class="col-3">Đặt ngày: {{$order_product['created_at']}}</div>
                     </div>
 
+                    <div class="d-flex list-order-user-history">
+                        <div class="col-7">
+                            @if (!empty($products))
+                                @foreach ($products as $product)
+                                    <div class="row">
+                                        <div class="col-1 me-4 infor-order-user-history">
+                                            <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$product['product']->image )}}" width="70%" height="70%" alt="">       
+                                        </div>
+                                        <div class="col-4 infor-order-user-history ms-3">{{ $product['product_name']}}</div>
+                                        <div class="col-3 infor-order-user-history">{{ number_format($product['product_price']) }} VNĐ</div>
+                                        <div class="col-3 infor-order-user-history">Số lượng: {{ $product['quantity'] }}</div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="col-5 total-order-customer-infor"> 
+                            <h5>Tổng cộng</h5>
+                            <div class="row">
+                                <div class="col-7">Tổng tiền ({{$productCount}} sản phẩm)</div>
+                                <div class="col-5">{{number_format($order_product['tong'])}} VNĐ</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">Phí vận chuyển (miễn phí)</div>
+                                <div class="col-5">0 VNĐ</div>
+                            </div>
+                            <div class="row border-bottom">
+                                <div class="col-7">Khuyến mãi giảm giá</div>
+                                <div class="col-5">0 VNĐ</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">Tổng cộng :</div>
+                                <div class="col-5"><strong>{{number_format($order_product['tong'])}} VNĐ</strong></div>
+                                <span class="text-warning">Hình thức thanh toán khi nhận hàng</span>
+                            </div>
+                            
+                        </div>
+                    </div>
                     <h6 class="text-danger mt-4">Người giao hàng</h6>
-                    <div class="infor-deliver-customers d-flex text-center align-items-center mb-2">
+                    <div class="infor-deliver-customers d-flex text-center mb-2">
                         @if ($delivery_info)
                         <div class="col-1">
                             <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$delivery_info['image_staff'])}}" width="100px"  alt="{{ $delivery_info->admin_name }}">
@@ -102,7 +131,7 @@
                             @endfor
                         </p>
 
-                        <div id="change-rating">Thay đồi đánh giá</div>
+                        <!-- <div id="change-rating">Thay đồi đánh giá</div>
                         <div class="select-address-user hidden">
                             <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
                                 @csrf
@@ -123,7 +152,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
                             </form>
-                        </div>
+                        </div> -->
                         
                     @else
                         <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">

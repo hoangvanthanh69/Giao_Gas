@@ -785,6 +785,9 @@
                     var product = filteredProducts[i];
                     var html = `
                         <div class="col-3 image-product-order-all productchoose border border-secondary mt-2" id="${product.id}" onclick="highlightProduct(this)">
+                            ${product.quantity == 0 ? 
+                                '<div class="home-product-item-sale-off"><span class="home-product-item-sale-off-label">Hết gas</span></div>' : ''
+                            }
                             <div class="form-check mt-1">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
                             </div>

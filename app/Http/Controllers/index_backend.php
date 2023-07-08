@@ -606,7 +606,7 @@ class index_backend extends Controller
             } else {
                 $filters = array(
                     'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
-                    'type' => isset($_GET['type']) ? $_GET['type'] : 'all'
+                    'loai' => isset($_GET['loai']) ? $_GET['loai'] : 'all'
                 );
     
                 return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search'));

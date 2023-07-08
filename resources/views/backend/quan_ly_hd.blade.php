@@ -14,7 +14,7 @@
             <form method="get"> 
               <div class="d-flex">
                 <select name="status" id="status" class="form-select select-form-option" onchange="this.form.submit()">
-                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Trạng thái</option>
+                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Tất cả</option>
                   <option value="1" {{ ($filters['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
                   <option value="2" {{ ($filters['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
                   <option value="3" {{ ($filters['status'] == '3') ? 'selected' : '' }}>Đã giao</option>

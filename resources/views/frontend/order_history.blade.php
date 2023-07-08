@@ -111,9 +111,9 @@
                                                     <div class="col-2 infor-order-user-history">
                                                         <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$product['product']->image )}}" width="70%" height="70%" alt="">       
                                                     </div>
-                                                    <div class="col-4">{{ $product['product']->name_product }}</div>
-                                                    <div class="col-2 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
-                                                    <div class="col-4">{{ number_format($product['product']->original_price) }} VNĐ</div>
+                                                    <div class="col-4">{{ $product['product_name']}}</div>
+                                                    <div class="col-3 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
+                                                    <div class="col-3">{{ number_format($product['product_price']) }} VNĐ</div>
                                                     <div class="col-2">Số lượng: {{ $product['quantity'] }}</div>
                                                 </div>
                                             @endforeach
