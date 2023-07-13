@@ -18,10 +18,10 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr class="tr-name-table-list">
-                                <th>Mã Đơn</th>
+                                <th>Mã ĐH</th>
                                 <th>Tên Khách hàng</th>
                                 <th>Địa chỉ</th>
-                                <th>Tên sản phẩm</th>
+                                <th>Thông tin sản phẩm</th>
                                 <th>Trạng thái</th>
                                 <th>Giao nhân viên</th>
                             </tr>
@@ -31,18 +31,18 @@
                         <tbody class="infor">
                         @foreach($order_product as $key => $val)
                             <tr class="order-product-height hover-color">
-                                <td class="order-product-infor-admin">{{$val['id']}}</td>
-                                <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
-                                <td class="order-product-infor-admin">{{$val['diachi']}}, {{$val['district']}},  {{$val['state']}}, {{$val['country']}}</td>
-                                <td class="order-product-infor-admin">{{$val['infor_gas']}}</td>
-                                <td class="order-product-infor-admin">
+                                <td class="col-1">{{$val['order_code']}}</td>
+                                <td class="col-2">{{$val['nameCustomer']}}</td>
+                                <td class="col-2">{{$val['diachi']}}, {{$val['district']}},  {{$val['state']}}, {{$val['country']}}</td>
+                                <td class="col-4">{{$val['infor_gas']}}</td>
+                                <td class="col-1">
                                     @if($val['status']==1)
                                         <span style="color: orange;">Đang xử lý</span>
                                     @elseif($val['status']==2)
                                         <span style="color: #52de20;">Đang giao</span>
                                     @endif
                                 </td>
-                                <td class="order-product-infor-admin">
+                                <td class="col-2">
                                     <form method="POST" action="{{route('quan_ly_giao_hangs')}}">
                                         @csrf
                                         {{$val['admin_name']}}

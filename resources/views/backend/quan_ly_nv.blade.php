@@ -45,15 +45,15 @@
                 <thead>
                   <tr class="tr-name-table">
                     <th>Mã số </th>
-                    <th class="align-center">Ảnh</th>
-                    <th class="align-center">Họ Tên</th>
-                    <th class="align-center">SĐT</th>
-                    <th>Năm sinh</th>
-                    <th>Chức vụ</th>
-                    <th class="align-center">Tài khoản @gmail</th>
-                    <th class="align-center">Địa chỉ</th>
-                    <th>Ngày vào làm</th>
-                    <th class="align-center">Lương/Tháng</th>
+                    <th class="align-center col-1">Ảnh</th>
+                    <th class="align-center col-2">Họ Tên</th>
+                    <th class="align-center col-1">SĐT</th>
+                    <th class="col-1 align-center">Năm sinh</th>
+                    <th class="col-1 align-center">Chức vụ</th>
+                    <th class="align-center col-1">Tài khoản @gmail</th>
+                    <th class="align-center col-2">Địa chỉ</th>
+                    <th class="col-1 ">Ngày vào làm</th>
+                    <th class="align-center col-1">Lương/Tháng</th>
                     <th>Chức năng</th>
                   </tr>
                 </thead>

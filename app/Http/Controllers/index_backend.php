@@ -59,7 +59,25 @@ class index_backend extends Controller
         $order_product = order_product::find($id);
         //    echo " <pre>";
         //    print_r($staff);
-        return view('backend.chitiet_hd' , ['order_product' => $order_product]);
+        if (!$order_product) {
+            return redirect()->route('quan_ly_hd')->with('error', 'Không tìm thấy đơn hàng.');
+        }
+        $infor_gas = json_decode($order_product['infor_gas'], true);
+        $products = [];
+        if ($infor_gas) {
+            foreach ($infor_gas as $infor) {
+                $product = product::find($infor['product_id']);
+                if ($product) {
+                    $products[] = [
+                        'product' => $product,
+                        'product_name' => $infor['product_name'],
+                        'product_price' => $infor['product_price'],
+                        'quantity' => $infor['quantity'],
+                    ];
+                }
+            }
+        }
+        return view('backend.chitiet_hd' , ['order_product' => $order_product, 'products' => $products]);
     }
 
     function chitiet(Request $request, $id){
@@ -296,112 +314,107 @@ class index_backend extends Controller
     }
 
     function print_order_convert($checkout_code){
-        $order_product = order_product::where('id', $checkout_code)->get();
-        foreach($order_product as $key => $val){
-            $id = $val -> id;
-            $idProduct = $val -> idProduct;
-        }
-        $order_product = order_product:: where('id', $id)->first();
-        $order_product = order_product:: where('idProduct', $idProduct)->first();
-        // print_r($order_product);
+        $order_product = order_product::where('id', $checkout_code)->first();
+        $infor_gas = json_decode($order_product->infor_gas, true);
         $output = '';
-        $output.= '<style>
-        body{
-            font-family:Dejavu Sans;
-        }
-        .table-thead{
-            margin-top: 10px;
-            border: 1px solid #000;
-        }
-        .table-thead{
-            border: 1px solid #000;
-        }
-        .tbody-tr-td td{
-            width: 170px;
-            border:1px solid #000;
-            text-align: center;
-        }
-        .thead-tr-name-table th{
-            width: 100px;
-            border:1px solid #000;
-        }
-        .receipt-h3{
-            text-align: center;
-        }
-        </style>
-                <div class="receipt-h3">
-                    <h2> Gas Tech </h2>
-                    <span>Nhanh chóng - An toàn - Chất lượng - Hiệu quả</span>
-                    <p>SĐT 0837641469</p>
-                </div>
-                
-                <h3 class="receipt-h3"> HÓA ĐƠN THANH TOÁN </h3>
-                <div class="infor-customer">
-                    <label class="name-add-product-all col-3" for="">Tên Khách Hàng:</label>
-                    <span>
-                        '. $val['nameCustomer'].'
-                    </span>
-                </div>
+        $output .= '
+            <style>
+                body{
+                    font-family: Dejavu Sans;
+                }
+                .table-thead{
+                    margin-top: 10px;
+                    border: 1px solid #000;
+                }
+                .table-thead th{
+                    border: 1px solid #000;
+                }
+                .tbody-tr-td td{
+                    width: 180px;
+                    border: 1px solid #000;
+                    text-align: center;
+                }
+                .thead-tr-name-table th{
+                    width: 100px;
+                    border: 1px solid #000;
+                }
+                .receipt-h3{
+                    text-align: center;
+                }
+                td.product_name{
+                    width: 260px;
+                }
+                td.quantity{
+                    width: 80px;
+                }
+                .total-payment-price{
+                    width: 150px;
+                    text-align: center;
+                }
+            </style>
+            <div class="receipt-h3">
+                <h2>Gas Tech</h2>
+                <span>Nhanh chóng - An toàn - Chất lượng - Hiệu quả</span>
+                <p>SĐT 0837641469</p>
+            </div>
+            
+            <h3 class="receipt-h3">HÓA ĐƠN THANH TOÁN</h3>
+            <div class="infor-customer">
+                <label class="name-add-product-all col-4" for="">Khách Hàng:</label>
+                <span>'.$order_product['nameCustomer'].'</span>
+            </div>
 
-                <div class="">
-                    <label class="name-add-product-all col-3" for="">Địa chỉ:</label>
-                    <span>
-                        '. $val['diachi'].', '. $val['district'].', '. $val['state'].', '. $val['country'].'
-                    </span>
-                </div>
+            <div class="">
+                <label class="name-add-product-all col-4" for="">Địa chỉ:</label>
+                <span>'.$order_product['diachi'].', '.$order_product['district'].', '.$order_product['state'].', '.$order_product['country'].'</span>
+            </div>
 
-                <div class="">
-                    <label class="name-add-product-all col-3" for="">Số điện thoại:</label>
-                    <span>
-                        '. $val['phoneCustomer'].'
-                    </span>
-                </div>
-                
-                <table class="table-thead">
-                    <thead>
-                        <tr class="thead-tr-name-table">
-                            <th>Tên sản phẩm</th>
-                            <th>SL</th>
-                            <th>Giá</th>
-                            <th>Ngày tạo</th>
-
-                        </tr>
-                    </thead>
-                        
-                    <tbody class="infor">';
-                    $output .= '
-                        
-
-                        <tr class="tbody-tr-td">
-                            <td>
-                            '. $val['name_product'].'
-                            </td>
-
-                            <td>
-                            '. $val['amount'].'
-                            </td>
-
-                            <td>
-                            '. number_format($val['price'] * $val['amount']).' VNĐ
-                            </td>
-
-                            <td>
-                            '. $val['created_at'].'
-                            </td>
-
-
-                        </tr>';
-                    $output .= '
-
-                    </tbody>
-                </table>
-                <p class="receipt-h3">Gas Tech xin chân thành cảm ơn quý khách,</p>
-                <p class="receipt-h3">Hẹn gặp lại !</p>
-
-                ';
+            <div class="">
+                <label class="name-add-product-all col-3" for="">Số điện thoại:</label>
+                <span>'.$order_product['phoneCustomer'].'</span>
+            </div>
+            <div class="">
+                <label class="name-add-product-all col-3" for="">Ngày đặt:</label>
+                <span>'.$order_product['created_at'].'</span>
+            </div>
+            <div class="">
+                <label class="name-add-product-all col-3" for="">Mã ĐH:</label>
+                <span>'.$order_product['order_code'].'</span>
+            </div>
+            
+            <table class="table-thead">
+                <thead>
+                    <tr class="thead-tr-name-table">
+                        <th>Tên sản phẩm</th>
+                        <th>SL</th>
+                        <th>Giá</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                    
+                <tbody class="infor">';
+            if (!empty($infor_gas)) {
+                foreach ($infor_gas as $infor) {
+                    $product = product::find($infor['product_id']);
+                    if ($product) {
+                        $output .= '
+                            <tr class="tbody-tr-td">
+                                <td class="product_name">'.$infor['product_name'].'</td>
+                                <td class="quantity">'.$infor['quantity'].'</td>
+                                <td>'.number_format($infor['product_price']).' VNĐ</td>';
+                    }
+                }
+                $output .= '<div class="total-payment-price"><strong>'.number_format($order_product['tong']).' VNĐ</strong></div>
+                </tr>';
+            }
+        $output .= '</tbody>
+                    </table>
+                    <p class="receipt-h3">Gas Tech xin chân thành cảm ơn quý khách,</p>
+                    <p class="receipt-h3">Hẹn gặp lại!</p>';
 
         return $output;
     }
+
 
     // tìm kiếm nhân viên
     function searchOrder(Request $request){

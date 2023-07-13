@@ -96,13 +96,23 @@
                                             <form enctype="multipart/form-data" method="post" action="{{ route('update_image_user', $users->id) }}">
                                                 @csrf
                                                 <div class="d-flex">
-                                                    <div class="d-flex mb-3">
-                                                        <label class="text-acount-customer col-3" for="">Chọn ảnh:</label>
-                                                        <input class="ps-4" type="file" name="img">
+                                                    <div class="mb-3">
+                                                        <div class="text-center">
+                                                            @if ($users -> img)
+                                                                <img class="customer-account-image-modal" src="{{ asset('uploads/users/' . $users->img) }}" alt="">
+                                                            @else
+                                                                <img src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
+                                                            @endif
+                                                        </div>
+                                                        <div class="d-flex mt-3">
+                                                            <label class="text-acount-customer col-3" for="">Thay đổi ảnh:</label>
+                                                            <input class="ps-3" type="file" name="img">
+                                                            <div class="save-img-customer">
+                                                                <button class="save-img-customer" type="submit">Lưu</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="save-img-customer">
-                                                        <button class="save-img-customer" type="submit">Lưu</button>
-                                                    </div>
+                                                   
                                                 </div>
                                             </form>
 
@@ -177,12 +187,9 @@
                     <!--  -->
                 </div>
             </div>
+            
         </div>
-    </header>
-
-    <main>
-        <div class="web-container">
-            <div class="grid-nav">
+        <div class="grid-nav">
                 <div class="grid-row-12">
                     <div class="home-filter grid" id="filter_button">
                         <a href="{{route('home')}}" data-filter="all">
@@ -212,7 +219,11 @@
 
                     </div>
                 </div>
-            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="web-container">
             <div class="marquee">
                 <p>
                     <strong class="logo-name-gas">
@@ -225,9 +236,8 @@
                     với tiêu chí “Nhanh chóng - An toàn - Chất lượng - Hiệu quả”.
                 </p>
             </div>
-
             <div class="header-img-grid element_columns" data-item="img">
-                <div id="carouselExampleControls" class="carousel slide grid" data-bs-ride="carousel">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner ">
                         <div class="carousel-item active slide-main-carousel">
                             <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" class="slide-main d-block" alt="...">
@@ -245,6 +255,7 @@
     
                                 <div>
                                     <p class="name-trademark">Nhanh chóng tiện lợi niềm tin của mọi nhà</p>
+                                    <p class="text-info name-trademark">Giảm 50k cho khách hàng đầu tiên đổi gas</p>
                                     
                                 </div>
                             </div>
@@ -260,8 +271,24 @@
                                 </div>
     
                                 <div>
-                                    <p class="name-trademark">Dịch vụ khách hàng tốt, giá cả hợp lí</p>
-                                    
+                                    <p class="name-trademark">Miễn phí giao hàng</p>
+                                    <p class="text-info name-trademark">Nhập mã hoangthanh để được giảm 20k cho đơn hàng</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item slide-main-carousel">
+                            <img src="{{asset('frontend/img/banner_3.jpg')}}" class="slide-main d-block " alt="...">
+                            <div class="gas-advertisement">
+                                <div class="gas-advertisement-name ">
+                                    <h1 class="gas-advertisement-name-h1 product-nav-span">
+                                        </span class=""><span>
+                                    </h1>
+                                </div>
+    
+                                <div>
+                                    <p class="name-trademark"></p>
+                                    <p class="text-info name-trademark"></p>
                                 </div>
                             </div>
                         </div>
@@ -282,7 +309,11 @@
             <div class="grid element_column">
                 <div class="gas-delivery infor">
                     <div class="card card-infor element_columns" data-item="order_page">
-                        <div class="card-header card-heder-name">Đổi gas</div>
+                        <div class="card-header card-heder-name">
+                            <div class="card-header-name-change">
+                                Đổi gas
+                            </div>
+                        </div>
                         <div class="card-body gas-delivery-information ">
                         
                             <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
@@ -354,8 +385,8 @@
                                     <div class="delivery-location form-product-specials product-type">
                                         <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
                                             <option value="0">Chọn loại gas</option>
-                                            <option value="1">Gas công nghiệp</option>
-                                            <option value="2">Gas dân dụng</option>
+                                            <option value="1" name="cn">Gas công nghiệp</option>
+                                            <option value="2" name="dd">Gas dân dụng</option>
                                         </select>
                                         <div class="product-order-all btnt row" id="infor_gas">
                                             <!-- Thông tin sản phẩm sẽ được hiển thị -->
@@ -414,7 +445,11 @@
             <!-- hướng dẫn đổi gas -->
             <div class="grid element_column">
                 <div class="card card-support element_columns infor" data-item="guide">
-                    <div class="card-header card-heder-name">Hướng dẫn</div>
+                    <div class="card-header card-heder-name">
+                        <div class="card-header-name-change">
+                            Hướng dẫn
+                        </div>
+                    </div>
                     <div class="support-oder-product">
                         <ul class="support-oder-product-item">
                             <li class="support-oder-product-list">
@@ -473,7 +508,11 @@
             <!-- giới thiệu -->
             <div class="grid element_columns element_column" data-item="introduce">
                 <div class="card card-support infor">
-                    <div class="card-header card-heder-name">Giới thiệu</div>
+                    <div class="card-header card-heder-name">
+                        <div class="card-header-name-change">
+                            Giới thiệu
+                        </div>
+                    </div>
                     <div class="service-support-client">
                         <span>
                             <strong class="logo-name-gas">Gas</strong> 
@@ -656,8 +695,6 @@
 					country: "required",
                     state: "required",
                     district: "required",
-					dd: "required",
-					cn: "required",
                     diachi: "required",
                     amount: "required",
 				},
@@ -668,8 +705,6 @@
 					state: "Nhập huyện",
 					district: "Nhập phường/xã",
 					diachi: "Nhập hẻm/số nhà",
-					dd: "chọn loại",
-					cn: "chọn loại",
                     amount: "Nhập số lượng",
 				},
 				errorElement: "div",
@@ -789,7 +824,7 @@
                                 '<div class="home-product-item-sale-off"><span class="home-product-item-sale-off-label">Hết gas</span></div>' : ''
                             }
                             <div class="form-check mt-1">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                                <input class="form-check-input" type="checkbox" onchange="changeInputColor(this)">
                             </div>
 
                             <div class="activeq">
@@ -806,7 +841,7 @@
                             
                             <div class="d-flex mt-1">
                                 <label class="col-7">Nhập số lượng:</label>
-                                <input class="col-5" type="number" id="quantity" name="infor_gas[${product.id}]" min="1" data-id="${product.id}" onchange="updateProductQuantity(this)">
+                                <input class="col-5" type="number" id="quantity" name="infor_gas[${product.id}]" data-id="${product.id}" onchange="updateProductQuantity(this)">
                             </div>
                         </div>
                     `;
@@ -921,15 +956,37 @@
                 $('#show_infor').on('submit', function(event) {
                     event.preventDefault();
                     var invalidQuantity = false;
+                    var invalidLoai = false;
+                    var selectedProductCount = 0;
+
                     for (var i = 0; i < selectedProducts.length; i++) {
                         var product = selectedProducts[i];
-                        if (product.quantity === 0 || isNaN(product.quantity)) {
+
+                        if (product.quantity < 0 || isNaN(product.quantity)) {
                             invalidQuantity = true;
-                            break;
+                        } else if (product.quantity > 0) {
+                            selectedProductCount++;
                         }
                     }
-                    if (invalidQuantity) {
-                        alert("Vui lòng nhập số lượng cho sản phẩm đã chọn");
+
+                    var selectedLoai = $('#loai').val();
+                    if (selectedLoai == 0) {
+                        invalidLoai = true;
+                    }
+
+                    if (invalidQuantity && invalidLoai) {
+                        alert("Vui lòng chọn ít nhất một sản phẩm và loại gas");
+                        return;
+                    } else if (invalidQuantity) {
+                        alert("Vui lòng nhập số lượng hợp lệ cho sản phẩm đã chọn");
+                        return;
+                    } else if (invalidLoai) {
+                        alert("Vui lòng chọn loại gas");
+                        return;
+                    }
+
+                    if (selectedProductCount === 0) {
+                        alert("Vui lòng chọn ít nhất một sản phẩm");
                         return;
                     }
                     var nameCustomer = $('#firstname').val();
@@ -947,6 +1004,14 @@
                 });
             });
 
+            function changeInputColor(checkbox) {
+                var parentDiv = checkbox.closest('.image-product-order-all');
+                if (checkbox.checked) {
+                    parentDiv.style.backgroundColor = '#d8ded8';
+                } else {
+                    parentDiv.style.backgroundColor = '';
+                }
+            }
     </script>
 </body>
 </html>

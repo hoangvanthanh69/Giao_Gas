@@ -13,6 +13,7 @@ html{
     max-width: 100%;
     margin: 0 auto;
 }
+
 .header-with{
     display: flex;
     height: 100px;
@@ -310,8 +311,8 @@ div#loai-error {
     padding-top: 25px;
 }
 .slide-main{
-    position: absolute;
-    height: 400px;
+    /* position: absolute; */
+    height: 590px;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -319,11 +320,9 @@ div#loai-error {
     filter: brightness(0.6);
 }
 .gas-advertisement{
-    margin-left: auto;
-    margin-right: auto;
     position: absolute;
     text-align: center;
-    left: 16%;
+    margin-left: 29%;
     top:40%;
     font-family: cursive;
 }
@@ -331,8 +330,7 @@ div#loai-error {
     color: rgb(41 149 198);
 }
 .carousel-inner{
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
 }
 .gas-advertisement-name-h1{
     color: #f5f5f5;
@@ -1259,5 +1257,37 @@ select.selected-option-date-customer {
 }
 .total-order-customer-infor {
     line-height: 40px;
-    margin-top: 28px;
+}
+.customer-account-image-modal {
+    width: 110px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.card-header-name-change{
+    position: relative;
+    display: inline-block;
+    font-weight: 500;
+    color: #83ed19;
+    transition: transform 4s;
+    transform-origin: center center;
+}
+.support-oder-product-list {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: opacity 2s, transform 2s;
+}
+.support-oder-product-list.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-row-column-footer {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: opacity 1s, transform 1s;
+}
+.home-row-column-footer.animates {
+    opacity: 1;
+    transform: translateY(0);
 }
