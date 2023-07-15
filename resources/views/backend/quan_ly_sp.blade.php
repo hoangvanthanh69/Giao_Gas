@@ -16,7 +16,7 @@
                   <a class="add-product" href="{{route('add-product-admin')}}">Nhập sản phẩm</a>
                 </div>
                 <div class=" search-infor-amdin-form-staff">
-                  <form action="{{ route('admin.searchOrder_product') }}" method="GET" class="header-with-search-form ">
+                  <form action="{{ route('admin.search_product') }}" method="GET" class="header-with-search-form ">
                     @csrf
                     <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
                     <span class="header_search button">

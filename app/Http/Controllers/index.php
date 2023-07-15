@@ -54,107 +54,7 @@ class index extends Controller
       'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,'products' => $products
       ]);
    }
-  
-   function login(){
-      if(!Session::get('admin')){
-         return view('frontend.login');
-      }
-      else{
-         return redirect()->route('admin');
-      }
-      return view('frontend.login');
-   }
 
-   function showLoginForm(){
-      if(!Session::get('home')){
-         return view('frontend.dangnhap');
-      }
-      else{
-         return redirect()->route('home');
-      }
-      return view('frontend.dangnhap');
-   }
-
-   function register(){
-      return view('frontend.register');
-   }
-
-   function registers(Request $request){
-      $user = new users([
-         'name' => $request->input('name'),
-         'email' => $request->input('email'),
-         'password' => $request->input('password'),
-      ]);
-      $user->save();
-      return redirect('/dangnhap');
-   }
-
-   function dangnhap(Request $request) {
-      $data = $request->all();
-      $password = $data['password'];
-      $user = users::where(['email' => $data['email'], 'password' => $password])->first();
-      if ($user) {
-         Session::put('home', [
-               'id' => $user->id,
-               'email' => $user->email,
-               'password' => $user->password,
-               'name' => $user->name,
-         ]);
-
-         if (Session::get('home') != NULL) {
-            return redirect()->route('home');
-         } 
-         else {
-            return redirect()->back();
-         }
-      } 
-      else {
-         return redirect()->back();
-      }
-  }
-
-   function logoutuser(){ 
-      Session::forget('home')  ;
-      return redirect()->back();
-   }
-
-   function getlogin(Request $request){
-      $data = $request->all();
-      $password = $data['admin_password'];
-      $result = tbl_admin::where(['admin_email' => $data['admin_email'], 'admin_password' => $data['admin_password']])->first();
-      if($result){
-         Session::put('admin_img', $result->image_staff);
-         Session::put('admin_name', $result->admin_name); 
-         Session::put('admin', [
-            'admin_id' => $result->admin_id,
-            'username'  => $result->admin_email,
-            'password'  => $result->admin_password,
-            'admin_name' => $result->admin_name,
-            'chuc_vu' => $result->chuc_vu,
-         ]);
-         if(Session::get('admin') != NULL){
-            if(Session::get('admin')['chuc_vu'] == "2"){
-               return redirect()->route('admin');
-
-            }
-            else{
-               return redirect()->route('quan-ly-hd');
-
-            }
-          } else {
-              return redirect()->back();
-          }
-      } else {
-         return redirect()->back();
-      }
-  }
-  
-
-   function logout(){ 
-      Session::forget('admin')  ;
-      return redirect()->back();
-   }
-   
    function order(){
       echo "<pre>"; 
       print_r(Session::get('idProduct'));
@@ -287,21 +187,17 @@ class index extends Controller
  
    function getProductByID(Request $request){
       $productID = $request->input('productID');
-
-    // Triển khai logic để lấy thông tin sản phẩm từ ID
-    $product = product::find($productID);
-
-    if ($product) {
-        return response()->json([
+      $product = product::find($productID);
+      if ($product) {
+         return response()->json([
             'success' => true,
             'product' => $product
-        ]);
-    }
-
-    return response()->json([
-        'success' => false,
-        'message' => 'Không tìm thấy sản phẩm'
-    ]);
+         ]);
+      }
+      return response()->json([
+         'success' => false,
+         'message' => 'Không tìm thấy sản phẩm'
+      ]);
   
    }
 

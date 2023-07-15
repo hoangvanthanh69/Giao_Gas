@@ -262,7 +262,7 @@
                         </div>
                         
                         <div class="carousel-item slide-main-carousel">
-                            <img src="{{asset('frontend/img/gas-tank-design.jpg')}}" class="slide-main d-block " alt="...">
+                            <img src="{{asset('frontend/img/banner_2.jpg')}}" class="slide-main d-block " alt="...">
                             <div class="gas-advertisement">
                                 <div class="gas-advertisement-name ">
                                     <h1 class="gas-advertisement-name-h1 product-nav-span">

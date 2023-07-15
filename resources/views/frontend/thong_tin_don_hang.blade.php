@@ -191,6 +191,7 @@
             </div>
         </div>
     </div>
+    
     <footer>
         <div class="footer">
             <div class="grid">
@@ -309,6 +310,7 @@
             </div>
     </footer>
 </body>
+<script src="{{asset('frontend/js/style.js')}}"></script>
 </html>
 
 <script>
@@ -346,13 +348,13 @@
 
     // thay đổi đánh giá
     document.getElementById("change-rating").addEventListener("click", function() {
-    var selectAddressUser = document.querySelector(".select-address-user");
-    document.querySelector('.select-address-user').style.display = 'block';
-    if (selectAddressUser.classList.contains("hidden")) {
-      selectAddressUser.classList.remove("hidden");
-    } else {
-      selectAddressUser.classList.add("hidden");
-    }
-  });
+        var selectAddressUser = document.querySelector(".select-address-user");
+        document.querySelector('.select-address-user').style.display = 'block';
+        if (selectAddressUser.classList.contains("hidden")) {
+        selectAddressUser.classList.remove("hidden");
+        } else {
+        selectAddressUser.classList.add("hidden");
+        }
+    });
     
 </script>

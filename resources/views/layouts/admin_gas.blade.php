@@ -126,16 +126,11 @@
 
                      elseif(Session::get('admin')['chuc_vu'] == "3"){?>
                         <div class="btnbtn home-filter-button mb-4" data-filter="all">
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
-                              <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
-                                 <i class="fas fa-file-invoice-dollar icon-all-admin-nav"></i>
-                                 Đơn hàng
-                              </a>
-                           </div>
+                           
                            <div class="btnbtn home-filter-button mb-4" data-filter="product">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
                                  <i class="fas fa-box icon-all-admin-nav"></i>
-                                 Sản phẩm 
+                                 Quản lý xuất sản phẩm 
                               </a>
                            </div>
                         </div>

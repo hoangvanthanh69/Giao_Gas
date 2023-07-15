@@ -263,10 +263,11 @@
                 </div>
             </div>
 </footer>
+<script src="{{asset('frontend/js/style.js')}}"></script>
 </body>
 <script>
-function filterOrderHistory(filter) {
-    window.location.href = '{{ route("order-history") }}?filter=' + filter;
-}
+    function filterOrderHistory(filter) {
+        window.location.href = '{{ route("order-history") }}?filter=' + filter;
+    }
 </script>
 </html>

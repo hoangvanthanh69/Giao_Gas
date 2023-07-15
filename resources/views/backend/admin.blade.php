@@ -172,24 +172,30 @@
 
         <!-- sản phẩm bán chạy -->
         <div class="col-6">
-            <div class="card statistical-all bg-Secondary">
+            <div class="card statistical-all">
                 <div class="row no-gutters ">
                     <div class="col mr-2 text-light center-total-product m-3">
                         <div class="text-xs fw-bolder text-uppercase mb-1 text-dark">
                             Sản phẩm bán chạy nhất hệ thống
                         </div>
                         <table class="table">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>STT</th>
+                                    <th>Mã SP</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng bán</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                <thead>
+                                @foreach ($popularProducts as $key  => $product)
                                     <tr class="text-center">
-                                        <th>STT</th>
-                                        <th>Mã SP</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số lượng bán</th>
+                                        <td>1</td>
+                                        <td>{{ $product['product_id'] }}</td>
+                                        <td>{{ $product['product_name'] }}</td>
+                                        <td>{{ $product['quantity'] }}</td>
                                     </tr>
-                                </thead>
-                               
-                                
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -199,7 +205,7 @@
 
         <!-- khách hàng thân thiết -->
         <div class="col-6">
-            <div class="card statistical-all bg-success">
+            <div class="card statistical-all">
                 <div class="row no-gutters ">
                     <div class="col mr-2 text-light center-total-product m-3">
                         <div class="text-xs fw-bolder text-uppercase mb-1 text-dark">
@@ -224,36 +230,7 @@
             </div>
         </div>
     </div>
-  <div id="clock_vn_outer">
-            <div id="clock_vn">
-                <img src="{{asset('backend/img/clock.png')}}" alt="Clock">
-                <div id="hour_vn">
-                    <img src="{{asset('backend/img/hour.png')}}" alt="Hour Hand">
-                </div>
-                <div id="minute_vn">
-                    <img src="{{asset('backend/img/minute.png')}}" alt="Minute Hand">
-                </div>
-                <div id="second_vn">
-                    <img src="{{asset('backend/img/second.png')}}" alt="Second Hand">
-                </div>
-            </div>
-        </div>
 </div>
 @endsection
 
 </div>
-<script>
-    var action = setInterval(function() {
-        var time = new Date();
-        var svn = time.getSeconds();
-        var mvn = time.getMinutes();
-        var hvn = time.getHours();
-        var spvn = svn * 6;
-        var mpvn = (mvn * 6) + (svn / 10);
-        var hpvn = (hvn * 30) + (mvn / 2);
-
-        document.getElementById('second_vn').style.transform = 'rotate(' + spvn + 'deg)';
-        document.getElementById('minute_vn').style.transform = 'rotate(' + mpvn + 'deg)';
-        document.getElementById('hour_vn').style.transform = 'rotate(' + hpvn + 'deg)';
-    }, 1000);
-</script>

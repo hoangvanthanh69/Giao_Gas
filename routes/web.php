@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\index;
 use App\Http\Controllers\index_backend;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -20,11 +21,11 @@ use App\Http\Controllers\index_backend;
 Route::get('/home', [index::class, 'home'] )->name('home');
 
 // login
-Route::get('/login', [index::class, 'login'] )->name('login');
+Route::get('/login', [AuthController::class, 'login'] )->name('login');
 
 // đăng nhập admin
-Route::post('getlogin', [index::class, 'getlogin'] )->name('getlogin');
-Route::get('logout', [index::class, 'logout'] )->name('logout');
+Route::post('getlogin', [AuthController::class, 'getlogin'] )->name('getlogin');
+Route::get('logout', [AuthController::class, 'logout'] )->name('logout');
 
 // order sản phẩm
 Route::post('/order-product', [index::class, 'order_product'] )->name('order-product');
@@ -36,22 +37,26 @@ Route::post('/get-product-by-id', [index::class, 'getProductByID'] )->name('get-
 
 Route::get('/admin', [index_backend::class, 'home'] )->name('admin');
 
-// thêm nhân sản phẩm
-Route::get('/add-product-admin', [index_backend::class, 'add_product'] )->name('add-product-admin');
+// thêm sản phẩm
+Route::get('/add-product-admin', [ProductController::class, 'add_product'] )->name('add-product-admin');
 
 // chi tiết đơn hàng
 Route::get('/chitiet-hd/{id}', [index_backend::class, 'chitiet_hd'] )->name('chitiet-hd');
 Route::get('/chitiet/{id}', [index_backend::class, 'chitiet'] )->name('chitiet');
 
-
 //  quản lý sản phẩm
-Route:: get('/admin/quan-ly-sp', [index_backend::class, 'quan_ly_sp'] )->name('quan-ly-sp');
+Route:: get('/admin/quan-ly-sp', [ProductController::class, 'quan_ly_sp'] )->name('quan-ly-sp');
 
-Route::post('/add-product', [index_backend::class, 'add'] )->name('add-product');
+Route::post('/add-product', [ProductController::class, 'add_products'] )->name('add-product');
 
 // xóa sản phẩm
-Route::get('/delete/{id}/product', [index_backend::class, 'delete'] )->name('delete-product');
+Route::get('/delete/{id}/product', [ProductController::class, 'delete_product'] )->name('delete-product');
 
+// edit sản phẩm
+Route::get('/edit-product/{id}', [ProductController::class, 'edit_product'] )->name('edit-product');
+
+// cập nhật sản phẩm
+Route::post('/update-product/{id}', [ProductController::class, 'update_product'] )->name('update-product');
 
 //giao dien add
 Route::get('/add-staff', [index_backend::class, 'add_staff'] )->name('add-staff');
@@ -64,12 +69,6 @@ Route::get('/delete-staff/{id}/staff-add', [index_backend::class, 'delete_staff'
 
 // xóa đơn hàng
 Route::get('/delete-client/{id}/staff-add', [index_backend::class, 'delete_client'] )->name('delete-client');
-
-// edit sản phẩm
-Route::get('/edit-product/{id}', [index_backend::class, 'edit_product'] )->name('edit-product');
-
-// cập nhật sản phẩm
-Route::post('/update-product/{id}', [index_backend::class, 'update_product'] )->name('update-product');
 
 // edit nhân viên
 Route::get('/edit-staff/{id}', [index_backend::class, 'edit_staff'] )->name('edit-staff');
@@ -87,15 +86,15 @@ Route:: get('/admin/quan-ly-hd', [index_backend::class, 'quan_ly_hd'] )->name('q
 Route:: get('/print-order/{checkout_code}', [index_backend::class, 'print_order'] )->name('print-order');
 
 //đăng nhập user
-Route::get('/dangnhap', [index::class, 'showLoginForm'] )->name('dangnhap');
-Route::post('/dangnhap', [index::class, 'dangnhap'] )->name('dangnhap');
+Route::get('/dangnhap', [AuthController::class, 'showLoginForm'] )->name('dangnhap');
+Route::post('/dangnhap', [AuthController::class, 'dangnhap'] )->name('dangnhap');
 
 //đăng kí user
-Route::get('/register', [index::class, 'register'] )->name('register');
-Route::post('/registers', [index::class, 'registers'] )->name('registers');
+Route::get('/register', [AuthController::class, 'register'] )->name('register');
+Route::post('/registers', [AuthController::class, 'registers'] )->name('registers');
 
 //đăng xuât người dùng
-Route::get('logoutuser', [index::class, 'logoutuser'] )->name('logoutuser');
+Route::get('logoutuser', [AuthController::class, 'logoutuser'] )->name('logoutuser');
 
 // lịch sử đơn hàng
 Route::get('/order-history', [index::class, 'order_history'] )->name('order-history');
@@ -142,7 +141,7 @@ Route::get('/quan-ly-tk-user', [index_backend::class, 'quan_ly_tk_user'] )->name
 Route::get('/delete_account_users/{id}/users', [index_backend::class, 'delete_account_users'] )->name('delete_account_users');
 
 // tìm kiếm sản phẩm
-Route::get('/admin/searchOrder_product', [index_backend::class, 'searchOrder_product'])->name('admin.searchOrder_product');
+Route::get('/admin/search_product', [ProductController::class, 'search_product'])->name('admin.search_product');
 
 // chi tiet doanh thu
 Route::get('/admin/chi_tiet_doanh_thu',[index_backend::class,'chi_tiet_doanh_thu'])->name('chi_tiet_doanh_thu');

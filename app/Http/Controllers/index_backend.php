@@ -43,8 +43,34 @@ class index_backend extends Controller
         $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
         $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        // $bestseller = order_product::select('name_product', 'idProduct', DB::raw('sum(amount) as total_amount'))
-        // ->groupBy('name_product', 'idProduct')->havingRaw('COUNT(*) >= 2')->orderByDesc('total_amount')->get();
+        $orders = order_product::all();
+        $productsData = [];
+        foreach ($orders as $order) {
+            $infor_gas = json_decode($order->infor_gas, true);
+            if ($infor_gas) {
+                foreach ($infor_gas as $infor) {
+                    $product = product::find($infor['product_id']);
+                    if ($product) {
+                        $productInfo = [
+                            'product_id' => $infor['product_id'],
+                            'product_name' => $infor['product_name'],
+                            'quantity' => $infor['quantity'],
+                        ];
+                        if (!isset($productsData[$infor['product_id']])) {
+                            $productsData[$infor['product_id']] = $productInfo;
+                        } else {
+                            $productsData[$infor['product_id']]['quantity'] += $productInfo['quantity'];
+                        }
+                    }
+                }
+            }
+        }
+        $popularProducts = [];
+        foreach ($productsData as $product_id => $productInfo) {
+            if ($productInfo['quantity'] > 2) {
+                $popularProducts[$product_id] = $productInfo;
+            }
+        }
         // $loyal_customer = order_product::select('nameCustomer', 'phoneCustomer', DB::raw('count(distinct id) as total_amounts'))
         // ->groupBy('nameCustomer','phoneCustomer')->havingRaw('COUNT(distinct id) >= 3')->orderByDesc('total_amounts')->get();
         // // print_r($bestseller); die;
@@ -52,7 +78,7 @@ class index_backend extends Controller
         return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
         compact('count_product', 'count_staff', 'count_order','data_price', 'data_original_price', 'count_product1', 
         'count_product2', 'data_price1', 'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 
-        'product_all','count_staff_chuvu3', ));
+        'product_all','count_staff_chuvu3', 'popularProducts'));
     }
 
     function chitiet_hd(Request $request, $id){
@@ -83,78 +109,6 @@ class index_backend extends Controller
     function chitiet(Request $request, $id){
         $order_product = order_product::find($id);
         return view('backend.chitiet' , ['order_product' => $order_product]);
-    }
-
-    function add_product(){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        return view('backend.add_product');
-    }
-
-    function add(Request $request){
-        $data =  $request->all();
-         //    echo " <pre>";
-         //    print_r($data);
-        $product = new product;
-        $product->name_product =  $data['name_product'];
-        $product->loai =  $data['loai'];
-        $product->price =  $data['price'];
-        $product->quantity =  $data['quantity'];
-        $product->original_price =  $data['original_price'];
-        $get_image = $request->image;
-        $path = 'uploads/product/';
-        $get_name_image = $get_image-> getClientOriginalName();
-        $name_image = current(explode('.',$get_name_image));
-        $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
-        $get_image->move($path,$new_image);
-        $product->image = $new_image;
-        $product -> save();  
-        return redirect()->route('quan-ly-sp');
-    }
-
-    function delete($id){
-        $product = product::find($id);
-        $product->delete();
-        return redirect()->route('quan-ly-sp')->with('success','Xóa sản phẩm thành công');
-    }
-
-
-    function edit_product($id){
-        $product = product::find($id);
-        //    echo " <pre>";
-        //    print_r($product);
-        return view('backend.edit_product' , ['product' => $product]);
-    }
-
-    function update_product(Request $request, $id){
-        $product = product::find($id);
-        $product->name_product = $request->name_product;
-        $product->loai = $request->loai;
-        $get_image = $request->image;
-
-        $get_image = $request->image;
-        if($get_image){
-            // Bỏ hình ảnh cũ
-            $path_unlink = 'uploads/product/'.$product->image;
-            if(file_exists($path_unlink)){
-                unlink($path_unlink);
-            }
-            // Thêm mới
-            $path = 'uploads/product/';
-            $get_name_image = $get_image-> getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
-            $get_image->move($path,$new_image);
-            $product->image = $new_image;
-        }
-
-        $product->price = $request->price;
-        $product->original_price = $request->original_price;
-        $product->quantity = $request->quantity;
-        // $product->quantity = $request->quantity;
-        $product->save();
-        return redirect()->route('quan-ly-sp');
     }
 
     function edit_staff($id){
@@ -239,25 +193,6 @@ class index_backend extends Controller
 
     }
 
-    // quan ly san pham
-    function quan_ly_sp(){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        $admin_name = Session::get('admin')['admin_name'];
-        $chuc_vu = Session::get('admin')['chuc_vu'];
-        if($chuc_vu == '2'){
-            $product = product::orderByDesc('id')->paginate(10);
-        }
-        elseif($chuc_vu == '3'){
-            $product = order_product::where(['admin_name' =>$admin_name])->orderByDesc('id')->paginate(10);
-        }
-        // $product = product::get()->toArray();
-        // $product = product::paginate(10);
-        $order_product = order_product::get()->toArray();
-        return view('backend.quan_ly_sp', ['product'=> $product,'order_product' => $order_product]);
-    }
-
     // quản lý nhân viên 
     function quan_ly_nv(){
         if(!Session::get('admin')){
@@ -288,8 +223,6 @@ class index_backend extends Controller
     
         return view('backend.quan_ly_hd', compact('order_product', 'filters'));
     }
-    
-    
 
     // thống kê chi tiết đơn hàng
     function thong_ke_chi_tiet_dh(Request $request){
@@ -415,7 +348,6 @@ class index_backend extends Controller
         return $output;
     }
 
-
     // tìm kiếm nhân viên
     function searchOrder(Request $request){
         if ($request->isMethod('get')) {
@@ -430,6 +362,7 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
+
     // tài khoản admin
     function quan_ly_tk_admin(Request $request){
         if(!Session::get('admin')){
@@ -546,21 +479,6 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-tk-user')->with(['message'=> 'xóa thành công']);
     }
 
-    // tim kiếm sản phẩm
-    function searchOrder_product(Request $request){
-        if ($request->isMethod('get')) {
-            $search = $request->input('search');
-            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->paginate(10);
-            if(empty($product->items())){
-                return back()->with('mesages', 'Không tìm thấy kết quả');
-            } else {
-                return view('backend.quan_ly_sp', ['product' => $product, 'search' => $search]);
-            }
-        } else {
-            return redirect()->back();
-        }
-    }
-
     // chi tiet doanh thu
     function chi_tiet_doanh_thu(request $request){
         if(!Session::get('admin')){
@@ -628,10 +546,6 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
-
-
-
-    
     
     // dat hang qua sdt
     function order_phone() {
@@ -680,6 +594,5 @@ class index_backend extends Controller
         $order->save();
         return redirect()->route('order_phone');
     }
-    
     
 }

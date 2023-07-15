@@ -1,5 +1,4 @@
 
-
 var element_columns = document.querySelectorAll('.element_columns');
 var filter_button = document.querySelectorAll('#filter_button .btnbtn');
 
