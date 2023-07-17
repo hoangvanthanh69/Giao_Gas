@@ -166,3 +166,7 @@ Route::get('/admin/search_hd', [index_backend::class, 'search_hd'])->name('admin
 Route::get('order_phone', [index_backend::class, 'order_phone'])->name('order_phone');
 Route::post('add-order', [index_backend::class, 'add_orders'])->name('add-order');
 
+// kiểm tra khách hàng thông qua số điện thoại
+Route::post('check-customer', [index_backend::class, 'checkCustomer'])->name('check-customer');
+
+

@@ -177,6 +177,7 @@ td.name-product-td {
     padding-right: 10px;
     color: rgb(38, 121, 160);
 }
+
 input.input-add-product.col-9,
 input.input-add-product.col-8 {
     border: 1px solid rgb(207, 208, 210);
@@ -720,4 +721,29 @@ a.page-link.a-link-page {
     left: 0;
     width: 100%;
     height: 100%;
+}
+.address-customer-form {
+    height: 40px;
+    outline: none;
+}
+.address-customer-input {
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    outline: none;
+    padding-left: 10px;
+    margin-right: 2px;
+}
+textarea#diachi {
+    line-height: 34px;
+}
+.infor-customer-input {
+    padding-left: 10px;
+    height: 40px;
+    outline: none;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+}
+.name-add-product-customer-all{
+    font-size: 18px;
+    padding-right: 10px;
 }

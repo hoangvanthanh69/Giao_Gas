@@ -549,50 +549,40 @@ class index_backend extends Controller
     
     // dat hang qua sdt
     function order_phone() {
-        $products = product::get();
-        return view('backend.order_phone', ['products' => $products]);
+        return view('backend.order_phone');
+    }
+    
+    
+    
+
+    function add_orders(Request $request) {
+ 
     }
 
-    function add_orders(Request $request){
-        $inforGas = $request->input('infor_gas');
-        $data = [];
-        foreach ($inforGas as $productId => $quantity) {
-            if ($quantity) {
-                $data[] = [
-                    'product_id' => $productId,
-                    'quantity' => $quantity,
-                ];
-            }
-        }
-        $jsonData = json_encode($data);
-        $order = new add_order;
-        $order->infor_gas = $jsonData;
-        Session::put('phoneCustomer', $request['phoneCustomer']);
-        Session::put('country', $request['country']);
-        Session::put('diachi', $request['diachi']);
-        Session::put('state', $request['state']);
-        Session::put('district', $request['district']);
-        $order->nameCustomer = $request['nameCustomer'];
-        $order->phoneCustomer = $request['phoneCustomer'];
-        $order->country = $request['country'];
-        $order->state = $request['state'];
-        $order->district = $request['district'];
-        $order->diachi = $request['diachi'];
-        $order->loai = $request['loai'];
-        if(empty($request['ghichu'])){
-            $order->ghichu = 'null';
-        }else {
-            $order->ghichu =$request['ghichu'];
-        }
-        $order->status = 1;
-        if(isset($admin_name)){
-            $order->admin_name = $admin_name;
+    // kiểm tra khách hàng thông qua số điện thoại
+    function checkCustomer(Request $request){
+        $phoneNumber = $request->input('phone');
+        $customer = order_product::where('phoneCustomer', $phoneNumber)->first();
+        if ($customer) {
+            $customerName = $customer->nameCustomer;
+            $country = $customer->country;
+            $state = $customer->state;
+            $district = $customer->district;
+            $diachi = $customer->diachi;
+
+            return response()->json([
+                'success' => true,
+                'customerName' => $customerName,
+                'country' => $country,
+                'state' => $state,
+                'district' => $district,
+                'diachi' => $diachi,
+            ]);
         } else {
-            $order->admin_name = 'Chưa có người giao';
+            return response()->json([
+                'success' => false,
+            ]);
         }
-        $order->order_code = uniqid();
-        $order->save();
-        return redirect()->route('order_phone');
     }
     
 }
