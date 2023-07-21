@@ -23,7 +23,7 @@
                            </strong>
                            Tech
                      </div>
-                     <div class="img-admin-login mb-4">
+                     <div class="img-admin-login mb-3">
                         @if (Session::has('admin_img'))
                            <img src="{{ asset('uploads/staff/' . Session::get('admin_img')) }}" alt="admin_img"  width="60px">
                         @endif
@@ -84,6 +84,13 @@
                               </a>
                            </div>
 
+                           <div class="btnbtn home-filter-button mb-4">
+                              <a class="@yield('sidebar-active-add-order')" href="{{route('order_phone')}}">
+                                 <i class="fa-solid fa-cart-plus icon-all-admin-nav"></i>
+                                 Thêm đơn hàng mới
+                              </a>
+                           </div>
+
                            <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
                                  <i class="fa-solid fa-truck icon-all-admin-nav"></i>
@@ -93,7 +100,7 @@
 
                            <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-danh-gia-giao-hang')" href="{{route('danh-gia-giao-hang')}}">
-                                 <i class="fa-solid fa-star"></i>
+                                 <i class="fa-solid fa-star icon-all-admin-nav"></i>
                                  Đánh giá giao hàng
                               </a>
                            </div>
@@ -114,13 +121,10 @@
 
                            <div class="btnbtn home-filter-button mb-4">
                               <a class="@yield('sidebar-active-revenue')" href="{{route('chi_tiet_doanh_thu')}}">
-                                 <i class="fa-sharp fa-solid fa-money-check-dollar"></i>
+                                 <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
                                  Quản lý doanh thu
                               </a>
                            </div>
-
-                           <a href="{{route('order_phone')}}">add</a>
-                           
                         </div>
                      <?php }
 

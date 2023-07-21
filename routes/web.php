@@ -169,4 +169,10 @@ Route::post('add-order', [index_backend::class, 'add_orders'])->name('add-order'
 // kiểm tra khách hàng thông qua số điện thoại
 Route::post('check-customer', [index_backend::class, 'checkCustomer'])->name('check-customer');
 
+// giao diện chỉnh sửa tài khoản admin
+Route::get('edit-account-admin/{id}', [index_backend::class, 'edit_account_admin'])->name('edit-account-admin');
+Route::post('update-account-admin/{id}', [index_backend::class, 'update_account_admin'])->name('update-account-admin');
 
+
+// tìm kiếm sản phẩm đặt qua đt
+Route::get('/admin/search_order_phone', [index_backend::class, 'search_order_phone'])->name('admin.search_order_phone');

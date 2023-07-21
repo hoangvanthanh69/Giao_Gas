@@ -4,6 +4,11 @@
 
 
         <div class="col-10 nav-row-10 ">
+            <div class="mb-4">
+                <span class="product-list-name fs-5">
+                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Quản lý nhân viên</a> / <a class="text-decoration-none" href="{{route('add-staff')}}">Thêm nhân viên mới</a>
+                </span>
+            </div>
             <div class="add-product-each w-50 ">
                 <form id="signupForm" enctype="multipart/form-data" method='post' action="{{route('staff_add')}}">
                     @csrf

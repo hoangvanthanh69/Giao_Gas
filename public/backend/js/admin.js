@@ -26,22 +26,22 @@ Array.from(filter_button).forEach(function(element){
    
 })
 // search 
-search_item.addEventListener('keyup',searchItem);
+// search_item.addEventListener('keyup',searchItem);
 
-function searchItem(){
-    let valueItem = search_item.value.toLowerCase();
-    Array.from(element_column).forEach(function(ele){
-        let nameItem = ele.querySelector('.infor').firstElementChild.textContent;
-        if(nameItem.toLowerCase().indexOf(valueItem) !== -1){
-            ele.style.display = 'flex';
-        }
-        else{
-            ele.style.display = 'none';
-        }
-    })
-    checkEmpty(element_column);
+// function searchItem(){
+//     let valueItem = search_item.value.toLowerCase();
+//     Array.from(element_column).forEach(function(ele){
+//         let nameItem = ele.querySelector('.infor').firstElementChild.textContent;
+//         if(nameItem.toLowerCase().indexOf(valueItem) !== -1){
+//             ele.style.display = 'flex';
+//         }
+//         else{
+//             ele.style.display = 'none';
+//         }
+//     })
+//     checkEmpty(element_column);
 
-}
+// }
 function checkEmpty(element){
     let count = 0;
     for(let i=0; i<element.length; i++){

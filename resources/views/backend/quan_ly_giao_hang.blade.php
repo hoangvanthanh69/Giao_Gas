@@ -6,13 +6,9 @@
 
         <div class="card mb-3 product-list element_column" data-item="receipt">
 
-          <div class="card-header">
-                <span class="product-list-name">Admin / Giao hàng</span>
-          </div>
-          <div>
-            
-          </div>
-
+            <div class="card-header">
+                <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giao-hang')}}">Giao hàng</a></span>
+            </div>
             <div class="card-body">
                 <div class="table-responsive table-list-product">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -52,7 +48,7 @@
                                                 $count = 0;
                                             @endphp
                                             @foreach($tbl_admin as $admin)
-                                                @if($admin -> chuc_vu != 2)
+                                                @if($admin -> chuc_vu == 1)
                                                     @php
                                                         $count ++;
                                                     @endphp

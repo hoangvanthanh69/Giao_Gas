@@ -459,6 +459,20 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-tk-admin');
     }
 
+    // giao diện chỉnh sửa tài khoản admin
+    function edit_account_admin($id){
+        $account_admin = tbl_admin::find($id);
+        return view('backend.edit_account_admin', ['account_admin' => $account_admin]);
+    }
+    function update_account_admin(Request $request, $id){
+        $account_admin = tbl_admin::find($id);
+        $account_admin -> admin_name = $request -> admin_name;
+        $account_admin -> admin_email = $request -> admin_email;
+        $account_admin -> admin_password = $request -> admin_password;
+        $account_admin -> save();
+        return redirect()->route('quan-ly-tk-admin');
+    }
+
     // quan ly tk khach hang
     function quan_ly_tk_user(){
         if(!Session::get('admin')){
@@ -549,12 +563,10 @@ class index_backend extends Controller
     
     // dat hang qua sdt
     function order_phone() {
-        return view('backend.order_phone');
+        $products = product::get();
+        return view('backend.order_phone', ['products' => $products]);
     }
     
-    
-    
-
     function add_orders(Request $request) {
  
     }
@@ -569,7 +581,6 @@ class index_backend extends Controller
             $state = $customer->state;
             $district = $customer->district;
             $diachi = $customer->diachi;
-
             return response()->json([
                 'success' => true,
                 'customerName' => $customerName,

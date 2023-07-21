@@ -7,7 +7,7 @@
         <div class="card mb-3 product-list element_column" data-item="receipt">
 
           <div class="card-header">
-            <span class="product-list-name">Admin / Đơn hàng</span>
+            <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a></span>
           </div>
 
           <div class="d-flex justify-content-between">
@@ -37,7 +37,7 @@
               <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
                 @csrf
                 <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
-                <span class="header_search button">
+                <span class="header-search-button">
                   <i class="header-with-search-icon fas fa-search"></i>
                 </span>
               </form>

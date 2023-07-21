@@ -22,7 +22,7 @@
                     $count = 1;
                 @endphp
                     @foreach($tbl_admin as $key => $val)
-                    @if($val['chuc_vu']!=2)
+                    @if($val['chuc_vu']==1)
                         <tr class="hover-color">
                             <td>{{$count++}}</td>
                             <td class="img-product-td">

@@ -38,7 +38,13 @@
                      else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
                   </td>
                   <td class="product-order-quantity">{{$val['order_count']}}</td>
-                  <td class="product-order-quantity">
+                  <td class="product-order-quantity function-icon">
+                     <form action="{{route('edit-account-admin', $val['id'])}}">
+                        <button class="summit-add-product-button" type='submit'>
+                           <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                     </form>
+
                      <form action="{{route('delete_account', $val['id'])}}">
                         <button class="summit-add-product-button" type='submit'>
                         <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>

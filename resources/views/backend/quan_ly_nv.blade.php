@@ -7,7 +7,7 @@
         <div class="card mb-3 product-list element_column" data-item="staff">
 
           <div class="card-header">
-            <span class="product-list-name">Admin / Nhân viên</span>
+            <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Nhân viên</a></span>
           </div>
 
           <div class="search-option-infor-amdin">

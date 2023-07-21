@@ -23,8 +23,8 @@
             </div>
         </div>
     </div> 
+
     <div class="login-form-header home-filter-user-login">
-        
         <div class="col-8 form-img-user">
             <img src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
         </div>
@@ -35,6 +35,7 @@
                 <div class="heading-login">
                     <h3 class="heading">Đăng Nhập</h3>
                 </div>
+                
                 <div class="form-group invalid">
                     <label for="fullnamee" class="form-label form-label-name-login-admin">Email</label>
                     <input type="text" name="admin_email" class="form-control" placeholder="@gmail.com" required="">
@@ -50,10 +51,12 @@
                 <button type="submit" class="form-submit">Đăng Nhập</button>
             </form> 
         </div>
-          
     </div>
-   
 
-
+    <div class="footer-imge">
+        <div class="footer-imge-license footer-imge-user">
+            © HoangThanh
+        </div>
+    </div>
     
 </body>
