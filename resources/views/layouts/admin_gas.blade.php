@@ -169,5 +169,6 @@
       </div>
       </div>
       <script src="{{asset('backend/js/admin.js')}}"></script>
+      
    </body>
 </html>

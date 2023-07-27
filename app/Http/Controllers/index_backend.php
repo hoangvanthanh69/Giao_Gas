@@ -479,11 +479,12 @@ class index_backend extends Controller
             return redirect()->route('login');
         }
         $users = users::orderByDesc('id')->get()->toArray();
+        $order_product = order_product::orderByDesc('id')->get()->toArray();
         foreach($users as &$user){
             $order_count = order_product::where('user_id', $user['id'])->count();
             $user['order_count'] = $order_count;
         }
-        return view('backend.quan_ly_tk_user', ['users'=>$users]);
+        return view('backend.quan_ly_tk_user', ['users'=>$users, 'order_product'=>$order_product]);
     }
     
     // xoas tai khoan khach hang
@@ -561,14 +562,69 @@ class index_backend extends Controller
         }
     }
     
-    // dat hang qua sdt
+    // hiển thi giao diện đặt hàng qua sdt
     function order_phone() {
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $products = product::get();
         return view('backend.order_phone', ['products' => $products]);
     }
     
+    // xử lý đặt hàng qua số đt
     function add_orders(Request $request) {
- 
+        $inforGas = $request->input('infor_gas');
+        $data = [];
+        $totalPrice = 0;
+        foreach ($inforGas as $productId => $quantity) {
+            if ($quantity) {
+                $product = Product::find($productId);
+                if ($product) {
+                $price = $product->original_price;
+                $totalPrice += $price * $quantity;
+                $data[] = [
+                    'product_id' => $productId,
+                    'product_name' => $product->name_product,
+                    'product_price' => $price,
+                    'quantity' => $quantity,
+                ];
+                }
+            }
+        }
+
+        $jsonData = json_encode($data);
+
+        $order = new order_product;
+        $order->infor_gas = $jsonData;
+        Session::put('phoneCustomer', $request['phoneCustomer']);
+        Session::put('country', $request['country']);
+        Session::put('diachi', $request['diachi']);
+        Session::put('state', $request['state']);
+        Session::put('district', $request['district']);
+        $order->nameCustomer = $request['nameCustomer'];
+        $order->phoneCustomer = $request['phoneCustomer'];
+        $order->country = $request['country'];
+        $order->state = $request['state'];
+        $order->district = $request['district'];
+        $order->diachi = $request['diachi'];
+        $order->loai = $request['loai'];
+        $user_id = Session::get('home')['id'];
+        $order->user_id = $user_id;
+        if (empty($request['ghichu'])) {
+            $order->ghichu = 'null';
+        } else {
+            $order->ghichu = $request['ghichu'];
+        }
+        $order->status = 1;
+        if (isset($admin_name)) {
+            $order->admin_name = $admin_name;
+        } else {
+            $order->admin_name = 'Chưa có người giao';
+        }
+        $order->order_code = uniqid();
+        $order->tong = $totalPrice;
+        $order->save();
+        return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
     }
 
     // kiểm tra khách hàng thông qua số điện thoại

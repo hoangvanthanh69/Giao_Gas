@@ -113,7 +113,7 @@
                                                     </div>
                                                     <div class="col-4">{{ $product['product_name']}}</div>
                                                     <div class="col-3 infor-order-user-history"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
-                                                    <div class="col-3">{{ number_format($product['product_price']) }} VNĐ</div>
+                                                    <div class="col-3">{{ number_format($product['product_price']) }} <span class="text-decoration-underline">đ</span></div>
                                                     <div class="col-2">Số lượng: {{ $product['quantity'] }}</div>
                                                 </div>
                                             @endforeach

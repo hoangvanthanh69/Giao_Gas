@@ -2,88 +2,123 @@
 @section('sidebar-active-add-order', 'active' )
 @section('content')
     <div class="col-10">
-        <div class="">
-            <h5 class="text-center color-logo-gas mt-4">Thêm đơn hàng mới từ số điện thoại</h5>
+        <div class="header-order-product mt-4">
+            <div>
+                <h5 class="color-logo-tech text-center pt-3">Thêm đơn hàng mới từ số điện thoại</h5>
+            </div>
+            <div class="search-prodcut-order-phone">
+                <input type="text" autocapitalize="off" class="header-search-order-product" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
+                <span class="header-search-button">
+                    <i class="header-search-order-product-icon fas fa-search"></i>
+                </span>
+            </div>
         </div>
 
-        <div class="row show-infor-product-orders">
-            <div class="col-5 ps-5 text-light">
-                <form id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-order')}}">
-                    @csrf
-                    
-                    <div class="mt-4">
-                        <label class="name-add-product-customer-all" for="">Số điện thoại:</label>
-                        <input class="infor-customer-input col-12" type="text" name="phone" id="phone">
-                    </div>
-
-                    <div class="mt-4">
-                        <label class="name-add-product-customer-all" for="">Họ và Tên:</label>
-                        <input class="infor-customer-input col-12" type="text" name="last_name" id="last_name">
-                    </div>
-
-                    <div class=" mt-4">
-                        <label class="name-add-product-customer-all" for="">Đỉa chỉ:</label>
-                        <div class="d-flex address-customer-form">
-                            <input class="col-3 address-customer-input" type="text" name="country" id="country" placeholder="Tỉnh/TP">
-                
-                            <input class="col-3 address-customer-input" type="text" name="state" id="state" placeholder="Quận/Huyện">
-
-                            <input class="col-3 address-customer-input" type="text" name="district" id="district" placeholder="Phường/Xã">
-
-                            <textarea class="col-3 address-customer-input" type="text" name="diachi" id="diachi" placeholder="địa chỉ"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 ">
-                        <label class="name-add-product-customer-all" for="">Loại gas:</label>
-                        <div class= "p-0">
-                        <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
-                            <option value="0">Chọn loại gas</option>
-                            <option value="1" name="cn">Gas công nghiệp</option>
-                            <option value="2" name="dd">Gas dân dụng</option>
-                        </select> 
-                        </div>
-                            
-                    </div>
-
-                    <div class="mt-4 ">
-                        <label class="name-add-product-customer-all" for="">Giảm giá:</label>
-                        <div class= "p-0">
-                            <select id="type" name="type" class="form-select " aria-label="Default select example">
-                                <option value="0">Chọn voucher</option>
-                            </select>    
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <label class="name-add-product-customer-all" for="">Tổng giá:</label>
-                        <input class="infor-customer-input col-12" type="text" name="luong">
-                    </div>
-
-                    <div class="mt-4">
-                        <a class="" href="{{route('quan-ly-nv')}}">Trở lại</a>
-                    </div>
-                    
-                </form>
+        @if (session('mesage'))
+            <div class="success-customer-home-notification d-flex">
+                <i class="fas fa-ban icon-check-cancel"></i>
+                {{ session('mesage') }}
             </div>
+        @endif
+        <div class="row show-infor-product-orders container">
+            <form class="row g-2" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-order')}}">
+                @csrf
+                <div class="col-5 text-light ">
+                    <div class="p-3 me-2 bg-order-product">
+                        <div class="">
+                            <label class="name-add-product-customer-all" for="">Số điện thoại:</label>
+                            <input class="infor-customer-input col-12" type="text" name="phoneCustomer" id="phoneCustomer">
+                        </div>
 
-            <div class="col-7 mt-1 pt-3">
-                <div class="container">
-                    <div class="search-prodcut-order-phone">
-                        <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
+                        <div class="mt-4">
+                            <label class="name-add-product-customer-all" for="">Họ và Tên:</label>
+                            <input class="infor-customer-input col-12" type="text" name="nameCustomer" id="nameCustomer">
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="name-add-product-customer-all" for="">Đỉa chỉ:</label>
+                            <div class="d-flex address-customer-form">
+                                <div>
+                                    <input class="address-customer-input" type="text" name="country" id="country" placeholder="Tỉnh/TP">
+                                </div>
+                    
+                                <div>
+                                    <input class="address-customer-input" type="text" name="state" id="state" placeholder="Quận/Huyện">
+                                </div>
+
+                                <div>
+                                    <input class="address-customer-input" type="text" name="district" id="district" placeholder="Phường/Xã">
+                                </div>
+
+                                <div>
+                                    <textarea class="address-customer-input" type="text" name="diachi" id="diachi" placeholder="đia chỉ"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="name-add-product-customer-all" for="">Loại gas:</label>
+                            <div class= "p-0">
+                                <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
+                                    <option value="">Chọn loại gas</option>
+                                    <option value="1" name="cn">Gas công nghiệp</option>
+                                    <option value="2" name="dd">Gas dân dụng</option>
+                                </select> 
+                            </div>
+                                
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="name-add-product-customer-all" for="">Giảm giá:</label>
+                            <div class= "p-0">
+                                <select id="type" name="type" class="form-select " aria-label="Default select example">
+                                    <option value="0">Chọn voucher</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label class="name-add-product-customer-all" for="">Ghi chú:</label>
+                            <input class="infor-customer-input col-12" type="text" name="ghichu" id="ghichu">
+                        </div>
+                        
+                        <div class="mt-4">
+                            <label class="name-add-product-customer-all" for="">Tổng giá:</label>
+                            <input class="infor-customer-input col-12" type="text" name="luong">
+                        </div>
+
+                        <div class="mt-4 sumbmit-order-product" id="show_infor">
+                            <div class="float-end ">
+                                <button class="btn btn-primary submit" id="submitButton">Giao gas</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row g-2 product-order-all mb-3" id="infor_gas">
-                        <!-- Thông tin sản phẩm sẽ được hiển thị -->
+
+                </div>
+
+                <div class="col-7 pt-3 bg-order-product">
+                    <div class="container ">
+                        <div class="row g-2 product-order-all mb-3" id="infor_gas">
+                            <div class="text-center">
+                                <p class="text-light fs-4">Hiển thị sản phẩm</p>
+                                <i class="fa-solid fa-cart-shopping infor-product-order-admin"></i>
+                            </div>
+                            <!-- Thông tin sản phẩm sẽ được hiển thị -->
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+            
             
         </div>
 @endsection
 </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
+
     <script>
         $(document).ready(function() {
-            $('#phone').on('blur', function() {
+            $('#phoneCustomer').on('blur', function() {
                 var phoneNumber = $(this).val();
                 $.ajax({
                     url: "{{ route('check-customer') }}",
@@ -94,7 +129,7 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            $('#last_name').val(response.customerName);
+                            $('#nameCustomer').val(response.customerName);
                             $('#country').val(response.country);
                             $('#state').val(response.state);
                             $('#district').val(response.district);
@@ -110,6 +145,7 @@
             });
         });
     </script>
+
     <script>
         var selectedProducts = [];
             function showProductsByType(selectElement) {
@@ -135,7 +171,7 @@
             function generateProductHTML(product) {
                 var html = `
                     <div class="col-3 productchoose" id="${product.id}" onclick="highlightProduct(this)">
-                        <div class="p-3 border border-danger image-product-order-all">
+                        <div class="p-3 border border-light image-product-order-all">
                             ${product.quantity == 0 ? 
                                 '<div class="home-product-item-sale-off"><span class="home-product-item-sale-off-label">Hết gas</span></div>' : ''
                             }
@@ -278,65 +314,128 @@
                 selectedProductsDiv.innerHTML += totalHTML;
             }
 
-            // hiển thị thông tin trước khi submit
-            $(function() {
-                $('#show_infor').on('submit', function(event) {
-                    event.preventDefault();
-                    var invalidQuantity = false;
-                    var invalidLoai = false;
-                    var selectedProductCount = 0;
+            // hiển thị thông báo trước khi submit
+            // $(function() {
+            //     $('#show_infor').on('submit', function(event) {
+            //         event.preventDefault();
+            //         var invalidQuantity = false;
+            //         var invalidLoai = false;
+            //         var selectedProductCount = 0;
 
-                    for (var i = 0; i < selectedProducts.length; i++) {
-                        var product = selectedProducts[i];
+            //         for (var i = 0; i < selectedProducts.length; i++) {
+            //             var product = selectedProducts[i];
 
-                        if (product.quantity < 0 || isNaN(product.quantity)) {
-                            invalidQuantity = true;
-                        } else if (product.quantity > 0) {
-                            selectedProductCount++;
-                        }
-                    }
+            //             if (product.quantity < 0 || isNaN(product.quantity)) {
+            //                 invalidQuantity = true;
+            //             } else if (product.quantity > 0) {
+            //                 selectedProductCount++;
+            //             }
+            //         }
 
-                    var selectedLoai = $('#loai').val();
-                    if (selectedLoai == 0) {
-                        invalidLoai = true;
-                    }
+            //         var selectedLoai = $('#loai').val();
+            //         if (selectedLoai == 0) {
+            //             invalidLoai = true;
+            //         }
 
-                    if (invalidQuantity && invalidLoai) {
-                        alert("Vui lòng chọn ít nhất một sản phẩm và loại gas");
-                        return;
-                    } else if (invalidQuantity) {
-                        alert("Vui lòng nhập số lượng hợp lệ cho sản phẩm đã chọn");
-                        return;
-                    } else if (invalidLoai) {
-                        alert("Vui lòng chọn loại gas");
-                        return;
-                    }
+            //         if (invalidQuantity && invalidLoai) {
+            //             alert("Vui lòng chọn ít nhất một sản phẩm và loại gas");
+            //             return;
+            //         } else if (invalidQuantity) {
+            //             alert("Vui lòng nhập số lượng hợp lệ cho sản phẩm đã chọn");
+            //             return;
+            //         } else if (invalidLoai) {
+            //             alert("Vui lòng chọn loại gas");
+            //             return;
+            //         }
 
-                    if (selectedProductCount === 0) {
-                        alert("Vui lòng chọn ít nhất một sản phẩm");
-                        return;
-                    }
-                    var nameCustomer = $('#firstname').val();
-                    var phoneCustomer = $('#number').val();
-                    var typeCustomer = $('#loai option:selected').text();
-                    var ghichuCustomer = $('.ghichu').val();
-                    $('#nameCustomer').text(nameCustomer);
-                    $('#phoneCustomer').text(phoneCustomer);
-                    $('#typeCustomer').text(typeCustomer);
-                    $('#orderInfoModal').modal('show');
-                });
-                $('#view-order-info').on('click', function(event) {
-                    event.preventDefault();
-                    $('#show_infor').submit();
-                });
-            });
+            //         if (selectedProductCount === 0) {
+            //             alert("Vui lòng chọn ít nhất một sản phẩm");
+            //             return;
+            //         }
+            //     });
+            //     $('#view-order-info').on('click', function(event) {
+            //         event.preventDefault();
+            //         $('#show_infor').submit();
+            //     });
+            // });
 
             function changeInputColor(checkbox) {
                 var parentDiv = checkbox.closest('.image-product-order-all');
                 if (checkbox.checked) {
-                    parentDiv.style.backgroundColor = '#E8F0FE';
+                    parentDiv.style.backgroundColor = 'rgb(191 202 220)';
                 } else {
                     parentDiv.style.backgroundColor = '';
                 }
             }
     </script>
+
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$("#signupForm").validate({
+				rules: {
+					nameCustomer: "required",
+					phoneCustomer: "required",
+					country: "required",
+                    state: "required",
+                    district: "required",
+                    diachi: "required",
+                    loai: "required",
+				},
+				messages: {
+					nameCustomer: "Nhập tên",
+					phoneCustomer: "Nhập số điện thoại",
+					country: "Nhập Tỉnh/TP",
+					state: "Nhập Huyện",
+					district: "Nhập Phường/Xã",
+					diachi: "Nhập hẻm/số nhà",
+                    loai: "Chọn loại gas",
+
+				},
+				errorElement: "div",
+				errorPlacement: function (error, element) {
+					error.addClass("invalid-feedback");
+					if (element.prop("type") === "checkbox"){
+						error.insertAfter(element.siblings("label"));
+					} else {
+						error.insertAfter(element);
+					}
+				},
+				highlight: function (element, errorClass, validClass) {
+					$(element).addClass("is-invalid").removeClass("is-valid");
+				},
+				unhighlight: function(element, errorClass, validClass) {
+					$(element).addClass("is-valid").removeClass("is-invalid");
+				} 
+			});
+            $("#submitButton").on("click", function (event) {
+                event.preventDefault();
+                var invalidQuantity = false;
+                var invalidLoai = false;
+                var selectedProductCount = 0;
+                for (var i = 0; i < selectedProducts.length; i++) {
+                    var product = selectedProducts[i];
+
+                    if (product.quantity < 0 || isNaN(product.quantity)) {
+                        invalidQuantity = true;
+                    } else if (product.quantity > 0) {
+                        selectedProductCount++;
+                    }
+                }
+                var selectedLoai = $('#loai').val();
+                if (selectedLoai == 0) {
+                    invalidLoai = true;
+                }
+                if (invalidQuantity && invalidLoai) {
+                    alert("Vui lòng chọn ít nhất một sản phẩm và loại gas");
+                } else if (invalidQuantity) {
+                    alert("Vui lòng nhập số lượng hợp lệ cho sản phẩm đã chọn");
+                } else if (invalidLoai) {
+                    alert("Vui lòng chọn loại gas");
+                } else if (selectedProductCount === 0) {
+                    alert("Vui lòng chọn ít nhất một sản phẩm");
+                } else {
+                    $("#signupForm").submit();
+                }
+            });
+        });
+	</script>

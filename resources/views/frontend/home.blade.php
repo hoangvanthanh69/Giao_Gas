@@ -384,7 +384,7 @@
                                     <label for="loai" class="form-label">Loại bình gas:</label>
                                     <div class="delivery-location form-product-specials product-type">
                                         <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
-                                            <option value="0">Chọn loại gas</option>
+                                            <option value="">Chọn loại gas</option>
                                             <option value="1" name="cn">Gas công nghiệp</option>
                                             <option value="2" name="dd">Gas dân dụng</option>
                                         </select>
@@ -696,7 +696,7 @@
                     state: "required",
                     district: "required",
                     diachi: "required",
-                    amount: "required",
+                    loai: "required"
 				},
 				messages: {
 					nameCustomer: "Nhập tên",
@@ -705,7 +705,7 @@
 					state: "Nhập huyện",
 					district: "Nhập phường/xã",
 					diachi: "Nhập hẻm/số nhà",
-                    amount: "Nhập số lượng",
+                    loai: "Chọn loại gas"
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {

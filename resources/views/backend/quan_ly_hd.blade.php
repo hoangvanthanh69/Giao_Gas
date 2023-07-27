@@ -10,7 +10,7 @@
             <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a></span>
           </div>
 
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between pt-3">
             <form method="get"> 
               <div class="d-flex">
                 <select name="status" id="status" class="form-select select-form-option" onchange="this.form.submit()">
@@ -41,9 +41,10 @@
                   <i class="header-with-search-icon fas fa-search"></i>
                 </span>
               </form>
-              @if (session('mesages'))
-                <div class="notification-search">
-                  {{ session('mesages') }}
+              @if (session('mesage'))
+                <div class="success-customer-home-notification d-flex">
+                  <i class="fas fa-ban icon-check-cancel"></i>
+                  {{ session('mesage') }}
                 </div>
               @endif
             </div>
@@ -55,6 +56,11 @@
                 <div class="notification-order">
                   {{ session('success') }}
                 </div>
+            @endif
+            @if (session('mesages'))
+              <div class="notification-search">
+                {{ session('mesages') }}
+              </div>
             @endif
               <table class="table table-bordered" id="dataTable" cellspacing="0" style="width: 100%">
                 <thead>
@@ -114,9 +120,25 @@
                             Xem chi tiết
                           </a>
                           <form action="{{route('delete-client', $val['id'])}}">
-                            <button class="summit-add-product-button" type='submit'>
+                            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">
                               <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
                             </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{$val['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa đơn hàng này</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                                    <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </form>
                         </td>
                       </tr>
@@ -127,6 +149,7 @@
             </div>
           </div>
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @endsection
-        
