@@ -83,6 +83,10 @@
                                     <div>Ngày đặt hàng 
                                         <span class="date-customer-order">{{$val['created_at']}}</span>
                                     </div>
+                                    <div class="me-5 pe-5">
+                                        Mã đơn hàng: 
+                                        <span class="ms-2 text-warning">{{$val['order_code']}}</span>
+                                    </div>
                                     <div class="status-order-user-history">
                                         <div>
                                             <?php 

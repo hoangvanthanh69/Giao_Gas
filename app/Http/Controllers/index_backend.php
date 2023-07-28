@@ -402,6 +402,7 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
+
     // quản lý giao hàng
     function quan_ly_giao_hang(){
         if(!Session::get('admin')){
@@ -414,6 +415,24 @@ class index_backend extends Controller
             $order_product = order_product::where('status', 2)->orderByDesc('created_at')->get()->toArray(); 
         } else {
             $order_product = order_product::whereIn('status', [1, 2])->orderByDesc('created_at')->get()->toArray(); 
+        }
+        foreach ($order_product as &$order) {
+            $infor_gas = json_decode($order['infor_gas'], true);
+            $products = [];
+            if ($infor_gas) {
+                foreach ($infor_gas as $infor) {
+                    $product = product::find($infor['product_id']);
+                    if ($product) {
+                        $products[] = [
+                            'product' => $product,
+                            'product_name' => $infor['product_name'],
+                            'product_price' => $infor['product_price'],
+                            'quantity' => $infor['quantity'],
+                        ];
+                    }
+                }
+            }
+            $order['products'] = $products;
         }
         $tbl_admin = tbl_admin::get();
         $admin_name = session()->get('admin_name');

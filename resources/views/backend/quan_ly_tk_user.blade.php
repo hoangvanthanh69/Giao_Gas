@@ -5,13 +5,13 @@
 <div class="d-flex mb-3">
    <div class="card-body col-6">
       <div class="table-responsive ">
-      <h5 class="list-account-admin text-center">Tài khoản khách hàng đặt online</h5> 
-         <table class="table table-bordere bg" id="dataTable" width="100%" cellspacing="0">
+      <h5 class="list-account-admin text-center text-success">khách hàng đặt trên hệ thống</h5> 
+         <table class="table table-bordered bg-table-white" id="dataTable" width="100%" cellspacing="0">
             <thead class="">
-               <tr class="tr-name-table ">
+               <tr class="tr-name-table bg-success">
                   <th class="line-height-acount-user">STT</th>
                   <th class="col-3 line-height-acount-user">Họ tên</th>
-                  <th class="line-height-acount-user">Email</th>
+                  <th class="line-height-acount-user">SĐT</th>
                   <th>Số đơn hàng</th>
                   <th>Chức năng</th>
                </tr>
@@ -41,7 +41,7 @@
    <div class="card-body col-6">
       <div class="table-responsive ">
       <h5 class="list-account-admin text-center">khách hàng đặt qua số điện thoại</h5> 
-         <table class="table table-bordered bg-order-product" id="dataTable" width="100%" cellspacing="0">
+         <table class="table table-bordered bg-table-white" id="dataTable" width="100%" cellspacing="0">
             <thead class="">
                <tr class="tr-name-table ">
                   <th class="line-height-acount-user">STT</th>
@@ -53,7 +53,7 @@
             </thead>
             <tbody class="infor table-list-product">
                @foreach($users as $key => $val)
-               <tr class="text-light">
+               <tr class="">
                   <td>{{$key+1}}</td>
                   <td class="product-order-quantity">{{$val['name']}}</td>
                   <td class="product-order-quantity">{{$val['email']}}</td>

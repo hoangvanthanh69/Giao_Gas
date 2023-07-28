@@ -5,7 +5,6 @@
       <div class="col-10 nav-row-10 ">
 
         <div class="card mb-3 product-list element_column" data-item="receipt">
-
             <div class="card-header">
                 <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giao-hang')}}">Giao hàng</a></span>
             </div>
@@ -30,7 +29,19 @@
                                 <td class="col-1">{{$val['order_code']}}</td>
                                 <td class="col-2">{{$val['nameCustomer']}}</td>
                                 <td class="col-2">{{$val['diachi']}}, {{$val['district']}},  {{$val['state']}}, {{$val['country']}}</td>
-                                <td class="col-4">{{$val['infor_gas']}}</td>
+                                <td class="col-4">
+                                    @if (!empty($val['products']))
+                                        @foreach ($val['products'] as $product)
+                                            <div class="d-flex align-items-center">
+                                                <div class="col-3 infor-order-user-history">
+                                                    <img class="image-admin-product-edit" src="{{asset('uploads/product/'.$product['product']->image)}}" width="70%" height="70%" alt="">       
+                                                </div>
+                                                <div class="col-6">{{ $product['product_name']}}</div>
+                                                <div class="col-3">Số lượng: {{ $product['quantity'] }}</div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </td>
                                 <td class="col-1">
                                     @if($val['status']==1)
                                         <span style="color: orange;">Đang xử lý</span>
@@ -59,9 +70,9 @@
                                         <input type="hidden" name="id" value="{{ $val['id'] }}">
                                     </form>
                                 </td>
-
                             </tr>
                         @endforeach
+
                         </tbody>
                     </table>
 

@@ -849,6 +849,7 @@ span.adress-customer-span {
     font-size: 18px;
     color: #0a58ca;
     float: left;
+    padding-bottom: 4px;
 }
 a i.fa-solid.fa-right-from-bracket {
     padding-right: 16px;
@@ -1290,4 +1291,7 @@ select.selected-option-date-customer {
 .home-row-column-footer.animates {
     opacity: 1;
     transform: translateY(0);
+}
+.order-code-infor-detail{
+    height: 27px !important;
 }

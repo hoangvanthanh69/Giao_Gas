@@ -161,8 +161,8 @@ td.name-product-td {
     padding-left: 38px;
 }
 
-.text-center{
-    margin-bottom: 30px !important;
+.padding-order-phone{
+    margin-bottom: 19px !important;
 }
 .product-type {
     display: flex;
@@ -769,6 +769,7 @@ textarea#diachi {
     height: 295px;
     position: relative;
     background-color: white;
+    border: 2px solid;
     border-radius: 2px;
 }
 .home-product-item-sale-off {
@@ -817,7 +818,7 @@ textarea#diachi {
 }
 .search-prodcut-order-phone{
     float: right;
-    margin-top: -61px;
+    margin-top: -50px;
     margin-right: 29px;
 }
 .show-infor-product-orders {
@@ -843,12 +844,11 @@ textarea#diachi {
     padding-bottom: 35px;
 }
 .infor-product-order-admin {
-    color: #f075e9 !important;
-    font-size: 57px;
-    margin-top: 35%;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    margin-top: 17%;
 }
-
-/*  */
 @keyframes fadeout{
     to{
         opacity: 0;
@@ -916,4 +916,10 @@ button.button-delete-order {
     margin-bottom: -18px !important;
     margin: 0 14px;
     background-color: rgb(61 53 53);
+}
+.bg-table-white{
+    background-color: white;
+}
+.color-show-infor-product{
+    color: #FECC01;
 }

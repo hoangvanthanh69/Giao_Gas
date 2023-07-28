@@ -32,7 +32,8 @@
                     </div>
                     <div class="d-flex">
                         <div class="col-3 d-flex ">
-                            <span class="pb-4 pe-1">Đơn hàng: {{$order_product['order_code']}}</span>
+                            <strong class="pb-4 pe-1">Đơn hàng: </strong>
+                            <span class="bg-warning order-code-infor-detail">{{$order_product['order_code']}}</span>
                         </div>
                         <div class="col-3 ps-3">Loại: <?php if($order_product['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></div>
                         <div class="col-3">Đặt ngày: {{$order_product['created_at']}}</div>

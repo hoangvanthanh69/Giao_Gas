@@ -4,7 +4,7 @@
     <div class="col-10">
         <div class="header-order-product mt-4">
             <div>
-                <h5 class="color-logo-tech text-center pt-3">Thêm đơn hàng mới từ số điện thoại</h5>
+                <h5 class="color-logo-tech text-center padding-order-phone pt-3">Thêm đơn hàng mới từ số điện thoại</h5>
             </div>
             <div class="search-prodcut-order-phone">
                 <input type="text" autocapitalize="off" class="header-search-order-product" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
@@ -14,10 +14,10 @@
             </div>
         </div>
 
-        @if (session('mesage'))
-            <div class="success-customer-home-notification d-flex">
-                <i class="fas fa-ban icon-check-cancel"></i>
-                {{ session('mesage') }}
+        @if (session('success'))
+            <div class="change-password-customer-home d-flex">
+                <i class="fas fa-ban icon-check-success"></i>
+                {{ session('success') }}
             </div>
         @endif
         <div class="row show-infor-product-orders container">
@@ -83,8 +83,7 @@
                         </div>
                         
                         <div class="mt-4">
-                            <label class="name-add-product-customer-all" for="">Tổng giá:</label>
-                            <input class="infor-customer-input col-12" type="text" name="luong">
+                            <div id="selectedProducts"></div>
                         </div>
 
                         <div class="mt-4 sumbmit-order-product" id="show_infor">
@@ -100,8 +99,9 @@
                     <div class="container ">
                         <div class="row g-2 product-order-all mb-3" id="infor_gas">
                             <div class="text-center">
-                                <p class="text-light fs-4">Hiển thị sản phẩm</p>
-                                <i class="fa-solid fa-cart-shopping infor-product-order-admin"></i>
+                                <p class="color-show-infor-product fs-4">Hiển thị sản phẩm</p>
+                                <!-- <i class="fa-solid fa-cart-shopping "></i> -->
+                                <img class="infor-product-order-admin" src="{{asset('frontend/img/cart_shopping.jpg')}}" class="" alt="...">
                             </div>
                             <!-- Thông tin sản phẩm sẽ được hiển thị -->
                         </div>
@@ -171,7 +171,7 @@
             function generateProductHTML(product) {
                 var html = `
                     <div class="col-3 productchoose" id="${product.id}" onclick="highlightProduct(this)">
-                        <div class="p-3 border border-light image-product-order-all">
+                        <div class="p-3 border-light image-product-order-all">
                             ${product.quantity == 0 ? 
                                 '<div class="home-product-item-sale-off"><span class="home-product-item-sale-off-label">Hết gas</span></div>' : ''
                             }
@@ -295,69 +295,25 @@
                     totalPrice += productTotalPrice;
 
                     var html = `
-                        <div class="infor-customer-order-div">
+                        <div class="infor-customer-order-div mb-3 text-info">
                             <span class="infor-customer-order">Sản phẩm ${key++}: </span>
-                            <span class="selected-product-name ">${productName}, </span>
+                            <span class="selected-product-name">${productName}, </span>
                             <span class="infor-customer-order">Số lượng: </span>
-                            <span class="selected-product-quantity ">${productQuantity}</span>
+                            <span class="selected-product-quantity">${productQuantity}</span>
                         </div>
                     `;
 
                     selectedProductsDiv.innerHTML += html;
                 }
+
                 var totalHTML = `
                     <div class="">
-                        <span><span class="infor-customer-order">Tổng giá: </span>
-                        <span class="selected-products-total fs-5">${numberFormat(totalPrice)}  VNĐ</span></p>
+                        <span class="infor-customer-order text-warning fs-5">Tổng giá: </span>
+                        <span class="selected-products-total fs-5 text-danger">${numberFormat(totalPrice)} VNĐ</span>
                     </div>
                 `;
                 selectedProductsDiv.innerHTML += totalHTML;
             }
-
-            // hiển thị thông báo trước khi submit
-            // $(function() {
-            //     $('#show_infor').on('submit', function(event) {
-            //         event.preventDefault();
-            //         var invalidQuantity = false;
-            //         var invalidLoai = false;
-            //         var selectedProductCount = 0;
-
-            //         for (var i = 0; i < selectedProducts.length; i++) {
-            //             var product = selectedProducts[i];
-
-            //             if (product.quantity < 0 || isNaN(product.quantity)) {
-            //                 invalidQuantity = true;
-            //             } else if (product.quantity > 0) {
-            //                 selectedProductCount++;
-            //             }
-            //         }
-
-            //         var selectedLoai = $('#loai').val();
-            //         if (selectedLoai == 0) {
-            //             invalidLoai = true;
-            //         }
-
-            //         if (invalidQuantity && invalidLoai) {
-            //             alert("Vui lòng chọn ít nhất một sản phẩm và loại gas");
-            //             return;
-            //         } else if (invalidQuantity) {
-            //             alert("Vui lòng nhập số lượng hợp lệ cho sản phẩm đã chọn");
-            //             return;
-            //         } else if (invalidLoai) {
-            //             alert("Vui lòng chọn loại gas");
-            //             return;
-            //         }
-
-            //         if (selectedProductCount === 0) {
-            //             alert("Vui lòng chọn ít nhất một sản phẩm");
-            //             return;
-            //         }
-            //     });
-            //     $('#view-order-info').on('click', function(event) {
-            //         event.preventDefault();
-            //         $('#show_infor').submit();
-            //     });
-            // });
 
             function changeInputColor(checkbox) {
                 var parentDiv = checkbox.closest('.image-product-order-all');
