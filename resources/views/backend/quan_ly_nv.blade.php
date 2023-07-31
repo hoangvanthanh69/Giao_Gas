@@ -7,7 +7,7 @@
         <div class="card mb-3 product-list element_column" data-item="staff">
 
           <div class="card-header">
-            <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Nhân viên</a></span>
+            <span class="product-list-name color-logo-gas">Danh sách nhân viên</span>
           </div>
 
           <div class="search-option-infor-amdin">
@@ -50,8 +50,8 @@
                     <th class="align-center col-1">SĐT</th>
                     <th class="col-1 align-center">Năm sinh</th>
                     <th class="col-1 align-center">Chức vụ</th>
-                    <th class="align-center col-1">Tài khoản @gmail</th>
-                    <th class="align-center col-2">Địa chỉ</th>
+                    <th class="col-1 align-center">Tài khoản @</th>
+                    <th class="align-center col-3">Địa chỉ</th>
                     <th class="col-1 ">Ngày vào làm</th>
                     <th class="align-center col-1">Lương/Tháng</th>
                     <th>Chức năng</th>
@@ -85,7 +85,7 @@
 
                         <td class="product-order-quantity">{{$val['date_input']}}</td>
 
-                        <td class="product-order-quantity">{{number_format($val['luong'])}} VNĐ</td>
+                        <td class="product-order-quantity">{{number_format($val['luong'])}} đ</td>
 
                         <td class="function-icon function-icon-staff">
                           <form action="{{route('edit-staff', $val['id'])}}">
@@ -132,7 +132,8 @@
             </div>
           </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
 @endsection

@@ -59,7 +59,7 @@
                                             </span>
                                             <span class="col-4">
                                                 <span>Giá:</span>
-                                                    {{ number_format($product['product_price']) }} VNĐ
+                                                    {{ number_format($product['product_price']) }} đ
                                             </span>
                                             <span class="col-1">
                                                 <span>SL:</span>
@@ -78,7 +78,7 @@
                             
 
                                 <td class="">
-                                    <strong>{{number_format($order_product['tong'])}} VNĐ</strong>
+                                    <strong>{{number_format($order_product['tong'])}} đ</strong>
                                 </td>
                                 
                             </tr>

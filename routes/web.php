@@ -173,6 +173,14 @@ Route::post('check-customer', [index_backend::class, 'checkCustomer'])->name('ch
 Route::get('edit-account-admin/{id}', [index_backend::class, 'edit_account_admin'])->name('edit-account-admin');
 Route::post('update-account-admin/{id}', [index_backend::class, 'update_account_admin'])->name('update-account-admin');
 
-
 // tìm kiếm sản phẩm đặt qua đt
 Route::get('/admin/search_order_phone', [index_backend::class, 'search_order_phone'])->name('admin.search_order_phone');
+
+// quản lý giảm giá
+Route::get('/admin/quan-ly-giam-gia', [index_backend::class, 'quan_ly_giam_gia'])->name('quan-ly-giam-gia');
+
+// giao diện thêm mã giảm giá 
+Route::get('/add-discount', [index_backend::class, 'add_discount'])->name('add-discount');
+
+// thêm mã mới
+Route::post('add-discounts', [index_backend::class, 'add_discounts'])->name('add-discounts');

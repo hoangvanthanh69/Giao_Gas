@@ -4,77 +4,76 @@
 
 
         <div class="col-10 nav-row-10 ">
-            <div class="mb-4">
+            <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name fs-5">
-                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Quản lý nhân viên</a> / <a class="text-decoration-none" href="{{route('add-staff')}}">Thêm nhân viên mới</a>
+                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Danh sách nhân viên</a> / <a class="text-decoration-none" href="{{route('add-staff')}}">Thêm nhân viên mới</a>
                 </span>
             </div>
-            <div class="add-product-each w-50 ">
-                <form id="signupForm" enctype="multipart/form-data" method='post' action="{{route('staff_add')}}">
+            <div class="add-staff-form">
+                <div class="add-staff-heading-div">
+                    <span>Tạo mới nhân viên</span>
+                </div>
+                <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('staff_add')}}">
                     @csrf
-                    <div class="row">
-                        <label class="name-add-product-all col-4" for="">Thêm ảnh:</label>
-                        <input  class="input-add-product name-add-product-all-img col-8" type="file" name="image_staff">
+                    <div class="col-4">
+                        <span class="name-add-product-all col-4 " for="">Thêm ảnh</span>
+                        <input class="input-add-product name-add-product-all-img col-11 mt-2" type="file" name="image_staff">
                     </div>
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Họ và Tên:</label>
-                        <input class="input-add-product col-8" type="text" name="last_name">
-                    </div>
-
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Năm sinh:</label>
-                        <input class="input-add-product col-8" type="date" name="birth">
+                    <div class="col-4">
+                        <span class="name-add-product-all" for="">Họ và Tên</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="last_name">
                     </div>
 
-                    <div class="row mt-4 ">
-                        <label class="name-add-product-all col-4" for="">Chức vụ:</label>
+                    <div class="col-4">
+                        <span class="name-add-product-all" for="">Năm sinh</span>
+                        <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="date" name="birth">
+                    </div>
 
-                        <div class='col-8 p-0'>
-                            <select id="chuc_vu" name="chuc_vu" class="form-select " aria-label="Default select example">
-                                <option value="0">Chọn chức vụ</option>
+                    <div class="col-4 mt-4 ">
+                        <span class="name-add-product-all" for="">Chức vụ</span>
+                        <div class='mt-2 p-0'>
+                            <select id="chuc_vu" name="chuc_vu" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
+                                <option value="">Chọn chức vụ</option>
                                 <option value="1" name="cv_nv">Giao hàng</option>
                                 <option value="2">Quản lý</option>
                                 <option value="3">Biên tập</option>
                             </select>    
 
                         </div>
-                        
                     </div>
 
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Tài khoản @:</label>
-                        <input class="input-add-product col-8" type="text" name="taikhoan">
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Tài khoản @</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="taikhoan">
                     </div>
 
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Địa chỉ:</label>
-                        <input class="input-add-product col-8" type="text" name="dia_chi">
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Địa chỉ thường trú</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="dia_chi">
                     </div>
 
-    
-
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Ngày vào làm:</label>
-                        <input class="input-add-product col-8" type="date" name="date_input">
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Ngày vào làm</span>
+                        <input class="input-add-product col-11 mt-2 ps-2 pe-2" type="date" name="date_input">
                     </div>
 
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Số điện thoại:</label>
-                        <input class="input-add-product col-8" type="text" name="phone">
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all" for="">Số điện thoại</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="phone">
                     </div>
 
-                    <div class="row mt-4">
-                        <label class="name-add-product-all col-4" for="">Lương/tháng:</label>
-                        <input class="input-add-product col-8" type="text" name="luong">
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all" for="">Lương/tháng</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="luong">
                     </div>
-                    
-                    <div class="back-add-product">
+                    <div class="text-center mt-4">
                         <a class="back-product" href="{{route('quan-ly-nv')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
-                    
-                    
+
                 </form>
+
+                
             </div>
 @endsection
 
@@ -82,7 +81,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
 <script type="text/javascript">
-	
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
@@ -93,7 +91,8 @@
                     dia_chi: "required",
                     date_input: "required",                        
                     phone: "required",                        
-                    luong: "required",                        
+                    luong: "required",       
+                    chuc_vu: "required",
 				},
 				messages: {
 					last_name: "Nhập họ tên",
@@ -101,15 +100,15 @@
 					cv_nv: "Chọn chức vụ",
 
 					taikhoan: {
-                        required: "Bạn  nhập mật khẩu",
-                        email: "Tài khoản không đúng",
+                        required: "Nhập tài khoản",
+                        email: "Tài khoản không đúng định dạng",
                     },
 
 					dia_chi: "Nhập địa chỉ",
 					date_input: "Nhập ngày vào làm",
 					phone: "Nhập số điện thoại",
 					luong: "Nhập lương / tháng",
-                    
+                    chuc_vu: "Chọn chức vụ"
 
 				},
 				errorElement: "div",
