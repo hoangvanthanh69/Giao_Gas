@@ -15,13 +15,20 @@
             </div>
 
             <div class="search-infor-amdin-form">
-                <form action="" method="GET" class="header-with-search-form ">
-                  @csrf
-                  <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
-                  <span class="header_search button">
-                    <i class="header-with-search-icon fas fa-search"></i>
-                  </span>
-                </form>
+              <form action="{{ route('admin.searchDiscount') }}" method="GET" class="header-with-search-form">
+                @csrf
+                <i class="search-icon-discount fas fa-search"></i>
+                <input type="text" autocapitalize="off" class="header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                <span class="header_search button">
+                  <i class="fas fa-microphone"></i> 
+                </span>
+              </form>
+
+                @if (session('mesage'))
+                  <div class="notification-discount">
+                    {{ session('mesage') }}
+                  </div>
+                @endif
             </div>
         </div>
           
@@ -62,7 +69,7 @@
                         <td class="roduct-order-quantity">{{$val['created_at']}}</td>
 
                         <td class="function-icon">
-                          <form action="">
+                          <form action="{{route('edit-discount', $val['id'])}}">
                             <button class="summit-add-product-button" type='submit'>
                               <i class="fa-solid fa-pen-to-square"></i>
                             </button>
@@ -97,7 +104,26 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>if ('webkitSpeechRecognition' in window) {
+      const recognition = new webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'vi-VN';
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.querySelector('.header-with-search-input-discount').value = transcript;
+        document.querySelector('.header-with-search-form').submit();
+      };
+      recognition.onerror = function(event) {
+        console.error('Lỗi nhận dạng giọng nói:', event.error);
+      };
+      document.querySelector('.header_search.button').addEventListener('click', function() {
+        recognition.start();
+      });
+      } else {
+        console.error('không hỗ trợ Web Speech API');
+      }
+  </script>
 @endsection

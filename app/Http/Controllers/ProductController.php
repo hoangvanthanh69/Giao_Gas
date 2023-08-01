@@ -30,6 +30,9 @@ class ProductController extends Controller
 
     // hiển thị giao diện chỉnh sửa sản phẩm
     function edit_product($id){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $product = product::find($id);
         return view('backend.edit_product', ['product' => $product]);
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\index;
 use App\Http\Controllers\index_backend;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DiscountController;
 
 
 /*
@@ -177,10 +178,19 @@ Route::post('update-account-admin/{id}', [index_backend::class, 'update_account_
 Route::get('/admin/search_order_phone', [index_backend::class, 'search_order_phone'])->name('admin.search_order_phone');
 
 // quản lý giảm giá
-Route::get('/admin/quan-ly-giam-gia', [index_backend::class, 'quan_ly_giam_gia'])->name('quan-ly-giam-gia');
+Route::get('/admin/quan-ly-giam-gia', [DiscountController::class, 'quan_ly_giam_gia'])->name('quan-ly-giam-gia');
 
 // giao diện thêm mã giảm giá 
-Route::get('/add-discount', [index_backend::class, 'add_discount'])->name('add-discount');
+Route::get('/add-discount', [DiscountController::class, 'add_discount'])->name('add-discount');
 
 // thêm mã mới
-Route::post('add-discounts', [index_backend::class, 'add_discounts'])->name('add-discounts');
+Route::post('add-discounts', [DiscountController::class, 'add_discounts'])->name('add-discounts');
+
+// giao diện edit mã giảm giá
+Route::get('/edit-discount/{id}', [DiscountController::class, 'edit_discount'])->name('edit-discount');
+
+// xử lý cập nhật mã giảm giá
+Route::post('/update-discounts/{id}',[DiscountController::class, 'update_discounts'])->name('update-discounts');
+
+// tìm kiếm mã giảm
+Route::get('/admin/searchDiscount', [DiscountController::class, 'searchDiscount'])->name('admin.searchDiscount');

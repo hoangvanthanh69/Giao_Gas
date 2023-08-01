@@ -232,7 +232,12 @@ td.function-icon {
         opacity: 0;
     }
 }
-
+.notification-discount{
+    color: red;
+    position: absolute;
+    top: 122px;
+    animation: ease .3s, fadeout linear 5s 0.8s forwards;
+}
 .notification-search{
     color: red;
     position: absolute;
@@ -296,6 +301,21 @@ table#dataTable {
     height: 43px;
     margin-right: -30px;
     padding: 8px 8px 8px 13px;
+}
+.header-with-search-input-discount{
+    outline: none;
+    border: 1px solid #d0c8c8;
+    border-radius: 4px;
+    line-height: 14px;
+    height: 43px;
+    margin-right: -30px;
+    padding-inline-start: 34px;
+}
+.search-icon-discount{
+    top: 14px;
+    left: 0;
+    padding-left: 10px;
+    position: absolute;
 }
 button.header__search.button {
     background-color: white;

@@ -113,6 +113,9 @@ class index_backend extends Controller
     }
 
     function edit_staff($id){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $staff = add_staff::find($id);
         //    echo " <pre>";
         //    print_r($staff);
@@ -670,32 +673,5 @@ class index_backend extends Controller
                 'success' => false,
             ]);
         }
-    }
-
-    // quản lý giảm giá
-    function quan_ly_giam_gia(){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        $tbl_discount = tbl_discount::orderByDesc('created_at')->get()->toArray();
-        return view('backend.quan_ly_giam_gia', ['tbl_discount' => $tbl_discount]);
-    }
-
-    // giao diện thêm mã giảm
-    function add_discount(){
-        return view('backend.add_discount');
-    }
-    
-    // thêm mã mới
-    function add_discounts(Request $request){
-        $data = $request -> all();
-        $add_discount = new tbl_discount;
-        $add_discount -> name_voucher = $data['name_voucher'];
-        $add_discount -> ma_giam = $data['ma_giam'];
-        $add_discount -> so_luong = $data['so_luong'];
-        $add_discount -> phan_tram_giam = $data['phan_tram_giam'];
-        $add_discount -> thoi_gian_giam = $data['thoi_gian_giam'];
-        $add_discount -> save();  
-        return redirect()->route('quan-ly-giam-gia');
     }
 }
