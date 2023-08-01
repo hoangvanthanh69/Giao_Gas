@@ -4,7 +4,7 @@
         <div class="col-10 nav-row-10 ">
             <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name fs-5">
-                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giam-gia')}}">Danh sách mã giảm</a> / <a class="text-decoration-none" href="{{route('add-discounts')}}">Thêm mã mới</a>
+                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giam-gia')}}">Danh sách mã giảm</a> / <a class="text-decoration-none" href="{{route('add-discounts')}}">Chỉnh sửa mã</a>
                 </span>
             </div>
             <div class="add-staff-form">

@@ -25,23 +25,7 @@ Array.from(filter_button).forEach(function(element){
 
    
 })
-// search 
-// search_item.addEventListener('keyup',searchItem);
 
-// function searchItem(){
-//     let valueItem = search_item.value.toLowerCase();
-//     Array.from(element_column).forEach(function(ele){
-//         let nameItem = ele.querySelector('.infor').firstElementChild.textContent;
-//         if(nameItem.toLowerCase().indexOf(valueItem) !== -1){
-//             ele.style.display = 'flex';
-//         }
-//         else{
-//             ele.style.display = 'none';
-//         }
-//     })
-//     checkEmpty(element_column);
-
-// }
 function checkEmpty(element){
     let count = 0;
     for(let i=0; i<element.length; i++){
@@ -57,3 +41,35 @@ function checkEmpty(element){
 
     }
 }
+
+// tìm kiếm bằng giọng nói
+    let recognition;
+    let microphoneIcon;
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'vi-VN';
+        recognition.onstart = function() {
+        microphoneIcon.classList.add('microphone-active');
+        };
+        recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.querySelector('.header-with-search-input-discount').value = transcript;
+        document.querySelector('.header-with-search-form').submit();
+        };
+        recognition.onerror = function(event) {
+        console.error('Lỗi nhận dạng giọng nói:', event.error);
+        };
+        recognition.onend = function() {
+            microphoneIcon.classList.remove('microphone-active');
+        };
+        function startRecognition() {
+            recognition.start();
+        }
+    } else {
+        console.error('Lỗi');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        microphoneIcon = document.getElementById('microphone-icon');
+    });

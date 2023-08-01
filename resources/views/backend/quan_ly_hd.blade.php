@@ -36,9 +36,10 @@
             <div class="search-infor-amdin-form mt-2 me-4">
               <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
                 @csrf
-                <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
-                <span class="header-search-button">
-                  <i class="header-with-search-icon fas fa-search"></i>
+                <i class="search-icon-discount fas fa-search"></i>
+                <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                <span class="header_search button" onclick="startRecognition()">
+                  <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
               @if (session('mesage'))

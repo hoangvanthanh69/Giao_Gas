@@ -19,11 +19,10 @@
                 @csrf
                 <i class="search-icon-discount fas fa-search"></i>
                 <input type="text" autocapitalize="off" class="header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
-                <span class="header_search button">
-                  <i class="fas fa-microphone"></i> 
+                <span class="header_search button" onclick="startRecognition()">
+                  <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
-
                 @if (session('mesage'))
                   <div class="notification-discount">
                     {{ session('mesage') }}
@@ -106,24 +105,4 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>if ('webkitSpeechRecognition' in window) {
-      const recognition = new webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'vi-VN';
-      recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        document.querySelector('.header-with-search-input-discount').value = transcript;
-        document.querySelector('.header-with-search-form').submit();
-      };
-      recognition.onerror = function(event) {
-        console.error('Lỗi nhận dạng giọng nói:', event.error);
-      };
-      document.querySelector('.header_search.button').addEventListener('click', function() {
-        recognition.start();
-      });
-      } else {
-        console.error('không hỗ trợ Web Speech API');
-      }
-  </script>
 @endsection

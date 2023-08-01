@@ -18,9 +18,10 @@
                 <div class=" search-infor-amdin-form-staff">
                   <form action="{{ route('admin.search_product') }}" method="GET" class="header-with-search-form ">
                     @csrf
-                    <input type="text" autocapitalize="off" class="header-with-search-input" placeholder="Tìm kiếm" name="search">
-                    <span class="header_search button">
-                      <i class="header-with-search-icon fas fa-search"></i>
+                    <i class="search-icon-discount fas fa-search"></i>
+                    <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                    <span class="header_search button" onclick="startRecognition()">
+                      <i class="fas fa-microphone" id="microphone-icon"></i> 
                     </span>
                   </form>
                 </div>
@@ -67,7 +68,7 @@
                       </td>
                       <td class="name-product-td infor-product">{{$val['quantity']}}</td>
                       <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
-                      <td class="name-product-td infor-product">{{number_format($val['original_price'])}} VNĐ</td>
+                      <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
 
                       <td class="function-icon infor-product">
                         <form action="{{route('edit-product', $val['id'])}}">
@@ -117,19 +118,16 @@
           </div>
         </div>
         <script>
-// JavaScript
-function toggleActiveButton() {
-    const button = document.querySelector('.accordion-button');
-    button.classList.toggle('active-button');
-}
-
-// Gán sự kiện click cho các đường link bên trong button
-const links = document.querySelectorAll('.home-filter-buttons a');
-links.forEach(link => {
-    link.addEventListener('click', toggleActiveButton);
-});
-
-</script>
+          function toggleActiveButton() {
+            const button = document.querySelector('.accordion-button');
+            button.classList.toggle('active-button');
+          }
+          const links = document.querySelectorAll('.home-filter-buttons a');
+          links.forEach(link => {
+            link.addEventListener('click', toggleActiveButton);
+          });
+        </script>
+        
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @endsection
