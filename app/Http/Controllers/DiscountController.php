@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\tbl_discount;
 use Session;
-
+use Carbon\Carbon;
 class DiscountController extends Controller
 {
     // quản lý giảm giá
-    function quan_ly_giam_gia(){
+    function quan_ly_giam_gia(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
+        // cập nhật lại trạng thái khi hết hạn
+        $this->update_status_discount($request);
         $tbl_discount = tbl_discount::orderByDesc('created_at')->get()->toArray();
         return view('backend.quan_ly_giam_gia', ['tbl_discount' => $tbl_discount]);
     }
@@ -35,6 +37,7 @@ class DiscountController extends Controller
         $add_discount -> phan_tram_giam = $data['phan_tram_giam'];
         $add_discount -> thoi_gian_giam = $data['thoi_gian_giam'];
         $add_discount -> het_han = $data['het_han'];
+        $add_discount->status = 1;
         $add_discount -> save();  
         return redirect()->route('quan-ly-giam-gia');
     }
@@ -61,6 +64,7 @@ class DiscountController extends Controller
         return redirect()->route('quan-ly-giam-gia');
     }
 
+    // tìm kiếm mã giảm giá
     function searchDiscount(Request $request){
         if ($request->isMethod('get')) {
             $search = $request->input('search');
@@ -74,4 +78,19 @@ class DiscountController extends Controller
             return redirect()->back();
         }
     }
+
+    // cập nhật trạng thái giảm giá khi hết hạn
+    function update_status_discount(Request $request) {
+        $discounts = tbl_discount::where('status', 1)->get();
+        foreach ($discounts as $discount) {
+            $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $discount->het_han);
+            $currentDate = Carbon::now();
+            if ($currentDate->gte($endDate)) {
+                $discount->status = 2;
+                $discount->save();
+            }
+        }
+    }
+
+    // xóa mã giảm giá chưa có làm
 }

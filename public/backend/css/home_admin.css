@@ -1010,3 +1010,6 @@ button.button-delete-order {
 .microphone-active {
     color: red;
 }
+.header_search.button.listening i {
+    color: red;
+}

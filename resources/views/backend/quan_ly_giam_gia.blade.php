@@ -43,6 +43,7 @@
                     <th class="">Số phần trăm giảm</th>
                     <th class="">Giảm từ ngày</th>
                     <th class="">Ngày hết hạn giảm</th>
+                    <th>Trạng thái</th>
                     <th>Ngày tạo</th>
                     <th>Chức năng</th>
                   </tr>
@@ -62,8 +63,9 @@
 
                         <td class="roduct-order-quantity">{{$val['thoi_gian_giam']}}</td>
                         
-                        <td class="roduct-order-quantity">{{$val['thoi_gian_giam']}}</td>
+                        <td class="roduct-order-quantity">{{$val['het_han']}}</td>
 
+                        <td class="roduct-order-quantity"><?php if($val['status']==1){echo 'Còn mã';}elseif($val['status']==2){echo 'Hết hạn';}  ?></td>
 
                         <td class="roduct-order-quantity">{{$val['created_at']}}</td>
 

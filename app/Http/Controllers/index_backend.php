@@ -591,7 +591,10 @@ class index_backend extends Controller
             return redirect()->route('login');
         }
         $products = product::get();
-        return view('backend.order_phone', ['products' => $products]);
+        $tbl_discount = tbl_discount::get();
+        $name_voucher = session()->get('name_voucher');
+        $name_voucher = session()->get('phan_tram_giam');
+        return view('backend.order_phone', ['products' => $products, 'tbl_discount' => $tbl_discount, 'name_voucher' => $name_voucher]);
     }
     
     // xử lý đặt hàng qua số đt
@@ -674,4 +677,6 @@ class index_backend extends Controller
             ]);
         }
     }
+
+    
 }

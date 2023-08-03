@@ -194,3 +194,6 @@ Route::post('/update-discounts/{id}',[DiscountController::class, 'update_discoun
 
 // tìm kiếm mã giảm
 Route::get('/admin/searchDiscount', [DiscountController::class, 'searchDiscount'])->name('admin.searchDiscount');
+
+// cập nhật trạng thái mã giảm giá
+Route::post('/update_status_discount', [DiscountController::class, 'update_status_discount'])->name('update_status_discount');

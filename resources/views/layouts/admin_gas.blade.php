@@ -49,14 +49,14 @@
                      
                      <?php if(Session::get('admin')['chuc_vu'] == "2"){?>
                         <div class="home-filter border-filet-butoon" id="filter_button">
-                           <div class="btnbtn home-filter-button" data-filter="all">
+                           <div class="btnbtn home-filter-button mb-1" data-filter="all">
                               <a class="@yield('sidebar-active-home')" href="{{route('admin')}}">
                                  <i class=" fa fa-home icon-all-admin-nav" aria-hidden="true"></i>
                                  Tổng quan
                               </a>
                            </div>
                            
-                           <div class="" id="accordionFlushExample">
+                           <div class="mb-" id="accordionFlushExample">
                               <div class="">
                                  <div id="flush-headingOne">
                                     <button class="accordion-button accordion-layouts-product " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" onclick="toggleArrow()">
@@ -87,7 +87,7 @@
                               </div>
                            </div>
 
-                           <div class="" id="accordionFlushExample">
+                           <div class="mb-1" id="accordionFlushExample">
                               <div class="">
                                  <div id="flush-headingTwo">
                                     <button class="accordion-button accordion-layouts-product pt-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" onclick="toggleArrow()">

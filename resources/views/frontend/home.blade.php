@@ -383,15 +383,28 @@
                                     
                                     <label for="loai" class="form-label">Loại bình gas:</label>
                                     <div class="delivery-location form-product-specials product-type">
-                                        <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
-                                            <option value="">Chọn loại gas</option>
-                                            <option value="1" name="cn">Gas công nghiệp</option>
-                                            <option value="2" name="dd">Gas dân dụng</option>
-                                        </select>
+                                        <div class="d-flex">
+                                            <div class="col-8">
+                                                <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
+                                                    <option value="">Chọn loại gas</option>
+                                                    <option value="1" name="cn">Gas công nghiệp</option>
+                                                    <option value="2" name="dd">Gas dân dụng</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 search-prodcut-order-phone">
+                                                <i class="search-icon-discount fas fa-search"></i>
+                                                <input type="text" autocapitalize="off" class="header-with-search-input-discount" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
+                                                <span class="header_search button" onclick="startRecognitions()">
+                                                    <i class="fas fa-microphone" id="microphone-icon"></i> 
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="product-order-all btnt row" id="infor_gas">
                                             <!-- Thông tin sản phẩm sẽ được hiển thị -->
                                         </div>
                                     </div>
+                                    
 
                                     <label for="exampleFormControlInput1" class="form-label ">Ghi chú:</label>
                                     <input class="ghichu form-control form-product-specials notie" id="exampleFormControlInput1" name="ghichu" cols="30" rows="10"></input>
@@ -949,7 +962,54 @@
                 selectedProductsDiv.innerHTML += totalHTML;
             }
 
+            // tìm kiếm bằng giọng nói cho sản phẩm
+            let isListening = false;
+            function startRecognitions() {
+                if (!isListening) {
+                    isListening = true;
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    recognition.lang = 'vi-VN';
 
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        document.querySelector('.header-with-search-input-discount').value = transcript;
+                        searchProducts(transcript);
+                        isListening = false; 
+                        document.querySelector('.header_search.button').classList.remove('listening');
+                    };
+
+                    recognition.onerror = function(event) {
+                        console.error('Lỗi nhận dạng giọng nói:', event.error);
+                        isListening = false; 
+                        document.querySelector('.header_search.button').classList.remove('listening');
+                    };
+
+                    recognition.onend = function() {
+                        isListening = false;
+                        document.querySelector('.header_search.button').classList.remove('listening');
+                    };
+
+                    document.querySelector('.header_search.button').classList.add('listening');
+
+                    recognition.start();
+                }
+            }
+
+            // tìm kiếm sản phẩm
+            function searchProducts(keyword) {
+                var inforGasDiv = document.getElementById("infor_gas");
+                var productsToShow = inforGasDiv.getElementsByClassName("productchoose");
+                for (var i = 0; i < productsToShow.length; i++) {
+                    var productName = productsToShow[i].querySelector(".name_product").textContent.toLowerCase();
+                    if (productName.includes(keyword.toLowerCase())) {
+                        productsToShow[i].style.display = "block";
+                    } else {
+                        productsToShow[i].style.display = "none";
+                    }
+                }
+            }
 
             // hiển thị thông tin trước khi submit
             $(function() {

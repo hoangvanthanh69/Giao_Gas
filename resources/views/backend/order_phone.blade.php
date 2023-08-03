@@ -6,10 +6,12 @@
             <div>
                 <h5 class="color-logo-tech text-center padding-order-phone pt-3">Thêm đơn hàng mới từ số điện thoại</h5>
             </div>
-            <div class="search-prodcut-order-phone">
-                <input type="text" autocapitalize="off" class="header-search-order-product" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
-                <span class="header-search-button">
-                    <i class="header-search-order-product-icon fas fa-search"></i>
+            
+            <div class="search-prodcut-order-phone header-with-search-form ">
+            <i class="search-icon-discount fas fa-search"></i>
+                <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
+                <span class="header_search button" onclick="startRecognitions()">
+                    <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
             </div>
         </div>
@@ -26,7 +28,7 @@
                 <div class="col-5 text-light ">
                     <div class="p-3 me-2 bg-order-product">
                         <div class="">
-                            <label class="name-add-product-customer-all" for="">Số điện thoại:</label>
+                            <label class="name-add-product-customer-all" for="">Số điện thoại:</label><i class="fa-solid fa-asterisk"></i>
                             <input class="infor-customer-input col-12" type="text" name="phoneCustomer" id="phoneCustomer">
                         </div>
 
@@ -71,8 +73,13 @@
                         <div class="mt-4">
                             <label class="name-add-product-customer-all" for="">Giảm giá:</label>
                             <div class= "p-0">
-                                <select id="type" name="type" class="form-select " aria-label="Default select example">
-                                    <option value="0">Chọn voucher</option>
+                                <select name="admin_name" class="form-control" >
+                                    <option value="">Chọn voucher</option>
+                                        @foreach($tbl_discount as $discount)
+                                            @if($discount -> status != 2)
+                                                <option value="{{$discount->name_voucher}}">{{$discount -> name_voucher}} - {{$discount -> phan_tram_giam}}</option>
+                                            @endif
+                                        @endforeach
                                 </select>
                             </div>
                         </div>
@@ -168,6 +175,7 @@
                     }
                 }
             }
+
             function generateProductHTML(product) {
                 var html = `
                     <div class="col-3 productchoose" id="${product.id}" onclick="highlightProduct(this)">
@@ -204,6 +212,42 @@
             function numberFormat(number) {
                 return number.toLocaleString("vi-VN");
             }
+
+
+            let isListening = false;
+            function startRecognitions() {
+                if (!isListening) {
+                    isListening = true;
+                    const recognition = new webkitSpeechRecognition();
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+                    recognition.lang = 'vi-VN';
+
+                    recognition.onresult = function(event) {
+                        const transcript = event.results[0][0].transcript;
+                        document.querySelector('.header-with-search-input-discount').value = transcript;
+                        searchProducts(transcript);
+                        isListening = false; 
+                        document.querySelector('.header_search.button').classList.remove('listening');
+                    };
+
+                    recognition.onerror = function(event) {
+                        console.error('Lỗi nhận dạng giọng nói:', event.error);
+                        isListening = false; 
+                        document.querySelector('.header_search.button').classList.remove('listening');
+                    };
+
+                    recognition.onend = function() {
+                        isListening = false;
+                        document.querySelector('.header_search.button').classList.remove('listening');
+                    };
+
+                    document.querySelector('.header_search.button').classList.add('listening');
+
+                    recognition.start();
+                }
+            }
+
             function searchProducts(keyword) {
                 var inforGasDiv = document.getElementById("infor_gas");
                 var productsToShow = inforGasDiv.getElementsByClassName("productchoose");
