@@ -93,4 +93,9 @@ class DiscountController extends Controller
     }
 
     // xóa mã giảm giá chưa có làm
+    function delete_discount($id){
+        $tbl_discount = tbl_discount::find($id);
+        $tbl_discount -> delete();
+        return redirect()->back();
+    }
 }

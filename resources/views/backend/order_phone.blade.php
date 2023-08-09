@@ -28,7 +28,7 @@
                 <div class="col-5 text-light ">
                     <div class="p-3 me-2 bg-order-product">
                         <div class="">
-                            <label class="name-add-product-customer-all" for="">Số điện thoại:</label><i class="fa-solid fa-asterisk"></i>
+                            <label class="name-add-product-customer-all" for="">Số điện thoại:</label>
                             <input class="infor-customer-input col-12" type="text" name="phoneCustomer" id="phoneCustomer">
                         </div>
 
@@ -73,11 +73,11 @@
                         <div class="mt-4">
                             <label class="name-add-product-customer-all" for="">Giảm giá:</label>
                             <div class= "p-0">
-                                <select name="admin_name" class="form-control" >
+                                <select name="admin_name" id="admin_name" class="form-control form-select"  onchange="displaySelectedProducts()">
                                     <option value="">Chọn voucher</option>
                                         @foreach($tbl_discount as $discount)
                                             @if($discount -> status != 2)
-                                                <option value="{{$discount->name_voucher}}">{{$discount -> name_voucher}} - {{$discount -> phan_tram_giam}}</option>
+                                                <option value="{{$discount->ma_giam}}">{{$discount -> ma_giam}} - {{$discount -> phan_tram_giam}}%</option>
                                             @endif
                                         @endforeach
                                 </select>
@@ -328,7 +328,11 @@
                 var selectedProductsDiv = document.getElementById("selectedProducts");
                 selectedProductsDiv.innerHTML = "";
                 var totalPrice = 0;
+                var discountAmount = 0;
                 var key = 1;
+                var selectedVoucher = document.getElementById("admin_name").value;
+                var tbl_discount = <?php echo json_encode($tbl_discount); ?>;
+
                 for (var i = 0; i < selectedProducts.length; i++) {
                     var product = selectedProducts[i];
                     var productId = product.id;
@@ -350,14 +354,47 @@
                     selectedProductsDiv.innerHTML += html;
                 }
 
+                // Tính giảm giá dựa trên phần trăm của mã giảm giá
+                var discountPercent = 0;
+                if (selectedVoucher) {
+                    for (var i = 0; i < tbl_discount.length; i++) {
+                        var discount = tbl_discount[i];
+                        if (discount.ma_giam === selectedVoucher) {
+                            discountPercent = discount.phan_tram_giam;
+                            break;
+                        }
+                    }
+                }
+
+                discountAmount = totalPrice * (discountPercent / 100);
+                // console.log("Giá trị giảm giá:", discountAmount);
+                // console.log("Phần trăm giảm giá:", discountPercent);
                 var totalHTML = `
-                    <div class="">
-                        <span class="infor-customer-order text-warning fs-5">Tổng giá: </span>
-                        <span class="selected-products-total fs-5 text-danger">${numberFormat(totalPrice)} VNĐ</span>
+                    <div class="row mb-2">
+                        <span class="col-4 infor-customer-order text-light fs-6">Tổng tiền hàng: </span>
+                        <span class="col selected-products-total fs-6 text-light">${numberFormat(totalPrice)} đ</span>
                     </div>
+
+                    <div class="row mb-2">
+                        <span class="col-4 infor-customer-order text-light fs-6">Giảm giá: </span>
+                        <span class="col selected-products-total fs-6 text-light">${numberFormat(discountAmount)} đ</span>
+                    </div>
+
+                    <div class="row mb-2 border-button-order-phone-admin">
+                        <span class="col-4 infor-customer-order text-light fs-6">Giao hàng: </span>
+                        <span class="col selected-products-total fs-6 text-light">0 đ</span>
+                    </div>
+
+                    <div class="row">
+                        <span class="col-4 infor-customer-order text-warning fs-5">Thành tiền: </span>
+                        <span class="col selected-products-total fs-5 text-danger">${numberFormat(totalPrice - discountAmount)} đ</span>
+                    </div>
+                    
                 `;
+
                 selectedProductsDiv.innerHTML += totalHTML;
             }
+
 
             function changeInputColor(checkbox) {
                 var parentDiv = checkbox.closest('.image-product-order-all');

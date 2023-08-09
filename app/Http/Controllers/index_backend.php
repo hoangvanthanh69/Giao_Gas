@@ -17,6 +17,7 @@ use Session;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use Mail;
 
 
 class index_backend extends Controller
@@ -592,9 +593,9 @@ class index_backend extends Controller
         }
         $products = product::get();
         $tbl_discount = tbl_discount::get();
-        $name_voucher = session()->get('name_voucher');
-        $name_voucher = session()->get('phan_tram_giam');
-        return view('backend.order_phone', ['products' => $products, 'tbl_discount' => $tbl_discount, 'name_voucher' => $name_voucher]);
+        $ma_giam = session()->get('ma_giam');
+        $ma_giam = session()->get('phan_tram_giam');
+        return view('backend.order_phone', ['products' => $products, 'tbl_discount' => $tbl_discount, 'ma_giam' => $ma_giam]);
     }
     
     // xử lý đặt hàng qua số đt
@@ -677,6 +678,13 @@ class index_backend extends Controller
             ]);
         }
     }
+
+
+    // function mail_order(){
+    //     return view('backend.mail_order');
+    // }
+
+    
 
     
 }

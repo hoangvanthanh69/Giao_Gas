@@ -197,3 +197,12 @@ Route::get('/admin/searchDiscount', [DiscountController::class, 'searchDiscount'
 
 // cập nhật trạng thái mã giảm giá
 Route::post('/update_status_discount', [DiscountController::class, 'update_status_discount'])->name('update_status_discount');
+
+// xóa mã giảm giá
+Route::get('/delete_discount/{id}', [DiscountController::class, 'delete_discount'])->name('delete_discount');
+
+// kiểm tra mã giảm giá
+// Route::post('check-discount', [index::class, 'check_discount'])->name('check-discount');
+
+// gửi mail
+// Route::get('mail_order', [index_backend::class, 'mail_order']);

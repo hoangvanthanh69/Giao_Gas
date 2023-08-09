@@ -154,7 +154,7 @@
         <div class="footer">
             <div class="grid">
                 <div class="grid-row grid-row-footer">
-                    <div class="home-row-column home-row-column-footer">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <span class="contact-support">
@@ -182,7 +182,7 @@
                         </div>
                     </div>
 
-                    <div class="home-row-column home-row-column-footer">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <span class="contact-support">
@@ -214,7 +214,7 @@
                         </div>
                     </div>
 
-                    <div class="home-row-column home-row-column-footer">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <span class="contact-support">
@@ -244,7 +244,7 @@
                         </div>
                     </div>
 
-                    <div class="home-row-column home-row-column-footer">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <h4 class="contact-support">

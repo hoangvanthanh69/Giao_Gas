@@ -59,7 +59,7 @@
 
                         <td class="product-order-quantity">{{$val['so_luong']}}</td>
 
-                        <td class="product-order-quantity">{{$val['phan_tram_giam']}}</td>
+                        <td class="product-order-quantity">{{$val['phan_tram_giam']}}%</td>
 
                         <td class="roduct-order-quantity">{{$val['thoi_gian_giam']}}</td>
                         
@@ -76,7 +76,7 @@
                             </button>
                           </form>
                           
-                          <form action="">
+                          <form action="{{route('delete_discount', $val['id'])}}">
                             <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal">
                               <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
                             </button>

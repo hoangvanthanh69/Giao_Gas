@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\order_product;
 use App\Models\product;
 use App\Models\tbl_admin;
+use App\Models\tbl_discount;
 use App\Models\users;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -14,7 +15,7 @@ use App\Models\danh_gia;
 // use Illuminate\Support\Facades\Session;
 use DB;
 use Session;
-
+use Mail;
 class index extends Controller
 {
    function home(){
@@ -168,8 +169,17 @@ class index extends Controller
       }
       $order->order_code = uniqid();
       $order->tong = $totalPrice;
-
       $order->save();
+
+      //
+      $user = users::find($user_id);
+      if ($user) {
+         Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
+             $email->subject('Đặt hàng thành công');
+             $email->to($user->email, $user->name);
+         });
+      }
+      //
       return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
    }
 
@@ -388,4 +398,21 @@ class index extends Controller
       $user->save();
       return redirect()->back()->with('success', 'Cập nhật mật khẩu thành công');
    }
+
+   // kiểm tra mã giảm giá
+//    function check_discount(Request $request){
+//       $discountCode = $request->input('discount_code');
+
+//         // Kiểm tra xem mã giảm giá có tồn tại trong bảng tbl_discount hay không
+//         $discount = tbl_discount::where('ma_giam', $discountCode)->first();
+
+//         if ($discount) {
+//             // Mã giảm giá tồn tại trong bảng tbl_discount
+//             return response()->json(['message' => 'Mã giảm giá hợp lệ']);
+//         } else {
+//             // Mã giảm giá không tồn tại trong bảng tbl_discount
+//             return response()->json(['message' => 'Mã giảm giá không hợp lệ']);
+//         }
+    
+//   }
 }

@@ -570,7 +570,7 @@
     <footer>
         <div class="footer">
             <div class="grid">
-                <div class="grid-row grid-row-footer">
+                <div class="grid-row grid-row-footer grid-row-footers">
                     <div class="home-row-column home-row-column-footer">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">

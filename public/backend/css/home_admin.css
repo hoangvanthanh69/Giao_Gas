@@ -1013,3 +1013,10 @@ button.button-delete-order {
 .header_search.button.listening i {
     color: red;
 }
+.border-button-order-phone-admin::after {
+    width: 90%;
+    border-bottom: 1px solid;
+    margin-top: 12px;
+    margin-left: 13px;
+    content: "";
+}
