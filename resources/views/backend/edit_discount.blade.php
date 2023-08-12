@@ -30,8 +30,17 @@
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Phần trăm giảm</span>
-                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="phan_tram_giam" value="{{$tbl_discount -> phan_tram_giam}}">
+                        <span class="name-add-product-all " for="">Loại giảm</span>
+                        <select id="type" name="type" class="input-add-product col-11 ps-2 pe-2 mt-2" aria-label="Default select example">
+                            <option value="">Chọn Loại</option>
+                            <option value="1" <?php echo  $tbl_discount['type']==1?'selected':'' ?>>Giảm theo phần trăm</option>
+                            <option value="2" <?php echo  $tbl_discount['type']==2?'selected':'' ?>>Giảm theo giá tiền</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Giá trị giảm</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="gia_tri" value="{{$tbl_discount ->gia_tri}}">
                     </div>
 
                     <div class="col-4 mt-4">

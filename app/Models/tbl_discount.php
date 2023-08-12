@@ -13,6 +13,6 @@ class tbl_discount extends Model
     public $timestamps = false;
     protected $table = 'tbl_discount';
     protected $fillable = [
-        'name_voucher', 'ma_giam', 'so_luong', 'phan_tram_giam', 'thoi_gian_giam', 'het_han', 'status'
+        'name_voucher', 'ma_giam', 'so_luong', 'gia_tri', 'thoi_gian_giam', 'het_han', 'status', 'type'
     ];
 }

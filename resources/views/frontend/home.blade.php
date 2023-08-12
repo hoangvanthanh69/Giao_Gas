@@ -425,7 +425,7 @@
                                                 <h5 class="modal-title" id="orderInfoModalLabel">Thông tin đặt hàng</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body ms-3 me-3">
                                                 <div class="infor-customer-order-div">
                                                     <span class="infor-customer-order">Tên khách hàng:</span>
                                                     <span id="nameCustomer" class=""></span>
@@ -440,12 +440,34 @@
                                                 </div>
                                                 <div id="selectedProducts">
                                                 <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
-                                            </div>
-                                            <span class="text-warning">Miễn phí vận chuyển</span>
-                                            <div class="modal-footers pt-3">
-                                                <h6 class="text-success payment-delivery">Thanh toán khi nhận hàng</h6>
-                                                <button class="btn btn-primary submit">Giao gas</button>
-                                            </div>
+                                                </div>
+
+                                                <div>
+                                                    <div class="infor-customer-order-div">
+                                                        <i class="fas fa-tag sale-icon icon-sale-customer-online"></i>
+                                                        <input onchange="applyCoupon()" type="text" placeholder="Nhập mã ưu đãi" name="coupon" id="coupon" class="input-coupon-customer-online" require>
+                                                        <button type="button" onclick="applyCoupon()" class="btn-apply-code-sale">Áp dụng</button>
+                                                    </div>
+
+                                                    <div id="couponErrorMessage" class="text-danger"></div>
+                                                    
+                                                    <div class="infor-customer-order-div">
+                                                        <span class="infor-customer-order">Giá trị giảm giá:</span>
+                                                        <span id="discountAmount">0 VNĐ</span>
+                                                    </div>
+
+                                                    <div class="infor-customer-order-div">
+                                                        <span class="infor-customer-order">Thành tiền:</span>
+                                                        <span id="discountedTotal"></span>
+                                                        <input type="hidden" name="tong" id="tong" value="">
+                                                    </div>
+                                                </div>
+
+                                                <span class="text-warning">Miễn phí vận chuyển</span>
+                                                <div class="modal-footers pt-3">
+                                                    <h6 class="text-success payment-delivery">Thanh toán khi nhận hàng</h6>
+                                                    <button class="btn btn-primary submit">Giao gas</button>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -454,7 +476,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- hướng dẫn đổi gas -->
             <div class="grid element_column">
                 <div class="card card-support element_columns infor" data-item="guide">
@@ -955,11 +977,91 @@
                 }
                 var totalHTML = `
                     <div class="">
-                        <span><span class="infor-customer-order">Tổng giá: </span>
-                        <span class="selected-products-total fs-5">${numberFormat(totalPrice)}  VNĐ</span></p>
+                        <span><span class="infor-customer-order">Tổng giá sản phẩm: </span>
+                        <span class="selected-products-total fs-6">${numberFormat(totalPrice)}  VNĐ</span></p>
                     </div>
                 `;
                 selectedProductsDiv.innerHTML += totalHTML;
+                document.getElementById("tong").value = totalPrice;
+            }
+
+            function applyCoupon() {
+                var couponCode = document.getElementById("coupon").value;
+                var totalPrice = calculateTotalPrice();
+                var couponErrorMessage = document.getElementById("couponErrorMessage");
+
+                $.ajax({
+                    url: "{{ route('check-coupon') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        coupon: couponCode
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            var discountType = response.type;
+                            var discountValue = response.gia_tri;
+                            var discountQuantity = response.so_luong;
+                            var discountedTotal = 0;
+
+                            if (discountType == 1) {
+                                var discountPercentage = discountValue;
+                                var discountAmount = (totalPrice * discountPercentage) / 100;
+                                discountedTotal = totalPrice - discountAmount;
+                            } else if (discountType == 2) {
+                                var discountAmount = discountValue;
+                                discountedTotal = totalPrice - discountAmount;
+                            }
+
+                            // Cập nhật số lượng giảm giá trong bảng tbl_discount
+                            if (discountQuantity > 0) {
+                                $.ajax({
+                                    url: "{{ route('update-discount-quantity') }}",
+                                    method: "POST",
+                                    data: {
+                                        _token: "{{ csrf_token() }}",
+                                        coupon: couponCode
+                                    },
+                                    success: function() {
+                                        // Thực hiện cập nhật số lượng giảm giá thành công
+                                        document.getElementById("tong").value = discountedTotal;
+                                        document.getElementById("discountAmount").textContent = numberFormat(discountAmount) + " VNĐ";
+                                        document.getElementById("discountedTotal").textContent = numberFormat(discountedTotal) + " VNĐ";
+                                        couponErrorMessage.style.display = "none";
+                                    },
+                                    error: function(xhr, status, error) {
+                                        // Xử lý lỗi
+                                    }
+                                });
+                            } else {
+                                // Hiển thị thông báo khi số lượng giảm giá bằng 0
+                                document.getElementById("discountAmount").textContent = "0 VNĐ";
+                                document.getElementById("discountedTotal").textContent = numberFormat(totalPrice) + " VNĐ";
+                                couponErrorMessage.textContent = "Số lượng mã giảm giá đã hết!";
+                                couponErrorMessage.style.display = "block";
+                            }
+                        } else {
+                            document.getElementById("discountAmount").textContent = "0 VNĐ";
+                            document.getElementById("discountedTotal").textContent = numberFormat(totalPrice) + " VNĐ";
+                            couponErrorMessage.textContent = "Không có mã giảm giá!";
+                            couponErrorMessage.style.display = "block";
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Xử lý lỗi
+                    }
+                });
+            }
+
+
+
+            function calculateTotalPrice() {
+                var totalPrice = 0;
+                for (var i = 0; i < selectedProducts.length; i++) {
+                    var product = selectedProducts[i];
+                    totalPrice += product.quantity * product.price;
+                }
+                return totalPrice;
             }
 
             // tìm kiếm bằng giọng nói cho sản phẩm

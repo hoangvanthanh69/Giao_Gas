@@ -34,9 +34,10 @@ class DiscountController extends Controller
         $add_discount -> name_voucher = $data['name_voucher'];
         $add_discount -> ma_giam = $data['ma_giam'];
         $add_discount -> so_luong = $data['so_luong'];
-        $add_discount -> phan_tram_giam = $data['phan_tram_giam'];
+        $add_discount -> gia_tri = $data['gia_tri'];
         $add_discount -> thoi_gian_giam = $data['thoi_gian_giam'];
         $add_discount -> het_han = $data['het_han'];
+        $add_discount -> type = $data['type'];
         $add_discount->status = 1;
         $add_discount -> save();  
         return redirect()->route('quan-ly-giam-gia');
@@ -57,9 +58,10 @@ class DiscountController extends Controller
         $tbl_discount -> name_voucher = $request -> name_voucher;
         $tbl_discount -> ma_giam = $request -> ma_giam;
         $tbl_discount -> so_luong = $request -> so_luong;
-        $tbl_discount -> phan_tram_giam = $request -> phan_tram_giam;
+        $tbl_discount -> gia_tri = $request -> gia_tri;
         $tbl_discount -> thoi_gian_giam = $request -> thoi_gian_giam;
         $tbl_discount -> het_han = $request -> het_han;
+        $tbl_discount -> type = $request -> type;
         $tbl_discount -> save();
         return redirect()->route('quan-ly-giam-gia');
     }
@@ -92,10 +94,32 @@ class DiscountController extends Controller
         }
     }
 
-    // xóa mã giảm giá chưa có làm
+    // xóa mã giảm giá 
     function delete_discount($id){
         $tbl_discount = tbl_discount::find($id);
         $tbl_discount -> delete();
+        return redirect()->back();
+    }
+    
+   // kiểm tra mã giảm giá
+    function check_coupon(Request $request) {
+        $couponCode = $request->input('coupon');
+        $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
+        if ($coupon) {
+            return response()->json(['success' => true, 'type' => $coupon->type, 'gia_tri' => $coupon->gia_tri, 'so_luong' => $coupon->so_luong]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
+    // cập nhật số lượng giảm giá
+    function update_discount_quantity(Request $request){
+        $couponCode = $request->input('coupon');
+        $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
+        if ($coupon) {
+            $newQuantity = $coupon->so_luong - 1;
+            $coupon->update(['so_luong' => $newQuantity]);
+        }
         return redirect()->back();
     }
 }

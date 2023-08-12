@@ -409,10 +409,18 @@ class index_backend extends Controller
     }
 
     // quản lý giao hàng
-    function quan_ly_giao_hang(){
+    function quan_ly_giao_hang(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
+        $selectedDistrict = $request->input('district', '');
+        $query = order_product::orderByDesc('created_at');
+        if ($selectedDistrict) {
+            $query->where('district', $selectedDistrict);
+        }
+        // Lấy danh sách quận huyện từ cơ sở dữ liệu bảng đặt sản phẩm
+        $districts = order_product::pluck('district')->unique();
+
         $status = isset($_POST['status']) ? $_POST['status'] : 'all';
         if ($status == '1') {
             $order_product = order_product::where('status', 1)->orderByDesc('created_at')->get()->toArray(); 
@@ -439,11 +447,12 @@ class index_backend extends Controller
             }
             $order['products'] = $products;
         }
+       
         $tbl_admin = tbl_admin::get();
         $admin_name = session()->get('admin_name');
         $product_id = session()->get('product_id');
         return view('backend.quan_ly_giao_hang', ['order_product' => $order_product, 'status' => $status, 'tbl_admin' => $tbl_admin,
-        'admin_name' => $admin_name,]);
+        'admin_name' => $admin_name, 'districts' => $districts, 'selectedDistrict' => $selectedDistrict,]);
     }
     
     function quan_ly_giao_hangs(Request $request){
@@ -594,7 +603,7 @@ class index_backend extends Controller
         $products = product::get();
         $tbl_discount = tbl_discount::get();
         $ma_giam = session()->get('ma_giam');
-        $ma_giam = session()->get('phan_tram_giam');
+        $ma_giam = session()->get('gia_tri');
         return view('backend.order_phone', ['products' => $products, 'tbl_discount' => $tbl_discount, 'ma_giam' => $ma_giam]);
     }
     
@@ -607,14 +616,24 @@ class index_backend extends Controller
             if ($quantity) {
                 $product = Product::find($productId);
                 if ($product) {
-                $price = $product->original_price;
-                $totalPrice += $price * $quantity;
-                $data[] = [
-                    'product_id' => $productId,
-                    'product_name' => $product->name_product,
-                    'product_price' => $price,
-                    'quantity' => $quantity,
-                ];
+                    $price = $product->original_price;
+                    $totalPrice += $price * $quantity;
+                    $data[] = [
+                        'product_id' => $productId,
+                        'product_name' => $product->name_product,
+                        'product_price' => $price,
+                        'quantity' => $quantity,
+                    ];
+                    // Kiểm tra số lượng sản phẩm đủ để đặt hàng hay không
+                    $current_quantity = $product->quantity;
+                    $new_quantity = $current_quantity - $quantity;
+
+                    if ($new_quantity < 0) {
+                        return redirect()->route('order_phone')->with('message', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
+                    }
+                    // Cập nhật số lượng sản phẩm
+                    $product->quantity = $new_quantity;
+                    $product->save();
                 }
             }
         }
@@ -635,8 +654,8 @@ class index_backend extends Controller
         $order->district = $request['district'];
         $order->diachi = $request['diachi'];
         $order->loai = $request['loai'];
-        $user_id = Session::get('home')['id'];
-        $order->user_id = $user_id;
+        // $user_id = Session::get('home')['id'];
+        $order->user_id = 'null';
         if (empty($request['ghichu'])) {
             $order->ghichu = 'null';
         } else {
@@ -649,7 +668,11 @@ class index_backend extends Controller
             $order->admin_name = 'Chưa có người giao';
         }
         $order->order_code = uniqid();
-        $order->tong = $totalPrice;
+        // $order->tong = $totalPrice;
+        $tong = $request->input('tong');
+        $order->tong = $tong;
+        // print_r($tong);die;
+        
         $order->save();
         return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
     }
@@ -679,12 +702,4 @@ class index_backend extends Controller
         }
     }
 
-
-    // function mail_order(){
-    //     return view('backend.mail_order');
-    // }
-
-    
-
-    
 }

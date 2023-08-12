@@ -201,8 +201,11 @@ Route::post('/update_status_discount', [DiscountController::class, 'update_statu
 // xóa mã giảm giá
 Route::get('/delete_discount/{id}', [DiscountController::class, 'delete_discount'])->name('delete_discount');
 
-// kiểm tra mã giảm giá
-// Route::post('check-discount', [index::class, 'check_discount'])->name('check-discount');
+// tìm kiếm quản lý giao hàng
+// Route::get('/search-delivery', [index_backend::class, 'search_delivery'])->name('search-delivery');
 
-// gửi mail
-// Route::get('mail_order', [index_backend::class, 'mail_order']);
+// kiểm tra mã giảm giá
+Route::post('check-coupon', [DiscountController::class, 'check_coupon'])->name('check-coupon');
+
+// cập nhật số lượng
+Route::post('update-discount-quantity', [DiscountController::class, 'update_discount_quantity'])->name('update-discount-quantity');

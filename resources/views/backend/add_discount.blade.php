@@ -32,8 +32,17 @@
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Phần trăm giảm</span>
-                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="phan_tram_giam">
+                        <span class="name-add-product-all " for="">Loại giảm</span>
+                        <select id="type" name="type" class="input-add-product col-11 ps-2 pe-2 mt-2" aria-label="Default select example">
+                            <option value="">Chọn Loại</option>
+                            <option value="1">Giảm theo phần trăm</option>
+                            <option value="2">Giảm theo giá tiền</option>
+                        </select>   
+                    </div>
+
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Giá trị giảm</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="gia_tri">
                     </div>
 
                     <div class="col-4 mt-4">
@@ -67,17 +76,19 @@
 					name_voucher: "required",
 					ma_giam: "required",
 					so_luong: "required",
-                    phan_tram_giam: "required",
+                    gia_tri: "required",
                     thoi_gian_giam: "required",                        
-                    het_han: "required",                        
+                    het_han: "required",       
+                    type: "required",       
 				},
 				messages: {
 					name_voucher: "Nhập tên giảm",
 					ma_giam: "Nhập mã giảm",
 					so_luong: "Nhập số lượng",
-					phan_tram_giam: "Nhập phần trăm giảm",
+                    gia_tri: "Nhập giá trị giảm",
 					thoi_gian_giam: "Nhập ngày bắt đầu giảm",
 					het_han: "Nhập ngày hết hạn giảm",
+					type: "Chọn loại giảm giá",
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {

@@ -20,46 +20,50 @@
             <span style="background-color: #ffc107; height: 27px !important; ">{{$order->order_code}}</span>
         </div>
         <div style="padding-left: 1rem; flex: 0 0 auto; width: 30%;">
-            Loại: {{$order->loai == 1 ? 'Gas công nghiệp' : 'Gas dân dụng'}}
+            <strong>Loại: </strong> {{$order->loai == 1 ? 'Gas công nghiệp' : 'Gas dân dụng'}}
         </div>
     </div>
 
 
     <div style="display: flex; ">
         <div style="flex: 0 0 auto; width: 60%; font-size: 15px;">
-            <p style="font-size: 15px;">Thông tin sản phẩm:</p>
-            @foreach(json_decode($order->infor_gas) as $product)
-                <div style="display: flex; margin-right: 10px;">
-                    <div style="align-items: center; line-height: 50px; padding-right: 10px;">
-                        {{$product->product_name}}
-                    </div>
-
-                    <div style="flex: 0 0 auto; align-items: center; line-height: 50px; padding-right: 10px;">
-                        Số lượng: {{$product->quantity}}
-                    </div>
-
-                    <div style="flex: 0 0 auto; align-items: center; line-height: 50px;">
-                        {{number_format($product->product_price)}} VNĐ
-                    </div>
-                </div>
-            @endforeach
+            <p style="font-size: 15px; text-align: center; font-weight: 600;">Thông tin sản phẩm:</p>
+                <table style="width: 100%; margin-bottom: 1rem; color: #212529; border-color: #dee2e6;border-collapse: collapse;">
+                    <thead style="border-width: 0;">
+                        <tr style="border-color: inherit; border-style: solid; border-width: 1px 0; border-width: 1px 0; border-style: solid;">
+                            <th style="border-width: 0 1px; border-color: inherit; border-style: solid;">Tên sản phẩm</th>
+                            <th style="border-width: 0 1px; border-color: inherit; border-style: solid;">Số lượng</th>
+                            <th style="border-width: 0 1px; border-color: inherit; border-style: solid;">Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody style="vertical-align: inherit; border-color: inherit; border-style: solid; border-width: 0;">
+                    @foreach(json_decode($order->infor_gas) as $product)
+                        <tr style="border-width: 1px 0; border-color: inherit; border-style: solid; border-width: 0; box-sizing: border-box;">
+                            <td style="order-collapse: collapse; border-color: inherit; border-style: solid; border-width: 0 1px; padding: 0.5rem 0.5rem; background-color: var(--bs-table-bg); border-bottom-width: 1px;">{{$product->product_name}}</td>
+                            <td style="order-collapse: collapse; border-color: inherit; border-style: solid; border-width: 0 1px; border-bottom-width: 1px; text-align: center;">{{$product->quantity}}</td>
+                            <td style="order-collapse: collapse; border-color: inherit; border-style: solid; border-width: 0 1px; padding: 0.5rem 0.5rem; background-color: var(--bs-table-bg); border-bottom-width: 1px;">{{number_format($product->product_price)}} VNĐ</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            <!--  -->
         </div>
 
-        <div style="flex: 0 0 auto; width: 40%; font-size: 15px;">
-            <p style="font-size: 15px;">Tổng Cộng:</p>
-            <div style="display: flex">
-                <div style="flex: 0 0 auto; width: 60%; line-height: 50px;">
+        <div style="flex: 0 0 auto; width: 40%; font-size: 15px; margin-left: 35px;">
+            <p style="font-size: 15px; text-align: center; font-weight: 600;">Tổng Cộng:</p>
+            <div style="display: flex;">
+                <div style="flex: 0 0 auto; width: 60%;">
                     Tổng tiền sản phẩm:
                 </div>
 
-                <div style="flex: 0 0 auto;width: 40%; line-height: 50px;">
+                <div style="flex: 0 0 auto;width: 40%;">
                     {{number_format($order->tong)}} VNĐ
                 </div>
             </div>
 
-            <div style="display: flex; border-bottom: 1px solid #dee2e6">
+            <div style="display: flex; border-bottom: 1px solid #dee2e6; margin-top: -15px;">
                 <div style="flex: 0 0 auto; width: 60%; line-height: 50px;">
-                    Khuyến mái giảm giá:
+                    Khuyến mãi giảm giá:
                 </div>
                 
                 <div style="flex: 0 0 auto;width: 40%; line-height: 50px;">

@@ -1315,3 +1315,26 @@ select.selected-option-date-customer {
     margin-right: -30px;
     padding-inline-start: 34px;
 }
+.input-coupon-customer-online {
+    border-radius: 2px;
+    border: 1px solid;
+    height: 35px;
+    outline: none;
+    padding-left: 29px;
+    margin-left: -29px;
+}
+.btn-apply-code-sale {
+    height: 35px;
+    border: 1px solid;
+    border-radius: 2px;
+}
+#discountedTotal{
+    color: red;
+    font-weight: 600;
+    font-size: 17px;
+    padding-bottom: 10px;
+}
+.icon-sale-customer-online {
+    position: relative;
+    padding-left: 10px;
+}

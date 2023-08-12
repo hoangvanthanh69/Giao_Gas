@@ -226,6 +226,26 @@
             });
          });
       </script>
+         <script>
+            var notificationClasses = [
+               '.change-password-customer-home',
+               '.success-customer-home-notification',
+            ];
+            function showContent() {
+               notificationClasses.forEach(function(classname) {
+                     var contentBox = document.querySelector(classname);
+                     if (contentBox) {
+                        contentBox.classList.add('show');
+                        setTimeout(function() {
+                           contentBox.classList.remove('show');
+                        }, 6000); 
+                     }
+               });
+            }
+            @if(session('success') || session('message'))
+               showContent();
+            @endif
+         </script>
 
    </body>
 </html>

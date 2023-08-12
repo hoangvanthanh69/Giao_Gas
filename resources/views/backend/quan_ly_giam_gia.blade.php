@@ -39,8 +39,9 @@
                     <th>STT</th>
                     <th class="">Tên mã giảm giá</th>
                     <th class="">Mã giảm giá</th>
-                    <th class="">Số lượng mã</th>
-                    <th class="">Số phần trăm giảm</th>
+                    <th class="">Số lượng</th>
+                    <th class="">Loại giảm giá</th>
+                    <th class="">Giá trị</th>
                     <th class="">Giảm từ ngày</th>
                     <th class="">Ngày hết hạn giảm</th>
                     <th>Trạng thái</th>
@@ -59,7 +60,9 @@
 
                         <td class="product-order-quantity">{{$val['so_luong']}}</td>
 
-                        <td class="product-order-quantity">{{$val['phan_tram_giam']}}%</td>
+                        <td class="product-order-quantity"><?php if($val['type']==1) {echo 'Theo phần trăm (%)';} elseif($val['type']==2){echo ' Theo giá tiền (VNĐ)';}?></td>
+
+                        <td class="product-order-quantity">{{number_format($val['gia_tri'])}}</td>
 
                         <td class="roduct-order-quantity">{{$val['thoi_gian_giam']}}</td>
                         

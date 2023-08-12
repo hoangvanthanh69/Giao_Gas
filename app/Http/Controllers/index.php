@@ -51,8 +51,14 @@ class index extends Controller
       $users = users::find($user_id);
       $counts_processing = order_product::where('user_id', $user_id)->count();
       $products = product::get();
+      // 
+      $tbl_discount = tbl_discount::get();
+      $ma_giam = session()->get('ma_giam');
+      $ma_giam = session()->get('gia_tri');
+      // 
       return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
-      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,'products' => $products
+      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,'products' => $products,
+      'ma_giam' => $ma_giam, 'tbl_discount' => $tbl_discount,
       ]);
    }
 
@@ -134,6 +140,16 @@ class index extends Controller
                   'product_price' => $price,
                   'quantity' => $quantity,
                ];
+               // Kiểm tra số lượng sản phẩm đủ để đặt hàng hay không
+               $current_quantity = $product->quantity;
+               $new_quantity = $current_quantity - $quantity;
+
+               if ($new_quantity < 0) {
+                   return redirect()->route('home')->with('mesage', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
+               }
+               // Cập nhật số lượng sản phẩm
+               $product->quantity = $new_quantity;
+               $product->save();
             }
          }
       }
@@ -168,7 +184,9 @@ class index extends Controller
          $order->admin_name = 'Chưa có người giao';
       }
       $order->order_code = uniqid();
-      $order->tong = $totalPrice;
+      // $order->tong = $totalPrice;
+      $tong = $request->input('tong');
+      $order->tong = $tong;
       $order->save();
 
       //
@@ -210,54 +228,6 @@ class index extends Controller
       ]);
   
    }
-
-   // function handle_order(){
-   //    $product = product::where(['loai' => $_POST['id']])->get()->toArray();
-   //    $bestsellerIds = order_product::select('idProduct', DB::raw('sum(amount) as total_amount'))->groupBy('idProduct')
-   //       ->havingRaw('COUNT(*) >= 2')
-   //       ->orderByDesc('total_amount')
-   //       ->pluck('idProduct')
-   //       ->toArray();
-   //    $output = "";
-   
-   //    foreach ($product as $val) {
-   //       $isBestseller = in_array($val['id'], $bestsellerIds);
-   //       $output .= '
-   //          <div class="col-3 image-product-order-all productchoose" id="'.$val['id'].'">
-   //             <div class="activeq">
-   //                <img class="image-product-order" src="uploads/product/'. $val['image'].'" alt="">
-   //             </div>
-   
-   //             <div class="name-product-order">
-   //                Tên sản phẩm:
-   //                <span class="name_product name-product-span"> '. $val['name_product'].'</span>
-   //             </div>
-   
-   //             <div class="price-product-order price" id="price">
-   //                Giá sản phẩm: 
-   //                <span class="gia price-product-order-span">'. number_format($val['original_price']).' đ</span>
-   //             </div>'
-   //             ;
-   
-   //       if ($isBestseller) {
-   //          $output .= '
-   //             <div class="home-product-item-selling">
-   //                <span class="">Bán chạy</span>
-   //             </div>';
-   //       }
-   
-   //       if ($val['quantity'] == 0) {
-   //          $output .= '
-   //             <div class="home-product-item-sale-off">
-   //                <span class="home-product-item-sale-off-label">Hết gas</span>
-   //             </div>';
-   //       }
-   
-   //       $output .= '</div>';
-   //    }
-    
-   //    echo $output;
-   // }
 
    //
    function order_history(Request $request) {
@@ -398,21 +368,5 @@ class index extends Controller
       $user->save();
       return redirect()->back()->with('success', 'Cập nhật mật khẩu thành công');
    }
-
-   // kiểm tra mã giảm giá
-//    function check_discount(Request $request){
-//       $discountCode = $request->input('discount_code');
-
-//         // Kiểm tra xem mã giảm giá có tồn tại trong bảng tbl_discount hay không
-//         $discount = tbl_discount::where('ma_giam', $discountCode)->first();
-
-//         if ($discount) {
-//             // Mã giảm giá tồn tại trong bảng tbl_discount
-//             return response()->json(['message' => 'Mã giảm giá hợp lệ']);
-//         } else {
-//             // Mã giảm giá không tồn tại trong bảng tbl_discount
-//             return response()->json(['message' => 'Mã giảm giá không hợp lệ']);
-//         }
-    
-//   }
+  
 }

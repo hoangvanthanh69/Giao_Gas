@@ -22,6 +22,13 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if (session('message'))
+            <div class="success-customer-home-notification d-flex">
+                <i class="fas fa-ban icon-check-cancel"></i>
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="row show-infor-product-orders container">
             <form class="row g-2" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-order')}}">
                 @csrf
@@ -77,7 +84,7 @@
                                     <option value="">Chọn voucher</option>
                                         @foreach($tbl_discount as $discount)
                                             @if($discount -> status != 2)
-                                                <option value="{{$discount->ma_giam}}">{{$discount -> ma_giam}} - {{$discount -> phan_tram_giam}}%</option>
+                                                <option value="{{$discount->ma_giam}}">{{$discount -> ma_giam}} - {{number_format($discount -> gia_tri)}}</option>
                                             @endif
                                         @endforeach
                                 </select>
@@ -91,6 +98,7 @@
                         
                         <div class="mt-4">
                             <div id="selectedProducts"></div>
+                            <input type="hidden" name="tong" id="tong" value="">
                         </div>
 
                         <div class="mt-4 sumbmit-order-product" id="show_infor">
@@ -356,17 +364,25 @@
 
                 // Tính giảm giá dựa trên phần trăm của mã giảm giá
                 var discountPercent = 0;
+                var discountAmount = 0;
+
+                // Kiểm tra nếu có mã giảm giá đã chọn
                 if (selectedVoucher) {
                     for (var i = 0; i < tbl_discount.length; i++) {
                         var discount = tbl_discount[i];
                         if (discount.ma_giam === selectedVoucher) {
-                            discountPercent = discount.phan_tram_giam;
+                            if (discount.type === 1) {
+                                discountPercent = discount.gia_tri;
+                                discountAmount = totalPrice * (discountPercent / 100);
+                            } else if (discount.type === 2) {
+                                discountAmount = discount.gia_tri;
+                            }
                             break;
                         }
                     }
                 }
-
-                discountAmount = totalPrice * (discountPercent / 100);
+                var tong = totalPrice - discountAmount;
+                document.getElementById('tong').value = tong;
                 // console.log("Giá trị giảm giá:", discountAmount);
                 // console.log("Phần trăm giảm giá:", discountPercent);
                 var totalHTML = `
@@ -387,11 +403,10 @@
 
                     <div class="row">
                         <span class="col-4 infor-customer-order text-warning fs-5">Thành tiền: </span>
-                        <span class="col selected-products-total fs-5 text-danger">${numberFormat(totalPrice - discountAmount)} đ</span>
+                        <span class="col selected-products-total fs-5 text-danger">${numberFormat(tong)} đ</span>
                     </div>
                     
                 `;
-
                 selectedProductsDiv.innerHTML += totalHTML;
             }
 
