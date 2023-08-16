@@ -40,16 +40,16 @@
                                 <tr class="order-product-height hover-color">
                                     <td class="col-1">{{$val['order_code']}}</td>
                                     <td class="col-2">{{$val['nameCustomer']}}</td>
-                                    <td class="col-2">{{$val['diachi']}}, {{$val['district']}},  {{$val['state']}}, {{$val['country']}}</td>
-                                    <td class="col-4">
+                                    <td class="col-3">{{$val['diachi']}}, {{$val['district']}},  {{$val['state']}}, {{$val['country']}}</td>
+                                    <td class="col-3">
                                         @if (!empty($val['products']))
                                             @foreach ($val['products'] as $product)
                                                 <div class="d-flex align-items-center">
                                                     <div class="col-3 infor-order-user-history">
                                                         <img class="image-admin-product-edit" src="{{asset('uploads/product/'.$product['product']->image)}}" width="70%" height="70%" alt="">       
                                                     </div>
-                                                    <div class="col-6">{{ $product['product_name']}}</div>
-                                                    <div class="col-3">Số lượng: {{ $product['quantity'] }}</div>
+                                                    <div class="col-7">{{ $product['product_name']}}</div>
+                                                    <div class="col-2">Sl: {{ $product['quantity'] }}</div>
                                                 </div>
                                             @endforeach
                                         @endif
@@ -65,8 +65,8 @@
                                         <form method="POST" action="{{route('quan_ly_giao_hangs')}}">
                                             @csrf
                                             {{$val['admin_name']}}
-                                            <select name="admin_name" class="form-control" onchange="this.form.submit()">
-                                                <option value="">Chọn</option>
+                                            <select name="admin_name" class="form-select-delivery"  onchange="this.form.submit()">
+                                                <option value="">--- Chọn ---</option>
                                                 @php
                                                     $count = 0;
                                                 @endphp

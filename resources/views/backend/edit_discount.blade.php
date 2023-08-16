@@ -30,6 +30,11 @@
                     </div>
 
                     <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Điều kiện</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="Prerequisites" value="{{$tbl_discount -> Prerequisites}}">
+                    </div>
+
+                    <div class="col-4 mt-4">
                         <span class="name-add-product-all " for="">Loại giảm</span>
                         <select id="type" name="type" class="input-add-product col-11 ps-2 pe-2 mt-2" aria-label="Default select example">
                             <option value="">Chọn Loại</option>

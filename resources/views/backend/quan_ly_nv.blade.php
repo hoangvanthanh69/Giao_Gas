@@ -16,6 +16,15 @@
               <a class="add-staffs" href="{{route('add-staff')}}">Thêm Nhân viên</a>
             </div>
 
+            <div class="export-file-excel-staff">
+              <form action="{{route('export-excel-staff')}}" method="POST">
+                @csrf
+                <button type="submit" value="" name="export_csv" class="export-file-excel-button">
+                  <i class="fa-solid fa-file-export"></i>Xuất Excel
+                </button>
+              </form>
+            </div>
+
             <div class="search-infor-amdin-form">
                 <form action="{{ route('admin.search_order') }}" method="GET" class="header-with-search-form ">
                   @csrf
@@ -45,17 +54,19 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr class="tr-name-table">
-                    <th>Mã số </th>
-                    <th class="align-center col-1">Ảnh</th>
-                    <th class="align-center col-2">Họ Tên</th>
-                    <th class="align-center col-1">SĐT</th>
-                    <th class="col-1 align-center">Năm sinh</th>
-                    <th class="col-1 align-center">Chức vụ</th>
+                    <th >Mã số </th>
+                    <th class="align-center">Ảnh</th>
+                    <th class="col-1 align-center">Họ Tên</th>
+                    <th class="align-center">SĐT</th>
+                    <th class="">Năm sinh</th>
+                    <th class="align-center">CCCD</th>
+                    <th>Giới tính</th>
+                    <th class="">Chức vụ</th>
                     <th class="col-1 align-center">Tài khoản @</th>
-                    <th class="align-center col-3">Địa chỉ</th>
-                    <th class="col-1 ">Ngày vào làm</th>
-                    <th class="align-center col-1">Lương/Tháng</th>
-                    <th>Chức năng</th>
+                    <th class="col-2 align-center">Địa chỉ</th>
+                    <th class="col-1">Ngày vào làm</th>
+                    <th class="col-1 align-center">Lương/Tháng</th>
+                    <th >Chức năng</th>
                   </tr>
                 </thead>
                 
@@ -74,6 +85,10 @@
 
                         <td class="product-order-quantity">{{$val['birth']}}</td>
 
+                        <td class="product-order-quantity">{{$val['CCCD']}}</td>
+
+                        <td class="product-order-quantity"><?php if($val['gioi_tinh']==1){echo "Nam";} else{echo "Nữ";}  ?></td>
+
                         <td class="roduct-order-quantity">
                           <?php if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
                           elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
@@ -86,7 +101,7 @@
 
                         <td class="product-order-quantity">{{$val['date_input']}}</td>
 
-                        <td class="product-order-quantity">{{number_format($val['luong'])}} đ</td>
+                        <td class="product-order-quantity">{{number_format($val['luong'])}} <span class="text-decoration-underline">đ</span></td>
 
                         <td class="function-icon function-icon-staff">
                           <form action="{{route('edit-staff', $val['id'])}}">

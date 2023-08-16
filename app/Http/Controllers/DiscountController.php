@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tbl_discount;
+use App\Models\order_product;
 use Session;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class DiscountController extends Controller
 {
@@ -38,6 +40,7 @@ class DiscountController extends Controller
         $add_discount -> thoi_gian_giam = $data['thoi_gian_giam'];
         $add_discount -> het_han = $data['het_han'];
         $add_discount -> type = $data['type'];
+        $add_discount -> Prerequisites = $data['Prerequisites'];
         $add_discount->status = 1;
         $add_discount -> save();  
         return redirect()->route('quan-ly-giam-gia');
@@ -62,6 +65,7 @@ class DiscountController extends Controller
         $tbl_discount -> thoi_gian_giam = $request -> thoi_gian_giam;
         $tbl_discount -> het_han = $request -> het_han;
         $tbl_discount -> type = $request -> type;
+        $tbl_discount -> Prerequisites = $request -> Prerequisites;
         $tbl_discount -> save();
         return redirect()->route('quan-ly-giam-gia');
     }
@@ -106,20 +110,42 @@ class DiscountController extends Controller
         $couponCode = $request->input('coupon');
         $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
         if ($coupon) {
-            return response()->json(['success' => true, 'type' => $coupon->type, 'gia_tri' => $coupon->gia_tri, 'so_luong' => $coupon->so_luong]);
+            $userId = Session::get('home')['id'];
+            if ($userId) {
+                $usedInOrder = order_product::where('user_id', $userId)
+                    ->where('coupon', $couponCode)
+                    ->exists();
+    
+                return response()->json([
+                    'success' => true,
+                    'used' => $usedInOrder,
+                    'type' => $coupon->type,
+                    'gia_tri' => $coupon->gia_tri,
+                    'so_luong' => $coupon->so_luong,
+                    'status' => $coupon->status,
+                    'Prerequisites' => $coupon->Prerequisites
+                ]);
+            }
+            return response()->json([
+                'success' => true,
+                'used' => false,
+                'type' => $coupon->type,
+                'gia_tri' => $coupon->gia_tri,
+                'so_luong' => $coupon->so_luong,
+                'status' => $coupon->status,
+                'Prerequisites' => $coupon->Prerequisites
+            ]);
         } else {
             return response()->json(['success' => false]);
         }
     }
+    
+    
 
-    // cập nhật số lượng giảm giá
-    function update_discount_quantity(Request $request){
+    // thông báo số lượng giảm giá
+    function notification_discount_quantity(Request $request){
         $couponCode = $request->input('coupon');
         $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
-        if ($coupon) {
-            $newQuantity = $coupon->so_luong - 1;
-            $coupon->update(['so_luong' => $newQuantity]);
-        }
         return redirect()->back();
     }
 }

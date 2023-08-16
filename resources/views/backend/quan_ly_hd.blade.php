@@ -31,8 +31,24 @@
                     <label class="form-check-label" for="type2">Gas dân dụng</label>
                   </div>
                 </div>
+
+                
+
+                <div class="ms-4 export-file-pdf">
+                  <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
+                </div>
               </div>
             </form>
+            
+            <div class="export-file-excel">
+              <form action="{{route('export-excel')}}" method="POST">
+                @csrf
+                <button type="submit" value="" name="export_csv" class="export-file-excel-button">
+                  <i class="fa-solid fa-file-export"></i>Xuất Excel
+                </button>
+              </form>
+            </div>
+
             <div class="search-infor-amdin-form mt-2 me-4">
               <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
                 @csrf

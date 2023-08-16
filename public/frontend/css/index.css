@@ -258,7 +258,7 @@ html{
     color: #75b239;
 }
 .footer-imge-license{
-    padding: 18px 0 ;
+    padding: 5px 0 ;
     display: flex;
     justify-content: center;
     color: rgb(228, 234, 237);
@@ -442,16 +442,18 @@ i.fa-solid.fa-pencil {
 .hot-line a{
     background: #FD9C2C;
     border-radius: 58px;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 150%;
     color: #D82438;
     font-weight: bold;
-    height: 53px;
+    height: 40px;
+    width: 137px;
+    margin-left: 14%;
     padding-left: 21px;
     display: flex;
     text-decoration: none;
     align-items: center;
-    margin-top: 30px;
+    margin-bottom: 10px;
 }
 .card-support{
     border: none !important;
@@ -1337,4 +1339,7 @@ select.selected-option-date-customer {
 .icon-sale-customer-online {
     position: relative;
     padding-left: 10px;
+}
+.value-discount-infor {
+    padding-left: 2px !important;
 }

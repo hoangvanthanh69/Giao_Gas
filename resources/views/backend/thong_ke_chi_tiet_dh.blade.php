@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <a class="back-order-statistics" href="{{route('admin')}}"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
+        <a class="text-primary text-decoration-none" href="{{route('admin')}}"><i class="fa-solid fa-angles-left"></i> Quay lại</a>
 
     </div>
 @endsection

@@ -41,7 +41,6 @@
                                 <option value="2" <?php echo  $staff['chuc_vu']==2?'selected':'' ?>>Quản lý</option>
                                 <option value="3" <?php echo  $staff['chuc_vu']==3?'selected':'' ?>>Biên tập</option>
                             </select>    
-
                         </div>
                     </div>
 
@@ -53,6 +52,20 @@
                     <div class="col-4 mt-4">
                         <span class="name-add-product-all " for="">Địa chỉ thường trú</span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="dia_chi" value="{{$staff->dia_chi}}">
+                    </div>
+
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">CCCD</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="CCCD" value="{{$staff->CCCD}}">
+                    </div>
+
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Giới tính</span>
+                        <select id="gioi_tinh" name="gioi_tinh"  class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
+                            <option value="">Chọn giới tính</option>
+                            <option value="1" <?php echo  $staff['gioi_tinh']==1?'selected':'' ?>>Nam</option>
+                            <option value="2" <?php echo  $staff['gioi_tinh']==2?'selected':'' ?>>Nữ</option>
+                        </select> 
                     </div>
 
                     <div class="col-4 mt-4">

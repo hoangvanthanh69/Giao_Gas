@@ -29,6 +29,7 @@
                                 <th>Địa chỉ</th>
                                 <th>Loại bình gas</th>
                                 <th>Thông tin sản phẩm</th>
+                                <th>Giảm giá</th>
                                 <th>Ghi chú</th>
                                 <th>Ngày tạo</th>
                                 <th>Tổng giá</th>
@@ -59,7 +60,7 @@
                                             </span>
                                             <span class="col-4">
                                                 <span>Giá:</span>
-                                                    {{ number_format($product['product_price']) }} đ
+                                                {{ number_format($product['product_price']) }} <span class="text-decoration-underline">đ</span>
                                             </span>
                                             <span class="col-1">
                                                 <span>SL:</span>
@@ -70,6 +71,8 @@
                                 @endif
                                 </td>
 
+                                <td>{{number_format($order_product['reduced_value'])}} <span class="text-decoration-underline">đ</span></td>
+
                                 <td>{{$order_product['ghichu']}}</td>
 
                                 <td>
@@ -78,7 +81,7 @@
                             
 
                                 <td class="">
-                                    <strong>{{number_format($order_product['tong'])}} đ</strong>
+                                    <strong>{{number_format($order_product['tong'])}} <span class="text-decoration-underline">đ</span></strong>
                                 </td>
                                 
                             </tr>

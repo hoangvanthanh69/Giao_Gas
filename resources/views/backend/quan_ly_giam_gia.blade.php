@@ -37,16 +37,17 @@
                 <thead>
                   <tr class="tr-name-table">
                     <th>STT</th>
-                    <th class="">Tên mã giảm giá</th>
-                    <th class="">Mã giảm giá</th>
-                    <th class="">Số lượng</th>
-                    <th class="">Loại giảm giá</th>
-                    <th class="">Giá trị</th>
-                    <th class="">Giảm từ ngày</th>
-                    <th class="">Ngày hết hạn giảm</th>
-                    <th>Trạng thái</th>
-                    <th>Ngày tạo</th>
-                    <th>Chức năng</th>
+                    <th class="col-1">Tên mã giảm</th>
+                    <th class="col-1">Mã giảm giá</th>
+                    <th class="col">Sl</th>
+                    <th class="col-1">Loại giảm</th>
+                    <th class="col">Giá trị</th>
+                    <th class="col">Giảm từ ngày</th>
+                    <th class="col">Ngày hết hạn</th>
+                    <th class="col">Trạng thái</th>
+                    <th class="col-1">> Điều kiện</th>
+                    <th class="col-1">Ngày tạo</th>
+                    <th class="col">Chức năng</th>
                   </tr>
                 </thead>
                 
@@ -62,7 +63,7 @@
 
                         <td class="product-order-quantity"><?php if($val['type']==1) {echo 'Theo phần trăm (%)';} elseif($val['type']==2){echo ' Theo giá tiền (VNĐ)';}?></td>
 
-                        <td class="product-order-quantity">{{number_format($val['gia_tri'])}}</td>
+                        <td class="product-order-quantity"><?php if ($val['type'] == 1) {echo number_format($val['gia_tri']) . '%';} else {echo number_format($val['gia_tri']) . ' <span class="text-decoration-underline">đ</span>';}  ?></td>
 
                         <td class="roduct-order-quantity">{{$val['thoi_gian_giam']}}</td>
                         
@@ -70,9 +71,11 @@
 
                         <td class="roduct-order-quantity"><?php if($val['status']==1){echo 'Còn mã';}elseif($val['status']==2){echo 'Hết hạn';}  ?></td>
 
+                        <td class="roduct-order-quantity">{{number_format($val['Prerequisites'])}} <span class="text-decoration-underline">đ</span></td>
+
                         <td class="roduct-order-quantity">{{$val['created_at']}}</td>
 
-                        <td class="function-icon">
+                        <td class="function-icon icon-line-height">
                           <form action="{{route('edit-discount', $val['id'])}}">
                             <button class="summit-add-product-button" type='submit'>
                               <i class="fa-solid fa-pen-to-square"></i>

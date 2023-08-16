@@ -208,4 +208,11 @@ Route::get('/delete_discount/{id}', [DiscountController::class, 'delete_discount
 Route::post('check-coupon', [DiscountController::class, 'check_coupon'])->name('check-coupon');
 
 // cập nhật số lượng
-Route::post('update-discount-quantity', [DiscountController::class, 'update_discount_quantity'])->name('update-discount-quantity');
+Route::post('update-discount-quantity', [index::class, 'update_discount_quantity'])->name('update-discount-quantity');
+Route::post('notification-discount-quantity', [DiscountController::class, 'notification_discount_quantity'])->name('notification-discount-quantity');
+
+// export_excel cho ds đơn hàng
+Route::post('export-excel', [index_backend::class, 'export_excel'])->name('export-excel');
+
+// export excel cho ds nhân viên
+Route::post('export-excel-staff', [index_backend::class, 'export_excel_staff'])->name('export-excel-staff');

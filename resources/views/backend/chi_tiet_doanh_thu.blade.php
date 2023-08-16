@@ -1,11 +1,12 @@
 @extends('layouts.admin_gas')
-@section('sidebar-active-revenue', 'active' )
+@section('sidebar-active-home', 'active' )
 @section('content')
 
 <div class="col-10 nav-row-10 ">
     <div class="container-fluid">
 
     <div class="row">
+        <a class="text-primary text-decoration-none mb-3" href="{{route('admin')}}"><i class="fa-solid fa-angles-left"></i> Quay lại</a>
         <h5 class="order-detail-overview">Thống kê chi tiết doanh thu</h5>
         <!-- tổng doanh thu  -->
         <div class="col-6">

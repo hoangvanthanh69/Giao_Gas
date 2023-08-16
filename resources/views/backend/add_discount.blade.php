@@ -32,11 +32,16 @@
                     </div>
 
                     <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Điều kiện (VNĐ)</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="Prerequisites">
+                    </div>
+
+                    <div class="col-4 mt-4">
                         <span class="name-add-product-all " for="">Loại giảm</span>
                         <select id="type" name="type" class="input-add-product col-11 ps-2 pe-2 mt-2" aria-label="Default select example">
                             <option value="">Chọn Loại</option>
-                            <option value="1">Giảm theo phần trăm</option>
-                            <option value="2">Giảm theo giá tiền</option>
+                            <option value="1">Giảm theo phần trăm (%)</option>
+                            <option value="2">Giảm theo giá tiền (VNĐ)</option>
                         </select>   
                     </div>
 
@@ -75,20 +80,40 @@
 				rules: {
 					name_voucher: "required",
 					ma_giam: "required",
-					so_luong: "required",
-                    gia_tri: "required",
+					so_luong: {
+                        required: true,
+                        number: true 
+                    },
+                    gia_tri: {
+                        required: true,
+                        number: true 
+                    },
                     thoi_gian_giam: "required",                        
                     het_han: "required",       
                     type: "required",       
+                    Prerequisites: {
+                        required: true,
+                        number: true
+                    }
 				},
 				messages: {
 					name_voucher: "Nhập tên giảm",
 					ma_giam: "Nhập mã giảm",
-					so_luong: "Nhập số lượng",
-                    gia_tri: "Nhập giá trị giảm",
+					so_luong: {
+                        required: "Nhập số lượng",
+                        number: "Vui lòng chỉ nhập số nguyên"
+                    },
+                    gia_tri: {
+                        required: "Nhập giá trị giảm",
+                        number: "Vui lòng chỉ nhập số"
+                    },
 					thoi_gian_giam: "Nhập ngày bắt đầu giảm",
 					het_han: "Nhập ngày hết hạn giảm",
 					type: "Chọn loại giảm giá",
+                    Prerequisites:{
+                        required: "Nhập (giá trị) điều kiện giảm",
+                        number: "Vui lòng chỉ nhập số"
+                    }
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {

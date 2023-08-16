@@ -53,6 +53,20 @@
                     </div>
 
                     <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">CCCD</span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="CCCD">
+                    </div>
+
+                    <div class="col-4 mt-4">
+                        <span class="name-add-product-all " for="">Giới tính</span>
+                        <select id="gioi_tinh" name="gioi_tinh" class="input-add-product col-11 mt-2 ps-2 pe-2" aria-label="Default select example">
+                            <option value="">Chọn giới tính</option>
+                            <option value="1" >Nam</option>
+                            <option value="2">Nữ</option>
+                        </select> 
+                    </div>
+
+                    <div class="col-4 mt-4">
                         <span class="name-add-product-all " for="">Ngày vào làm</span>
                         <input class="input-add-product col-11 mt-2 ps-2 pe-2" type="date" name="date_input">
                     </div>
@@ -90,25 +104,47 @@
                     taikhoan: {required: true, email: true},
                     dia_chi: "required",
                     date_input: "required",                        
-                    phone: "required",                        
-                    luong: "required",       
+                    phone: {
+                        required: true,
+                        number: true,
+                    },                     
+                    luong: {
+                        required: true,
+                        number: true,
+                    }, 
+                    CCCD: {
+                        required: true,
+                        number: true,
+                    },           
                     chuc_vu: "required",
+                    image_staff : "required",
+                    gioi_tinh: "required"
 				},
 				messages: {
 					last_name: "Nhập họ tên",
 					birth: "Nhập ngày sinh",
 					cv_nv: "Chọn chức vụ",
-
 					taikhoan: {
                         required: "Nhập tài khoản",
                         email: "Tài khoản không đúng định dạng",
                     },
-
 					dia_chi: "Nhập địa chỉ",
 					date_input: "Nhập ngày vào làm",
-					phone: "Nhập số điện thoại",
-					luong: "Nhập lương / tháng",
-                    chuc_vu: "Chọn chức vụ"
+					phone: {
+                        required: "Nhập số điện thoại",
+                        number: "Vui lòng nhập số",
+                    },
+					luong: {
+                        required: "Nhập lương /tháng",
+                        number: "Vui lòng nhập số",
+                    },
+                    CCCD: {
+                        required: "Nhập CCCD",
+                        number: "Vui lòng nhập số",
+                    },
+                    chuc_vu: "Chọn chức vụ",
+                    image_staff: "Chọn ảnh",
+                    gioi_tinh: "Chọn giới tính"
 
 				},
 				errorElement: "div",

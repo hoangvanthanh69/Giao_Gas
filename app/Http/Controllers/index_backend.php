@@ -18,6 +18,9 @@ use DB;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Mail;
+use App\Exports\ExcelExports;
+use App\Exports\ExcelExportsStaff;
+use Excel;
 
 
 class index_backend extends Controller
@@ -132,7 +135,9 @@ class index_backend extends Controller
         $staff->dia_chi = $request->dia_chi;
         $staff->date_input = $request->date_input;
         $staff->phone = $request->phone;
+        $staff->CCCD = $request->CCCD;
         $staff->luong = $request->luong;
+        $staff->gioi_tinh = $request->gioi_tinh;
         $get_image = $request->image_staff;
         if($get_image){
             // Bỏ hình ảnh cũ
@@ -172,6 +177,8 @@ class index_backend extends Controller
         $add_staff->date_input =  $data['date_input'];
         $add_staff->phone =  $data['phone'];
         $add_staff->luong =  $data['luong'];
+        $add_staff->CCCD =  $data['CCCD'];
+        $add_staff->gioi_tinh =  $data['gioi_tinh'];
         $add_staff->status_add = false;
         $image = $request->file('image_staff');
         $name = time().'.'.$image->getClientOriginalExtension();
@@ -700,6 +707,16 @@ class index_backend extends Controller
                 'success' => false,
             ]);
         }
+    }
+
+    // xuất file excel cho ds đơn hàng
+    function export_excel(){
+        return Excel::download(new ExcelExports , 'ds_don_hang.xlsx');
+    }
+
+    // xuất file excel cho ds nhân viên
+    function export_excel_staff(){
+        return Excel::download(new ExcelExportsStaff , 'ds_nhan_vien.xlsx');
     }
 
 }

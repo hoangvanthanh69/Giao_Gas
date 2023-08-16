@@ -55,22 +55,22 @@
                             @endif
                         </div>
                         <div class="col-5 total-order-customer-infor"> 
-                            <h5>Tổng cộng</h5>
-                            <div class="row">
+                            <h5>Tổng cộng ({{$productCount}} sản phẩm)</h5>
+                            <!-- <div class="row">
                                 <div class="col-7">Tổng tiền ({{$productCount}} sản phẩm)</div>
                                 <div class="col-5">{{number_format($order_product['tong'])}} VNĐ</div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-7">Phí vận chuyển (miễn phí)</div>
-                                <div class="col-5">0 VNĐ</div>
+                                <div class="col-5"> 0 VNĐ</div>
                             </div>
                             <div class="row border-bottom">
-                                <div class="col-7">Khuyến mãi giảm giá</div>
-                                <div class="col-5">0 VNĐ</div>
+                                <div class="col-7">Giảm giá</div>
+                                <div class="col-5 value-discount-infor">- {{number_format($order_product['reduced_value'])}} VNĐ</div>
                             </div>
                             <div class="row">
-                                <div class="col-7">Tổng cộng :</div>
-                                <div class="col-5"><strong>{{number_format($order_product['tong'])}} VNĐ</strong></div>
+                                <div class="col-7">Tổng tiền :</div>
+                                <div class="col-5 text-danger"><strong>{{number_format($order_product['tong'])}} VNĐ</strong></div>
                                 <span class="text-warning">Hình thức thanh toán khi nhận hàng</span>
                             </div>
                             
@@ -197,7 +197,7 @@
         <div class="footer">
             <div class="grid">
                 <div class="grid-row grid-row-footer">
-                    <div class="home-row-column ">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <span class="contact-support">
@@ -214,6 +214,13 @@
                                     </li>
 
                                     <li class="contact-support-item">
+                                        <i class="text-warning fa-regular fa-envelope"></i>
+                                        <a href="tel:0837641469" class="contact-support-item-call-link">
+                                            hthanh@gmail.com
+                                        </a>
+                                    </li>
+
+                                    <li class="contact-support-item">
                                         <a href="" class="contact-support-item-call-link">
                                             <i class="fa-solid fa-location-dot icon-location"></i>
                                         </a>
@@ -225,7 +232,7 @@
                         </div>
                     </div>
 
-                    <div class="home-row-column ">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <span class="contact-support">
@@ -247,9 +254,16 @@
                                     </li>
 
                                     <li class="contact-support-item">
-                                        <i class="contact-support-item-icon-instagram fa-brands fa-instagram"></i>
+                                        <img src="{{asset('frontend/img/icon_instargram.png')}}" alt="" width="20px" height="20px">
                                         <a href="#" class="contact-support-item-call-link">
                                             Instargram
+                                        </a>
+                                    </li>
+
+                                    <li class="contact-support-item">
+                                        <img src="{{asset('frontend/img/icon_google.png')}}" alt="" width="20px" height="20px">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            GasTech.com
                                         </a>
                                     </li>
                                 </ul>
@@ -257,7 +271,7 @@
                         </div>
                     </div>
 
-                    <div class="home-row-column ">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <span class="contact-support">
@@ -287,16 +301,20 @@
                         </div>
                     </div>
 
-                    <div class="home-row-column ">
+                    <div class="home-row-column">
                         <div class="home-product-image home-product-image-footer">
                             <div class="contact">
                                 <h4 class="contact-support">
                                     Liên hệ cửa hàng
                                 </h4>
-                                <div class="hot-line">
+                                <!-- <div class="hot-line">
                                     <a href="tel:19001011">
                                         19001011
                                     </a>
+                                </div> -->
+                                <div class="mt-4">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.841454377098!2d105.7680403746508!3d10.029938972519625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0895a51d60719%3A0x9d76b0035f6d53d0!2zxJDhuqFpIGjhu41jIEPhuqduIFRoxqE!5e0!3m2!1svi!2s!4v1692107073014!5m2!1svi!2s" 
+                                    width="250" height="150" style="border-radius: 6px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -310,6 +328,12 @@
                 </div>
             </div>
     </footer>
+    <a href="tel:0837641469">
+        <div class="hotline">
+            <span>Hotline</span>
+            <span class="hotline-phone">19001011</span>
+        </div>
+    </a>
 </body>
 <script src="{{asset('frontend/js/style.js')}}"></script>
 </html>

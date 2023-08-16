@@ -26,7 +26,7 @@
                   <td class="product-order-quantity">{{$val['order_count']}}</td>
                   <td class="product-order-quantity">
                      <form action="{{route('delete_account_users', $val['id'])}}">
-                        <button class="summit-add-product-button" type='submit'>
+                        <button class="button-delete-order" type='submit'>
                            <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
                         </button>
                      </form>

@@ -55,10 +55,14 @@
                             <span class="count-all">{{$count_order}}</span>
                             Đơn hàng
                         </div>
-                        <a class="back-order-statistics" href="{{route('thong_ke_chi_tiet_dh')}}">Xem chi tiết</a>
                     </div>
                     <div class="col-auto card-icon">
                         <i class="fas fa-calendar-check fa-2x text-danger"></i>
+                    </div>
+                    <div class="text-center">
+                        <a class="back-order-statistics" href="{{route('thong_ke_chi_tiet_dh')}}">Xem chi tiết
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -112,10 +116,15 @@
                         <div class="h5 mb-2 font-weight-bold text-gray-800">
                             <span class="count-all">{{number_format($tong_gia)}} VNĐ</span>
                         </div>
-                        <a class="back-order-statistics" href="{{route('chi_tiet_doanh_thu')}}">Xem chi tiết</a>
                     </div>
+                    
                     <div class="col-auto card-icon text-success" style="font-size: 38px;">
                         <i class="fa-sharp fa-solid fa-money-check-dollar"></i>
+                    </div>
+                    <div class="text-center">
+                        <a class="back-order-statistics" href="{{route('chi_tiet_doanh_thu')}}">Xem chi tiết
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>

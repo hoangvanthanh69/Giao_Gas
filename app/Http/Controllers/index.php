@@ -79,51 +79,6 @@ class index extends Controller
       print_r($_POST['image']);
    }
 
-   // function order_product(Request $request){
-   //    $inforGas = $request->input('infor_gas');
-   //    $data = [];
-   //    foreach ($inforGas as $productId => $quantity) {
-   //        if ($quantity) {
-   //            $data[] = [
-   //                'product_id' => $productId,
-   //                'quantity' => $quantity,
-   //            ];
-   //        }
-   //    }
-   //    $jsonData = json_encode($data);
-   //    $user_id = Session::get('home')['id'];
-   //    $order_product = new order_product;
-   //    Session::put('phoneCustomer', $request['phoneCustomer']);
-   //    Session::put('country', $request['country']);
-   //    Session::put('diachi', $request['diachi']);
-   //    Session::put('state', $request['state']);
-   //    Session::put('district', $request['district']);
-     
-   //    // echo " <pre>";
-   //    // print_r($new_quantity);die;
-   //    $order_product->order_code = uniqid(); 
-   //    $order_product->nameCustomer = $request['nameCustomer'];
-   //    $order_product->phoneCustomer = $request['phoneCustomer'];
-   //    $order_product->country = $request['country'];
-   //    $order_product->loai = $request['loai'];
-   //    $order_product->state = $request['state'];
-   //    $order_product->district = $request['district'];
-   //    $order_product->diachi = $request['diachi'];
-   //    if(empty($request['ghichu'])){
-   //       $order_product->ghichu = 'null';
-   //    }else {
-   //       $order_product->ghichu =$request['ghichu'];
-   //    }
-   //    $order_product->status = 1;
-   //    $order_product->user_id = $user_id;
-   //    if(isset($admin_name)){
-   //       $order_product->admin_name = $admin_name;
-   //   } else {
-   //       $order_product->admin_name = 'Chưa có người giao';
-   //   }
-   //    $order_product->save();
-   //    return redirect()->route('home',)->with('success', 'Đặt giao gas thành công');
-   // }
    function order_product(Request $request){
       $inforGas = $request->input('infor_gas');
       $data = [];
@@ -187,9 +142,15 @@ class index extends Controller
       // $order->tong = $totalPrice;
       $tong = $request->input('tong');
       $order->tong = $tong;
-      $order->save();
+      $reduced_value = $request->input('reduced_value');
+      $order->reduced_value = $reduced_value;
+      $order->coupon = $request['coupon'];
+      if ($request->has('coupon')) {
+         $couponCode = $request->input('coupon');
+         $this->update_discount_quantity($couponCode);
+      }     
 
-      //
+      $order->save();
       $user = users::find($user_id);
       if ($user) {
          Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
@@ -199,6 +160,15 @@ class index extends Controller
       }
       //
       return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
+   }
+
+   // cập nhật số lượng mã giảm giá
+   function update_discount_quantity($couponCode) {
+      $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
+      if ($coupon) {
+          $newQuantity = $coupon->so_luong - 1;
+          $coupon->update(['so_luong' => $newQuantity]);
+      }
    }
 
    // hủy đơn hàng của khách hàng
@@ -322,7 +292,6 @@ class index extends Controller
       'danh_gia' => $danh_gia, 'average_rating' => $average_rating, 'staff_id' => $staff_id, 'products' => $products, 'productCount' => $productCount]);
    }
     
-  
    function danh_gia_giao_hangs(Request $request, $id){
       $user_id = Session::get('home')['id'];
       $staff_id = $request->input('staff_id');

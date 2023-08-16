@@ -45,8 +45,8 @@
                            @if($val['status_add'])
                               <span class="status-add-admin">Đã thêm</span>
                            @else
-                              <button class="summit-add-product-button status-add-button" type='submit'>
-                                 Thêm tài khoản
+                              <button class="status-add-button add-account-admin-approved" type='submit'>
+                                 Lưu tài khoản
                               </button>
                            @endif
                         </td>
@@ -55,7 +55,7 @@
                @endforeach
             </tbody>
          </table>
-         <a class="back-order-statistics" href="quan-ly-tk-admin">
+         <a class="text-primary" href="quan-ly-tk-admin">
             <i class="fa-solid fa-arrow-left"></i>
             Quay lại
          </a>

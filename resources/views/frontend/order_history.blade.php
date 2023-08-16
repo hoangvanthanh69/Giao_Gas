@@ -171,6 +171,13 @@
                                     </li>
 
                                     <li class="contact-support-item">
+                                        <i class="text-warning fa-regular fa-envelope"></i>
+                                        <a href="tel:0837641469" class="contact-support-item-call-link">
+                                            hthanh@gmail.com
+                                        </a>
+                                    </li>
+
+                                    <li class="contact-support-item">
                                         <a href="" class="contact-support-item-call-link">
                                             <i class="fa-solid fa-location-dot icon-location"></i>
                                         </a>
@@ -204,9 +211,16 @@
                                     </li>
 
                                     <li class="contact-support-item">
-                                        <i class="contact-support-item-icon-instagram fa-brands fa-instagram"></i>
+                                        <img src="{{asset('frontend/img/icon_instargram.png')}}" alt="" width="20px" height="20px">
                                         <a href="#" class="contact-support-item-call-link">
                                             Instargram
+                                        </a>
+                                    </li>
+
+                                    <li class="contact-support-item">
+                                        <img src="{{asset('frontend/img/icon_google.png')}}" alt="" width="20px" height="20px">
+                                        <a href="#" class="contact-support-item-call-link">
+                                            GasTech.com
                                         </a>
                                     </li>
                                 </ul>
@@ -250,10 +264,14 @@
                                 <h4 class="contact-support">
                                     Liên hệ cửa hàng
                                 </h4>
-                                <div class="hot-line">
+                                <!-- <div class="hot-line">
                                     <a href="tel:19001011">
                                         19001011
                                     </a>
+                                </div> -->
+                                <div class="mt-4">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.841454377098!2d105.7680403746508!3d10.029938972519625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0895a51d60719%3A0x9d76b0035f6d53d0!2zxJDhuqFpIGjhu41jIEPhuqduIFRoxqE!5e0!3m2!1svi!2s!4v1692107073014!5m2!1svi!2s" 
+                                    width="250" height="150" style="border-radius: 6px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -267,6 +285,12 @@
                 </div>
             </div>
 </footer>
+<a href="tel:0837641469">
+    <div class="hotline">
+        <span>Hotline</span>
+        <span class="hotline-phone">19001011</span>
+    </div>
+</a>
 <script src="{{asset('frontend/js/style.js')}}"></script>
 </body>
 <script>

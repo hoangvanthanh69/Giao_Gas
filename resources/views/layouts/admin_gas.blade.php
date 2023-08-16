@@ -154,13 +154,6 @@
                            </div>
 
                            <div class="btnbtn home-filter-button mb-4">
-                              <a class="@yield('sidebar-active-revenue')" href="{{route('chi_tiet_doanh_thu')}}">
-                                 <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
-                                 Quản lý doanh thu
-                              </a>
-                           </div>
-
-                           <div class="btnbtn home-filter-button mb-4">
                               <a class="@yield('sidebar-active-discount')" href="{{route('quan-ly-giam-gia')}}">
                                  <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
                                  Quản lý giảm giá
