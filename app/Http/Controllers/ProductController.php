@@ -77,7 +77,7 @@ class ProductController extends Controller
 
     // xử lý thêm sản phẩm mới
     function add_products(Request $request){
-        $data =  $request->all();
+        $data = $request->all();
         //    print_r($data);
         $product = new product;
         $product -> name_product = $data['name_product'];

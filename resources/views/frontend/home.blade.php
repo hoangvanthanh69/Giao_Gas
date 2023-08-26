@@ -66,17 +66,34 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAcc">
                         <div class="">
                             <div class="header-with-account-span">
-                                <li>
-                                    <a href="{{route('logoutuser')}}">
-                                        Đăng xuất
-                                        <i class="fa-solid fa-right-from-bracket text-warning ps-2"></i>
-                                    </a>
+                                <li class="">
+                                    @if (Session::get('home'))
+                                        <p href="#" aria-expanded="true" id="dropdownMenuAcc" data-bs-toggle="dropdown" class="info-name-account-customer">
+                                            @if ($users -> img)
+                                                <img class="ms-2 " src="{{ asset('uploads/users/' . $users->img) }}" alt="" width="40px" height="50px">
+                                            @else
+                                                <img class="ms-2" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="40px">
+                                            @endif
+                                            <span class="ps-2 ">{{ Session::get('home')['name'] }}</span>
+                                        </p>
+                                    @endif
                                 </li>
 
-                                <li>
-                                    <a class="" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Quản lý tài khoản</a>
-                                </li>
-                                
+                                <div class="header-with-account-li">
+                                    <li>
+                                        <a class="" data-bs-toggle="modal" href="#exampleModalToggle" role="button">
+                                            <i class="fa-solid fa-gear me-2 ps-4"></i>
+                                            Quản lý tài khoản
+                                        </a>
+                                    </li>
+
+                                    <li class="mt-2 mb-2">
+                                        <a href="{{route('logoutuser')}}">
+                                            <i class="fa-solid fa-power-off me-2 ps-4"></i>
+                                            Đăng xuất
+                                        </a>
+                                    </li>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,7 +103,7 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title text-secondary" id="exampleModalToggleLabel">Thông tin tài khoản</h5>
+                                    <h5 class="modal-title" id="exampleModalToggleLabel">Thông tin tài khoản</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
@@ -466,9 +483,14 @@
 
                                                 <span class="text-warning">Miễn phí vận chuyển</span>
                                                 <div class="modal-footers pt-3">
-                                                    <h6 class="text-success payment-delivery">Thanh toán khi nhận hàng</h6>
-                                                    <button class="btn btn-primary submit">Giao gas</button>
+                                                    <button class="btn btn-primary submit" id="submitss">Thanh toán khi nhận hàng</button>
+                                                    <button class="btn btn-success" type="" id="vnpayButton" name="redirect">Thanh toán 
+                                                        <strong><span class="text-danger">VN</span>
+                                                        <span class="vnpay-payment-customer">PAY</span></strong>
+                                                    </button>
+                                                    <input type="hidden" id="paymentOption" name="paymentOption" value="">
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -975,26 +997,41 @@
                 selectedProductsDiv.innerHTML = "";
                 var totalPrice = 0;
                 var key = 1;
-                for (var i = 0; i < selectedProducts.length; i++) {
-                    var product = selectedProducts[i];
-                    var productId = product.id;
-                    var productName = product.name;
-                    var productQuantity = product.quantity;
-                    var productPrice = product.price;
-                    var productTotalPrice = productQuantity * productPrice;
-                    totalPrice += productTotalPrice;
-
-                    var html = `
-                        <div class="infor-customer-order-div">
-                            <span class="infor-customer-order">Sản phẩm ${key++}: </span>
-                            <span class="selected-product-name ">${productName}, </span>
-                            <span class="infor-customer-order">Số lượng: </span>
-                            <span class="selected-product-quantity ">${productQuantity}</span>
-                        </div>
-                    `;
-
-                    selectedProductsDiv.innerHTML += html;
-                }
+                var html_thead = `
+                <table class="table mb-1">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="col-1">#</th>
+                            <th class="col-6">Sản phẩm</th>
+                            <th class="col-2">Sl</th>
+                            <th class="col-3">Giá</th>
+                        </tr>
+                    </thead>
+                </table>
+                `;
+                selectedProductsDiv.innerHTML += html_thead;
+                    for (var i = 0; i < selectedProducts.length; i++) {
+                        var product = selectedProducts[i];
+                        var productId = product.id;
+                        var productName = product.name;
+                        var productQuantity = product.quantity;
+                        var productPrice = product.price;
+                        var productTotalPrice = productQuantity * productPrice;
+                        totalPrice += productTotalPrice;
+                        var html = `
+                            <table class="table">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th class="col-1">${key++}</th>
+                                        <td class="col-6">${productName}</td>
+                                        <td class="col-2">${productQuantity}</td>
+                                        <td class="col-3">${numberFormat(productPrice)} <span class="text-decoration-underline">đ</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        `;
+                        selectedProductsDiv.innerHTML += html;
+                    }
                 var totalHTML = `
                     <div class="">
                         <span><span class="infor-customer-order">Tổng giá sản phẩm: </span>
@@ -1225,7 +1262,58 @@
                     parentDiv.style.backgroundColor = '';
                 }
             }
-    </script>
 
+                 // Xử lý sự kiện nút "Thanh toán khi nhận hàng"
+            document.getElementById("submitss").addEventListener("click", function() {
+                document.getElementById("paymentOption").value = "payOnDelivery";
+            });
+            // Xử lý sự kiện nút "Thanh toán VNPay"
+            document.getElementById("vnpayButton").addEventListener("click", function() {
+                document.getElementById("paymentOption").value = "vnpay";
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                var vnpayButton = document.getElementById("vnpayButton");
+                var totalPriceElement = document.getElementById("tong"); // Trường input ẩn
+
+                vnpayButton.addEventListener("click", function() {
+                    var totalPrice = parseFloat(totalPriceElement.value); // Lấy giá trị từ trường input ẩn
+
+                    // Tạo form ẩn và gắn vào body
+                    var form = document.createElement("form");
+                    form.setAttribute("method", "POST");
+                    form.setAttribute("action", "{{ route('vnpay_payment') }}");
+                    form.style.display = "none";
+
+                    // Thêm input hidden
+                    var tongField = document.createElement("input");
+                    tongField.setAttribute("type", "hidden");
+                    tongField.setAttribute("name", "tong");
+                    tongField.setAttribute("id", "tong");
+                    tongField.setAttribute("value", totalPrice);
+                    form.appendChild(tongField);
+
+                    // Thêm CSRF token
+                    var csrfField = document.createElement("input");
+                    csrfField.setAttribute("type", "hidden");
+                    csrfField.setAttribute("name", "_token");
+                    csrfField.setAttribute("value", "{{ csrf_token() }}");
+                    form.appendChild(csrfField);
+
+                    // Thêm tham số redirect
+                    var redirectField = document.createElement("input");
+                    redirectField.setAttribute("type", "hidden");
+                    redirectField.setAttribute("name", "redirect");
+                    redirectField.setAttribute("value", "1");
+                    form.appendChild(redirectField);
+
+                    // Gắn form vào body
+                    document.body.appendChild(form);
+
+                    // Gửi yêu cầu POST
+                    form.submit();
+                });
+            });
+    </script>
 </body>
 </html>

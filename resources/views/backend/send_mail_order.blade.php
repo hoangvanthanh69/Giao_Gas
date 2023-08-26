@@ -53,11 +53,11 @@
             <p style="font-size: 15px; text-align: center; font-weight: 600;">Tổng Cộng:</p>
             <div style="display: flex;">
                 <div style="flex: 0 0 auto; width: 60%;">
-                    Tổng tiền sản phẩm:
+                    Phí vận chuyển: 
                 </div>
 
                 <div style="flex: 0 0 auto;width: 40%;">
-                    {{number_format($order->tong)}} VNĐ
+                   miến phí
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                 </div>
                 
                 <div style="flex: 0 0 auto;width: 40%; line-height: 50px;">
-                    0 VNĐ
+                    {{number_format($order->reduced_value)}} VNĐ
                 </div>
             </div>
 

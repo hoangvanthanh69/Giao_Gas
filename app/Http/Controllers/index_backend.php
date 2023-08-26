@@ -169,16 +169,16 @@ class index_backend extends Controller
     function staff_add(Request $request){
         $data =  $request->all();
         $add_staff = new add_staff;
-        $add_staff->last_name =  $data['last_name'];
+        $add_staff->last_name = $data['last_name'];
         $add_staff->birth =  $data['birth'];
-        $add_staff->chuc_vu =  $data['chuc_vu'];
-        $add_staff->dia_chi =  $data['dia_chi'];
-        $add_staff->taikhoan =  $data['taikhoan'];
-        $add_staff->date_input =  $data['date_input'];
-        $add_staff->phone =  $data['phone'];
-        $add_staff->luong =  $data['luong'];
-        $add_staff->CCCD =  $data['CCCD'];
-        $add_staff->gioi_tinh =  $data['gioi_tinh'];
+        $add_staff->chuc_vu = $data['chuc_vu'];
+        $add_staff->dia_chi = $data['dia_chi'];
+        $add_staff->taikhoan = $data['taikhoan'];
+        $add_staff->date_input = $data['date_input'];
+        $add_staff->phone = $data['phone'];
+        $add_staff->luong = $data['luong'];
+        $add_staff->CCCD = $data['CCCD'];
+        $add_staff->gioi_tinh = $data['gioi_tinh'];
         $add_staff->status_add = false;
         $image = $request->file('image_staff');
         $name = time().'.'.$image->getClientOriginalExtension();
@@ -220,7 +220,6 @@ class index_backend extends Controller
         if (!Session::get('admin')) {
             return redirect()->route('login');
         }
-    
         $admin_name = Session::get('admin')['admin_name'];
         $chuc_vu = Session::get('admin')['chuc_vu'];
         if ($chuc_vu == '2') {
@@ -232,7 +231,6 @@ class index_backend extends Controller
             'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
             'loai' => isset($_GET['loai']) ? $_GET['loai'] : 'all'
         );
-    
         return view('backend.quan_ly_hd', compact('order_product', 'filters'));
     }
 
@@ -454,7 +452,6 @@ class index_backend extends Controller
             }
             $order['products'] = $products;
         }
-       
         $tbl_admin = tbl_admin::get();
         $admin_name = session()->get('admin_name');
         $product_id = session()->get('product_id');
@@ -491,7 +488,6 @@ class index_backend extends Controller
         $admin->admin_password = $request->password;
         $admin->admin_email = $staff->taikhoan;
         $admin->chuc_vu = $staff->chuc_vu;
-
         $admin->image_staff = $staff->image_staff;
         $admin->save();
         $staff->status_add = true;

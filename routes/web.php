@@ -216,3 +216,8 @@ Route::post('export-excel', [index_backend::class, 'export_excel'])->name('expor
 
 // export excel cho ds nhân viên
 Route::post('export-excel-staff', [index_backend::class, 'export_excel_staff'])->name('export-excel-staff');
+
+// thanh toan vnpay
+Route::post('/vnpay_payment', [index::class, 'vnpay_payment'])->name('vnpay_payment');
+
+Route::get('/paymentSuccess', [index::class, 'paymentSuccess'] )->name('paymentSuccess');

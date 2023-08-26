@@ -119,10 +119,7 @@ html{
     padding-bottom: 17px;
 }
 .header-with-account-span{
-    font-size: 15px;
-    cursor: pointer;
-    font-weight: 550;
-    text-align: center;
+    width: 250px;
 }
 .header-with-account-span a{
     text-decoration: none !important;
@@ -131,6 +128,12 @@ html{
 
 .header-with-account-span:hover{
     color: rgb(70, 70, 70);
+}
+
+.header-with-account-li{
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: 500;
 }
 .main{
     justify-content: center;
@@ -724,9 +727,13 @@ tbody.history-order-product {
     }
 }
 .btn-cancel-order {
-    color: black;
-    padding-right: 10px;
+    color: #c60909;
     text-decoration: none;
+    border: 1px solid #cecbc7;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-right: 7px;
+    background-color: #eba2a2;
 }
 .btn-cancel-order:hover{
     color: rgb(255, 0, 0);
@@ -1324,6 +1331,7 @@ select.selected-option-date-customer {
     outline: none;
     padding-left: 29px;
     margin-left: -29px;
+    width: 350px;
 }
 .btn-apply-code-sale {
     height: 35px;
@@ -1342,4 +1350,26 @@ select.selected-option-date-customer {
 }
 .value-discount-infor {
     padding-left: 2px !important;
+}
+.info-name-account-customer{
+    font-size: 18px;
+    color: rgb(38, 121, 160);
+    font-weight: 500;
+    border-bottom: 1px solid #d1cdc5;
+    padding-bottom: 3px;
+}
+.header-with-account-li li:hover{
+    color: black;
+    background-color: #e7e7e7;
+}
+.header-with-account-li li a:hover{
+    color: black;
+}
+.header-with-account-li li {
+    height: 40px;
+    line-height: 36px;
+}
+.vnpay-payment-customer {
+    margin-left: -4px !important;
+    color: rgb(24 143 249);
 }
