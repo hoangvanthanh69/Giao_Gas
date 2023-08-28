@@ -71,9 +71,15 @@
                             <div class="row">
                                 <div class="col-7">Tổng tiền :</div>
                                 <div class="col-5 text-danger"><strong>{{number_format($order_product['tong'])}} VNĐ</strong></div>
-                                <span class="text-warning">Hình thức thanh toán khi nhận hàng</span>
+                                <span class="text-warning" style="font-size : 18px;">
+                                    <?php if ($order_product['payment_status'] == 1) {
+                                        echo '<strong>Thanh toán khi nhận hàng</strong>';
+                                    } else if ($order_product['payment_status'] == 2) {
+                                        echo '<strong class="text-success" >Đã thanh toán</strong>';
+                                    }
+                                    ?>
+                                </span>
                             </div>
-                            
                         </div>
                     </div>
                     <h6 class="text-danger mt-4">Người giao hàng</h6>

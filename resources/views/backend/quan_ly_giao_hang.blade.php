@@ -44,7 +44,7 @@
                                     <td class="col-3">
                                         @if (!empty($val['products']))
                                             @foreach ($val['products'] as $product)
-                                                <div class="d-flex align-items-center">
+                                                <div class="d-flex">
                                                     <div class="col-3 infor-order-user-history">
                                                         <img class="image-admin-product-edit" src="{{asset('uploads/product/'.$product['product']->image)}}" width="70%" height="70%" alt="">       
                                                     </div>

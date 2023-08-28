@@ -22,7 +22,7 @@
                 </select>
 
                 <div id="loai" class="d-flex m-3">
-                  <div class="form-check me-5">
+                  <div class="form-check me-5 ms-4">
                     <input class="form-check-input" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type1">Gas công nghiệp</label>
                   </div>
@@ -89,6 +89,7 @@
                     <th >Loại bình gas</th>
                     <th >Ngày tạo</th>
                     <th>Trạng thái</th>
+                    <th>Thanh toán</th>
                     <th>Người giao</th>
                     <th>Chức năng</th>
                   </tr>
@@ -122,6 +123,7 @@
                               </select>
                           </form>
                         </td>
+                        <td class="order-product-infor-admin"> <?php if($val['payment_status']==1){echo 'Khi nhận hàng';}else{echo 'Online VNPAY';}  ?></td>
                         <td class="order-product-infor-admin">
                           {{$val['admin_name']}}
                           @if($val['status'] != 3 && $val['admin_name'] != 'Chưa có người giao' && $val['admin_name'] != 'Người giao hủy')

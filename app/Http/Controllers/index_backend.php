@@ -87,6 +87,9 @@ class index_backend extends Controller
     }
 
     function chitiet_hd(Request $request, $id){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $order_product = order_product::find($id);
         //    echo " <pre>";
         //    print_r($staff);

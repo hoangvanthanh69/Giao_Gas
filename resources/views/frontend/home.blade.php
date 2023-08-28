@@ -1314,6 +1314,12 @@
                     form.submit();
                 });
             });
+
+            $('#staticBackdrop').on('shown.bs.modal', function () {
+                $('#orderInfoModal').modal('hide');
+            });
+
+
     </script>
 </body>
 </html>

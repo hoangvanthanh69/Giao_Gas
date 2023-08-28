@@ -21,7 +21,7 @@ class index extends Controller
 {
    function home(){
       if (!Session::get('home')) {
-          return redirect()->route('dangnhap');
+         return redirect()->route('dangnhap');
       }
       $user_id = Session::get('home')['id'];
       $order_product = order_product::where('user_id', $user_id)->get()->toArray();
@@ -164,183 +164,11 @@ class index extends Controller
             $email->to($user->email, $user->name);
          });
       }
-      
       if ($paymentOption == "vnpay") {
          $this->vnpay_payment($orderId);
       }
       return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
    }
-
-   // function order_product(Request $request){
-   //    $paymentOption = $request->input('paymentOption');
-   //    if($paymentOption == "payOnDelivery"){
-   //       $inforGas = $request->input('infor_gas');
-   //       $data = [];
-   //       $totalPrice = 0;
-   //       foreach ($inforGas as $productId => $quantity) {
-   //          if ($quantity) {
-   //             $product = Product::find($productId);
-   //             if ($product) {
-   //                $price = $product->original_price;
-   //                $totalPrice += $price * $quantity;
-   //                $data[] = [
-   //                   'product_id' => $productId,
-   //                   'product_name' => $product->name_product,
-   //                   'product_price' => $price,
-   //                   'quantity' => $quantity,
-   //                ];
-   //                // Kiểm tra số lượng sản phẩm đủ để đặt hàng hay không
-   //                $current_quantity = $product->quantity;
-   //                $new_quantity = $current_quantity - $quantity;
-
-   //                if ($new_quantity < 0) {
-   //                   return redirect()->route('home')->with('mesage', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
-   //                }
-   //                // Cập nhật số lượng sản phẩm
-   //                $product->quantity = $new_quantity;
-   //                $product->save();
-   //             }
-   //          }
-   //       }
-   //       $jsonData = json_encode($data);
-   //       $order = new order_product;
-   //       $order->infor_gas = $jsonData;
-   //       Session::put('phoneCustomer', $request['phoneCustomer']);
-   //       Session::put('country', $request['country']);
-   //       Session::put('diachi', $request['diachi']);
-   //       Session::put('state', $request['state']);
-   //       Session::put('district', $request['district']);
-   //       $order->nameCustomer = $request['nameCustomer'];
-   //       $order->phoneCustomer = $request['phoneCustomer'];
-   //       $order->country = $request['country'];
-   //       $order->state = $request['state'];
-   //       $order->district = $request['district'];
-   //       $order->diachi = $request['diachi'];
-   //       $order->loai = $request['loai'];
-   //       $user_id = Session::get('home')['id'];
-   //       $order->user_id = $user_id;
-   //       if (empty($request['ghichu'])) {
-   //          $order->ghichu = 'null';
-   //       } else {
-   //          $order->ghichu = $request['ghichu'];
-   //       }
-   //       $order->status = 1;
-   //       if (isset($admin_name)) {
-   //          $order->admin_name = $admin_name;
-   //       } else {
-   //          $order->admin_name = 'Chưa có người giao';
-   //       }
-   //       $order->order_code = uniqid();
-   //       // $order->tong = $totalPrice;
-   //       $tong = $request->input('tong');
-   //       $order->tong = $tong;
-   //       $reduced_value = $request->input('reduced_value');
-   //       $order->reduced_value = $reduced_value;
-   //       if ($request->has('coupon')) {
-   //          $couponCode = $request->input('coupon');
-   //          $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
-   //          if ($coupon) {
-   //             // Áp dụng mã giảm giá vào đơn hàng
-   //             $order->coupon = $couponCode;
-   //             $order->save();
-   //             $this->update_discount_quantity($couponCode);
-   //          }
-   //       }
-   //       $order->save();
-   //       $user = users::find($user_id);
-   //       if ($user) {
-   //          Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
-   //             $email->subject('Đặt hàng thành công');
-   //             $email->to($user->email, $user->name);
-   //          });
-   //       }
-   //       return redirect()->route('home')->with('success', 'Đặt giao gas thành công');
-   //    }
-
-   //    elseif ($paymentOption == "vnpay") {
-   //       $inforGas = $request->input('infor_gas');
-   //       $data = [];
-   //       $totalPrice = 0;
-   //       foreach ($inforGas as $productId => $quantity) {
-   //          if ($quantity) {
-   //             $product = Product::find($productId);
-   //             if ($product) {
-   //                $price = $product->original_price;
-   //                $totalPrice += $price * $quantity;
-   //                $data[] = [
-   //                   'product_id' => $productId,
-   //                   'product_name' => $product->name_product,
-   //                   'product_price' => $price,
-   //                   'quantity' => $quantity,
-   //                ];
-   //                // Kiểm tra số lượng sản phẩm đủ để đặt hàng hay không
-   //                $current_quantity = $product->quantity;
-   //                $new_quantity = $current_quantity - $quantity;
-   
-   //                if ($new_quantity < 0) {
-   //                    return redirect()->route('home')->with('mesage', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
-   //                }
-   //                // Cập nhật số lượng sản phẩm
-   //                $product->quantity = $new_quantity;
-   //                $product->save();
-   //             }
-   //          }
-   //       }
-   //       $jsonData = json_encode($data);
-   //       $order = new order_product;
-   //       $order->infor_gas = $jsonData;
-   //       Session::put('phoneCustomer', $request['phoneCustomer']);
-   //       Session::put('country', $request['country']);
-   //       Session::put('diachi', $request['diachi']);
-   //       Session::put('state', $request['state']);
-   //       Session::put('district', $request['district']);
-   //       $order->nameCustomer = $request['nameCustomer'];
-   //       $order->phoneCustomer = $request['phoneCustomer'];
-   //       $order->country = $request['country'];
-   //       $order->state = $request['state'];
-   //       $order->district = $request['district'];
-   //       $order->diachi = $request['diachi'];
-   //       $order->loai = $request['loai'];
-   //       $user_id = Session::get('home')['id'];
-   //       $order->user_id = $user_id;
-   //       if (empty($request['ghichu'])) {
-   //          $order->ghichu = 'null';
-   //       } else {
-   //          $order->ghichu = $request['ghichu'];
-   //       }
-   //       $order->status = 1;
-   //       if (isset($admin_name)) {
-   //          $order->admin_name = $admin_name;
-   //       } else {
-   //          $order->admin_name = 'Chưa có người giao';
-   //       }
-   //       $order->order_code = uniqid();
-   //       // $order->tong = $totalPrice;
-   //       $tong = $request->input('tong');
-   //       $order->tong = $tong;
-   //       $reduced_value = $request->input('reduced_value');
-   //       $order->reduced_value = $reduced_value;
-   //       if ($request->has('coupon')) {
-   //          $couponCode = $request->input('coupon');
-   //          $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
-   //          if ($coupon) {
-   //              // Áp dụng mã giảm giá vào đơn hàng
-   //             $order->coupon = $couponCode;
-   //             $order->save();
-   //             $this->update_discount_quantity($couponCode);
-   //          }
-   //       }
-   //       $order->save();
-   //       $user = users::find($user_id);
-   //       if ($user) {
-   //          Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
-   //             $email->subject('Đặt hàng thành công');
-   //             $email->to($user->email, $user->name);
-   //          });
-   //       }
-   //       $this->vnpay_payment();
-   //    }
-   // }
 
    // cập nhật số lượng mã giảm giá
    function update_discount_quantity($couponCode) {
@@ -361,7 +189,7 @@ class index extends Controller
       } else {
          return redirect()->route('order-history')->with('message', 'Không tìm thấy đơn hàng');
       }
-  }
+   }
  
    function getProductByID(Request $request){
       $productID = $request->input('productID');
@@ -381,6 +209,9 @@ class index extends Controller
 
    //
    function order_history(Request $request) {
+      if (!Session::get('home')) {
+         return redirect()->route('dangnhap');
+      }
       $user_id = Session::get('home')['id'];
       $order_product = order_product::orderByDesc('created_at')->where('user_id', $user_id);
       $status = isset($_GET['status']) ? $_GET['status'] : 'all';
@@ -425,7 +256,7 @@ class index extends Controller
       return view('frontend.order_history', ['order_product' => $order_product,'status' => $status,'counts_processing' => $counts_processing,
       'counts_all' => $counts_all, 'counts_delivery' => $counts_delivery, 'counts_complete' => $counts_complete, 'counts_cancel' => $counts_cancel,'filter' => $filter,
       ]);
-  }
+   }
 
    // thông tin đơn hàng của khách hàng
    function thong_tin_don_hang(Request $request, $id){
@@ -455,15 +286,15 @@ class index extends Controller
       $products = [];
       if ($infor_gas) {
          foreach ($infor_gas as $infor) {
-               $product = product::find($infor['product_id']);
-               if ($product) {
-                  $products[] = [
-                     'product' => $product,
-                     'product_name' => $infor['product_name'],
-                     'product_price' => $infor['product_price'],
-                     'quantity' => $infor['quantity'],
-                  ];
-               }
+            $product = product::find($infor['product_id']);
+            if ($product) {
+               $products[] = [
+                  'product' => $product,
+                  'product_name' => $infor['product_name'],
+                  'product_price' => $infor['product_price'],
+                  'quantity' => $infor['quantity'],
+               ];
+            }
          }
       }
       $productCount = count($products);
@@ -517,11 +348,8 @@ class index extends Controller
       $user->save();
       return redirect()->back()->with('success', 'Cập nhật mật khẩu thành công');
    }
-  
 
-
-
-   // 
+   // thanh toan vnpay
    function vnpay_payment($orderId){
       $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
       $vnp_Returnurl = "http://127.0.0.1:8000/paymentSuccess";
@@ -533,7 +361,10 @@ class index extends Controller
       $vnp_Amount = $_POST['tong'] * 100;
       // print_r($vnp_Amount);die;
       $vnp_Locale = 'vn';
-      $vnp_BankCode = 'NCB';
+      // $vnp_BankCode = 'NCB';
+      $inputData = array(
+         "vnp_BankCode" => isset($_POST['selectedBankInput']) ? $_POST['selectedBankInput'] : '',
+      );
       $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
       $inputData = array(
          "vnp_Version" => "2.1.0",
@@ -549,7 +380,6 @@ class index extends Controller
          "vnp_ReturnUrl" => $vnp_Returnurl,
          "vnp_TxnRef" => $vnp_TxnRef
       );
-
       if (isset($vnp_BankCode) && $vnp_BankCode != "") {
          $inputData['vnp_BankCode'] = $vnp_BankCode;
       }
@@ -578,22 +408,21 @@ class index extends Controller
       } else {
          echo json_encode($returnData);
       }
-      
-      
    }
 
    // lưu các thông tin vào dữ liệu
    function paymentSuccess(){
-      if (isset($_GET['vnp_Amount'])) {
+      if (isset($_GET['vnp_Amount'], $_GET['vnp_BankTranNo'])) {
          $orderId = $_GET['vnp_TxnRef'];
          $order = order_product::find($orderId);
          if ($order) {
-               $order->payment_status = 2; // Đã thanh toán
-               $order->save();
+            $order->payment_status = 2; // Đã thanh toán
+            $order->save();
          }
          $vnpayTransaction = new \App\Models\tbl_vnpay();
          $userId = Session::get('home')['id'];
          $vnpayTransaction->fill([
+            'order_id' => $_GET['vnp_TxnRef'],
             'user_id' => $userId,
             'vnp_Amount' => $_GET['vnp_Amount'],
             'vnp_BankCode' => $_GET['vnp_BankCode'],
@@ -604,7 +433,21 @@ class index extends Controller
             'vnp_TmnCode' => $_GET['vnp_TmnCode'],
             'vnp_TransactionNo' => $_GET['vnp_TransactionNo']
          ])->save();
+         if ($userId) {
+            $user = users::find($userId); // Corrected line
+            if ($user) {
+                Mail::send('backend.send_mail_pay', compact('order', 'user'), function($email) use ($user) {
+                    $email->subject('Thanh toán thành công');
+                    $email->to($user->email, $user->name);
+                });
+            }
+        }
+         return redirect()->route('home')->with('success', 'Thanh toán thành công');
+
       }
-      return redirect()->route('home')->with('success', 'Thanh toán thành công');
+      else {
+         return redirect()->route('home')->with('mesage', 'Thanh toán không thành công');
+      }
    }
+  
 }
