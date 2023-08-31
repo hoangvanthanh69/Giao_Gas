@@ -6,12 +6,10 @@
         <div class="add-product-each w-50 ">
             <form enctype="multipart/form-data" method='post' action="{{route('update-product',$product->id)}}">
             @csrf
-            
               <div class="row ">
                 <label class="name-add-product-all col-3" for="">Tên sản phẩm:</label>
                 <input class="input-add-product col-9" type="text" name="name_product" value="{{ $product->name_product }}">
               </div>
-                
                 <br>
                 <div class="delivery-location form-product-specials product-type row">
                     <label class="name-add-product-all col-3" for="loai" class="form-label">Loại bình gas:</label>
@@ -59,8 +57,6 @@
                     <a class="back-product" href="{{route('quan-ly-sp')}}">Trở lại</a>
                   <button class="add-product button-add-product-save" name="update-category-product" type="submit">Cập nhật sản phẩm</button>
                 </div>
-                
-              
             </form>
         </div>
 @endsection

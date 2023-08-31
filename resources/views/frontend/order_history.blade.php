@@ -26,6 +26,7 @@
                     <p>Tất cả đơn hàng</p>
                 </div>
             </a>
+
             <a href="?status=1" class="{{ ($status == '1') ? 'activess-1' : '' }}">
                 <div class="text-center">
                     <p class="header-order-history-status history-status-handle">{{$counts_processing}}</p>
@@ -33,6 +34,7 @@
                     <p>Đang xử lý</p>
                 </div>
             </a>
+
             <a href="?status=2" class="{{ ($status == '2') ? 'activess-2' : '' }}">
                 <div class="text-center">
                     <p class="header-order-history-status status-all history-status-delivery">{{$counts_delivery}}</p>
@@ -40,6 +42,7 @@
                     <p>Đang giao</p>
                 </div>
             </a>
+
             <a href="?status=3" class="{{ ($status == '3') ? 'activess-3' : '' }}">
                 <div class="text-center">
                     <p class="header-order-history-status status-all history-status-complete">{{$counts_complete}}</p>
@@ -47,6 +50,7 @@
                     <p>Đã giao</p>
                 </div>
             </a>
+
             <a href="?status=4" class="{{ ($status == '4') ? 'activess-4' : '' }}">
                 <div class="text-center">
                     <p class="header-order-history-status status-all history-status-cancel">{{$counts_cancel}}</p>
@@ -61,20 +65,20 @@
         <div class="row main-row container-fluid main-row-chitiet">
             <div class="product-list element_column" data-item="receipt">
                 <div class="history-orders-list">
-                <div class="show-order-customer-date list-order-user-history-after">
-                    <span>
-                        Hiển thị:
-                    </span>
-                    <span>
-                        <select class="selected-option-date-customer" aria-label="Default select example" onchange="filterOrderHistory(this.value)">
-                            <option value="0" {{ ($filter == 0) ? 'selected' : '' }}>Tất cả đơn hàng</option>
-                            <option value="5" {{ ($filter == 5) ? 'selected' : '' }}>5 ngày gần nhất</option>
-                            <option value="10" {{ ($filter == 10) ? 'selected' : '' }}>10 ngày gần nhất</option>
-                            <option value="30" {{ ($filter == 30) ? 'selected' : '' }}>30 ngày gần đây nhất</option>
-                            <option value="180" {{ ($filter == 180) ? 'selected' : '' }}>6 tháng gần đây nhất</option>
-                        </select>
-                    </span>
-                </div>
+                    <div class="show-order-customer-date list-order-user-history-after">
+                        <span>
+                            Hiển thị:
+                        </span>
+                        <span>
+                            <select class="selected-option-date-customer" aria-label="Default select example" onchange="filterOrderHistory(this.value)">
+                                <option value="0" {{ ($filter == 0) ? 'selected' : '' }}>Tất cả đơn hàng</option>
+                                <option value="5" {{ ($filter == 5) ? 'selected' : '' }}>5 ngày gần nhất</option>
+                                <option value="10" {{ ($filter == 10) ? 'selected' : '' }}>10 ngày gần nhất</option>
+                                <option value="30" {{ ($filter == 30) ? 'selected' : '' }}>30 ngày gần đây nhất</option>
+                                <option value="180" {{ ($filter == 180) ? 'selected' : '' }}>6 tháng gần đây nhất</option>
+                            </select>
+                        </span>
+                    </div>
                 
                     @foreach($order_product as $key => $val)
                         @if ($status == 'all' || $val['status'] == $status)
@@ -136,6 +140,7 @@
                             {{ session('message') }}
                         </div>
                     @endif
+
                     <div class="button-history-orders">
                         <a class="back-order-statistics" href="{{route('home')}}">
                             <i class="fa-solid fa-arrow-left"></i>
@@ -144,12 +149,10 @@
                     </div>
                 </div>
             </div>
-            
         </div>
-        
     </div>
-
 </div>
+
 <footer>
         <div class="footer">
             <div class="grid">
@@ -276,14 +279,14 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
+
                 <div class="footer-imge">
                     <div class="footer-imge-license footer-imge-user">
                         © HoangThanh
                     </div>
                 </div>
-            </div>
+        </div>
 </footer>
 <a href="tel:0837641469">
     <div class="hotline">
@@ -291,7 +294,7 @@
         <span class="hotline-phone">19001011</span>
     </div>
 </a>
-<script src="{{asset('frontend/js/style.js')}}"></script>
+<!-- <script src="{{asset('frontend/js/style.js')}}"></script> -->
 </body>
 <script>
     function filterOrderHistory(filter) {

@@ -17,7 +17,6 @@
             <div class="card-header-chitiet">
                 <h4 class="product-list-name">Thông tin đơn hàng</h4>
             </div>
-
             <div class="">
                 <form enctype="multipart/form-data" method='post' action="{{route('thong_tin_don_hang', $order_product->id)}}">
                     @csrf
@@ -44,12 +43,12 @@
                             @if (!empty($products))
                                 @foreach ($products as $product)
                                     <div class="row">
-                                        <div class="col-1 me-4 infor-order-user-history">
+                                        <div class="col-1 me-4 infor-order-user-historys">
                                             <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$product['product']->image )}}" width="70%" height="70%" alt="">       
                                         </div>
-                                        <div class="col-4 infor-order-user-history ms-3">{{ $product['product_name']}}</div>
-                                        <div class="col-3 infor-order-user-history">{{ number_format($product['product_price']) }} VNĐ</div>
-                                        <div class="col-3 infor-order-user-history">Số lượng: {{ $product['quantity'] }}</div>
+                                        <div class="col-4 infor-order-user-historys ms-3">{{ $product['product_name']}}</div>
+                                        <div class="col-3 infor-order-user-historys">{{ number_format($product['product_price']) }} VNĐ</div>
+                                        <div class="col-3 infor-order-user-historys">Số lượng: {{ $product['quantity'] }}</div>
                                     </div>
                                 @endforeach
                             @endif
@@ -88,27 +87,31 @@
                         <div class="col-1">
                             <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$delivery_info['image_staff'])}}" width="100px"  alt="{{ $delivery_info->admin_name }}">
                         </div>
+
                         <div class="col-2">
                             <p class="name-product-p">{{$order_product['admin_name']}}</p>
                         </div>
+
                         <div>
                             <div class="star-ratings">
                                 <?php for ($i = 1; $i <= 5; $i++) { ?>
                                     <?php
-                                    $star_color = '';
-                                    if ($i <= $average_rating) {
-                                        $star_color = 'checked';
-                                    } elseif ($i - $average_rating < 0.5) {
-                                        $star_color = 'half-checked';
-                                    }
+                                        $star_color = '';
+                                        if ($i <= $average_rating) {
+                                            $star_color = 'checked';
+                                        } elseif ($i - $average_rating < 0.5) {
+                                            $star_color = 'half-checked';
+                                        }
                                     ?>
                                     <i class="fa fa-star <?php echo $star_color; ?>"></i>
                                 <?php } ?>
                             </div>
                         </div>
+
                         @else
                             <span class="text-muted">Chưa có người giao</span>
                         @endif
+
                         <div class="col-3">
                             <span>
                                 <?php 
@@ -126,6 +129,7 @@
                         </div>
                     </div>
                 </form>
+
                 @if ($delivery_info)
                     @if ($danh_gia)
                         <p>Đánh giá của bạn:
@@ -137,15 +141,15 @@
                                 @endif
                             @endfor
                         </p>
-
-                        <!-- <div id="change-rating">Thay đồi đánh giá</div>
-                        <div class="select-address-user hidden">
-                            <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
-                                @csrf
-                                <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
-                                <input type="hidden" name="order_id" value="{{ $order_product->id }}">
-                                <span>Đánh giá:</span>    
-                                <div class="rating mb-1" id="signupForm">
+                        
+                    @else
+                        <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
+                            @csrf
+                            <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
+                            <input type="hidden" name="order_id" value="{{ $order_product->id }}">
+                            <span class="fw-bolder">Đánh giá của bạn:</span>    
+                            <div class="d-flex ms-4 mt-2">
+                                <div class="rating mt-2" id="signupForm">
                                     <i class="star star-rating fa fa-star" data-value="1"></i>
                                     <i class="star star-rating fa fa-star" data-value="2"></i>
                                     <i class="star star-rating fa fa-star" data-value="3"></i>
@@ -153,35 +157,32 @@
                                     <i class="star star-rating fa fa-star" data-value="5"></i>
                                     <input type="hidden" name="rating" class="rating-value" value="">
                                 </div>
-                                <div class="comment-rating-staff">
-                                    <label class="mb-2" for="Comment">Nhận xét của bạn:</label>
-                                    <textarea class="comment-user-staff" id="Comment" name="Comment" rows="3"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
-                            </form>
-                        </div> -->
-                        
-                    @else
-                        <form enctype="multipart/form-data" method='post' action="{{route('danh_gia_giao_hangs', $delivery_info->id)}}">
-                            @csrf
-                            <input type="hidden" name="staff_id" value="{{ $delivery_info->id }}">
-                            <input type="hidden" name="order_id" value="{{ $order_product->id }}">
-                            <span>Đánh giá:</span>    
-                            <div class="rating mb-1" id="signupForm">
-                                <i class="star star-rating fa fa-star" data-value="1"></i>
-                                <i class="star star-rating fa fa-star" data-value="2"></i>
-                                <i class="star star-rating fa fa-star" data-value="3"></i>
-                                <i class="star star-rating fa fa-star" data-value="4"></i>
-                                <i class="star star-rating fa fa-star" data-value="5"></i>
-                                <input type="hidden" name="rating" class="rating-value" value="">
+                                <button type="submit" class="btn btn-primary ms-4" id="submit-rating">Gửi đánh giá</button>
                             </div>
-                            <div class="comment-rating-staff">
-                                <label class="mb-2" for="Comment">Nhận xét của bạn:</label>
-                                <textarea class="comment-user-staff" id="Comment" name="Comment" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary mb-2" id="submit-rating">Gửi đánh giá</button>
                         </form>
                     @endif
+                    <strong class="ms-4">{{$counts_comment}} bình luận</strong>
+                    <form action="">
+                        @csrf
+                        <div id="comment_show"></div>
+                        <input type="hidden" name="staff_id" class="staff_id" value="{{isset($delivery_info) ? $delivery_info->id : '' }}">
+                    </form>
+
+                    <form action="" class="mt-3">
+                        @csrf
+                        @if (Session::get('home'))
+                            @if ($customer -> img)
+                                <img class="ms-4 me-2 rounded-circle" src="{{ asset('uploads/users/' . $customer->img) }}" alt="" width="52px">
+                            @else
+                                <img class="ms-4 me-2 rounded-circle" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="52px">
+                            @endif
+                        @endif
+                        <input type="hidden" name="staff_id" class="staff_id" value="{{isset($delivery_info) ? $delivery_info->id : '' }}">
+                        <input class="comment_content comment_content-textarea col-8" id="comment_content" name="comment_content" placeholder="Viết bình luận ..."></input>
+                        <button type="submit" class="button-send-comment mb-2 send-comment">
+                            <img class="img-send-comment pb-1" src="{{ asset('frontend/img/icon-send.png') }}" alt="..." width="20px">
+                        </button>
+                    </form>
                 @endif
 
                 @if (session('success'))
@@ -189,6 +190,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
+
                 <div class="button-history-orders">
                     <a class="back-order-statistics" href="{{route('order-history')}}">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -341,7 +343,8 @@
         </div>
     </a>
 </body>
-<script src="{{asset('frontend/js/style.js')}}"></script>
+<!-- <script src="{{asset('frontend/js/style.js')}}"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> -->
 </html>
 
 <script>
@@ -349,7 +352,7 @@
     function validateRating() {
         const ratingValue = document.querySelector('.rating-value').value;
         if (!ratingValue) {
-            alert('Bạn phải chọn số sao trước khi gửi đánh giá!');
+            alert('Chọn số sao trước khi gửi đánh giá!');
             return false;
         }
         return true;
@@ -388,4 +391,73 @@
         }
     });
     
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        load_comment();
+        function load_comment() {
+            var staff_id = $('.staff_id').val();
+            // alert(staff_id);
+            $.ajax({
+                url: "{{ route('load-comment') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    staff_id: staff_id
+                },
+                success: function(data) {
+                    $('#comment_show').html(data);
+                },
+                error: function(xhr, status, error) {
+                    
+                }
+            });
+        }
+
+        // thêm comment
+        $('.send-comment').click(function(e){
+            e.preventDefault();
+            var staff_id = $('.staff_id').val();
+            var comment_content = $('.comment_content').val();
+            $.ajax({
+                url: "{{ route('send-comment') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    staff_id: staff_id,
+                    comment_content: comment_content,
+                },
+                success: function(data) {
+                    load_comment();
+                    $('.comment_content').val('');
+                },
+                error: function(xhr, status, error) {
+
+                }
+            });
+        })
+
+        // xóa comment
+        $(document).ready(function() {
+            $('.delete-comment-link').click(function(ev) {
+                ev.preventDefault();
+                var commentLink = $(this);
+                var comment_id = commentLink.data('comment-id');
+                $.ajax({
+                    url: commentLink.attr('href'),
+                    method: "DELETE",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        commentLink.closest('.row').remove();
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            });
+        });
+    });
 </script>

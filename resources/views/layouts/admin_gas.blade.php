@@ -20,7 +20,7 @@
                      <div class="header-with-logo-name mb-2">
                         <strong class="logo-name-gas">
                            Gas
-                           </strong>
+                        </strong>
                            Tech
                      </div>
                      <div class="img-admin-login mb-3">
@@ -69,6 +69,7 @@
                                        
                                     </button>
                                  </div>
+
                                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                     <div class="mb-3 ms-4 home-filter-button fw-light">
                                        <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
@@ -97,9 +98,9 @@
                                           <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
                                           <i class="fa-solid fa-angle-up ms-2 arrow-up"></i>
                                        </div>
-                                       
                                     </button>
                                  </div>
+
                                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                     <div class="mb-3 ms-4 home-filter-button fw-light">
                                        <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
@@ -109,10 +110,10 @@
                                     </div>
 
                                     <div class="mb-3 ms-4 home-filter-button fw-light" data-filter="product">
-                                    <a class="@yield('sidebar-active-add-order')" href="{{route('order_phone')}}">
-                                       <i class="fa-solid fa-cart-plus icon-all-admin-nav"></i>
-                                       Thêm đơn hàng mới
-                                    </a>
+                                       <a class="@yield('sidebar-active-add-order')" href="{{route('order_phone')}}">
+                                          <i class="fa-solid fa-cart-plus icon-all-admin-nav"></i>
+                                          Thêm đơn hàng mới
+                                       </a>
                                     </div>
                                  </div>
                               </div>
@@ -215,7 +216,7 @@
          var buttons = document.querySelectorAll('.accordion-button');
          buttons.forEach(function(button) {
             button.addEventListener('click', function() {
-                  toggleArrow(button);
+               toggleArrow(button);
             });
          });
       </script>
@@ -235,6 +236,7 @@
                      }
                });
             }
+            
             @if(session('success') || session('message'))
                showContent();
             @endif

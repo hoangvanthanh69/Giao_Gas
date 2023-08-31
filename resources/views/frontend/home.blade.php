@@ -183,7 +183,6 @@
                                         </div>
                                     </form>
                                 </div>
-                            
                             </div>
                         </div>
                     </div>
@@ -199,43 +198,39 @@
                             {{ session('mesage') }}
                         </div>
                     @endif
-
-                    
-                    <!--  -->
                 </div>
             </div>
-            
         </div>
+        
         <div class="grid-nav">
-                <div class="grid-row-12">
-                    <div class="home-filter grid" id="filter_button">
-                        <a href="{{route('home')}}" data-filter="all">
-                            <button class="btnbtn home-filter-button actives" >
-                                Trang chủ
-                            </button>
-                        </a>
-
-                        <button class="btnbtn home-filter-button" data-filter="order_page">
-                            Đổi gas
+            <div class="grid-row-12">
+                <div class="home-filter grid" id="filter_button">
+                    <a href="{{route('home')}}" data-filter="all">
+                        <button class="btnbtn home-filter-button actives" >
+                        Trang chủ
                         </button>
+                    </a>
 
-                        <button class="btnbtn home-filter-button" data-filter="guide">
-                          Hướng dẫn đổi gas
+                    <button class="btnbtn home-filter-button" data-filter="order_page">
+                        Đổi gas
+                    </button>
+
+                    <button class="btnbtn home-filter-button" data-filter="guide">
+                      Hướng dẫn đổi gas
+                    </button>
+
+                    <button class="btnbtn home-filter-button" data-filter="introduce">
+                        Giới thiệu
+                    </button>
+
+                    <a href="{{route('order-history')}}">
+                        <p class="header-cart-notice">{{ $counts_processing }}</p>
+                        <button class="btnbtn home-filter-button" >
+                            Lịch sử đơn hàng
                         </button>
-                        
-                        <button class="btnbtn home-filter-button" data-filter="introduce">
-                            Giới thiệu
-                        </button>
-
-                        <a href="{{route('order-history')}}">
-                            <p class="header-cart-notice">{{ $counts_processing }}</p>
-                            <button class="btnbtn home-filter-button" >
-                                Lịch sử đơn hàng
-                            </button>
-                        </a>
-
-                    </div>
+                    </a>
                 </div>
+            </div>
         </div>
     </header>
 
@@ -312,11 +307,11 @@
                     </div>
                     
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                      <span class="visually-hidden">Previous</span>
+                        <span class="visually-hidden">Previous</span>
                     </button>
     
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                      <span class="visually-hidden">Next</span>
+                        <span class="visually-hidden">Next</span>
                     </button>
     
                 </div>
@@ -332,7 +327,6 @@
                             </div>
                         </div>
                         <div class="card-body gas-delivery-information ">
-                        
                             <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
                                 @csrf
                                 <div class="form-gas-delivery-information" >
@@ -340,11 +334,10 @@
                                     <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" value="{{ Session::get('home')['name'] }}" required/>
                                     <label class="form-label" for="number">Số điện thoại khách hàng:</label>
                                     @if (empty($order_product))
-                                    <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" />
+                                        <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" />
                                     @else
                                         <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ $order_product[0]['phoneCustomer'] }}" />
                                     @endif
-
                                     <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:</label>
                                     <div class="delivery-location form-product-specials form-product-specials-location">
                                         @if (empty($order_product))
@@ -623,7 +616,6 @@
                                     Hổ trợ khách hàng
                                 </span>
                                 <ul class="contact-support-list">
-                                    
                                     <li class="contact-support-item">
                                         <i class="contact-support-item-icon-call fas fa-tty"></i>
                                         <a href="tel:0837641469" class="contact-support-item-call-link">
@@ -645,7 +637,6 @@
                                         </a>
                                         <span class="contact-support-item-call contact-support-item-call-link">Đường 3/2, phường Xuân Khánh, quận Ninh Kiều, thành phố Cần Thơ</span>
                                     </li>
-                                    
                                 </ul>
                             </div>
                         </div>
@@ -754,11 +745,9 @@
     </a>
     <script src="{{asset('frontend/js/style.js')}}"></script>
     <script src="{{asset('frontend/js/doigas.js')}}"></script>
-
     <script language="javascript">print_country("country");</script>
     <!-- <script language="javascript">print_type("type");</script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
@@ -822,13 +811,13 @@
         @if(session('success'))
             showContent();
         @endif
+
         @if(session('mesage'))
             showContent();
         @endif
     </script>
 
     <script type="text/javascript">
-		
 		$(document).ready(function(){
 			$("#changepassforms").validate({
 				rules: {
@@ -865,9 +854,6 @@
 				} 
 
 			});
-
-    
-        
         });
 	</script>
 
@@ -877,7 +863,6 @@
             var adsContainer = document.getElementById('adscontainer');
             var adsContainerWidth = adsContainer.offsetWidth;
             var adsTextWidth = adsText.offsetWidth;
-        
             if (adsTextWidth > adsContainerWidth) {
                 adsText.style.animationDuration = (adsTextWidth / 50) + 's';
             } else {
@@ -907,10 +892,12 @@
                             <div class="activeq">
                                 <img class="image-product-order" src="uploads/product/${product.image}" alt="" width="50%">
                             </div>
+
                             <div class="name-product-order">
                                 Tên sản phẩm:
                                 <span class="name_product name-product-span">${product.name_product}</span>
                             </div>
+
                             <div class="price-product-order price" id="price">
                                 Giá sản phẩm:
                                 <span class="original_price gia price-product-order-span">${numberFormat(product.original_price)} <span class="text-decoration-underline">đ</span> </span>
@@ -945,7 +932,6 @@
                 var selectedProductId = element.id;
                 var selectedProductQuantity = parseInt(element.querySelector("#quantity").value);
                 console.log(selectedProductQuantity);
-
                 var selectedProductName = element.querySelector(".name_product").textContent;
                 var selectedProductPriceText = element.querySelector(".original_price").textContent;
                 var selectedProductPrice = parseFloat(selectedProductPriceText.replace(/\D/g, ''));
@@ -965,7 +951,6 @@
                         quantity: selectedProductQuantity,
                         price: selectedProductPrice
                     };
-
                     var isExist = false;
                     for (var i = 0; i < selectedProducts.length; i++) {
                         if (selectedProducts[i].id === selectedProductId) {
@@ -974,12 +959,10 @@
                             break;
                         }
                     }
-
                     if (!isExist) {
                         selectedProducts.push(selectedProduct);
                     }
                 }
-
                 displaySelectedProducts();
             }
             function getProductByID(productId) {
@@ -1047,7 +1030,6 @@
                 var couponCode = document.getElementById("coupon").value;
                 var totalPrice = calculateTotalPrice();
                 var couponErrorMessage = document.getElementById("couponErrorMessage");
-
                 $.ajax({
                     url: "{{ route('check-coupon') }}",
                     method: "POST",
@@ -1161,7 +1143,6 @@
                     recognition.continuous = false;
                     recognition.interimResults = false;
                     recognition.lang = 'vi-VN';
-
                     recognition.onresult = function(event) {
                         const transcript = event.results[0][0].transcript;
                         document.querySelector('.header-with-search-input-discount').value = transcript;
@@ -1169,20 +1150,16 @@
                         isListening = false; 
                         document.querySelector('.header_search.button').classList.remove('listening');
                     };
-
                     recognition.onerror = function(event) {
                         console.error('Lỗi nhận dạng giọng nói:', event.error);
                         isListening = false; 
                         document.querySelector('.header_search.button').classList.remove('listening');
                     };
-
                     recognition.onend = function() {
                         isListening = false;
                         document.querySelector('.header_search.button').classList.remove('listening');
                     };
-
                     document.querySelector('.header_search.button').classList.add('listening');
-
                     recognition.start();
                 }
             }
@@ -1208,22 +1185,18 @@
                     var invalidQuantity = false;
                     var invalidLoai = false;
                     var selectedProductCount = 0;
-
                     for (var i = 0; i < selectedProducts.length; i++) {
                         var product = selectedProducts[i];
-
                         if (product.quantity < 0 || isNaN(product.quantity)) {
                             invalidQuantity = true;
                         } else if (product.quantity > 0) {
                             selectedProductCount++;
                         }
                     }
-
                     var selectedLoai = $('#loai').val();
                     if (selectedLoai == 0) {
                         invalidLoai = true;
                     }
-
                     if (invalidQuantity && invalidLoai) {
                         alert("Vui lòng chọn ít nhất một sản phẩm và loại gas");
                         return;
@@ -1234,7 +1207,6 @@
                         alert("Vui lòng chọn loại gas");
                         return;
                     }
-
                     if (selectedProductCount === 0) {
                         alert("Vui lòng chọn ít nhất một sản phẩm");
                         return;
@@ -1263,11 +1235,12 @@
                 }
             }
 
-                 // Xử lý sự kiện nút "Thanh toán khi nhận hàng"
+            // Xử lý sự kiện nút thanh toán khi nhận hàng
             document.getElementById("submitss").addEventListener("click", function() {
                 document.getElementById("paymentOption").value = "payOnDelivery";
             });
-            // Xử lý sự kiện nút "Thanh toán VNPay"
+
+            // Xử lý sự kiện nút thanh toán VNPay"
             document.getElementById("vnpayButton").addEventListener("click", function() {
                 document.getElementById("paymentOption").value = "vnpay";
             });
@@ -1275,10 +1248,8 @@
             document.addEventListener("DOMContentLoaded", function() {
                 var vnpayButton = document.getElementById("vnpayButton");
                 var totalPriceElement = document.getElementById("tong"); // Trường input ẩn
-
                 vnpayButton.addEventListener("click", function() {
                     var totalPrice = parseFloat(totalPriceElement.value); // Lấy giá trị từ trường input ẩn
-
                     // Tạo form ẩn và gắn vào body
                     var form = document.createElement("form");
                     form.setAttribute("method", "POST");
@@ -1309,8 +1280,6 @@
 
                     // Gắn form vào body
                     document.body.appendChild(form);
-
-                    // Gửi yêu cầu POST
                     form.submit();
                 });
             });
@@ -1318,8 +1287,6 @@
             $('#staticBackdrop').on('shown.bs.modal', function () {
                 $('#orderInfoModal').modal('hide');
             });
-
-
     </script>
 </body>
 </html>

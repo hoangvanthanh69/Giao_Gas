@@ -2,7 +2,6 @@
 @section('sidebar-active-customer', 'active' )
 @section('content')
 
-
         <div class="col-10 nav-row-10 ">
             <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name fs-5">
@@ -19,6 +18,7 @@
                         <span class="name-add-product-all col-4 " for="">Thêm ảnh</span>
                         <input class="input-add-product name-add-product-all-img col-11 mt-2" type="file" name="image_staff">
                     </div>
+
                     <div class="col-4">
                         <span class="name-add-product-all" for="">Họ và Tên</span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="last_name">
@@ -38,7 +38,6 @@
                                 <option value="2">Quản lý</option>
                                 <option value="3">Biên tập</option>
                             </select>    
-
                         </div>
                     </div>
 
@@ -80,14 +79,12 @@
                         <span class="name-add-product-all" for="">Lương/tháng</span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="luong">
                     </div>
+
                     <div class="text-center mt-4">
                         <a class="back-product" href="{{route('quan-ly-nv')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
-
                 </form>
-
-                
             </div>
 @endsection
 

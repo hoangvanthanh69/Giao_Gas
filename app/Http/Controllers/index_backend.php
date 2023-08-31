@@ -12,7 +12,6 @@ use App\Models\danh_gia;
 use App\Models\add_order;
 use App\Models\tbl_discount;
 use Illuminate\Pagination\LengthAwarePaginator;
-
 use Session;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +20,6 @@ use Mail;
 use App\Exports\ExcelExports;
 use App\Exports\ExcelExportsStaff;
 use Excel;
-
 
 class index_backend extends Controller
 {
@@ -80,10 +78,13 @@ class index_backend extends Controller
         // ->groupBy('nameCustomer','phoneCustomer')->havingRaw('COUNT(distinct id) >= 3')->orderByDesc('total_amounts')->get();
         // // print_r($bestseller); die;
         // print_r($tong_gia);
-        return view('backend.admin',['product'=> $product , 'staff' => $staff , 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
-        compact('count_product', 'count_staff', 'count_order','data_price', 'data_original_price', 'count_product1', 
-        'count_product2', 'data_price1', 'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 
-        'product_all','count_staff_chuvu3', 'popularProducts'));
+        return view('backend.admin',['product'=> $product, 'staff' => $staff, 'order_product' => $order_product, 'tbl_admin' => $tbl_admin], 
+            compact('count_product', 'count_staff', 'count_order','data_price',
+                'data_original_price', 'count_product1', 'count_product2', 
+                'data_price1', 'data_price2', 'count_staff_chuvu1', 'count_staff_chuvu2', 'tong_gia', 
+                'product_all','count_staff_chuvu3', 'popularProducts'
+            )
+        );
     }
 
     function chitiet_hd(Request $request, $id){
@@ -198,14 +199,12 @@ class index_backend extends Controller
         $staff_add = add_staff::find($id);
         $staff_add->delete();
         return redirect()->route('quan-ly-nv')->with('mesage','Xóa nhân viên thành công');
-
     }
 
     function delete_client($id){
         $order_product = order_product::find($id);
         $order_product->delete();
         return redirect()->route('quan-ly-hd')->with('mesage','Xóa đơn hàng thành công');;
-
     }
 
     // quản lý nhân viên 
@@ -249,7 +248,8 @@ class index_backend extends Controller
         $count_order_processing = order_product::where('status','=',1)->count();
         $count_order_canceled = order_product::where('status','=',4)->count();
         return view('backend.thong_ke_chi_tiet_dh', compact('count_order', 'count_order_delivered',
-        'count_order_delivery','count_order_processing', 'count_order_canceled'));
+            'count_order_delivery','count_order_processing', 'count_order_canceled')
+        );
     }
 
     // in đơn hàng
@@ -319,10 +319,12 @@ class index_backend extends Controller
                 <label class="name-add-product-all col-3" for="">Số điện thoại:</label>
                 <span>'.$order_product['phoneCustomer'].'</span>
             </div>
+
             <div class="">
                 <label class="name-add-product-all col-3" for="">Ngày đặt:</label>
                 <span>'.$order_product['created_at'].'</span>
             </div>
+
             <div class="">
                 <label class="name-add-product-all col-3" for="">Mã ĐH:</label>
                 <span>'.$order_product['order_code'].'</span>
@@ -353,12 +355,11 @@ class index_backend extends Controller
                 $output .= '<div class="total-payment-price"><strong>'.number_format($order_product['tong']).' VNĐ</strong></div>
                 </tr>';
             }
-        $output .= '</tbody>
-                    </table>
-                    <p class="receipt-h3">Gas Tech xin chân thành cảm ơn quý khách,</p>
-                    <p class="receipt-h3">Hẹn gặp lại!</p>';
-
-        return $output;
+            $output .= '</tbody>
+                        </table>
+                        <p class="receipt-h3">Gas Tech xin chân thành cảm ơn quý khách,</p>
+                        <p class="receipt-h3">Hẹn gặp lại!</p>';
+            return $output;
     }
 
     // tìm kiếm nhân viên
@@ -426,9 +427,8 @@ class index_backend extends Controller
         if ($selectedDistrict) {
             $query->where('district', $selectedDistrict);
         }
-        // Lấy danh sách quận huyện từ cơ sở dữ liệu bảng đặt sản phẩm
+        // Lấy danh sách quận huyện từ cơ sở dữ liệu
         $districts = order_product::pluck('district')->unique();
-
         $status = isset($_POST['status']) ? $_POST['status'] : 'all';
         if ($status == '1') {
             $order_product = order_product::where('status', 1)->orderByDesc('created_at')->get()->toArray(); 
@@ -544,16 +544,19 @@ class index_backend extends Controller
         $date = $request->input('date', date('d-m-Y'));
         $tong_gia_ngay = order_product::where('status', '=', 3)->whereDate('created_at', '=', $date)->sum('tong');
         $month = $request->input('month', date('m-Y'));
-        $total_price_month = order_product::where('status', '=', 3)->whereYear('created_at', '=', date('Y', strtotime($month)))
+        $total_price_month = order_product::where('status', '=', 3)
+            ->whereYear('created_at', '=', date('Y', strtotime($month)))
             ->whereMonth('created_at', '=', date('m', strtotime($month)))->sum('tong');
         $year = $request->input('year', date('Y'));
-        $total_price_year = order_product::where('status', '=', 3)->whereYear ('created_at', '=',$year)->sum('tong');
+        $total_price_year = order_product::where('status', '=', 3)->whereYear('created_at', '=',$year)->sum('tong');
         $start_date = $request->input('start_date', date('d-m-Y'));
         $end_date = $request->input('end_date', date('d-m-Y'));
         $total_revenue = order_product::where('status', '=', 3)->whereBetween('created_at', [$start_date, $end_date])->sum('tong');
         return view('backend.chi_tiet_doanh_thu',['total_price_today' => $total_price_today, 'dates'=> $dates,], 
-        compact(
-        'tong_gia_ngay', 'date','year', 'total_price_year', 'start_date', 'end_date', 'total_revenue', 'month', 'total_price_month'));
+            compact('tong_gia_ngay', 'date','year', 'total_price_year', 'start_date',
+                'end_date', 'total_revenue', 'month', 'total_price_month'
+            )
+        );
     }
 
     // hủy giao hàng cho nhân viên
@@ -633,7 +636,6 @@ class index_backend extends Controller
                     // Kiểm tra số lượng sản phẩm đủ để đặt hàng hay không
                     $current_quantity = $product->quantity;
                     $new_quantity = $current_quantity - $quantity;
-
                     if ($new_quantity < 0) {
                         return redirect()->route('order_phone')->with('message', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
                     }
@@ -645,7 +647,6 @@ class index_backend extends Controller
         }
 
         $jsonData = json_encode($data);
-
         $order = new order_product;
         $order->infor_gas = $jsonData;
         Session::put('phoneCustomer', $request['phoneCustomer']);
@@ -678,7 +679,6 @@ class index_backend extends Controller
         $tong = $request->input('tong');
         $order->tong = $tong;
         // print_r($tong);die;
-        
         $order->save();
         return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
     }

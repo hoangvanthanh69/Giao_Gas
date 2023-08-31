@@ -62,10 +62,7 @@
                         <a class="back-product" href="{{route('quan-ly-giam-gia')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
-
                 </form>
-
-                
             </div>
 @endsection
 

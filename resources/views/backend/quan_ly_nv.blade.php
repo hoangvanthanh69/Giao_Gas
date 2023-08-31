@@ -5,13 +5,10 @@
       <div class="col-10 nav-row-10 ">
 
         <div class="card mb-3 product-list element_column" data-item="staff">
-
           <div class="card-header">
             <span class="product-list-name color-logo-gas">Danh sách nhân viên</span>
           </div>
-
           <div class="search-option-infor-amdin">
-
             <div class="add-product-div-admin add-staff-admin">
               <a class="add-staffs" href="{{route('add-staff')}}">Thêm Nhân viên</a>
             </div>
@@ -39,7 +36,6 @@
           
           <div class="card-body">
             <div class="table-responsive table-list-product">
-
               @if (session('mesage'))
                 <div class="notification">
                   {{ session('mesage') }}

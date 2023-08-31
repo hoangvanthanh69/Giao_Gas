@@ -2,7 +2,6 @@
 @section('sidebar-active-customer', 'active' )
 @section('content')
 
-
         <div class="col-10 nav-row-10 ">
             <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name fs-5">
@@ -22,6 +21,7 @@
                             <img class="col-4 ms-3 image-admin-product-edit" src="{{asset('uploads/staff/'.$staff['image_staff']) }}" alt="" style="width: 130px">
                         </div>
                     </div>
+
                     <div class="col-4">
                         <span class="name-add-product-all" for="">Họ và Tên</span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="last_name" value="{{$staff->last_name}}">
@@ -86,10 +86,7 @@
                         <a class="back-product" href="{{route('quan-ly-nv')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
-
                 </form>
-
-                
             </div>
 @endsection
 

@@ -13,15 +13,15 @@
 <body>
     <div class="grid">
         <div class="icon-login-user">
-                <div class="icon-name-login">
-                    <a href="{{route('register')}}">
-                        <strong class="logo-name-gas">
-                            Gas
-                        </strong>
-                            Tech
-                    </a>
-                </div>
-                <div>Đăng ký</div>
+            <div class="icon-name-login">
+                <a href="{{route('register')}}">
+                    <strong class="logo-name-gas">
+                        Gas
+                    </strong>
+                        Tech
+                </a>
+            </div>
+            <div>Đăng ký</div>
         </div>
     </div> 
 
@@ -29,50 +29,46 @@
         <div class="col-8 form-img-user">
             <img class="form-img-user-image" src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
         </div>
-        <div class="col-4 form-user">
-            
-        <form id="signupForms" method="POST" action="{{route('registers')}}">
-            @csrf
-            <h3 class="heading-login-user">Đăng ký</h3>
-            <div class="form-group form-submit-user-register">
-                <label for="name" class="form-label">Họ tên</label>
-                <input id="name" type="text" name="name" class="form-control name" value="{{ old('name') }}" required autofocus>
-                
-            </div>
-            <div class="form-group form-submit-user-register">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required>
-                
-            </div>
-            
-            <div class="form-group form-submit-user-register">
-                <label for="password" class="form-label">Mật khẩu</label>
-                <input id="password" type="password" name="password" class="form-control" required>
-                
-            </div>
-            <div class="form-group form-submit-user-register">
-                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
-                
-            </div>
+        <div class="col-4 form-user"> 
+            <form id="signupForms" method="POST" action="{{route('registers')}}">
+                @csrf
+                <h3 class="heading-login-user">Đăng ký</h3>
+                <div class="form-group form-submit-user-register">
+                    <label for="name" class="form-label">Họ tên</label>
+                    <input id="name" type="text" name="name" class="form-control name" value="{{ old('name') }}" required autofocus>
+                </div>
 
-			<div class="form-submit-user-register form-users-checkbox">
-				<input class="form-check-input" type="checkbox" id="agree" name="agree" value="agree" />
-				<label class="form-check-label" for="agree">Đồng ý các quy định của chúng tôi</label>
-			</div>
-			
-            <div>
-                <button type="submit" class="form-submit form-submit-register">
-                    Đăng ký
-                </button>
-            </div>
-            
-            <div class="login-user-register">
-                Bạn đã có tài khoản? 
-                <a href="{{route('dangnhap')}}"> Đăng Nhập</a>
-            </div>
-        </form>
-            
+                <div class="form-group form-submit-user-register">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required>
+                </div>
+                
+                <div class="form-group form-submit-user-register">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input id="password" type="password" name="password" class="form-control" required>
+                </div>
+
+                <div class="form-group form-submit-user-register">
+                    <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
+                </div>
+
+                <div class="form-submit-user-register form-users-checkbox">
+                    <input class="form-check-input" type="checkbox" id="agree" name="agree" value="agree" />
+                    <label class="form-check-label" for="agree">Đồng ý các quy định của chúng tôi</label>
+                </div>
+                
+                <div>
+                    <button type="submit" class="form-submit form-submit-register">
+                        Đăng ký
+                    </button>
+                </div>
+                
+                <div class="login-user-register">
+                    Bạn đã có tài khoản? 
+                    <a href="{{route('dangnhap')}}"> Đăng Nhập</a>
+                </div>
+            </form>
         </div>
     </div>
     <div class="footer-imge">
@@ -126,9 +122,6 @@
 				} 
 
 			});
-
-    
-        
         });
 	</script>
 </body>

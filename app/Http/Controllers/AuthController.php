@@ -8,7 +8,6 @@ use App\Models\tbl_admin;
 use Session;
 class AuthController extends Controller
 {
-
     // hiển thị khung đăng nhập cho khách hàng
     function showLoginForm(){
         if(!Session::get('home')){

@@ -25,8 +25,6 @@
                         <a class="back-product" href="{{route('quan-ly-tk-admin')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Cập nhật lại mật khẩu</button>
                     </div>
-                    
-                    
                 </form>
             </div>
 @endsection

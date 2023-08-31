@@ -6,7 +6,6 @@
             <div>
                 <h5 class="color-logo-tech text-center padding-order-phone pt-3">Thêm đơn hàng mới từ số điện thoại</h5>
             </div>
-            
             <div class="search-prodcut-order-phone header-with-search-form ">
             <i class="search-icon-discount fas fa-search"></i>
                 <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search" id="searchInput" onkeyup="searchProducts(this.value)">
@@ -107,7 +106,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-7 pt-3 bg-order-product">
@@ -123,8 +121,6 @@
                     </div>
                 </div>
             </form>
-            
-            
         </div>
 @endsection
 </div>
@@ -154,7 +150,6 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        
                     }
                 });
             });

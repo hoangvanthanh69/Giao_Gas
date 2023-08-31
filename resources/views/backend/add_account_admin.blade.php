@@ -18,6 +18,7 @@
                   <th>Chức năng</th>
                </tr>
             </thead>
+            
             <tbody class="infor">
                @foreach($staff as $key => $val)
                   <tr class="hover-color">

@@ -19,6 +19,7 @@ use App\Http\Controllers\DiscountController;
 |
 */
 
+// trang home customer
 Route::get('/home', [index::class, 'home'] )->name('home');
 
 // login
@@ -221,3 +222,9 @@ Route::post('export-excel-staff', [index_backend::class, 'export_excel_staff'])-
 Route::post('/vnpay_payment', [index::class, 'vnpay_payment'])->name('vnpay_payment');
 
 Route::get('/paymentSuccess', [index::class, 'paymentSuccess'] )->name('paymentSuccess');
+
+Route::post('/load-comment', [index::class,'load_comment'])->name('load-comment');
+Route::post('/send-comment', [index::class,'send_comment'])->name('send-comment');
+
+// xóa bình luận
+Route::get('/delete-comment/{id}', [index::class, 'deleteComment'])->name('delete-comment');

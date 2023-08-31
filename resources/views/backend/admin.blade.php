@@ -117,7 +117,6 @@
                             <span class="count-all">{{number_format($tong_gia)}} VNĐ</span>
                         </div>
                     </div>
-                    
                     <div class="col-auto card-icon text-success" style="font-size: 38px;">
                         <i class="fa-sharp fa-solid fa-money-check-dollar"></i>
                     </div>

@@ -10,7 +10,6 @@
               <label class="name-add-product-all col-3" for="">Tên sản phẩm:</label>
               <input class="input-add-product col-9" type="text" name="name_product">
             </div>
-
             <br>
             <div class="delivery-location form-product-specials product-type row">
               <label class="name-add-product-all col-3" for="loai" class="form-label">Loại bình gas:</label>

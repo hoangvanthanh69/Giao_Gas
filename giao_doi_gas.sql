@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2023 at 04:48 PM
+-- Generation Time: Aug 29, 2023 at 05:05 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -69,25 +69,28 @@ CREATE TABLE `add_staff` (
   `taikhoan` varchar(30) NOT NULL,
   `dia_chi` varchar(100) NOT NULL,
   `status_add` tinyint(1) NOT NULL,
-  `image_staff` varchar(300) DEFAULT NULL
+  `image_staff` varchar(300) DEFAULT NULL,
+  `CCCD` int(11) NOT NULL,
+  `gioi_tinh` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `add_staff`
 --
 
-INSERT INTO `add_staff` (`id`, `last_name`, `birth`, `chuc_vu`, `date_input`, `phone`, `luong`, `taikhoan`, `dia_chi`, `status_add`, `image_staff`) VALUES
-(44, 'Lê Văn Xuân', '2001-03-28', '2', '2021-01-14', '0837641469', 10000000, 'vanxuan@gmail.com', 'xã Tân Hải, huyện Phú Tân, tỉnh Cà Mau', 1, 'vanthanh34.jpg'),
-(45, 'Nguyễn Văn Anh', '1999-07-22', '3', '2021-08-26', '0848828730', 6000000, 'anh12@gmail.com', 'xã Hòa An, huyện Phụng Hiệp, tỉnh Hậu Giang', 1, 'chaien93.jpg'),
-(46, 'Lê Ngọc Quan', '2000-11-06', '1', '2022-06-22', '0919954639', 6000000, 'quan13@gmail.com', 'phường Thới Hòa, quận Ô Môn, thành phố Cần Thơ', 1, 'dekisugi42.jpg'),
-(47, 'Hồ Xuân Minh', '1998-02-14', '1', '2022-01-19', '0717756873', 6000000, 'minh14@gmail.com', 'xã Phú Hưng, huyện Cái Nước, tỉnh Cà Mau', 1, 'doraemon27.png'),
-(48, 'Lê Văn Duy', '2001-07-18', '1', '2022-02-11', '0983768651', 6000000, 'duy15@gmail.com', 'phường Trà Nóc, quận Bình Thủy, thành phố Cần Thơ', 1, 'shenio3.png'),
-(49, 'Trần Tuấn Anh', '2000-06-09', '1', '2022-01-24', '0857698327', 6000000, 'tuananh@gmail.com', 'thị trấn Long Hồ, huyện Long Hồ, tỉnh Vĩnh Long', 1, 'nobitajpg37.jpg'),
-(50, 'Lê Thị Cẩm Hường', '2002-11-08', '3', '2022-11-16', '0918936887', 7000000, 'huong17@gmail.com', 'xã Hòa Điền, huyện Kiên Lương, tỉnh Kiên Giang', 1, 'shiduku38.png'),
-(62, 'Hà Văn Ý', '1997-12-30', '1', '2022-08-04', '0837641469', 6000000, 'vany114@gmail.com', 'Phước Long, Bạc Liêu', 1, 'z2067482415178_9d8517f9c18dd8cfb626717a14eceba712.jpg'),
-(66, 'Hoàng Văn Thanh', '2001-03-08', '2', '2023-03-03', '0837641469', 11000000, 'thanh@gmail.com', 'hẻm 672, đường 30/4, phường Hưng Lợi Quận Ninh Kiều, Cần Thơ', 1, 'ưu60.jpg'),
-(68, 'Lý Minh Tâm', '1999-03-12', '1', '2022-03-02', '0783382169', 6000000, 'tam@gmai.com', 'xã Tân Hải, huyện Phú Tân, tình Cà Mau', 0, 'nobita266.png'),
-(70, 'Hà Ngọc Ý', '2002-05-20', '3', '2023-03-01', '0848875631', 6000000, 'ngocy@gmai.com', 'Mang Thích, Vĩnh Long', 1, 'hình chỉnh42.jpg');
+INSERT INTO `add_staff` (`id`, `last_name`, `birth`, `chuc_vu`, `date_input`, `phone`, `luong`, `taikhoan`, `dia_chi`, `status_add`, `image_staff`, `CCCD`, `gioi_tinh`) VALUES
+(44, 'Lê Văn Xuân', '2001-03-28', '2', '2021-01-14', '0837641469', 10000000, 'vanxuan@gmail.com', 'xã Tân Hải, huyện Phú Tân, tỉnh Cà Mau', 1, 'vanthanh34.jpg', 11223311, 1),
+(45, 'Nguyễn Văn Anh', '1999-07-22', '3', '2021-08-26', '0848828730', 6000000, 'anh12@gmail.com', 'xã Hòa An, huyện Phụng Hiệp, tỉnh Hậu Giang', 1, 'chaien93.jpg', 114422334, 1),
+(46, 'Lê Ngọc Quan', '2000-11-06', '1', '2022-06-22', '0919954639', 6000000, 'quan13@gmail.com', 'phường Thới Hòa, quận Ô Môn, thành phố Cần Thơ', 1, 'dekisugi42.jpg', 368741235, 1),
+(47, 'Hồ Xuân Minh', '1998-02-14', '1', '2022-01-19', '0717756873', 6000000, 'minh14@gmail.com', 'xã Phú Hưng, huyện Cái Nước, tỉnh Cà Mau', 1, 'doraemon27.png', 887462354, 1),
+(48, 'Lê Văn Duy', '2001-07-18', '1', '2022-02-11', '0983768651', 6000000, 'duy15@gmail.com', 'phường Trà Nóc, quận Bình Thủy, thành phố Cần Thơ', 1, 'shenio3.png', 898865368, 1),
+(49, 'Trần Tuấn Anh', '2000-06-09', '1', '2022-01-24', '0857698327', 6000000, 'tuananh@gmail.com', 'thị trấn Long Hồ, huyện Long Hồ, tỉnh Vĩnh Long', 0, 'nobitajpg37.jpg', 778741246, 1),
+(50, 'Lê Thị Cẩm Hường', '2002-11-08', '3', '2022-11-16', '0918936887', 7000000, 'huong17@gmail.com', 'xã Hòa Điền, huyện Kiên Lương, tỉnh Kiên Giang', 1, 'shiduku38.png', 114421456, 2),
+(62, 'Hà Văn Ý', '1997-12-30', '1', '2022-08-04', '0837641469', 6000000, 'vany114@gmail.com', 'Phước Long, Bạc Liêu', 1, 'z2067482415178_9d8517f9c18dd8cfb626717a14eceba712.jpg', 230474149, 1),
+(66, 'Hoàng Văn Thanh', '2001-03-08', '2', '2023-03-03', '0837641469', 11000000, 'thanh@gmail.com', '672, đường 30/4, phường Hưng Lợi Quận Ninh Kiều, Cần Thơ', 1, 'ưu60.jpg', 88747469, 1),
+(68, 'Lý Minh Tâm', '1999-03-12', '1', '2022-03-02', '0783382169', 6000000, 'tam@gmai.com', 'xã Tân Hải, huyện Phú Tân, tình Cà Mau', 0, 'nobita266.png', 11235986, 1),
+(70, 'Hà Ngọc Ý', '2002-05-20', '3', '2023-03-01', '0848875631', 6000000, 'ngocy@gmai.com', 'Mang Thích, Vĩnh Long', 1, 'hình chỉnh42.jpg', 124789865, 2),
+(82, 'Ngô Văn Minh Khôi', '2001-08-06', '3', '2023-08-15', '0847968769', 6000000, 'vankhoi86@gmail.com', 'trà ôn, Vĩnh Long', 0, '1692098981.png', 88457456, 2);
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,8 @@ CREATE TABLE `danh_gia` (
 INSERT INTO `danh_gia` (`id`, `Comment`, `created_at`, `staff_id`, `order_id`, `rating`, `user_id`) VALUES
 (91, 'null', '2023-07-08 05:22:34', 25, 22, 5, 15),
 (92, 'null', '2023-07-08 05:29:56', 25, 20, 5, 15),
-(93, 'null', '2023-07-14 17:18:26', 26, 21, 5, 15);
+(93, 'null', '2023-07-14 17:18:26', 26, 21, 5, 15),
+(94, 'null', '2023-08-13 14:20:55', 26, 125, 5, 15);
 
 -- --------------------------------------------------------
 
@@ -171,26 +175,18 @@ CREATE TABLE `order_product` (
   `admin_name` varchar(30) NOT NULL,
   `order_code` varchar(30) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `infor_gas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+  `infor_gas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `reduced_value` varchar(30) DEFAULT NULL,
+  `coupon` varchar(30) DEFAULT NULL,
+  `payment_status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `order_product`
 --
 
-INSERT INTO `order_product` (`id`, `nameCustomer`, `phoneCustomer`, `diachi`, `country`, `state`, `district`, `ghichu`, `loai`, `tong`, `status`, `user_id`, `admin_name`, `order_code`, `created_at`, `infor_gas`) VALUES
-(29, 'Hồ Minh Nam', '0919938034', '3321 lý thái tổ', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'null', '2', 550000, '4', '14', 'Chưa có người giao', '64af8e68773de', '2023-07-13 05:40:56', '[{\"product_id\":185,\"product_name\":\"gas binh minh v\\u00e0ng 12kg\",\"product_price\":550000,\"quantity\":\"1\"}]'),
-(36, 'Trần Ngọc Vinh', '0837641469', '223 đường Nguyễn Văn Linh', 'Cần Thơ', 'Cờ Đỏ', 'Thị trấn Cờ Đỏ', 'quán ăn gia đình xuân lan', '1', 4800000, '3', '38', 'Hồ Xuân Minh', '64b766d1d087c', '2023-07-19 04:30:09', '[{\"product_id\":172,\"product_name\":\"gas b\\u00ecnh minh 45kg v\\u00e0ng\",\"product_price\":1600000,\"quantity\":\"3\"}]'),
-(82, 'thanhquyen', '0848828736', 'hẻm 583', 'Cần Thơ', 'Cái Răng', 'Lê Bình', 'null', '1', 1600000, '1', '35', 'Chưa có người giao', '64d1bc88bbd06', '2023-08-08 03:54:48', '[{\"product_id\":172,\"product_name\":\"gas b\\u00ecnh minh 45kg v\\u00e0ng\",\"product_price\":1600000,\"quantity\":\"1\"}]'),
-(83, 'thanhquyen', '0848828736', 'hẻm 583', 'Cần Thơ', 'Cái Răng', 'Lê Bình', 'null', '1', 1600000, '1', '35', 'Chưa có người giao', '64d1bce60cd25', '2023-08-08 03:56:22', '[{\"product_id\":176,\"product_name\":\"gas petro limex xanh 45kg\",\"product_price\":1600000,\"quantity\":\"1\"}]'),
-(97, 'Hồ Minh Nam', '0919938034', '3321 lý thái tổ', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'tới quán ẩm thực', '1', 4200000, '1', '14', 'Chưa có người giao', '64d454f2bdd18', '2023-08-10 03:09:38', '[{\"product_id\":172,\"product_name\":\"gas b\\u00ecnh minh 45kg v\\u00e0ng\",\"product_price\":1600000,\"quantity\":\"2\"},{\"product_id\":211,\"product_name\":\"gas v\\u00e0ng b\\u00ecnh minh\",\"product_price\":1000000,\"quantity\":\"1\"}]'),
-(98, 'Hoàng Văn Thanh', '0919938379', 'hẻm 583, đường 30/4', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'giao hàng nhanh', '2', 1703000, '4', '15', 'Chưa có người giao', '64d4558bebc54', '2023-08-10 03:12:11', '[{\"product_id\":183,\"product_name\":\"gas sh petro 12kg\",\"product_price\":603000,\"quantity\":\"1\"},{\"product_id\":185,\"product_name\":\"gas b\\u00ecnhminh v\\u00e0ng 12kg\",\"product_price\":550000,\"quantity\":\"2\"}]'),
-(104, 'Lê Văn Vinh Nguyên', '01254789', '34/113 đường Trần Văn Trà', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'đến tận nhà', '1', 1870000, '1', 'null', 'Chưa có người giao', '64d467edc09d9', '2023-08-10 04:30:37', '[{\"product_id\":178,\"product_name\":\"gas v\\u1ea1n l\\u1ed9c petro h\\u1ed3ng 45kg\",\"product_price\":1870000,\"quantity\":\"1\"}]'),
-(110, 'Lê Văn Vinh Nguyên', '01254789', '34/113 đường Trần Văn Trà', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'null', '1', 1763000, '1', 'null', 'Chưa có người giao', '64d481c63b022', '2023-08-10 06:20:54', '[{\"product_id\":181,\"product_name\":\"gas total 45kg x\\u00e1m\",\"product_price\":1763000,\"quantity\":\"1\"}]'),
-(111, 'Lê Văn Vinh Nguyên', '01254789', '34/113 đường Trần Văn Trà', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'null', '1', 4231200, '2', 'null', 'Người giao hủy', '64d481f9f0c18', '2023-08-10 06:21:45', '[{\"product_id\":181,\"product_name\":\"gas total 45kg x\\u00e1m\",\"product_price\":1763000,\"quantity\":\"3\"}]'),
-(112, 'Hoàng Văn Thanh', '0919938379', 'hẻm 583', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'null', '1', 4800000, '1', '15', 'Chưa có người giao', '64d73e722c2a0', '2023-08-12 08:10:26', '[{\"product_id\":172,\"product_name\":\"gas b\\u00ecnh minh 45kg v\\u00e0ng\",\"product_price\":1600000,\"quantity\":\"3\"}]'),
-(113, 'Hồ Minh Nam', '0919938034', '3321 lý thái tổ', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'null', '1', 1752750, '3', '14', 'Hà Văn Ý', '64d74400bad07', '2023-08-12 08:34:08', '[{\"product_id\":175,\"product_name\":\"gas petro h\\u1ed3ng h\\u00e0 45kg\",\"product_price\":1845000,\"quantity\":\"1\"}]'),
-(116, 'Hoàng Văn Thanh', '0919938379', 'hẻm 583', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'null', '2', 544500, '1', '15', 'Chưa có người giao', '64d791a91cb48', '2023-08-12 14:05:29', '[{\"product_id\":185,\"product_name\":\"gas b\\u00ecnhminh v\\u00e0ng 12kg\",\"product_price\":550000,\"quantity\":\"1\"}]');
+INSERT INTO `order_product` (`id`, `nameCustomer`, `phoneCustomer`, `diachi`, `country`, `state`, `district`, `ghichu`, `loai`, `tong`, `status`, `user_id`, `admin_name`, `order_code`, `created_at`, `infor_gas`, `reduced_value`, `coupon`, `payment_status`) VALUES
+(242, 'Hoàng Văn Thanh', '0837641469', 'đường 30/4 hẻm 672', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'null', '1', 1870000, '3', '15', 'Lê Ngọc Quan', '64ec2fe5ef097', '2023-08-28 05:25:57', '[{\"product_id\":178,\"product_name\":\"gas v\\u1ea1n l\\u1ed9c petro h\\u1ed3ng 45kg\",\"product_price\":1870000,\"quantity\":\"1\"}]', '0', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -251,8 +247,7 @@ INSERT INTO `tbl_admin` (`id`, `admin_email`, `admin_password`, `admin_name`, `c
 (31, 'duy15@gmail.com', 'vanduy15', 'Lê Văn Duy', '1', 'shenio3.png'),
 (33, 'vany114@gmail.com', '111111', 'Hà Văn Ý', '1', 'z2067482415178_9d8517f9c18dd8cfb626717a14eceba712.jpg'),
 (36, 'vanxuan@gmail.com', '111111', 'Lê Văn Xuân', '2', 'vanthanh34.jpg'),
-(37, 'thanh@gmail.com', '11223344', 'Hoàng Văn Thanh', '2', 'ưu60.jpg'),
-(38, 'tuananh@gmail.com', '123456', 'Trần Tuấn Anh', '1', 'nobitajpg37.jpg');
+(37, 'thanh@gmail.com', '11223344', 'Hoàng Văn Thanh', '2', 'ưu60.jpg');
 
 -- --------------------------------------------------------
 
@@ -266,23 +261,26 @@ CREATE TABLE `tbl_discount` (
   `ma_giam` varchar(30) NOT NULL,
   `so_luong` int(11) NOT NULL,
   `gia_tri` varchar(30) NOT NULL,
-  `thoi_gian_giam` datetime NOT NULL,
+  `thoi_gian_giam` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `het_han` datetime NOT NULL,
+  `het_han` datetime DEFAULT NULL,
   `status` int(11) NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `Prerequisites` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_discount`
 --
 
-INSERT INTO `tbl_discount` (`id`, `name_voucher`, `ma_giam`, `so_luong`, `gia_tri`, `thoi_gian_giam`, `created_at`, `het_han`, `status`, `type`) VALUES
-(2, 'HOANGTHANH', 'VT002', 10, '20000', '2023-08-01 10:00:00', '2023-08-01 02:59:36', '2023-08-08 10:00:00', 2, 2),
-(3, 'KHACHHANGMOI', 'HT001', 10, '5', '2023-08-01 10:00:00', '2023-08-01 03:04:22', '2023-08-08 10:00:00', 2, 1),
-(8, 'NGAYVUI', 'NV131', 0, '20000', '2023-08-10 13:26:00', '2023-08-10 06:26:27', '2023-08-11 13:26:00', 2, 2),
-(9, 'Gas Tech', 'GT128', 0, '1', '2023-08-12 10:21:00', '2023-08-12 03:21:13', '2023-08-17 10:21:00', 1, 1),
-(10, 'VANTHANH', 'VANTHANH2803', 5, '50000', '2023-08-12 21:22:00', '2023-08-12 14:23:03', '2023-08-14 21:22:00', 1, 2);
+INSERT INTO `tbl_discount` (`id`, `name_voucher`, `ma_giam`, `so_luong`, `gia_tri`, `thoi_gian_giam`, `created_at`, `het_han`, `status`, `type`, `Prerequisites`) VALUES
+(2, 'HOANGTHANH', 'VT002', 2, '20000', '2023-08-01 10:00:00', '2023-08-01 02:59:36', '2023-08-08 10:00:00', 2, 2, 10000),
+(3, 'KHACHHANGMOI', 'HT001', 10, '5', '2023-08-01 10:00:00', '2023-08-01 03:04:22', '2023-08-08 10:00:00', 2, 1, 10000),
+(8, 'NGAYVUI', 'NV131', 11, '20000', '2023-08-10 13:26:00', '2023-08-10 06:26:27', '2023-08-11 13:26:00', 2, 2, 10000),
+(9, 'Gas Tech', 'GT128', 1, '10', '2023-08-12 10:21:00', '2023-08-12 03:21:13', '2023-08-17 10:21:00', 2, 1, 10000),
+(10, 'VANTHANH', 'VANTHANH2803', 6, '50000', '2023-08-12 21:22:00', '2023-08-12 14:23:03', '2023-08-14 21:22:00', 2, 2, 1000000),
+(11, 'VUIVUI', 'VUIVUI11', 8, '1', '2023-08-16 13:44:00', '2023-08-16 06:44:37', '2023-08-24 13:44:00', 2, 1, 20000),
+(13, 'gas tech xin chao', 'GTXINCHAO1', 3, '10', '2023-08-25 10:08:00', '2023-08-25 03:08:07', '2023-08-31 10:08:00', 1, 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -305,33 +303,60 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`id`, `name_product`, `loai`, `price`, `quantity`, `original_price`, `image`) VALUES
-(170, 'gas magic flame 45kg', '1', 925000, 28, 1550000, 'binh-gas-cong-nghiep-45kg43.jpg'),
-(171, 'Gas dầu khí 45kg', '1', 974000, 30, 1630000, 'binh-gas-dau-khi-45kg85.png'),
-(172, 'gas bình minh 45kg vàng', '1', 841000, 13, 1600000, 'gas-binhminh-45kg57.png'),
-(174, 'gas gia đình 45kg', '1', 1050000, 6, 1670000, 'gas-giadinh-45kg22.png'),
+(170, 'gas magic flame 45kg', '1', 925000, 0, 1550000, 'binh-gas-cong-nghiep-45kg43.jpg'),
+(171, 'Gas dầu khí 45kg', '1', 974000, 0, 1630000, 'binh-gas-dau-khi-45kg85.png'),
+(172, 'gas bình minh 45kg vàng', '1', 841000, 0, 1600000, 'gas-binhminh-45kg57.png'),
+(174, 'gas gia đình 45kg', '1', 1050000, 0, 1670000, 'gas-giadinh-45kg22.png'),
 (175, 'gas petro hồng hà 45kg', '1', 1280000, 0, 1845000, 'gas-hongha-45kg50.jpg'),
-(176, 'gas petro limex xanh 45kg', '1', 1010000, 13, 1600000, 'Petrolimex 48kg51.jpg'),
-(177, 'Gas saigon petro 45kg xám', '1', 811000, 11, 1650000, 'gas-saigon-petro-45kg39.jpg'),
-(178, 'gas vạn lộc petro hồng 45kg', '1', 1200000, 13, 1870000, 'gas-van-loc-45kg71.png'),
-(179, 'gas petro limex xanh 48kg', '1', 1180000, 13, 1960000, 'Petrolimex 48kg97.jpg'),
+(176, 'gas petro limex xanh 45kg', '1', 1010000, 0, 1600000, 'Petrolimex 48kg51.jpg'),
+(177, 'Gas saigon petro 45kg xám', '1', 811000, 10, 1650000, 'gas-saigon-petro-45kg39.jpg'),
+(178, 'gas vạn lộc petro hồng 45kg', '1', 1200000, 2, 1870000, 'gas-van-loc-45kg71.png'),
+(179, 'gas petro limex xanh 48kg', '1', 1180000, 4, 1960000, 'Petrolimex 48kg97.jpg'),
 (180, 'gas petro limex hồng 45kg', '1', 910000, 14, 1630000, 'PetroVietNam 45kg màu hồng88.jpg'),
-(181, 'gas total 45kg xám', '1', 955000, 7, 1763000, 'total-gas-45kg42.png'),
-(182, 'gas petro limex xanh 12kg', '2', 165000, 20, 537000, 'gas_petrolimex_van-chup-12kg41.jpg'),
-(183, 'gas sh petro 12kg', '2', 110000, 15, 603000, 'gas_shp_petro_12kg84.jpg'),
-(185, 'gas bìnhminh vàng 12kg', '2', 99000, 8, 550000, 'gas-binh-minh-mau-vang-12kg16.jpg'),
-(186, 'gas bình minh xanh12kg', '2', 99000, 13, 550000, 'gas-binh-minh-mau-xanh_12kg98.jpg'),
-(187, 'gas mini max vina đỏ', '2', 2000, 17, 8000, 'gas-mini-đỏ50.jpg'),
-(188, 'gas mini max vina vàng', '2', 2000, 12, 10000, 'gas-mini-max-vang18.png'),
-(189, 'gas mini max vina xanh', '2', 2000, 20, 8000, 'gas-mini-max-xanh51.png'),
+(181, 'gas total 45kg xám', '1', 955000, 5, 1763000, 'total-gas-45kg42.png'),
+(182, 'gas petro limex xanh 12kg', '2', 165000, 0, 537000, 'gas_petrolimex_van-chup-12kg41.jpg'),
+(183, 'gas sh petro 12kg', '2', 110000, 0, 603000, 'gas_shp_petro_12kg84.jpg'),
+(185, 'gas bìnhminh vàng 12kg', '2', 99000, 0, 550000, 'gas-binh-minh-mau-vang-12kg16.jpg'),
+(186, 'gas bình minh xanh12kg', '2', 99000, 9, 550000, 'gas-binh-minh-mau-xanh_12kg98.jpg'),
+(187, 'gas mini max vina đỏ', '2', 2000, 16, 8000, 'gas-mini-đỏ50.jpg'),
+(188, 'gas mini max vina vàng', '2', 2000, 10, 10000, 'gas-mini-max-vang18.png'),
+(189, 'gas mini max vina xanh', '2', 2000, 19, 8000, 'gas-mini-max-xanh51.png'),
 (190, 'gas namilux cam', '2', 2000, 0, 10000, 'gas-mini-naminlux-cam-247.jpg'),
 (191, 'gas namilux xanh', '2', 2000, 18, 10000, 'gas-namilux-xanh37.jpg'),
-(192, 'gas petro đỏ 6kg', '2', 55000, 18, 460000, 'gas-petrovn-6kg67.jpg'),
-(193, 'gas petro vn 12kg đỏ', '2', 120000, 14, 530000, 'gas-petrovn-đỏ-12kg93.jpg'),
+(192, 'gas petro đỏ 6kg', '2', 55000, 15, 460000, 'gas-petrovn-6kg67.jpg'),
+(193, 'gas petro vn 12kg đỏ', '2', 120000, 11, 530000, 'gas-petrovn-đỏ-12kg93.jpg'),
 (194, 'gas petro vn hồng 12kg', '2', 120000, 13, 550000, 'gas-petrovn-hồng-12kg99.png'),
 (195, 'gas petro vn 12kg xám', '2', 120000, 14, 550000, 'gas-petrovn-xám-12kg78.png'),
-(196, 'gas Thủ Đức 6kg', '2', 150000, 10, 460000, 'gas-thu-duc-6kg11.png'),
+(196, 'gas Thủ Đức 6kg', '2', 150000, 8, 460000, 'gas-thu-duc-6kg11.png'),
 (208, 'gas petro màu xanh', '1', 900000, 0, 1000000, 'gas-petrolimex-48kg 16.jpg'),
 (211, 'gas vàng bình minh', '1', 800000, 0, 1000000, 'gas-binhminh-45kg99.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_vnpay`
+--
+
+CREATE TABLE `tbl_vnpay` (
+  `id` int(11) NOT NULL,
+  `vnp_Amount` varchar(50) NOT NULL,
+  `vnp_BankCode` varchar(50) NOT NULL,
+  `vnp_BankTranNo` varchar(50) NOT NULL,
+  `vnp_CardType` varchar(50) NOT NULL,
+  `vnp_OrderInfo` varchar(100) NOT NULL,
+  `vnp_PayDate` varchar(50) NOT NULL,
+  `vnp_TmnCode` varchar(50) NOT NULL,
+  `vnp_TransactionNo` varchar(50) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `order_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_vnpay`
+--
+
+INSERT INTO `tbl_vnpay` (`id`, `vnp_Amount`, `vnp_BankCode`, `vnp_BankTranNo`, `vnp_CardType`, `vnp_OrderInfo`, `vnp_PayDate`, `vnp_TmnCode`, `vnp_TransactionNo`, `user_id`, `order_id`) VALUES
+(34, '187000000', 'NCB', 'VNP14102782', 'ATM', 'thanh toan don hang', '20230828122629', 'AKXJR8ZD', '14102782', 15, 242);
 
 -- --------------------------------------------------------
 
@@ -445,6 +470,12 @@ ALTER TABLE `tbl_product`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_vnpay`
+--
+ALTER TABLE `tbl_vnpay`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `trangthai_dh`
 --
 ALTER TABLE `trangthai_dh`
@@ -470,13 +501,13 @@ ALTER TABLE `add_order`
 -- AUTO_INCREMENT for table `add_staff`
 --
 ALTER TABLE `add_staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `danh_gia`
 --
 ALTER TABLE `danh_gia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -494,7 +525,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -512,13 +543,19 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_discount`
 --
 ALTER TABLE `tbl_discount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
+
+--
+-- AUTO_INCREMENT for table `tbl_vnpay`
+--
+ALTER TABLE `tbl_vnpay`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `trangthai_dh`

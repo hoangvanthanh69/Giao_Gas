@@ -5,11 +5,9 @@
       <div class="col-10 nav-row-10 ">
 
         <div class="card mb-3 product-list element_column" data-item="receipt">
-
           <div class="card-header">
             <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a></span>
           </div>
-
           <div class="d-flex justify-content-between pt-3">
             <form method="get"> 
               <div class="d-flex">
@@ -26,17 +24,17 @@
                     <input class="form-check-input" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type1">Gas công nghiệp</label>
                   </div>
+
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="loai" value="2" id="type2" {{ ($filters['loai'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type2">Gas dân dụng</label>
                   </div>
                 </div>
 
-                
-
                 <div class="ms-4 export-file-pdf">
                   <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
                 </div>
+
               </div>
             </form>
             
@@ -74,6 +72,7 @@
                   {{ session('success') }}
                 </div>
             @endif
+            
             @if (session('mesages'))
               <div class="notification-search">
                 {{ session('mesages') }}
@@ -96,19 +95,19 @@
                 </thead>
                 
                 <tbody class="infor">
-                @php
-                    $statusFilter = $filters['status'] ?? 'all';
-                    $typeFilter = $filters['loai'] ?? 'all';
-                @endphp
+                  @php
+                      $statusFilter = $filters['status'] ?? 'all';
+                      $typeFilter = $filters['loai'] ?? 'all';
+                  @endphp
+                  
                   @foreach($order_product as $key => $val)
-                  @if (($statusFilter == 'all' || $val['status'] == $statusFilter) && ($typeFilter == 'all' || $val['loai'] == $typeFilter))
+                    @if (($statusFilter == 'all' || $val['status'] == $statusFilter) && ($typeFilter == 'all' || $val['loai'] == $typeFilter))
                       <tr class="order-product-height hover-color">
                         <td class="order-product-infor-admin">{{$key+1}}</td>
                         <td class="order-product-infor-admin"> {{$val['order_code']}}</td>
                         <td class="order-product-infor-admin">{{$val['nameCustomer']}}</td>
                         <td class="order-product-infor-admin">{{$val['phoneCustomer']}}</td>
                         <td class="order-product-infor-admin"><?php if($val['loai']==1){echo 'Gas công nghiệp';}else{echo 'Gas dân dụng';}  ?></td>
-
                         <td class="order-product-infor-admin">
                           {{$val['created_at']}}
                         </td>
@@ -133,7 +132,6 @@
                             <h6 class="cancel-delivery-orders">Không nhận đơn giao</h6>
                           @endif
                         </td>
-
                         <td class="function-icon ">
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
                             Xem chi tiết
@@ -150,7 +148,6 @@
                                     <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa đơn hàng này</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
-
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
                                     <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>

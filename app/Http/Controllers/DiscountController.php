@@ -105,7 +105,7 @@ class DiscountController extends Controller
         return redirect()->back();
     }
     
-   // kiểm tra mã giảm giá
+    // kiểm tra mã giảm giá
     function check_coupon(Request $request) {
         $couponCode = $request->input('coupon');
         $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
@@ -115,7 +115,6 @@ class DiscountController extends Controller
                 $usedInOrder = order_product::where('user_id', $userId)
                     ->where('coupon', $couponCode)
                     ->exists();
-    
                 return response()->json([
                     'success' => true,
                     'used' => $usedInOrder,
@@ -139,9 +138,6 @@ class DiscountController extends Controller
             return response()->json(['success' => false]);
         }
     }
-    
-    
-
     // thông báo số lượng giảm giá
     function notification_discount_quantity(Request $request){
         $couponCode = $request->input('coupon');

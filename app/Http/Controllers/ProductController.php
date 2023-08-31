@@ -42,8 +42,7 @@ class ProductController extends Controller
         $product = product::find($id);
         $product->name_product = $request->name_product;
         $product->loai = $request->loai;
-        $get_image = $request->image;
-
+        // $get_image = $request->image;
         $get_image = $request->image;
         if($get_image){
             // Bỏ hình ảnh cũ
@@ -59,7 +58,6 @@ class ProductController extends Controller
             $get_image->move($path,$new_image);
             $product->image = $new_image;
         }
-
         $product->price = $request->price;
         $product->original_price = $request->original_price;
         $product->quantity = $request->quantity;

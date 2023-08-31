@@ -9,6 +9,7 @@ use App\Models\tbl_admin;
 use App\Models\tbl_discount;
 use App\Models\tbl_vnpay;
 use App\Models\users;
+use App\Models\tbl_comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -33,13 +34,12 @@ class index extends Controller
       if (!empty($order_product)) {
          usort($order_product, function($a, $b) {
             return strcmp($b['created_at'], $a['created_at']);
-        });
+         });
          $phoneCustomer = $order_product[0]['phoneCustomer'];
          $diachi = $order_product[0]['diachi'];
          $country = $order_product[0]['country'];
          $state = $order_product[0]['state'];
          $district = $order_product[0]['district'];
-
       } 
       elseif (empty($order_product) && Session::has('phoneCustomer', 'diachi', 'country', 'state', 'district')) {
          $phoneCustomer = Session::get('phoneCustomer');
@@ -47,19 +47,17 @@ class index extends Controller
          $country = Session::get('country');
          $state = Session::get('state');
          $district = Session::get('district');
-
       }
       $users = users::find($user_id);
       $counts_processing = order_product::where('user_id', $user_id)->count();
       $products = product::get();
-      // 
       $tbl_discount = tbl_discount::get();
       $ma_giam = session()->get('ma_giam');
       $ma_giam = session()->get('gia_tri');
-      // 
-      return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer, 'diachi' => $diachi, 
-      'country' => $country, 'state' => $state, 'district' => $district, 'users' => $users,'counts_processing' => $counts_processing,'products' => $products,
-      'ma_giam' => $ma_giam, 'tbl_discount' => $tbl_discount,
+      return view('frontend.home', ['order_product' => $order_product, 'phoneCustomer' => $phoneCustomer,
+         'diachi' => $diachi, 'country' => $country, 'state' => $state, 'district' => $district, 
+         'users' => $users,'counts_processing' => $counts_processing,'products' => $products,
+         'ma_giam' => $ma_giam, 'tbl_discount' => $tbl_discount,
       ]);
    }
 
@@ -100,9 +98,8 @@ class index extends Controller
                // Kiểm tra số lượng sản phẩm đủ để đặt hàng hay không
                $current_quantity = $product->quantity;
                $new_quantity = $current_quantity - $quantity;
-
                if ($new_quantity < 0) {
-                   return redirect()->route('home')->with('mesage', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
+                  return redirect()->route('home')->with('mesage', 'Sản phẩm ' . $product->name_product . ' không đủ số lượng');
                }
                // Cập nhật số lượng sản phẩm
                $product->quantity = $new_quantity;
@@ -148,7 +145,7 @@ class index extends Controller
          $couponCode = $request->input('coupon');
          $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
          if ($coupon) {
-             // Áp dụng mã giảm giá vào đơn hàng
+            // Áp dụng mã giảm giá vào đơn hàng
             $order->coupon = $couponCode;
             $order->save();
             $this->update_discount_quantity($couponCode);
@@ -204,7 +201,6 @@ class index extends Controller
          'success' => false,
          'message' => 'Không tìm thấy sản phẩm'
       ]);
-  
    }
 
    //
@@ -224,7 +220,6 @@ class index extends Controller
       // Lọc theo ngày
       $filter = $request->input('filter');
       $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
-
       if ($filter == '5') {
          $order_product->whereDate('created_at', '>=', now()->subDays(5));
       } elseif ($filter == '10') {
@@ -253,15 +248,17 @@ class index extends Controller
          }
          $order['products'] = $products;
       }
-      return view('frontend.order_history', ['order_product' => $order_product,'status' => $status,'counts_processing' => $counts_processing,
-      'counts_all' => $counts_all, 'counts_delivery' => $counts_delivery, 'counts_complete' => $counts_complete, 'counts_cancel' => $counts_cancel,'filter' => $filter,
+      return view('frontend.order_history', ['order_product' => $order_product,'status' => $status,
+         'counts_processing' => $counts_processing, 'counts_all' => $counts_all,
+         'counts_delivery' => $counts_delivery, 'counts_complete' => $counts_complete, 
+         'counts_cancel' => $counts_cancel,'filter' => $filter,
       ]);
    }
 
    // thông tin đơn hàng của khách hàng
    function thong_tin_don_hang(Request $request, $id){
       if(!Session::get('home')){
-          return redirect()->route('dangnhap');
+         return redirect()->route('dangnhap');
       }
       $order_product = order_product::find($id);
       if (!$order_product) {
@@ -298,9 +295,15 @@ class index extends Controller
          }
       }
       $productCount = count($products);
+      $id_customer = Session::get('home')['id'];
+      $customer = users::find($id_customer);
       // print($productCount); die;
-      return view('frontend.thong_tin_don_hang', [ 'order_product' => $order_product, 'delivery_info' => $delivery_info,
-      'danh_gia' => $danh_gia, 'average_rating' => $average_rating, 'staff_id' => $staff_id, 'products' => $products, 'productCount' => $productCount]);
+      $counts_comment = tbl_comment::where('staff_id', $staff_id)->count();
+      return view('frontend.thong_tin_don_hang', [ 'order_product' => $order_product,
+         'delivery_info' => $delivery_info, 'danh_gia' => $danh_gia, 'average_rating' => $average_rating,
+         'staff_id' => $staff_id, 'products' => $products, 'productCount' => $productCount, 'customer' => $customer,
+         'counts_comment' => $counts_comment
+      ]);
    }
     
    function danh_gia_giao_hangs(Request $request, $id){
@@ -434,20 +437,81 @@ class index extends Controller
             'vnp_TransactionNo' => $_GET['vnp_TransactionNo']
          ])->save();
          if ($userId) {
-            $user = users::find($userId); // Corrected line
+            $user = users::find($userId);
             if ($user) {
-                Mail::send('backend.send_mail_pay', compact('order', 'user'), function($email) use ($user) {
-                    $email->subject('Thanh toán thành công');
-                    $email->to($user->email, $user->name);
-                });
+               Mail::send('backend.send_mail_pay', compact('order', 'user'), function($email) use ($user) {
+                  $email->subject('Thanh toán thành công');
+                  $email->to($user->email, $user->name);
+               });
             }
         }
          return redirect()->route('home')->with('success', 'Thanh toán thành công');
-
       }
       else {
          return redirect()->route('home')->with('mesage', 'Thanh toán không thành công');
       }
    }
-  
+
+
+   // binh luan
+   function send_comment(Request $request){
+      $staff_id = $request->input('staff_id');
+      $comment_content = $request->comment_content;
+      $comment = new tbl_comment;
+      $comment -> comment = $comment_content; 
+      $comment -> staff_id = $staff_id; 
+      $user_id = Session::get('home')['id'];
+      $comment->user_id = $user_id;
+      $user = users::find($user_id);
+      $user_name = $user->name;
+      $comment->comment_name = $user_name;
+      $comment-> save();
+   }
+
+   function load_comment(Request $request){
+      $staff_id = $request->input('staff_id');
+      $user_id = Session::get('home')['id'];
+      $comments = tbl_comment::where('staff_id', $staff_id)->get();
+      $comment_id = tbl_comment::get()->toArray();
+      $output = '';
+      foreach($comments as $key => $comment){
+         $user = users::find($comment->user_id);
+         //  print_r($user);die;
+         if ($user) {
+            $avatar = asset('frontend/img/logo-login.png');
+            if ($user->img) {
+               $avatar = asset('uploads/users/' . $user->img);
+            }
+            $output .= '
+               <div class="row mt-4 ps-3">
+                  <div class="col-2">
+                     <img class="img-customer-comment " src="'. $avatar .'" alt="img">
+                  </div>
+                  <div class="col-10 content-customer-comment pe-3">
+                     <p class="text-success">@'. $comment->comment_name .'</p>
+                     <p class="ms-3 text-warning mb-2">'. $comment->comment_date .'</p>
+                     <p class="ms-3 lh-base mb-1 mt-1 ">'. $comment->comment .'</p>
+                  </div>
+               ';
+               if ($comment->user_id == $user_id) {
+                  $output .= '
+                     <div class="delete-comment-div">
+                        <a href="'. route('delete-comment', ['id' => $comment->id]) .'" class="delete-comment-link">Xóa</a>
+                     </div>
+                  ';
+               }
+         }
+      }
+      echo $output . '</div>';
+   }
+
+   // xóa comment
+   function deleteComment($id) {
+      $tbl_comment = tbl_comment::find($id);
+      if ($tbl_comment) {
+         $tbl_comment->delete();
+      }
+      return redirect()->back();
+  }
+
 }

@@ -2,7 +2,6 @@
 @section('sidebar-active-discount', 'active' )
 @section('content')
 
-
         <div class="col-10 nav-row-10 ">
             <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name fs-5">
@@ -64,10 +63,7 @@
                         <a class="back-product" href="{{route('quan-ly-giam-gia')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
-
                 </form>
-
-                
             </div>
 @endsection
 

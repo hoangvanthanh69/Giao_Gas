@@ -3,7 +3,6 @@
 }
 html{
     box-sizing: border-box;
-
 }
 .header{
     background-color: rgb(255, 255, 255);
@@ -13,7 +12,6 @@ html{
     max-width: 100%;
     margin: 0 auto;
 }
-
 .header-with{
     display: flex;
     height: 100px;
@@ -125,11 +123,9 @@ html{
     text-decoration: none !important;
     color: rgb(29, 28, 28);
 }
-
 .header-with-account-span:hover{
     color: rgb(70, 70, 70);
 }
-
 .header-with-account-li{
     font-size: 17px;
     cursor: pointer;
@@ -363,7 +359,6 @@ div#loai-error {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
-
 .gas-delivery-information{
     margin-left: 20%;
     margin-right: 20%;
@@ -401,7 +396,6 @@ div#country-error {
 }
 .product-type{
     display: block;
-    
 }
 .form-product-specials-location{
     display: flex;
@@ -613,12 +607,10 @@ input.amount.is-invalid {
 .form-img-user{
     margin: 50px;
 }
-
 .form-img-user img {
     width: 100%;
     height: 100%;
     border-radius: 2px;
-
 }
 .footer-imge-user{
     color: black !important;
@@ -629,7 +621,6 @@ input.amount.is-invalid {
 .header-with-account :hover{
  color: #75b239;
 }
-
 .invalid-feedbacks {
     margin-top: 5px !important;
     font-size: 14px;
@@ -646,7 +637,6 @@ input.amount.is-invalid {
     width: 100%;
     height: 480px !important;
     margin-top: 60px;
-
 }
 .name-login-user {
     cursor: pointer;
@@ -763,6 +753,10 @@ tbody.history-order-product {
     /* display: flex; */
     align-items: center;
     line-height: 74px;
+}
+.infor-order-user-historys {
+    line-height: 34px;
+    align-items: center;
 }
 .activess-1{
     color: orange !important;
@@ -971,7 +965,6 @@ h5#orderInfoModalLabel {
 .name-product-span{
     color: #299a06;
     font-weight: 500;
-
 }
 button.save-img-customer {
     background-color: #312aa2;
@@ -1008,7 +1001,6 @@ button.save-img-customer {
     color: white;
     margin-left: 37%;
 }
-
 .change-password-customer-home {
     text-align: center;
     color: #000000;
@@ -1120,7 +1112,6 @@ button.save-img-customer {
     animation-duration: 50s;
     animation-timing-function: linear;
 }
-
 @keyframes marquee {
     0% {
         transform: translateX(100%);
@@ -1163,7 +1154,6 @@ button.save-img-customer {
     border: 1px solid red;
     color: red !important;
 }
-
 input#quantity {
     outline: none;
     border: 1px solid;
@@ -1372,4 +1362,43 @@ select.selected-option-date-customer {
 .vnpay-payment-customer {
     margin-left: -4px !important;
     color: rgb(24 143 249);
+}
+.img-customer-comment {
+    width: 32%;
+    height: auto;
+}
+.content-customer-comment {
+    margin-left: -10%;
+    line-height: 8px;
+    width: auto !important;
+    max-width: 68% !important;
+    border: 1px solid #d3d3d3;
+    border-radius: 23px;
+    padding-top: 15px;
+    background-color: #f3f3f3;
+}
+.comment_content-textarea {
+    outline: none;
+    border-radius: 42px;
+    height: 42px;
+    line-height: 36px;
+    padding-left: 15px;
+    background-color: #efefef;
+    border: 1px solid #d8d0d0;
+    margin-bottom: 12px;
+}
+.button-send-comment{
+    border: none;
+    margin-left: -49px;
+}
+.delete-comment-link {
+    margin-left: 8%;
+    text-decoration: none;
+    color: #414141;
+}
+.delete-comment-link:hover{
+    color: red;
+}
+.delete-comment-div {
+    margin-bottom: -14px;
 }

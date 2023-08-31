@@ -9,7 +9,6 @@
             <span class="product-list-name btnbtn">Admin / Sản Phẩm</span>
           </div>
           <div class="card-body">
-            
             <div class="table-responsive table-list-product">
               <div class="search-option-infor-amdin">
                 <div class="search-infor-amdin-form-staff">
@@ -26,11 +25,10 @@
                   </form>
                 </div>
               </div>
-              
                 @if (session('success'))
-                    <div class="notification">
-                        {{ session('success') }}
-                    </div>
+                  <div class="notification">
+                    {{ session('success') }}
+                  </div>
                 @endif
 
                 @if (session('mesages'))
@@ -38,8 +36,6 @@
                   {{ session('mesages') }}
                 </div>
               @endif
-              
-              
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr class="tr-name-table bg-success">
@@ -58,16 +54,20 @@
 
                     <tr class="hover-color">
                       <td class="name-product-td infor-product">{{$val['name_product']}}</td>
+
                       <td class="img-product-td">
                         <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image'])}}" width="100px"  alt="">
-                        
                       </td>
+
                       <td class="name-product-td infor-product">
                         <?php if($val['loai']==1){echo "<span style='color: #ef5f0e; font-weight: 500'>Gas công nghiệp</span>";}
                         else{echo "<span style='color: #09b6a6; font-weight: 500'>Gas dân dụng</span>";} ?>
                       </td>
+
                       <td class="name-product-td infor-product">{{$val['quantity']}}</td>
+
                       <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
+
                       <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
 
                       <td class="function-icon infor-product">
@@ -127,7 +127,6 @@
             link.addEventListener('click', toggleActiveButton);
           });
         </script>
-        
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 @endsection
