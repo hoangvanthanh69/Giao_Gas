@@ -11,6 +11,7 @@ use App\Models\users;
 use App\Models\danh_gia;
 use App\Models\add_order;
 use App\Models\tbl_discount;
+use App\Models\tbl_comment;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Session;
 use DB;
@@ -218,7 +219,7 @@ class index_backend extends Controller
     }
 
     // quản lý hóa đơn
-    function quan_ly_hd() {
+    function quan_ly_hd(Request $request) {
         if (!Session::get('admin')) {
             return redirect()->route('login');
         }
@@ -229,12 +230,14 @@ class index_backend extends Controller
         } else {
             $order_product = order_product::where(['admin_name' =>$admin_name])->orderByDesc('created_at')->get()->toArray();
         }
-        $filters = array(
-            'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
-            'loai' => isset($_GET['loai']) ? $_GET['loai'] : 'all'
-        );
+        $filters = [
+            'status' => $request->input('status', 'all'),
+            'loai' => $request->input('loai', 'all')
+        ];
+        // dd($filters);
         return view('backend.quan_ly_hd', compact('order_product', 'filters'));
     }
+    
 
     // thống kê chi tiết đơn hàng
     function thong_ke_chi_tiet_dh(Request $request){
@@ -512,19 +515,39 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-tk-admin');
     }
 
-    // quan ly tk khach hang
-    function quan_ly_tk_user(){
+    function quan_ly_tk_user(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
-        $users = users::orderByDesc('id')->get()->toArray();
-        $order_product = order_product::orderByDesc('id')->get()->toArray();
-        foreach($users as &$user){
-            $order_count = order_product::where('user_id', $user['id'])->count();
-            $user['order_count'] = $order_count;
+        $filter = $request->input('filter');
+        $users = users::orderByDesc('id')->get();
+        $combinedData = [];
+        
+        foreach ($users as $user) {
+            $orderProductQuery = order_product::where('user_id', $user->id);
+            if ($filter > 0) {
+                $startDate = now()->subMonths($filter)->startOfMonth();
+                $endDate = now()->endOfMonth();
+                $orderProductQuery->whereBetween('created_at', [$startDate, $endDate]);
+            }
+            $orderProductCount = $orderProductQuery->count();
+            $orderProductSum = $orderProductQuery->sum('tong');
+            $combinedData[] = [
+                'user' => $user,
+                'phoneCustomer' => $orderProductCount > 0 ? $orderProductQuery->first()->phoneCustomer : '',
+                'district' => $orderProductCount > 0 ? $orderProductQuery->first()->district : '',
+                'diachi' => $orderProductCount > 0 ? $orderProductQuery->first()->diachi : '',
+                'state' => $orderProductCount > 0 ? $orderProductQuery->first()->state : '',
+                'order_count' => $orderProductCount,
+                'orderProductSum' => $orderProductSum,
+            ];
         }
-        return view('backend.quan_ly_tk_user', ['users'=>$users, 'order_product'=>$order_product]);
+        $order_products_null_user = order_product::where('user_id', 'NULL')->get()->toArray();
+        // print_r($orderProductsNullUser);die;
+        return view('backend.quan_ly_tk_user', ['combinedData' => $combinedData, 'filter' => $filter,
+        'order_products_null_user' => $order_products_null_user,]);
     }
+    
     
     // xoas tai khoan khach hang
     function delete_account_users($id){
@@ -678,6 +701,7 @@ class index_backend extends Controller
         // $order->tong = $totalPrice;
         $tong = $request->input('tong');
         $order->tong = $tong;
+        $order->payment_status = 1;
         // print_r($tong);die;
         $order->save();
         return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
@@ -709,13 +733,88 @@ class index_backend extends Controller
     }
 
     // xuất file excel cho ds đơn hàng
-    function export_excel(){
-        return Excel::download(new ExcelExports , 'ds_don_hang.xlsx');
+    function export_excel(Request $request){
+        $status = $request->input('status', 'all');
+        $loai = $request->input('loai', 'all');
+        return Excel::download(new ExcelExports($status, $loai), 'ds_don_hang.xlsx');
     }
-
+    
     // xuất file excel cho ds nhân viên
     function export_excel_staff(){
         return Excel::download(new ExcelExportsStaff , 'ds_nhan_vien.xlsx');
+    }
+
+    // quản lý bình luận
+    function quan_ly_binh_luan(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $tbl_comment = tbl_comment::where('comment_parent_comment', '=', 0)
+        ->orderByDesc('id')->get();
+        $comment_rep = tbl_comment::where('comment_parent_comment', '>', 0)->orderByDesc('id')->get();
+        $staffNames = [];
+        foreach ($tbl_comment as $comment) {
+            $staffNames[$comment->staff_id] = tbl_admin::find($comment->staff_id)->admin_name;
+        }
+        return view('backend.quan_ly_binh_luan', ['tbl_comment' => $tbl_comment, 'staffNames' => $staffNames, 'comment_rep' => $comment_rep]);
+    }
+
+    // ẩn bình luận
+    function hide_comments($id) {
+        $tbl_comment = tbl_comment::find($id);
+        if ($tbl_comment) {
+           $tbl_comment->status_comment = 1; // ẩn
+           $tbl_comment->save();
+           return redirect()->route('quan-ly-binh-luan');
+        } else {
+           return redirect()->route('quan-ly-binh-luan')->with('message', 'Không tìm thấy đơn hàng');
+        }
+    }
+
+    function unhide_comments($id) {
+        $tbl_comment = tbl_comment::find($id);
+        if ($tbl_comment) {
+           $tbl_comment->status_comment = 0; // ẩn
+           $tbl_comment->save();
+           return redirect()->route('quan-ly-binh-luan');
+        } else {
+           return redirect()->route('quan-ly-binh-luan')->with('message', 'Không tìm thấy đơn hàng');
+        }
+    }
+
+    // trả lời bình luận
+    function reply_comment(Request $request){
+        $data = $request -> all();
+        $tbl_comment = new tbl_comment();
+        $tbl_comment -> comment = $data['comment'];
+        $tbl_comment -> staff_id = $data['staff_id'];
+        $tbl_comment -> comment_parent_comment = $data['id'];
+        $tbl_comment -> status_comment = 0;
+        $tbl_comment -> comment_name = 'GasTech';
+        $tbl_comment -> user_id = $data['user_id'];
+        $tbl_comment -> save();
+    }
+
+    // xóa comment admin
+    function delete_comment_admin($id){
+        $tbl_comment = tbl_comment::find($id);
+        if (!$tbl_comment) {
+            return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Không tìm thấy bình luận']);
+        }
+        $replies = tbl_comment::where('comment_parent_comment', $id)->get();
+        foreach ($replies as $reply) {
+            $reply->delete();
+        }
+        $tbl_comment->delete();
+        return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Xóa thành công']);
+    }
+
+    //xóa trả lời bình luận
+    function delete_reply_comment($id){
+        $replyComment = tbl_comment::find($id);
+        // print_r($replyComment);die;
+        $replyComment->delete();
+        return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Xóa bình luận thành công']);
     }
 
 }

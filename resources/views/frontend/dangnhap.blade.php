@@ -35,8 +35,8 @@
                 @csrf
                 <h3 class="heading-login-user">Đăng Nhập</h3>
                 <div class="form-group form-submit-user">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required autofocus>
+                    <label for="email" class="form-label">Email hoặc Phone</label>
+                    <input id="phone" type="phone" name="user_name" class="form-control" placeholder="" required autofocus>
                     <span class="form-mesage"></span>
                 </div>
                 <div class="form-group form-submit-user">

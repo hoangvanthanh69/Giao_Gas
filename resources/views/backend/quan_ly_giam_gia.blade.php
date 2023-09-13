@@ -4,7 +4,7 @@
 <div class="col-10 nav-row-10 ">
     <div class="card mb-3 product-list element_column" data-item="staff">
         <div class="card-header">
-          <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giam-gia')}}">Mã giảm giá</a></span>
+          <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giam-gia')}}">Mã giảm giá</a></span>
         </div>
         <div class="search-option-infor-amdin">
             <div class="add-product-div-admin add-staff-admin">

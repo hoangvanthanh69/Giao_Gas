@@ -8,8 +8,8 @@
       <div class="table-responsive table-list-product">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <h5 class="list-account-admin text-success">Số điểm đánh giá của nhân viên</h5>
-                    <tr class="tr-name-table bg-secondary">
+                    <h5 class="list-account-admin">Số điểm đánh giá của nhân viên</h5>
+                    <tr class="tr-name-table">
                         <th>STT</th>
                         <th>Ảnh</th>
                         <th>Name</th>
@@ -29,10 +29,12 @@
                                     <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$val['image_staff'])}}" width="100px"  alt="">
                                 </td>
                                 <td class="product-order-quantity">{{$val['admin_name']}}</td>
-                                <td class="product-order-quantity"><?php 
-                                    if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
-                                    elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
-                                    else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
+                                <td class="product-order-quantity">
+                                    <?php 
+                                        if($val['chuc_vu']==1){echo "<span style='color: #2679A0; font-weight: 500'>Giao hàng</span>";} 
+                                        elseif($val['chuc_vu']==3){echo "<span style='color: #77d020; font-weight: 500'>Biên tập</span>";} 
+                                        else{echo "<span style='color: red; font-weight: 500'>Quản lý</span>";}
+                                    ?>
                                 </td>
                                 <td>
                                     {{ $val['ratings'] }} sao

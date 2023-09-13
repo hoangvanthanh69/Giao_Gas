@@ -6,7 +6,7 @@
 
         <div class="card mb-3 product-list element_column" data-item="staff">
           <div class="card-header">
-            <span class="product-list-name color-logo-gas">Danh sách nhân viên</span>
+            <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Quản lý nhân viên</a></span>
           </div>
           <div class="search-option-infor-amdin">
             <div class="add-product-div-admin add-staff-admin">
@@ -26,7 +26,7 @@
                 <form action="{{ route('admin.search_order') }}" method="GET" class="header-with-search-form ">
                   @csrf
                   <i class="search-icon-discount fas fa-search"></i>
-                  <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                  <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Mã Số, Họ Tên" name="search">
                   <span class="header_search button" onclick="startRecognition()">
                     <i class="fas fa-microphone" id="microphone-icon"></i> 
                   </span>
@@ -86,9 +86,11 @@
                         <td class="product-order-quantity"><?php if($val['gioi_tinh']==1){echo "Nam";} else{echo "Nữ";}  ?></td>
 
                         <td class="roduct-order-quantity">
-                          <?php if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
-                          elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
-                          else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
+                          <?php
+                            if($val['chuc_vu']==1){echo "<span style='color: #2679A0; font-weight: 500'>Giao hàng</span>";} 
+                            elseif($val['chuc_vu']==3){echo "<span style='color: #77d020; font-weight: 500'>Biên tập</span>";} 
+                            else{echo "<span style='color: red; font-weight: 500'>Quản lý</span>";} 
+                          ?>
                         </td>
 
                         <td class="product-order-quantity">{{$val['taikhoan']}}</td>

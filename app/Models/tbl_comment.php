@@ -13,6 +13,6 @@ class tbl_comment extends Model
     public $timestamps = false;
     protected $table = 'tbl_comment';
     protected $fillable = [
-        'comment', 'comment_name','comment_date', 'staff_id', 'user_id'
+        'comment', 'comment_name','comment_date', 'staff_id', 'user_id', 'status_comment', 'comment_parent_comment'
     ];
 }

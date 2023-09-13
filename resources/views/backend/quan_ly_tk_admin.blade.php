@@ -33,9 +33,9 @@
                   <td class="product-order-quantity">{{$val['admin_email']}}</td>
                   <td class="product-order-quantity">{{$val['admin_password']}}</td>
                   <td class="product-order-quantity"><?php 
-                     if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
-                     elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
-                     else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
+                     if($val['chuc_vu']==1){echo "<span style='color: #2679A0; font-weight: 500'>Giao hàng</span>";} 
+                     elseif($val['chuc_vu']==3){echo "<span style='color: #77d020; font-weight: 500'>Biên tập</span>";} 
+                     else{echo "<span style='color: red; font-weight: 500'>Quản lý</span>";}  ?>
                   </td>
                   <td class="product-order-quantity">{{$val['order_count']}}</td>
                   <td class="product-order-quantity function-icon icon-line-height">
@@ -44,12 +44,28 @@
                            <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                      </form>
-
+                     
                      <form action="{{route('delete_account', $val['id'])}}">
-                        <button class="button-delete-order" type='submit'>
-                        <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-                        </button>
-                     </form>
+                          <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">
+                            <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
+                          </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{$val['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa sản phẩm này</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                                    <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </form>
                   </td>
                </tr>
                @endforeach 

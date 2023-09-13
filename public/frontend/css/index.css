@@ -150,7 +150,7 @@ html{
     color: white;
 }
 .heading-login-user{
-    font-size: 36px;
+    font-size: 30px;
     text-align: center;
     margin-bottom: 30px;
     color: black !important;
@@ -162,8 +162,10 @@ html{
 }
 .form-label,
 .form-mesage{
-   text-align: left;
-   font-size: 20px;
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 4px !important;
+    outline: none;
 }
 .form-control{
     height: 38px;
@@ -631,7 +633,7 @@ input.amount.is-invalid {
     text-align: left;
 }
 .form-submit-user-register {
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 .form-img-user-image {
     width: 100%;
@@ -1373,9 +1375,13 @@ select.selected-option-date-customer {
     width: auto !important;
     max-width: 68% !important;
     border: 1px solid #d3d3d3;
-    border-radius: 23px;
+    border-radius: 17px;
     padding-top: 15px;
     background-color: #f3f3f3;
+}
+.content-admin-comment{
+    border: 1px solid #bcbcbc;
+    background-color: #dedddd;
 }
 .comment_content-textarea {
     outline: none;
@@ -1401,4 +1407,23 @@ select.selected-option-date-customer {
 }
 .delete-comment-div {
     margin-bottom: -14px;
+}
+.logo-gastech-comment {
+    width: 32%;
+    height: auto;
+    margin-left: 15px;
+    margin-top: 8%;
+}
+.comment-name-admin{
+    color: rgb(38, 121, 160);
+    font-weight: 500;
+}
+#notify-comment{
+    color: red;
+    animation: ease .5s, fadeout linear 8s 1s forwards;
+}
+@keyframes fadeout{
+    to{
+        opacity: 0;
+    }
 }

@@ -3,6 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Admin</title>
       <link rel="icon" type="image/png" href="{{asset('frontend/img/kisspng-light-fire-flame-logo-symbol-fire-letter-5ac5dab338f111.3018131215229160192332.jpg')}}">
@@ -158,6 +159,13 @@
                               <a class="@yield('sidebar-active-discount')" href="{{route('quan-ly-giam-gia')}}">
                                  <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
                                  Quản lý giảm giá
+                              </a>
+                           </div>
+
+                           <div class="btnbtn home-filter-button mb-4">
+                              <a class="@yield('sidebar-active-comment')" href="{{route('quan-ly-binh-luan')}}">
+                                 <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
+                                 Quản lý bình luận
                               </a>
                            </div>
                         </div>

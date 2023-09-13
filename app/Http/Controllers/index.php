@@ -155,7 +155,7 @@ class index extends Controller
       $order->save();
       $orderId = $order->id;
       $user = users::find($user_id);
-      if ($user) {
+      if (empty($user)) {
          Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
             $email->subject('Đặt hàng thành công');
             $email->to($user->email, $user->name);
@@ -298,7 +298,7 @@ class index extends Controller
       $id_customer = Session::get('home')['id'];
       $customer = users::find($id_customer);
       // print($productCount); die;
-      $counts_comment = tbl_comment::where('staff_id', $staff_id)->count();
+      $counts_comment = tbl_comment::where('staff_id', $staff_id)->where('status_comment',0)->count();
       return view('frontend.thong_tin_don_hang', [ 'order_product' => $order_product,
          'delivery_info' => $delivery_info, 'danh_gia' => $danh_gia, 'average_rating' => $average_rating,
          'staff_id' => $staff_id, 'products' => $products, 'productCount' => $productCount, 'customer' => $customer,
@@ -438,7 +438,7 @@ class index extends Controller
          ])->save();
          if ($userId) {
             $user = users::find($userId);
-            if ($user) {
+            if (empty($user)) {
                Mail::send('backend.send_mail_pay', compact('order', 'user'), function($email) use ($user) {
                   $email->subject('Thanh toán thành công');
                   $email->to($user->email, $user->name);
@@ -461,18 +461,23 @@ class index extends Controller
       $comment -> comment = $comment_content; 
       $comment -> staff_id = $staff_id; 
       $user_id = Session::get('home')['id'];
-      $comment->user_id = $user_id;
+      $comment -> user_id = $user_id;
       $user = users::find($user_id);
       $user_name = $user->name;
-      $comment->comment_name = $user_name;
-      $comment-> save();
+      $comment -> comment_name = $user_name;
+      $comment -> status_comment = 0;
+      $comment -> comment_parent_comment = 0;
+      $comment -> save();
    }
 
    function load_comment(Request $request){
       $staff_id = $request->input('staff_id');
       $user_id = Session::get('home')['id'];
-      $comments = tbl_comment::where('staff_id', $staff_id)->get();
+      $comments = tbl_comment::where('staff_id', $staff_id)->where('comment_parent_comment', '=', 0)
+      ->where('status_comment', 1)->get();
+      $comment_rep = tbl_comment::where('comment_parent_comment', '>', 0)->orderByDesc('id')->get();
       $comment_id = tbl_comment::get()->toArray();
+      $img_logo = asset('frontend/img/kisspng-light-fire-flame-logo-symbol-fire-letter-5ac5dab338f111.3018131215229160192332.jpg');
       $output = '';
       foreach($comments as $key => $comment){
          $user = users::find($comment->user_id);
@@ -483,26 +488,42 @@ class index extends Controller
                $avatar = asset('uploads/users/' . $user->img);
             }
             $output .= '
-               <div class="row mt-4 ps-3">
-                  <div class="col-2">
-                     <img class="img-customer-comment " src="'. $avatar .'" alt="img">
+               <div class="row mt-4 ps-3 ">
+                  <div class="col-2 ">
+                     <img class="img-customer-comment" src="'. $avatar .'" alt="img">
                   </div>
                   <div class="col-10 content-customer-comment pe-3">
                      <p class="text-success">@'. $comment->comment_name .'</p>
                      <p class="ms-3 text-warning mb-2">'. $comment->comment_date .'</p>
                      <p class="ms-3 lh-base mb-1 mt-1 ">'. $comment->comment .'</p>
                   </div>
+               </div>
                ';
                if ($comment->user_id == $user_id) {
                   $output .= '
                      <div class="delete-comment-div">
-                        <a href="'. route('delete-comment', ['id' => $comment->id]) .'" class="delete-comment-link">Xóa</a>
+                        <a href="'. route('delete-comment', ['id' => $comment->id]) .'" class="delete-comment-link" >Xóa</a>
                      </div>
                   ';
                }
          }
+         foreach($comment_rep as $key => $rep_comment ){
+            if($rep_comment->comment_parent_comment == $comment->id){
+               $output .= '
+               <div class="row mt-2 ms-5">
+                  <div class="col-2">
+                     <img class="logo-gastech-comment " src="'. $img_logo .'" alt="img">
+                  </div>
+                  <div class="col-10 content-customer-comment content-admin-comment pe-3">
+                     <p class="comment-name-admin mb-2">@'. $rep_comment->comment_name .'</p>
+                     <p class="ms-3 lh-base mb-2">'. $rep_comment->comment .'</p>
+                  </div>
+               </div>
+               ';
+            }
+         }
       }
-      echo $output . '</div>';
+      echo $output;
    }
 
    // xóa comment
@@ -512,6 +533,6 @@ class index extends Controller
          $tbl_comment->delete();
       }
       return redirect()->back();
-  }
+   }
 
 }

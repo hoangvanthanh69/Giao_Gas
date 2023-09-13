@@ -6,12 +6,12 @@
 
         <div class="card mb-3 product-list element_column" data-item="receipt">
           <div class="card-header">
-            <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a></span>
+            <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a></span>
           </div>
           <div class="d-flex justify-content-between pt-3">
             <form method="get"> 
               <div class="d-flex">
-                <select name="status" id="status" class="form-select select-form-option" onchange="this.form.submit()">
+                <select name="status" id="status" class="select-form-option" onchange="this.form.submit()">
                   <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Tất cả</option>
                   <option value="1" {{ ($filters['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
                   <option value="2" {{ ($filters['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
@@ -30,28 +30,24 @@
                     <label class="form-check-label" for="type2">Gas dân dụng</label>
                   </div>
                 </div>
-
-                <div class="ms-4 export-file-pdf">
-                  <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
-                </div>
-
               </div>
             </form>
-            
+
+            <div class="export-file-pdf">
+              <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
+            </div>
+
             <div class="export-file-excel">
-              <form action="{{route('export-excel')}}" method="POST">
-                @csrf
-                <button type="submit" value="" name="export_csv" class="export-file-excel-button">
-                  <i class="fa-solid fa-file-export"></i>Xuất Excel
-                </button>
-              </form>
+              <a href="{{ route('export-excel', ['status' => $filters['status'], 'loai' => $filters['loai']]) }}" class="export-file-excel-button">
+                <i class="fa-solid fa-file-export"></i>Xuất Excel
+              </a>
             </div>
 
             <div class="search-infor-amdin-form mt-2 me-4">
               <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
                 @csrf
                 <i class="search-icon-discount fas fa-search"></i>
-                <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Mã ĐH, Tên KH" name="search">
                 <span class="header_search button" onclick="startRecognition()">
                   <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
@@ -80,7 +76,7 @@
             @endif
               <table class="table table-bordered" id="dataTable" cellspacing="0" style="width: 100%">
                 <thead>
-                  <tr class="tr-name-table bg-info">
+                  <tr class="tr-name-table">
                     <th>STT</th>
                     <th >Mã ĐH</th>
                     <th>Tên Khách hàng</th>

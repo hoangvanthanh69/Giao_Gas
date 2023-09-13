@@ -40,7 +40,12 @@
 
                 <div class="form-group form-submit-user-register">
                     <label for="email" class="form-label">Email</label>
-                    <input id="email" type="email" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}" required>
+                    <input id="email" type="text" name="email" class="form-control" placeholder="@gmail.com" value="{{ old('email') }}">
+                </div>
+
+                <div class="form-group form-submit-user-register">
+                    <label for="phone" class="form-label">SĐT</label>
+                    <input id="phone" type="text" name="phone" class="form-control" value="{{ old('phone') }}" required>
                 </div>
                 
                 <div class="form-group form-submit-user-register">
@@ -86,14 +91,24 @@
 			$("#signupForms").validate({
 				rules: {
 					name: "required",
-					email: "required",
+					email: {
+                        email: true,
+                    },
                     password: {required: true, minlength: 5},
                     password_confirmation: {required: true, minlength: 5, equalTo: "#password"},
                     agree: "required",
+                    phone: {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 10,
+                        number: true,
+                    },
 				},
 				messages: {
 					name: "Nhập tên",
-					email: "Hộp thư điện tử không hợp lệ",
+					email: {
+                        email: "Vui lòng nhập email",
+                    },
                     password: {
 						required: "Bạn chưa nhập mật khẩu",
 						minlength: "Mật khẩu phải có ít nhất 5 kí tự"
@@ -103,7 +118,13 @@
 						minlength: "Mật khẩu phải có ít nhất 5 ký tự",
 						equalTo: "Mật khẩu không trùng khớp với mật khẩu đã nhập",
 					},
-					agree: "Bạn phải đồng ỳ với các quy định của chúng tôi"
+					agree: "Bạn phải đồng ỳ với các quy định của chúng tôi",
+                    phone: {
+                        required: "Nhập số điện thoại",
+                        minlength: "Vui lòng nhập đúng định dạng",
+                        maxlength: "Vui lòng nhập đúng định dạng",
+                        number: "Vui lòng nhập số",
+                    },
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {

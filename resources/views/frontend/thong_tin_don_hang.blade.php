@@ -55,10 +55,10 @@
                         </div>
                         <div class="col-5 total-order-customer-infor"> 
                             <h5>Tổng cộng ({{$productCount}} sản phẩm)</h5>
-                            <!-- <div class="row">
+                            <div class="row">
                                 <div class="col-7">Tổng tiền ({{$productCount}} sản phẩm)</div>
                                 <div class="col-5">{{number_format($order_product['tong'])}} VNĐ</div>
-                            </div> -->
+                            </div>
                             <div class="row">
                                 <div class="col-7">Phí vận chuyển (miễn phí)</div>
                                 <div class="col-5"> 0 VNĐ</div>
@@ -84,30 +84,29 @@
                     <h6 class="text-danger mt-4">Người giao hàng</h6>
                     <div class="infor-deliver-customers d-flex text-center mb-2">
                         @if ($delivery_info)
-                        <div class="col-1">
-                            <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$delivery_info['image_staff'])}}" width="100px"  alt="{{ $delivery_info->admin_name }}">
-                        </div>
-
-                        <div class="col-2">
-                            <p class="name-product-p">{{$order_product['admin_name']}}</p>
-                        </div>
-
-                        <div>
-                            <div class="star-ratings">
-                                <?php for ($i = 1; $i <= 5; $i++) { ?>
-                                    <?php
-                                        $star_color = '';
-                                        if ($i <= $average_rating) {
-                                            $star_color = 'checked';
-                                        } elseif ($i - $average_rating < 0.5) {
-                                            $star_color = 'half-checked';
-                                        }
-                                    ?>
-                                    <i class="fa fa-star <?php echo $star_color; ?>"></i>
-                                <?php } ?>
+                            <div class="col-1">
+                                <img class="image-admin-product-edit"  src="{{asset('uploads/staff/'.$delivery_info['image_staff'])}}" width="100px"  alt="{{ $delivery_info->admin_name }}">
                             </div>
-                        </div>
 
+                            <div class="col-2">
+                                <p class="name-product-p">{{$order_product['admin_name']}}</p>
+                            </div>
+
+                            <div>
+                                <div class="star-ratings">
+                                    <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                        <?php
+                                            $star_color = '';
+                                            if ($i <= $average_rating) {
+                                                $star_color = 'checked';
+                                            } elseif ($i - $average_rating < 0.5) {
+                                                $star_color = 'half-checked';
+                                            }
+                                        ?>
+                                        <i class="fa fa-star <?php echo $star_color; ?>"></i>
+                                    <?php } ?>
+                                </div>
+                            </div>
                         @else
                             <span class="text-muted">Chưa có người giao</span>
                         @endif
@@ -157,17 +156,16 @@
                                     <i class="star star-rating fa fa-star" data-value="5"></i>
                                     <input type="hidden" name="rating" class="rating-value" value="">
                                 </div>
-                                <button type="submit" class="btn btn-primary ms-4" id="submit-rating">Gửi đánh giá</button>
+                                <button type="submit" class="btn btn-primary ms-4" id="submit_rating">Gửi đánh giá</button>
                             </div>
                         </form>
                     @endif
-                    <strong class="ms-4">{{$counts_comment}} bình luận</strong>
+                    <!-- <strong class="ms-4">{{$counts_comment}} bình luận</strong> -->
                     <form action="">
                         @csrf
                         <div id="comment_show"></div>
                         <input type="hidden" name="staff_id" class="staff_id" value="{{isset($delivery_info) ? $delivery_info->id : '' }}">
                     </form>
-
                     <form action="" class="mt-3">
                         @csrf
                         @if (Session::get('home'))
@@ -183,6 +181,7 @@
                             <img class="img-send-comment pb-1" src="{{ asset('frontend/img/icon-send.png') }}" alt="..." width="20px">
                         </button>
                     </form>
+                    <div id="notify-comment"></div>
                 @endif
 
                 @if (session('success'))
@@ -357,7 +356,7 @@
         }
         return true;
     }
-    document.querySelector('#submit-rating').addEventListener('click', function(event) {
+    document.querySelector('#submit_rating').addEventListener('click', function(event) {
         if (!validateRating()) {
             event.preventDefault();
         }
@@ -381,15 +380,15 @@
     });
 
     // thay đổi đánh giá
-    document.getElementById("change-rating").addEventListener("click", function() {
-        var selectAddressUser = document.querySelector(".select-address-user");
-        document.querySelector('.select-address-user').style.display = 'block';
-        if (selectAddressUser.classList.contains("hidden")) {
-        selectAddressUser.classList.remove("hidden");
-        } else {
-        selectAddressUser.classList.add("hidden");
-        }
-    });
+    // document.getElementById("change-rating").addEventListener("click", function() {
+    //     var selectAddressUser = document.querySelector(".select-address-user");
+    //     document.querySelector('.select-address-user').style.display = 'block';
+    //     if (selectAddressUser.classList.contains("hidden")) {
+    //     selectAddressUser.classList.remove("hidden");
+    //     } else {
+    //     selectAddressUser.classList.add("hidden");
+    //     }
+    // });
     
 </script>
 
@@ -431,6 +430,7 @@
                 },
                 success: function(data) {
                     load_comment();
+                    $('#notify-comment').html('<span class="text text-alert ms-4">Bình luận thành công</span>');
                     $('.comment_content').val('');
                 },
                 error: function(xhr, status, error) {

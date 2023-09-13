@@ -38,7 +38,7 @@
               @endif
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr class="tr-name-table bg-success">
+                  <tr class="tr-name-table">
                     <th>Tên sản phẩm</th>
                     <th>Ảnh</th>
                     <th>Loại gas</th>

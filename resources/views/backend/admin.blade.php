@@ -137,7 +137,7 @@
                     <div class="col mr-2 p-3 text-light">
                         <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
                             Tổng giá sản phẩm bán ra
-                        </div>
+                        </div> 
                         <div class="h5 mb-0 font-weight-bold ">
                             <span class="count-all saleprice-product">{{number_format($data_original_price)}} VNĐ</span> 
                         </div>

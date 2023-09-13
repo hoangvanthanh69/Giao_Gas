@@ -102,7 +102,7 @@
 
                         <div class="mt-4 sumbmit-order-product" id="show_infor">
                             <div class="float-end ">
-                                <button class="btn btn-primary submit" id="submitButton">Giao gas</button>
+                                <button class="btn btn-submit-delivery submit" id="submitButton">Giao gas</button>
                             </div>
                         </div>
                     </div>

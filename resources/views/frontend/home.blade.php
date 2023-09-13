@@ -133,17 +133,21 @@
                                                 </div>
                                             </form>
 
-                                            <div class="d-flex">
+                                            <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Họ tên:</label>
-                                                <p class="ps-3">{{ Session::get('home')['name'] }}</p>
+                                                <span class="ps-3">{{ Session::get('home')['name'] }}</span>
                                             </div>
-                                            <div class="d-flex">
+                                            <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Tài khoản:</label>
-                                                <p class="ps-3">{{ Session::get('home')['email'] }}</p>
+                                                <span class="ps-3">{{ Session::get('home')['email'] }}</span>
                                             </div>
-                                            <div class="d-flex">
+                                            <div class="d-flex mb-3">
+                                                <label class="text-acount-customer col-3" for="">Số điện thoại:</label>
+                                                <span class="ps-3">{{ Session::get('home')['phone'] }}</span>
+                                            </div>
+                                            <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Mật khẩu:</label>
-                                                <p class="ps-3">{{ str_repeat('*', strlen(Session::get('home')['password'])) }}</p>
+                                                <span class="ps-3">{{ str_repeat('*', strlen(Session::get('home')['password'])) }}</span>
                                             </div>
                                         </div>
                                     @endif

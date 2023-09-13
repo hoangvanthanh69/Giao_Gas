@@ -213,7 +213,7 @@ Route::post('update-discount-quantity', [index::class, 'update_discount_quantity
 Route::post('notification-discount-quantity', [DiscountController::class, 'notification_discount_quantity'])->name('notification-discount-quantity');
 
 // export_excel cho ds đơn hàng
-Route::post('export-excel', [index_backend::class, 'export_excel'])->name('export-excel');
+Route::get('export-excel', [index_backend::class, 'export_excel'])->name('export-excel');
 
 // export excel cho ds nhân viên
 Route::post('export-excel-staff', [index_backend::class, 'export_excel_staff'])->name('export-excel-staff');
@@ -228,3 +228,20 @@ Route::post('/send-comment', [index::class,'send_comment'])->name('send-comment'
 
 // xóa bình luận
 Route::get('/delete-comment/{id}', [index::class, 'deleteComment'])->name('delete-comment');
+
+// quản lý bình luận
+Route::get('/quan-ly-binh-luan', [index_backend::class, 'quan_ly_binh_luan'])->name('quan-ly-binh-luan');
+
+// ẩn và hien thi bình luận
+Route::get('/hide-comments/{id}', [index_backend::class, 'hide_comments'])->name('hide-comments');
+
+Route::get('/unhide-comments/{id}', [index_backend::class, 'unhide_comments'])->name('unhide-comments');
+
+// trả lời bình luận
+Route::post('/reply-comment', [index_backend::class, 'reply_comment'])->name('reply-comment');
+
+// xóa bình luận bên admin
+Route::get('/delete_comment_admin/{id}/tbl_comment', [index_backend::class, 'delete_comment_admin'] )->name('delete_comment_admin');
+
+// xóa trả lời bình luận
+Route::get('/delete_reply_comment/{id}/tbl_comment', [index_backend::class, 'delete_reply_comment'] )->name('delete_reply_comment');

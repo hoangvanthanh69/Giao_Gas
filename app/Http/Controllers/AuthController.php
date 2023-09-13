@@ -23,13 +23,21 @@ class AuthController extends Controller
     function dangnhap(Request $request){
         $data = $request -> all();
         $password = $data['password'];
-        $user = users::where(['email' => $data['email'], 'password' => $password])->first();
+        // $user = users::where(['email' => $data['email'], 'password' => $password])->first();
+        // dd(is_numeric( $data['user_name']));
+        if(is_numeric( $data['user_name'])){
+            $user = users::where(['phone' => $data['user_name'],'password' => $password])->first();
+        }
+        else{
+            $user = users::where(['email' => $data['user_name'], 'password' => $password])->first();
+        }
         if($user) {
             Session::put('home',[
                 'id' => $user -> id,
                 'email' => $user -> email,
                 'password' => $user -> password,
                 'name' => $user -> name,
+                'phone' => $user -> phone,
             ]);
             if (Session::get('home') != NULL){
                 return redirect()->route('home');
@@ -54,6 +62,7 @@ class AuthController extends Controller
             'name' => $request -> input('name'),
             'email' => $request -> input('email'),
             'password' => $request -> input('password'),
+            'phone' => $request -> input('phone'),
         ]);
         $user -> save();
         return redirect('/dangnhap');
