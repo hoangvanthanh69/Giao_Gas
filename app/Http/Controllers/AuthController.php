@@ -58,6 +58,23 @@ class AuthController extends Controller
 
     // xử lý đk tk cho khách hàng
     function registers(Request $request){
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $existingPhoneUser = users::where('phone',$phone)->first();
+        if ($email) { 
+            $existingEmailUser = users::where('email', $email)->first();
+            if ($existingEmailUser) {
+                return redirect()->route('register')->with('mesage', 'Email đã tồn tại, Vui lòng sử dụng email khác.');
+            }
+            // if ($existingEmailUser) {
+            //     dd(true, 'email đã tồn tại'); // Email đã tồn tại
+            // } else {
+            //     dd(false, 'email k tồn tại');// Email chưa tồn tại
+            // }
+        }
+        if ($existingPhoneUser) {
+            return redirect()->route('register')->with('mesage', 'Số điện thoại đã tồn tại');
+        }  
         $user = new users([
             'name' => $request -> input('name'),
             'email' => $request -> input('email'),

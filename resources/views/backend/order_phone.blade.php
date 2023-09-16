@@ -420,23 +420,48 @@
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
-					nameCustomer: "required",
-					phoneCustomer: "required",
-					country: "required",
-                    state: "required",
-                    district: "required",
-                    diachi: "required",
+					nameCustomer: {required: true, maxlength: 30},
+					phoneCustomer: {required: true, maxlength: 11, minlength: 10, number: true},
+					country: {required: true, maxlength: 30},
+                    state: {required: true, maxlength: 30},
+                    district: {required: true, maxlength: 30},
+                    diachi: {required: true, maxlength: 30},
                     loai: "required",
+                    ghichu:{maxlength: 30},
 				},
 				messages: {
-					nameCustomer: "Nhập tên",
-					phoneCustomer: "Nhập số điện thoại",
-					country: "Nhập Tỉnh/TP",
-					state: "Nhập Huyện",
-					district: "Nhập Phường/Xã",
-					diachi: "Nhập hẻm/số nhà",
+					nameCustomer: {
+						required: "Nhập tên",
+						maxlength: "Nhập tên ngắn hơn"
+					},
+					phoneCustomer: {
+						required: "Nhập số điện thoại",
+						maxlength: "Không đúng định dạng",
+                        minlength: "Không đúng định dạng",
+                        number: "Vui lòng nhập số",
+					},
+					country: {
+						required: "Nhập Tỉnh / TP",
+						maxlength: "Nhập ngắn hơn"
+					},
+					state:{
+						required: "Nhập Huyện",
+						maxlength: "Nhập Huyện ngắn hơn"
+					},
+					district:{
+						required: "Nhập Phường/Xã",
+						maxlength: "Nhập Phường/Xã ngắn hơn"
+					},
+                    
+					diachi:{
+						required: "Nhập hẻm/số nhà",
+						maxlength: "Nhập hẻm/số nhà ngắn hơn"
+					},
                     loai: "Chọn loại gas",
 
+                    ghichu:{
+						maxlength: "Nhập ghi chú ngắn hơn"
+					},
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {

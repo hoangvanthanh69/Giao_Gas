@@ -27,7 +27,7 @@
 
                     <div class="col-4">
                         <span class="name-add-product-all " for="">Số lượng</span>
-                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="so_luong">
+                        <input class="input-add-product col-11 mt-2 ps-2" type="number" name="so_luong">
                     </div>
 
                     <div class="col-4 mt-4">
@@ -74,41 +74,57 @@
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
-					name_voucher: "required",
-					ma_giam: "required",
+					name_voucher: {required: true, maxlength: 30},
+					ma_giam: {required: true, maxlength: 30},
 					so_luong: {
                         required: true,
-                        number: true 
+                        number: true ,
+                        max: 100,
+                        min: 1
                     },
                     gia_tri: {
                         required: true,
-                        number: true 
+                        number: true ,
+                        min: 1
                     },
                     thoi_gian_giam: "required",                        
                     het_han: "required",       
                     type: "required",       
                     Prerequisites: {
                         required: true,
-                        number: true
+                        number: true,
+                        maxlength: 15,
+                        min: 1
                     }
 				},
 				messages: {
-					name_voucher: "Nhập tên giảm",
-					ma_giam: "Nhập mã giảm",
+					name_voucher: {
+						required: "Nhập tên",
+						maxlength: "Nhập tên ngắn hơn"
+					},
+					ma_giam: {
+						required: "Nhập mã giảm",
+						maxlength: "Nhập mã giảm ngắn hơn"
+					},
 					so_luong: {
                         required: "Nhập số lượng",
-                        number: "Vui lòng chỉ nhập số nguyên"
+                        number: "Vui lòng chỉ nhập số nguyên",
+                        max: "Vui lòng nhập số lượng nhỏ hơn 100",
+                        min:"Vui lòng nhập số lượng lớn hơn 0"
                     },
                     gia_tri: {
                         required: "Nhập giá trị giảm",
-                        number: "Vui lòng chỉ nhập số"
+                        number: "Vui lòng chỉ nhập số",
+                        min:"Vui lòng nhập giá trị lớn hơn 0"
                     },
 					thoi_gian_giam: "Nhập ngày bắt đầu giảm",
 					het_han: "Nhập ngày hết hạn giảm",
 					type: "Chọn loại giảm giá",
                     Prerequisites:{
                         required: "Nhập (giá trị) điều kiện giảm",
-                        number: "Vui lòng chỉ nhập số"
+                        number: "Vui lòng chỉ nhập số",
+                        maxlength:"Vui lòng nhập không quá 30 kí tự",
+                        min:"Vui lòng nhập điều kiện lớn hơn 0"
                     }
 				},
 				errorElement: "div",

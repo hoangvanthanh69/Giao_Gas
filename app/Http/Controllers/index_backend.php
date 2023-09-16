@@ -120,102 +120,11 @@ class index_backend extends Controller
         $order_product = order_product::find($id);
         return view('backend.chitiet' , ['order_product' => $order_product]);
     }
-
-    function edit_staff($id){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        $staff = add_staff::find($id);
-        //    echo " <pre>";
-        //    print_r($staff);
-        return view('backend.edit_staff' , ['staff' => $staff]);
-    }
     
-    function update_staff(Request $request, $id){
-        $staff = add_staff::find($id);
-        $staff->last_name = $request->last_name;
-        $staff->birth = $request->birth;
-        $staff->chuc_vu = $request->chuc_vu;
-        $staff->taikhoan = $request->taikhoan;
-        $staff->dia_chi = $request->dia_chi;
-        $staff->date_input = $request->date_input;
-        $staff->phone = $request->phone;
-        $staff->CCCD = $request->CCCD;
-        $staff->luong = $request->luong;
-        $staff->gioi_tinh = $request->gioi_tinh;
-        $get_image = $request->image_staff;
-        if($get_image){
-            // Bỏ hình ảnh cũ
-            $path_unlink = 'uploads/staff/'.$staff->image_staff;
-            if($staff->image_staff && file_exists($path_unlink)){
-                unlink($path_unlink);
-            }
-            // Thêm mới
-            $path = 'uploads/staff/';
-            $get_name_image = $get_image-> getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image = $name_image.rand(0,99).'.'.$get_image -> getClientOriginalExtension();
-            $get_image->move($path,$new_image);
-            $staff->image_staff = $new_image;
-        }
-        $staff->save();
-        return redirect()->route('quan-ly-nv');
-    }
-
-    // trang thêm nv
-    function add_staff(){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        return view('backend.add_staff');
-    }
-
-    // thêm nv
-    function staff_add(Request $request){
-        $data =  $request->all();
-        $add_staff = new add_staff;
-        $add_staff->last_name = $data['last_name'];
-        $add_staff->birth =  $data['birth'];
-        $add_staff->chuc_vu = $data['chuc_vu'];
-        $add_staff->dia_chi = $data['dia_chi'];
-        $add_staff->taikhoan = $data['taikhoan'];
-        $add_staff->date_input = $data['date_input'];
-        $add_staff->phone = $data['phone'];
-        $add_staff->luong = $data['luong'];
-        $add_staff->CCCD = $data['CCCD'];
-        $add_staff->gioi_tinh = $data['gioi_tinh'];
-        $add_staff->status_add = false;
-        $image = $request->file('image_staff');
-        $name = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/uploads/staff');
-        $image->move($destinationPath, $name);
-        $add_staff->image_staff = $name;
-        // print_r($get_image);die;
-        $add_staff -> save();  
-        return redirect()->route('quan-ly-nv');
-    }
-
-    // xóa nv
-    function delete_staff($id){
-        $staff_add = add_staff::find($id);
-        $staff_add->delete();
-        return redirect()->route('quan-ly-nv')->with('mesage','Xóa nhân viên thành công');
-    }
-
     function delete_client($id){
         $order_product = order_product::find($id);
         $order_product->delete();
         return redirect()->route('quan-ly-hd')->with('mesage','Xóa đơn hàng thành công');;
-    }
-
-    // quản lý nhân viên 
-    function quan_ly_nv(){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
-        $staff = add_staff::paginate(6);
-        // $staff = add_staff::get()->toArray();
-        return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
     // quản lý hóa đơn
@@ -234,11 +143,52 @@ class index_backend extends Controller
             'status' => $request->input('status', 'all'),
             'loai' => $request->input('loai', 'all')
         ];
+        $search = $request->input('search');
         // dd($filters);
-        return view('backend.quan_ly_hd', compact('order_product', 'filters'));
+        return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search'));
+    }
+
+    //lọc đơn hàng theo tên a-z, z-a
+    function sort_order(Request $request){
+        $query = order_product::query();
+        $sortOrder = $request->input('sort_order', 'asc');
+        if ($sortOrder == 'asc') {
+            $query->orderBy('nameCustomer', 'asc'); 
+        } else {
+            $query->orderBy('nameCustomer', 'desc');
+        }
+        $filters = [
+            'status' => $request->input('status', 'all'),
+            'loai' => $request->input('loai', 'all'),
+            'sort_order' => $sortOrder,
+        ];
+        $search = $request->input('search');
+        $order_product = $query->get()->toArray();
+        return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search'));
+    }
+
+    //lọc đơn hàng theo ngày gần nhất và xa nhất
+    function data_created_at(Request $request){
+        $query = order_product::query();
+        $dateOrder = $request->input('data_created_at', 'near');
+        if ($dateOrder == 'near') {
+            $query->orderByDesc('created_at');
+        } else {
+            $query->orderBy('created_at');
+        }
+        $order_product = $query->get()->toArray();
+        $filters = [
+            'status' => $request->input('status', 'all'),
+            'loai' => $request->input('loai', 'all'),
+            'dateOrder' => $dateOrder,
+        ];
+        $search = $request->input('search');
+        $order_product = $query->get()->toArray();
+        return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search'));
     }
     
-
+    
+    
     // thống kê chi tiết đơn hàng
     function thong_ke_chi_tiet_dh(Request $request){
         if(!Session::get('admin')){
@@ -363,21 +313,6 @@ class index_backend extends Controller
                         <p class="receipt-h3">Gas Tech xin chân thành cảm ơn quý khách,</p>
                         <p class="receipt-h3">Hẹn gặp lại!</p>';
             return $output;
-    }
-
-    // tìm kiếm nhân viên
-    function searchOrder(Request $request){
-        if ($request->isMethod('get')) {
-            $search = $request->input('search');
-            $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->paginate(6);
-            if(empty($staff->items())){
-                return back()->with('mesages', 'Không tìm thấy kết quả');
-            } else {
-                return view('backend.quan_ly_nv', ['staff' => $staff, 'search' => $search]);
-            }
-        } else {
-            return redirect()->back();
-        }
     }
 
     // tài khoản admin
@@ -534,7 +469,7 @@ class index_backend extends Controller
             $orderProductSum = $orderProductQuery->sum('tong');
             $combinedData[] = [
                 'user' => $user,
-                'phoneCustomer' => $orderProductCount > 0 ? $orderProductQuery->first()->phoneCustomer : '',
+                // 'phoneCustomer' => $orderProductCount > 0 ? $orderProductQuery->first()->phoneCustomer : '',
                 'district' => $orderProductCount > 0 ? $orderProductQuery->first()->district : '',
                 'diachi' => $orderProductCount > 0 ? $orderProductQuery->first()->diachi : '',
                 'state' => $orderProductCount > 0 ? $orderProductQuery->first()->state : '',
@@ -542,6 +477,8 @@ class index_backend extends Controller
                 'orderProductSum' => $orderProductSum,
             ];
         }
+
+        // cho khách hàng đặt qua số điện thoại có user_id == null
         $order_products_null_user = order_product::where('user_id', 'NULL')->get()->toArray();
         // print_r($orderProductsNullUser);die;
         return view('backend.quan_ly_tk_user', ['combinedData' => $combinedData, 'filter' => $filter,
@@ -619,13 +556,13 @@ class index_backend extends Controller
                     'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
                     'loai' => isset($_GET['loai']) ? $_GET['loai'] : 'all'
                 );
-    
                 return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search'));
             }
         } else {
             return redirect()->back();
         }
     }
+
     
     // hiển thi giao diện đặt hàng qua sdt
     function order_phone() {
@@ -702,9 +639,26 @@ class index_backend extends Controller
         $tong = $request->input('tong');
         $order->tong = $tong;
         $order->payment_status = 1;
+        // giảm số lượng mã giảm giá
+        $couponCode = $request->input('admin_name');
+            if ($couponCode) {
+                $order->coupon = $couponCode;
+                $order->save();
+                $this->update_discount_quantitys($couponCode);
+            }
+
         // print_r($tong);die;
         $order->save();
         return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
+    }
+
+    // cập nhật số lượng mã giảm giá
+    function update_discount_quantitys($couponCode) {
+        $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
+        if ($coupon) {
+        $newQuantity = $coupon->so_luong - 1;
+        $coupon->update(['so_luong' => $newQuantity]);
+        }
     }
 
     // kiểm tra khách hàng thông qua số điện thoại
@@ -733,16 +687,25 @@ class index_backend extends Controller
     }
 
     // xuất file excel cho ds đơn hàng
-    function export_excel(Request $request){
+    function export_excel(Request $request) {
+        $search = $request->input('search');
+        $orderQuery = order_product::query();
+        if (!empty($search)) {
+            $orderQuery->where(function ($query) use ($search) {
+                $query->where('nameCustomer', 'LIKE', "%$search%")
+                ->orWhere('order_code', 'LIKE', "%$search%");
+            });
+        }
+        $order_product = $orderQuery->get();
         $status = $request->input('status', 'all');
         $loai = $request->input('loai', 'all');
-        return Excel::download(new ExcelExports($status, $loai), 'ds_don_hang.xlsx');
+        if ($order_product->isEmpty()) {
+            return back()->with('mesage', 'Không có dữ liệu để xuất');
+        } else {
+            return Excel::download(new ExcelExports($status, $loai, $search), 'ds_don_hang.xlsx');
+        }
     }
     
-    // xuất file excel cho ds nhân viên
-    function export_excel_staff(){
-        return Excel::download(new ExcelExportsStaff , 'ds_nhan_vien.xlsx');
-    }
 
     // quản lý bình luận
     function quan_ly_binh_luan(){

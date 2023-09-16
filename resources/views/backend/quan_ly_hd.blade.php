@@ -19,8 +19,8 @@
                   <option value="4" {{ ($filters['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
                 </select>
 
-                <div id="loai" class="d-flex m-3">
-                  <div class="form-check me-5 ms-4">
+                <div id="loai" class="d-flex mt-3">
+                  <div class="form-check me-3 ms-3">
                     <input class="form-check-input" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
                     <label class="form-check-label" for="type1">Gas công nghiệp</label>
                   </div>
@@ -33,16 +33,54 @@
               </div>
             </form>
 
+            <!-- lọc đơn hàng từ a-z và z-a -->
+            <form method="GET" action="{{ route('sort_order') }}">
+              <div class="div-filter-down mb-1">
+                <span>Tên khách hàng</span>
+                <span class="filter-data-created-at">
+                  <i class="fa-solid fa-sort-down ms-1 fs-4 "></i>
+                </span>
+              </div>
+
+              <div class="filter-button-near-distant ms-5">
+                <button type="submit" class="sort-az" name="sort_order" value="asc">
+                  <i class="fa-solid fa-arrow-down-a-z"></i>
+                </button>
+                <button type="submit" class="sort-za" name="sort_order" value="desc">
+                  <i class="fa-solid fa-arrow-down-z-a"></i>
+                </button>
+              </div>
+            </form>
+
+            <!-- lọc đơn hàng theo ngày gần nhất và xa nhất -->
+            <form method="GET" action="{{ route('data_created_at') }}">
+              <div class="div-filter-down mb-1">
+                <span>Ngày tạo</span>
+                <span class="filter-data-created-at">
+                  <i class="fa-solid fa-sort-down ms-1 fs-4 "></i>
+                </span>
+              </div>
+              <div class="filter-button-near-distant">
+                <button type="submit" class="sort-near" name="data_created_at" value="near">
+                  <i class="fa-solid fa-arrow-down-wide-short"></i>
+                </button>
+                <button type="submit" class="sort-distant" name="data_created_at" value="distant">
+                  <i class="fa-solid fa-arrow-down-short-wide"></i>
+                </button>
+              </div>
+            </form>
+                      
             <div class="export-file-pdf">
               <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
             </div>
 
             <div class="export-file-excel">
-              <a href="{{ route('export-excel', ['status' => $filters['status'], 'loai' => $filters['loai']]) }}" class="export-file-excel-button">
+              <a href="{{ route('export-excel', ['status' => $filters['status'], 
+                'loai' => $filters['loai'], 'search' => $search]) }}" class="export-file-excel-button">
                 <i class="fa-solid fa-file-export"></i>Xuất Excel
               </a>
             </div>
-
+            
             <div class="search-infor-amdin-form mt-2 me-4">
               <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
                 @csrf
@@ -79,10 +117,10 @@
                   <tr class="tr-name-table">
                     <th>STT</th>
                     <th >Mã ĐH</th>
-                    <th>Tên Khách hàng</th>
+                    <th>Tên khách hàng</th>
                     <th>Số điện thoại</th>
                     <th >Loại bình gas</th>
-                    <th >Ngày tạo</th>
+                    <th>Ngày tạo</th>
                     <th>Trạng thái</th>
                     <th>Thanh toán</th>
                     <th>Người giao</th>
@@ -163,4 +201,16 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+          document.querySelectorAll('.filter-data-created-at').forEach(function(span) {
+            span.addEventListener('click', function() {
+              var deleteCommentReply = this.parentElement.nextElementSibling;
+              if (deleteCommentReply.style.display === 'none' || deleteCommentReply.style.display === '') {
+                deleteCommentReply.style.display = 'block';
+              } else {
+                deleteCommentReply.style.display = 'none';
+              }
+            });
+          });
+        </script>
 @endsection

@@ -32,7 +32,7 @@
         <div class="col-4 form form-login-admin">
             <form action="{{route('getlogin')}}" method="post" >
                 @csrf
-                <div class="heading-login">
+                <div class="">
                     <h3 class="heading">Đăng Nhập</h3>
                 </div>
                 

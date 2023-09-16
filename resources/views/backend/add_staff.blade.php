@@ -95,16 +95,13 @@
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
-					last_name: "required",
+					last_name: {required: true, maxlength: 30},
 					birth: "required",
 					cv_nv: "required",
-                    taikhoan: {required: true, email: true},
-                    dia_chi: "required",
+                    taikhoan: {required: true, email: true, maxlength: 30},
+                    dia_chi: {required: true, maxlength: 100},
                     date_input: "required",                        
-                    phone: {
-                        required: true,
-                        number: true,
-                    },                     
+                    phone: {required: true, maxlength: 11, minlength: 10, number: true},                   
                     luong: {
                         required: true,
                         number: true,
@@ -112,25 +109,35 @@
                     CCCD: {
                         required: true,
                         number: true,
+                        maxlength: 30
                     },           
                     chuc_vu: "required",
                     image_staff : "required",
                     gioi_tinh: "required"
 				},
 				messages: {
-					last_name: "Nhập họ tên",
+					last_name: {
+						required: "Nhập họ tên",
+						maxlength: "Nhập họ tên ngắn hơn"
+					},
 					birth: "Nhập ngày sinh",
 					cv_nv: "Chọn chức vụ",
 					taikhoan: {
                         required: "Nhập tài khoản",
                         email: "Tài khoản không đúng định dạng",
+                        maxlength: "Tên tài khoản không quá 30 kí tư"
                     },
-					dia_chi: "Nhập địa chỉ",
+					dia_chi: {
+                        required: "Nhập địa chỉ",
+                        maxlength: "Địa chỉ không quá 100 kí tự",
+                    },
 					date_input: "Nhập ngày vào làm",
 					phone: {
-                        required: "Nhập số điện thoại",
+						required: "Nhập số điện thoại",
+						maxlength: "Không đúng định dạng",
+                        minlength: "Không đúng định dạng",
                         number: "Vui lòng nhập số",
-                    },
+					},
 					luong: {
                         required: "Nhập lương /tháng",
                         number: "Vui lòng nhập số",
@@ -138,6 +145,7 @@
                     CCCD: {
                         required: "Nhập CCCD",
                         number: "Vui lòng nhập số",
+                        maxlength: "CCCD không quá 30 kí tự"
                     },
                     chuc_vu: "Chọn chức vụ",
                     image_staff: "Chọn ảnh",

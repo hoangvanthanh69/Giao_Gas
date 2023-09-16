@@ -60,7 +60,7 @@
                             @else
                                 <img src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
                             @endif
-                            {{ Session::get('home')['name'] }}
+                            {{ $users -> name }}
                         </p>
                     @endif
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAcc">
@@ -70,11 +70,11 @@
                                     @if (Session::get('home'))
                                         <p href="#" aria-expanded="true" id="dropdownMenuAcc" data-bs-toggle="dropdown" class="info-name-account-customer">
                                             @if ($users -> img)
-                                                <img class="ms-2 " src="{{ asset('uploads/users/' . $users->img) }}" alt="" width="40px" height="50px">
+                                                <img class="ms-2 img-customer-manages-account" src="{{ asset('uploads/users/' . $users->img) }}" alt="" width="40px" height="50px">
                                             @else
                                                 <img class="ms-2" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="40px">
                                             @endif
-                                            <span class="ps-2 ">{{ Session::get('home')['name'] }}</span>
+                                            <span class="ps-2">{{ $users -> name }}</span>
                                         </p>
                                     @endif
                                 </li>
@@ -110,40 +110,25 @@
                                 <div class="modal-body">
                                     @if (Session::get('home'))
                                         <div class="modal-account-users">
-                                            <form enctype="multipart/form-data" method="post" action="{{ route('update_image_user', $users->id) }}">
-                                                @csrf
-                                                <div class="d-flex">
-                                                    <div class="mb-3">
-                                                        <div class="text-center">
-                                                            @if ($users -> img)
-                                                                <img class="customer-account-image-modal" src="{{ asset('uploads/users/' . $users->img) }}" alt="">
-                                                            @else
-                                                                <img src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
-                                                            @endif
-                                                        </div>
-                                                        <div class="d-flex mt-3">
-                                                            <label class="text-acount-customer col-3" for="">Thay đổi ảnh:</label>
-                                                            <input class="ps-3" type="file" name="img">
-                                                            <div class="save-img-customer">
-                                                                <button class="save-img-customer" type="submit">Lưu</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                </div>
-                                            </form>
+                                            <div class="text-center mb-3">
+                                                @if ($users -> img)
+                                                    <img class="customer-account-image-modal" src="{{ asset('uploads/users/' . $users->img) }}" alt="" width="60px">
+                                                @else
+                                                    <img src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
+                                                @endif
+                                            </div>
 
                                             <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Họ tên:</label>
-                                                <span class="ps-3">{{ Session::get('home')['name'] }}</span>
+                                                <span class="ps-3">{{ $users -> name }}</span>
                                             </div>
                                             <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Tài khoản:</label>
-                                                <span class="ps-3">{{ Session::get('home')['email'] }}</span>
+                                                <span class="ps-3">{{ $users -> email }}</span>
                                             </div>
                                             <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Số điện thoại:</label>
-                                                <span class="ps-3">{{ Session::get('home')['phone'] }}</span>
+                                                <span class="ps-3">{{ $users -> phone }}</span>
                                             </div>
                                             <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Mật khẩu:</label>
@@ -154,17 +139,62 @@
                                 </div>
                                 <!--modal click hiển thị thay đổi mật khẩu -->
                                 <div class="modal-change-password">
-                                    <a href="" class="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Đổi mật khẩu</a>
+                                    <a href="" class="" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">Đổi mật khẩu</a>
+                                    <a href="" class="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Cập nhật tài khoản</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--modal thay đổi mật khẩu -->
+                    <!--cập nhật lại thông tin -->
                     <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalToggleLabel2">Thay đổi mật khẩu</h5>
+                                    <h5 class="modal-title" id="exampleModalToggleLabel2">Cập nhật thông tin tài khoản</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body ms-4 me-4 mb-3">
+                                    <form enctype="multipart/form-data" method="post" action="{{route('update_image_user', $users->id) }}">
+                                        @csrf
+                                        <div class="row">
+                                            <label class="name-add-product-all col-4" for="">Thay đổi ảnh:</label>
+                                            <input class=" col-6 input-add-img-customer " type="file" name="img">
+                                            @if ($users -> img)
+                                                <img class="img-change-customer col-2" src="{{ asset('uploads/users/' . $users->img) }}" alt="...">
+                                            @else
+                                                <img class="col-3" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
+                                            @endif
+                                        </div>
+                                                   
+                                        <div class="row mt-3">
+                                            <label class="name-add-product-all col-4" for="">Họ và Tên:</label>
+                                            <input class="input-update-account-customer col-8" type="text" name="name" value="{{$users->name}}">
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <label class="name-add-product-all col-4" for="">Tài khoản @:</label>
+                                            <input class="input-update-account-customer col-8" type="text" name="email" value="{{$users->email}}">
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <label class="name-add-product-all col-4" for="">Số điện thoại</label>
+                                            <input class="input-update-account-customer col-8" type="text" name="phone" value="{{$users->phone}}">
+                                        </div>
+                                        <div class="save-img-customer text-center mt-4">
+                                            <button class="save-img-customer" type="submit">Cập nhật</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- cập nhật lại mk -->
+                    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel3">Thay đổi mật khẩu</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body ms-4">
@@ -172,15 +202,15 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="col-5" for="">Nhập Mật khẩu củ: </label>
-                                            <input type="password" name="old_password" class="input-password-customer-change">
+                                            <input type="password" name="old_password" class="input-password-customer-change col-6 ps-2">
                                         </div>
                                         <div class="mb-3">
                                             <label class="col-5" for="">Nhập Mật khẩu mới: </label>
-                                            <input type="password" name="new_password" id="new_password" class="input-password-customer-change">
+                                            <input type="password" name="new_password" id="new_password" class="input-password-customer-change col-6 ps-2">
                                         </div>
-                                        <div>
+                                        <div  class="mb-3">
                                             <label class="col-5" for="">Nhập lại Mật khẩu: </label>
-                                            <input type="password" name="confirm_password" class="input-password-customer-change">
+                                            <input type="password" name="confirm_password" class="input-password-customer-change col-6 ps-2">
                                         </div>
                                         <div class="">
                                             <button class="save-password-customer" type="submit">Lưu mật khẩu</button>
@@ -338,7 +368,7 @@
                                     <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" value="{{ Session::get('home')['name'] }}" required/>
                                     <label class="form-label" for="number">Số điện thoại khách hàng:</label>
                                     @if (empty($order_product))
-                                        <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" />
+                                        <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ Session::get('home')['phone'] }}" />
                                     @else
                                         <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ $order_product[0]['phoneCustomer'] }}" />
                                     @endif
@@ -760,22 +790,37 @@
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
-					nameCustomer: "required",
-					phoneCustomer: "required",
+					nameCustomer:{required: true, maxlength: 30},
+					phoneCustomer:{required: true, maxlength: 11, minlength: 10, number: true,},
 					country: "required",
                     state: "required",
                     district: "required",
-                    diachi: "required",
-                    loai: "required"
+                    diachi: {required: true, maxlength: 30},
+                    loai: "required",
+                    ghichu:{maxlength: 30},
 				},
 				messages: {
-					nameCustomer: "Nhập tên",
-					phoneCustomer: "Nhập số điện thoại",
+					nameCustomer:{
+						required: "Nhập tên",
+						maxlength: "Nhập tên ngắn hơn"
+					},
+					phoneCustomer: {
+						required: "Nhập số điện thoại",
+						maxlength: "Không đúng định dạng",
+                        minlength: "Không đúng định dạng",
+                        number: "Vui lòng nhập số",
+					},
 					country: "Nhập địa chỉ",
 					state: "Nhập huyện",
 					district: "Nhập phường/xã",
-					diachi: "Nhập hẻm/số nhà",
-                    loai: "Chọn loại gas"
+					diachi: {
+						required: "Nhập hẻm / số nhà",
+						maxlength: "Nhập ngắn hơn"
+					},
+                    loai: "Chọn loại gas",
+                    ghichu:{
+						maxlength: "Nhập ghi chú ngắn hơn"
+					},
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {

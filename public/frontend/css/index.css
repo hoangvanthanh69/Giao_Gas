@@ -158,7 +158,7 @@ html{
 .form-group{
     display: flex;
     flex-direction: column;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 .form-label,
 .form-mesage{
@@ -595,7 +595,7 @@ input.amount.is-invalid {
 }
 .home-filter-user-login{
     display: flex;
-    background-color: rgb(38, 121, 160);
+    background-color: rgb(28 70 90);
     justify-content: space-evenly;
     text-align: center;
     padding: 0px 155px;
@@ -612,7 +612,7 @@ input.amount.is-invalid {
 .form-img-user img {
     width: 100%;
     height: 100%;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 .footer-imge-user{
     color: black !important;
@@ -969,10 +969,12 @@ h5#orderInfoModalLabel {
     font-weight: 500;
 }
 button.save-img-customer {
-    background-color: #312aa2;
+    background-color: #2679A0;
     border: 1px solid #a79999;
     border-radius: 2px;
+    font-weight: 500;
     color: white;
+    padding: 3px 11px;
 }
 .customer-account-image {
     border-radius: 50%;
@@ -993,15 +995,17 @@ button.save-img-customer {
     outline: none;
     border: 1px solid;
     border-radius: 2px;
+    height: 32px;
 }
 .save-password-customer {
-    margin-top: 20px;
     border: 1px solid;
     border-radius: 3px;
     line-height: 28px;
-    background-color: #12287d;
+    background-color: #2679A0;
     color: white;
-    margin-left: 37%;
+    font-weight: 500;
+    float: right;
+    margin-right: 31px;
 }
 .change-password-customer-home {
     text-align: center;
@@ -1426,4 +1430,19 @@ select.selected-option-date-customer {
     to{
         opacity: 0;
     }
+}
+.img-customer-manages-account{
+    object-fit: cover;
+}
+.img-change-customer{
+    width: 100px;
+}
+.input-add-img-customer {
+    margin-left: -14px;
+}
+.input-update-account-customer{
+    border: 1px solid ;
+    border-radius: 2px;
+    outline: none;
+    height: 32px;
 }

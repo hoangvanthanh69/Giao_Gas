@@ -24,7 +24,18 @@
             <div>Đăng ký</div>
         </div>
     </div> 
-
+    @if (session('success'))
+        <div class="change-password-customer-home d-flex">
+            <i class="far fa-check-circle icon-check-success"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('mesage'))
+        <div class="success-customer-home-notification d-flex">
+            <i class="fas fa-ban icon-check-cancel"></i>
+            {{ session('mesage') }}
+        </div>
+    @endif
     <div class="login-form-header-user home-filter-user-login">
         <div class="col-8 form-img-user">
             <img class="form-img-user-image" src="{{asset('frontend/img/qUWlvmuHovb77ZoDTOahjxDTYkzQsqVWP0Ar1UEP.jpg')}}" >   
@@ -86,7 +97,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
     <script type="text/javascript">
-		
 		$(document).ready(function(){
 			$("#signupForms").validate({
 				rules: {
@@ -145,4 +155,28 @@
 			});
         });
 	</script>
+    <script>
+        var notificationClasses = [
+            '.change-password-customer-home',
+            '.success-customer-home-notification',
+        ];
+        function showContent() {
+            notificationClasses.forEach(function(classname) {
+                var contentBox = document.querySelector(classname);
+                if (contentBox) {
+                    contentBox.classList.add('show');
+                    setTimeout(function() {
+                        contentBox.classList.remove('show');
+                    }, 6000); 
+                }
+            });
+        }
+        @if(session('success'))
+            showContent();
+        @endif
+
+        @if(session('mesage'))
+            showContent();
+        @endif
+    </script>
 </body>

@@ -17,7 +17,7 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                      </button>
                   </div>
-                  <h5 class="list-account-admin">Danh sách thông tin khách hàng</h5> 
+                  <h5 class="list-account-admin">Danh sách khách hàng đặt online</h5> 
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                      <thead class="">
                         <tr class="tr-name-table">
@@ -45,11 +45,7 @@
                               <td>{{$key+1}}</td>
                               <td class="product-order-quantity">{{$val['user']['name']}}</td>
                               <td>
-                                 @if($val['phoneCustomer'] != null)
-                                    {{$val['phoneCustomer']}}
-                                 @else
-                                    Không có
-                                 @endif
+                                    {{$val['user']['phone']}}
                               </td>
                               <td class="product-order-quantity">{{$val['user']['email']}}</td>
                               <td> 

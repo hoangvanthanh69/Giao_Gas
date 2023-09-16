@@ -6,6 +6,7 @@ use App\Http\Controllers\index_backend;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\StaffController;
 
 
 /*
@@ -61,25 +62,25 @@ Route::get('/edit-product/{id}', [ProductController::class, 'edit_product'] )->n
 Route::post('/update-product/{id}', [ProductController::class, 'update_product'] )->name('update-product');
 
 //giao dien add
-Route::get('/add-staff', [index_backend::class, 'add_staff'] )->name('add-staff');
+Route::get('/add-staff', [StaffController::class, 'add_staff'] )->name('add-staff');
 
 // Add 
-Route::post('/staff_add', [index_backend::class, 'staff_add'] )->name('staff_add');
+Route::post('/staff_add', [StaffController::class, 'staff_add'] )->name('staff_add');
 
 // xóa nhân viên
-Route::get('/delete-staff/{id}/staff-add', [index_backend::class, 'delete_staff'] )->name('delete-staff');
+Route::get('/delete-staff/{id}/staff-add', [StaffController::class, 'delete_staff'] )->name('delete-staff');
 
 // xóa đơn hàng
 Route::get('/delete-client/{id}/staff-add', [index_backend::class, 'delete_client'] )->name('delete-client');
 
 // edit nhân viên
-Route::get('/edit-staff/{id}', [index_backend::class, 'edit_staff'] )->name('edit-staff');
+Route::get('/edit-staff/{id}', [StaffController::class, 'edit_staff'] )->name('edit-staff');
 
 // cập nhật nhân viên
-Route::post('/update-staff/{id}', [index_backend::class, 'update_staff'] )->name('update-staff');
+Route::post('/update-staff/{id}', [StaffController::class, 'update_staff'] )->name('update-staff');
 
 //quản lý nhân viên
-Route:: get('/admin/quan-ly-nv', [index_backend::class, 'quan_ly_nv'] )->name('quan-ly-nv');
+Route:: get('/admin/quan-ly-nv', [StaffController::class, 'quan_ly_nv'] )->name('quan-ly-nv');
 
 //quản lý hóa đơn
 Route:: get('/admin/quan-ly-hd', [index_backend::class, 'quan_ly_hd'] )->name('quan-ly-hd');
@@ -108,7 +109,7 @@ Route::get('/cancel_order/{id}', [index::class, 'cancelOrder'])->name('cancel_or
 Route::get('/loc-hd', [index_backend::class, 'loc_hd'] )->name('loc-hd');
 
 // tìm kiếm nhân viên
-Route::get('/admin/search-order', [index_backend::class, 'searchOrder'])->name('admin.search_order');
+Route::get('/admin/search-staff', [StaffController::class, 'searchStaff'])->name('admin.search_staff');
 
 // tài khoản admin
 Route::get('/admin/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin');
@@ -210,13 +211,14 @@ Route::post('check-coupon', [DiscountController::class, 'check_coupon'])->name('
 
 // cập nhật số lượng
 Route::post('update-discount-quantity', [index::class, 'update_discount_quantity'])->name('update-discount-quantity');
+Route::post('update-discount-quantitys', [index_backend::class, 'update_discount_quantitys'])->name('update-discount-quantitys');
 Route::post('notification-discount-quantity', [DiscountController::class, 'notification_discount_quantity'])->name('notification-discount-quantity');
 
 // export_excel cho ds đơn hàng
 Route::get('export-excel', [index_backend::class, 'export_excel'])->name('export-excel');
 
 // export excel cho ds nhân viên
-Route::post('export-excel-staff', [index_backend::class, 'export_excel_staff'])->name('export-excel-staff');
+Route::post('export-excel-staff', [StaffController::class, 'export_excel_staff'])->name('export-excel-staff');
 
 // thanh toan vnpay
 Route::post('/vnpay_payment', [index::class, 'vnpay_payment'])->name('vnpay_payment');
@@ -245,3 +247,9 @@ Route::get('/delete_comment_admin/{id}/tbl_comment', [index_backend::class, 'del
 
 // xóa trả lời bình luận
 Route::get('/delete_reply_comment/{id}/tbl_comment', [index_backend::class, 'delete_reply_comment'] )->name('delete_reply_comment');
+
+//lọc đơn hàng theo tên a-z, z-a
+Route::get('quan-ly-hd/sort_order', [index_backend::class, 'sort_order'])->name('sort_order');
+
+//lọc đơn hàng theo ngày gần nhất và xa nhất
+Route::get('quan-ly-hd/data_created_at', [index_backend::class, 'data_created_at'])->name('data_created_at');

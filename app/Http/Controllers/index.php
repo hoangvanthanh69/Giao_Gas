@@ -155,6 +155,7 @@ class index extends Controller
       $order->save();
       $orderId = $order->id;
       $user = users::find($user_id);
+      // dd($user);
       if (empty($user)) {
          Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
             $email->subject('Đặt hàng thành công');
@@ -179,15 +180,37 @@ class index extends Controller
    // hủy đơn hàng của khách hàng
    function cancelOrder($id) {
       $order_product = order_product::find($id);
-      if ($order_product) {
-         $order_product->status = 4; // đã hủy
+      $product_infor = $order_product->infor_gas;
+      if ($product_infor) {
+         $product_data = json_decode($product_infor, true);
+         $product_ids = [];
+         $product_quantities = [];
+         if (is_array($product_data) && count($product_data) > 0) {
+            foreach ($product_data as $product) {
+               $product_id = $product['product_id'];
+               $quantity = $product['quantity'];
+               $product_ids[] = $product_id;
+               $product_quantities[$product_id] = $quantity; // Lưu số lượng cho từng sản phẩm
+               // dd($product_ids);
+            }
+         }
+         $products = product::whereIn('id', $product_ids)->get();
+         foreach ($products as $product) {
+            $product_id = $product->id;
+            $quantity = $product_quantities[$product_id];
+            // Cập nhật số lượng của sản phẩm
+            $product->quantity += $quantity;
+            $product->save();
+         }
+         // Đánh dấu đơn hàng là đã hủy
+         $order_product->status = 4; // Đã hủy
          $order_product->save();
          return redirect()->route('order-history')->with('message', 'Đã hủy đơn hàng thành công');
       } else {
          return redirect()->route('order-history')->with('message', 'Không tìm thấy đơn hàng');
       }
    }
- 
+
    function getProductByID(Request $request){
       $productID = $request->input('productID');
       $product = product::find($productID);
@@ -330,22 +353,38 @@ class index extends Controller
    // cap nhat anh cho khach hang
    function update_image_user(Request $request, $id) {
       $user = users::find($id);
+      $phone = $request->input('phone');
+      $email = $request->input('email');
+      $existingPhoneUser = users::where('phone', $phone)->where('id', '!=', $id)->first();
+      if ($email) { 
+         $existingEmailUser = users::where('email', $email)->where('id', '!=', $id)->first();
+         if ($existingEmailUser) {
+            return redirect()->back()->with('mesage', 'Email đã tồn tại, Vui lòng sử dụng email khác.');
+         }
+      }
+      if ($existingPhoneUser) {
+         return redirect()->back()->with('mesage', 'Số điện thoại đã tồn tại');
+      }
+      $user -> name = $request -> name;
+      $user -> phone = $request -> phone;
+      $user -> email = $request -> email;
       if ($request->hasFile('img')) {
          $image = $request->file('img');
          $name = time() . '.' . $image->getClientOriginalExtension();
          $destinationPath = public_path('/uploads/users');
          $image->move($destinationPath, $name);
          $user->img = $name;
-         $user->save();
+         // $user->save();
       }
-      return redirect()->back()->with('success', 'Cập nhật ảnh thành công');
+      $user->save();
+      return redirect()->back()->with('success', 'Cập thông tin thành công');
    }
 
    // cập nhật mật khẩu cho khách hàng
    function update_password_customer(Request $request, $id) {
       $user = users::find($id);
       if ($request->old_password !== $user->password) {
-         return redirect()->back();
+         return redirect()->back()->with('mesage', 'Mật khẩu không đúng');
       }
       $user->password = ($request->new_password);
       $user->save();

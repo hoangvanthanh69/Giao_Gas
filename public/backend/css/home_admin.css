@@ -434,7 +434,7 @@ tr.order-product-height.hover-color {
     text-align: center;
 }
 select#status {
-    width: 190px;
+    width: 160px;
 }
 .search-option-infor-amdin {
     display: flex;
@@ -1009,15 +1009,16 @@ button.button-delete-order {
     content: "";
 }
 .export-file-pdf {
-    background-color: #f1a5a5;
-    padding: 7px;
+    background-color: #ffe9d8;
+    border: 1px solid #ff6e00;
+    padding: 7px 10px;
     border-radius: 4px;
-    height: 43px;
-    line-height: 30px;
-    margin-top: 8px;
+    height: 38px;
+    line-height: 23px;
+    margin-top: 10px;
 }
 .export-file-pdf a {
-    color: #d00000;
+    color: #ff6e00;
     text-decoration: none;
 }
 .export-file-pdf a:hover {
@@ -1026,14 +1027,15 @@ button.button-delete-order {
 }
 .export-file-excel{
     background-color: #90edba;
-    padding: 7px;
-    border-radius: 4px;
-    margin-top: 8px;
-    height: 43px;
-    line-height: 30px;
+    border: 1px solid #1f7244;
+    padding: 7px 10px;
+    border-radius: 3px;
+    margin-top: 10px;
+    height: 38px;
+    line-height: 23px;
 }
 .export-file-excel a {
-    color: #1D6B40;
+    color: #1f7244;
     text-decoration: none;
 }
 .export-file-excel a:hover {
@@ -1049,8 +1051,9 @@ i.fa-solid.fa-pen-to-square {
 .export-file-excel-staff {
     background-color: #90edba;
     border-radius: 3px;
+    border: 1px solid #1f7244;
     height: 35px;
-    margin-top: -5px;
+    margin-top: -4px;
     margin-left: -20%;
     margin-left: -57%;
     height: 41px;
@@ -1058,6 +1061,8 @@ i.fa-solid.fa-pen-to-square {
 }
 .export-file-excel-staff button{
     color: #1D6B40;
+    background-color: #90edba;
+    border: none;
 }
 .form-select-delivery {
     outline: none;
@@ -1182,4 +1187,27 @@ a.button-unhide-comment {
 span.carousel-control-next-icon {
     width: 23px !important;
     height: 30px !important;
+}
+.filter-data-created-at{
+    cursor: pointer;
+    color: rgba(0,0,0,0.5);;
+}
+.icon-filter-down{
+    position: relative;
+}
+.filter-button-near-distant{
+    display: none;
+    position: absolute;
+    font-size: 19px;
+}
+.filter-button-near-distant button {
+    border: 1px solid #212529;
+    border-radius: 2px;
+    background-color: transparent;
+}
+.filter-button-near-distant button i{
+    color: #212529;
+}
+.div-filter-down {
+    margin-top: 13px;
 }

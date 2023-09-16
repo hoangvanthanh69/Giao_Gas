@@ -23,7 +23,7 @@
             </div>
 
             <div class="search-infor-amdin-form">
-                <form action="{{ route('admin.search_order') }}" method="GET" class="header-with-search-form ">
+                <form action="{{ route('admin.search_staff') }}" method="GET" class="header-with-search-form ">
                   @csrf
                   <i class="search-icon-discount fas fa-search"></i>
                   <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Mã Số, Họ Tên" name="search">
