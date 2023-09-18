@@ -61,7 +61,7 @@
                               <div class="">
                                  <div id="flush-headingOne">
                                     <button class="accordion-button accordion-layouts-product " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" onclick="toggleArrow()">
-                                       <div class="@yield('sidebar-active-product') d-flex" >
+                                       <div class="@yield('sidebar-active-product') @yield('sidebar-active-product-warehouse') d-flex" >
                                           <i class="fa-solid icon-product-layout icon-accordion-layouts fa-bars icon-all-admin-nav"></i>
                                           Quản lý sản phẩm
                                           <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
@@ -80,9 +80,9 @@
                                     </div>
 
                                     <div class="mb-3 ms-4 home-filter-button fw-light" data-filter="product">
-                                       <a class="@yield('sidebar-active-product-export')" href="{{route('quan-ly-sp')}}">
+                                       <a class="@yield('sidebar-active-product-warehouse')" href="{{route('quan-ly-kho')}}">
                                           <i class="fa-solid fa-database icon-all-admin-nav"></i>
-                                          Kho sản phẩm
+                                          Danh sách nhập kho
                                        </a>
                                     </div>
                                  </div>

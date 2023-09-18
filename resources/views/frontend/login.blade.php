@@ -48,7 +48,7 @@
                     <span class="form-mesage"></span>
                 </div>
 
-                <button type="submit" class="form-submit">Đăng Nhập</button>
+                <button type="submit" class="form-submit form-submit-admin">Đăng Nhập</button>
             </form> 
         </div>
     </div>

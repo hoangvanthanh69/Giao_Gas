@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\users;
 use App\Models\tbl_admin;
 use Session;
+use Laravel\Socialite\Facades\Socialite;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     // hiển thị khung đăng nhập cho khách hàng
@@ -135,5 +138,53 @@ class AuthController extends Controller
     function logout(){
         Session::forget('admin');
         return redirect()->back();
+    }
+
+    // đăng nhập bằng google
+    public function redirectToGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(Request $request){
+        try {
+            $user = Socialite::driver('google')->user();
+
+            // Kiểm tra xem người dùng đã đăng nhập trước đó bằng Google hay chưa
+            $findUser = users::where('google_id', $user->id)->first();
+
+            if ($findUser) {
+                // Đăng nhập người dùng
+                Session::put('home', [
+                    'id' => $findUser->id,
+                    'email' => $findUser->email,
+                    'password' => $findUser->password,
+                    'name' => $findUser->name,
+                    'phone' => $findUser->phone,
+                ]);
+
+                return redirect()->intended('/home');
+            } else {
+                // Tạo tài khoản người dùng mới
+                $newUser = users::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id' => $user->id,
+                    'password' => encrypt('123456789'),
+                ]);
+
+                // Đăng nhập người dùng mới
+                Session::put('home', [
+                    'id' => $newUser->id,
+                    'email' => $newUser->email,
+                    'password' => $newUser->password,
+                    'name' => $newUser->name,
+                    'phone' => $newUser->phone,
+                ]);
+
+                return redirect()->intended('/home');
+            }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }

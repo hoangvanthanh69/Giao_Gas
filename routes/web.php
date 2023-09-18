@@ -253,3 +253,17 @@ Route::get('quan-ly-hd/sort_order', [index_backend::class, 'sort_order'])->name(
 
 //lọc đơn hàng theo ngày gần nhất và xa nhất
 Route::get('quan-ly-hd/data_created_at', [index_backend::class, 'data_created_at'])->name('data_created_at');
+
+// đăng nhập bằng google
+Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('login-by-google');
+Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+// quản lý kho
+Route::get('/quan-ly-kho', [ProductController::class, 'quan_ly_kho'])->name('quan-ly-kho');
+
+// nhập kho sản phẩm
+Route::get('/add-product-warehouse', [ProductController::class, 'add_product_warehouse'])->name('add-product-warehouse');
+Route::post('/add-warehouse', [ProductController::class, 'add_warehouse'])->name('add-warehouse');
+
+// tìm kiếm nhập kho
+Route::get('search-warehouse', [ProductController::class, 'search_warehouse'])->name('search-warehouse');

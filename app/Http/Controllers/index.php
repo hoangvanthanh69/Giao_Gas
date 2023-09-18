@@ -85,9 +85,9 @@ class index extends Controller
       $totalPrice = 0;
       foreach ($inforGas as $productId => $quantity) {
          if ($quantity) {
-            $product = Product::find($productId);
+            $product = product::find($productId);
             if ($product) {
-               $price = $product->original_price;
+               $price = $product->price;
                $totalPrice += $price * $quantity;
                $data[] = [
                   'product_id' => $productId,
@@ -155,8 +155,9 @@ class index extends Controller
       $order->save();
       $orderId = $order->id;
       $user = users::find($user_id);
+
       // dd($user);
-      if (empty($user)) {
+      if (!empty($user->email)) {
          Mail::send('backend.send_mail_order', compact('order', 'user'), function($email) use($user) {
             $email->subject('Đặt hàng thành công');
             $email->to($user->email, $user->name);
@@ -477,7 +478,7 @@ class index extends Controller
          ])->save();
          if ($userId) {
             $user = users::find($userId);
-            if (empty($user)) {
+            if (!empty($user->email)) {
                Mail::send('backend.send_mail_pay', compact('order', 'user'), function($email) use ($user) {
                   $email->subject('Thanh toán thành công');
                   $email->to($user->email, $user->name);

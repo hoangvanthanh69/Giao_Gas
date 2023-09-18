@@ -585,7 +585,7 @@ class index_backend extends Controller
             if ($quantity) {
                 $product = Product::find($productId);
                 if ($product) {
-                    $price = $product->original_price;
+                    $price = $product->price;
                     $totalPrice += $price * $quantity;
                     $data[] = [
                         'product_id' => $productId,

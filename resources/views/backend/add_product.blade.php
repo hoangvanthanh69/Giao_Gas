@@ -37,10 +37,10 @@
               <input class="input-add-product col-9" type="text" name="original_price">
             </div>
 
-            <div class="row mt-4">
+            <!-- <div class="row mt-4">
               <label class="name-add-product-all col-3" for="">Số lượng:</label>
               <input class="input-add-product col-9" type="text" name="quantity">
-            </div>
+            </div> -->
 
             <div class="back-add-product">
               <a class="back-product" href="{{route('quan-ly-sp')}}">Trở lại</a>

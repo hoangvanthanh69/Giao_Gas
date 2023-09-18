@@ -199,7 +199,7 @@
                             </div>
                             <div class="price-product-order price" id="price">
                                 Giá:
-                                <span class="original_price gia price-product-order-span">${numberFormat(product.original_price)} đ</span>
+                                <span class="original_price gia price-product-order-span">${numberFormat(product.price)} đ</span>
                             </div>
                             
                             <div class="d-flex mt-1">
@@ -282,7 +282,7 @@
                 console.log(selectedProductQuantity);
 
                 var selectedProductName = element.querySelector(".name_product").textContent;
-                var selectedProductPriceText = element.querySelector(".original_price").textContent;
+                var selectedProductPriceText = element.querySelector(".price").textContent;
                 var selectedProductPrice = parseFloat(selectedProductPriceText.replace(/\D/g, ''));
                 var checkbox = element.querySelector(".form-check-input");
                 var isChecked = checkbox.checked;

@@ -12,7 +12,7 @@
             <thead>
                <h5 class="list-account-admin">Tài khoản quản trị đã duyệt</h5>
                <tr class="tr-name-table">
-                  <th>STT</th>
+                  <th class="width-stt">STT</th>
                   <th>Ảnh</th>
                   <th>Name</th>
                   <th>Email</th>

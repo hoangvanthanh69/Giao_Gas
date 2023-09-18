@@ -32,17 +32,17 @@
                 <thead>
                   <tr class="tr-name-table">
                     <th>STT</th>
-                    <th class="col-1">Tên mã giảm</th>
-                    <th class="col-1">Mã giảm giá</th>
-                    <th class="col">Sl</th>
-                    <th class="col-1">Loại giảm</th>
-                    <th class="col">Giá trị</th>
-                    <th class="col">Giảm từ ngày</th>
-                    <th class="col">Ngày hết hạn</th>
-                    <th class="col">Trạng thái</th>
-                    <th class="col-1">> Điều kiện</th>
-                    <th class="col-1">Ngày tạo</th>
-                    <th class="col">Chức năng</th>
+                    <th class="col-1">Tên Mã Giảm</th>
+                    <th class="col-1">Mã Giảm</th>
+                    <th class="col">SL</th>
+                    <th class="col-1">Loại Giảm</th>
+                    <th class="col">Giá Trị</th>
+                    <th class="col">Giảm Từ Ngày</th>
+                    <th class="col">Ngày Hết Hạn</th>
+                    <th class="col">Trạng Thái</th>
+                    <th class="col-1">> Điều Kiện</th>
+                    <th class="col-1">Ngày Tạo</th>
+                    <th class="col">Chức Năng</th>
                   </tr>
                 </thead>
                 

@@ -40,7 +40,7 @@ return [
             'port' => 587,
             'encryption' => 'tls',
             'username' => 'hoangthanh28032001@gmail.com',
-            'password' => 'ifzkdaywswrhnawb',
+            'password' => 'voke upry vgfc qyaz',
             'timeout' => null,
             'auth_mode' => null,
         ],

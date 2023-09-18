@@ -132,7 +132,7 @@
                                             </div>
                                             <div class="d-flex mb-3">
                                                 <label class="text-acount-customer col-3" for="">Mật khẩu:</label>
-                                                <span class="ps-3">{{ str_repeat('*', strlen(Session::get('home')['password'])) }}</span>
+                                                <span class="ps-3 mt-1 fs-5">{{ str_repeat('*', 8) }}</span>
                                             </div>
                                         </div>
                                     @endif
@@ -162,7 +162,7 @@
                                             @if ($users -> img)
                                                 <img class="img-change-customer col-2" src="{{ asset('uploads/users/' . $users->img) }}" alt="...">
                                             @else
-                                                <img class="col-3" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
+                                                <img class="col-2" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="60px">
                                             @endif
                                         </div>
                                                    
@@ -949,7 +949,7 @@
 
                             <div class="price-product-order price" id="price">
                                 Giá sản phẩm:
-                                <span class="original_price gia price-product-order-span">${numberFormat(product.original_price)} <span class="text-decoration-underline">đ</span> </span>
+                                <span class="original_price gia price-product-order-span">${numberFormat(product.price)} <span class="text-decoration-underline">đ</span> </span>
                             </div>
                             
                             <div class="d-flex mt-1">
@@ -982,7 +982,7 @@
                 var selectedProductQuantity = parseInt(element.querySelector("#quantity").value);
                 console.log(selectedProductQuantity);
                 var selectedProductName = element.querySelector(".name_product").textContent;
-                var selectedProductPriceText = element.querySelector(".original_price").textContent;
+                var selectedProductPriceText = element.querySelector(".price").textContent;
                 var selectedProductPrice = parseFloat(selectedProductPriceText.replace(/\D/g, ''));
                 var checkbox = element.querySelector(".form-check-input");
                 var isChecked = checkbox.checked;

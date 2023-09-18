@@ -42,12 +42,12 @@
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Tài khoản @</span>
+                        <span class="name-add-product-all" for="">Tài khoản @</span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="taikhoan">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Địa chỉ thường trú</span>
+                        <span class="name-add-product-all" for="">Địa chỉ thường trú</span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="dia_chi">
                     </div>
 

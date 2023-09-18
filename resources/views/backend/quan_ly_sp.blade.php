@@ -39,37 +39,34 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr class="tr-name-table">
-                    <th>Tên sản phẩm</th>
+                    <th class="width-stt">STT</th>
+                    <th>Tên SP</th>
                     <th>Ảnh</th>
-                    <th>Loại gas</th>
-                    <th>Số lượng</th>
-                    <th>Giá ban đầu</th>
-                    <th>Giá bán</th>
-                    <th>Chức năng</th>
+                    <th>Loại Gas</th>
+                    <th>SL</th>
+                    <th>Giá Ban Đầu</th>
+                    <th>Giá Bán</th>
+                    <th>Ngày Tạo</th>
+                    <th>Chức Năng</th>
                   </tr>
                 </thead>
                 
                 <tbody class="infor">
                   @foreach($product as $key => $val)
-
                     <tr class="hover-color">
-                      <td class="name-product-td infor-product">{{$val['name_product']}}</td>
-
+                      <td class="name-product-td infor-product">{{$key+1}}</td>
+                      <td class="name-product-td infor-product">ID: {{$val['id']}} - {{$val['name_product']}}</td>
                       <td class="img-product-td">
                         <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image'])}}" width="100px"  alt="">
                       </td>
-
                       <td class="name-product-td infor-product">
                         <?php if($val['loai']==1){echo "<span style='color: #ef5f0e; font-weight: 500'>Gas công nghiệp</span>";}
                         else{echo "<span style='color: #09b6a6; font-weight: 500'>Gas dân dụng</span>";} ?>
                       </td>
-
                       <td class="name-product-td infor-product">{{$val['quantity']}}</td>
-
-                      <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
-
                       <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
-
+                      <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
+                      <td class="name-product-td infor-product">{{$val['created_at']}}</td>
                       <td class="function-icon infor-product">
                         <form action="{{route('edit-product', $val['id'])}}">
                           <button class="summit-add-product-button" type='submit'>

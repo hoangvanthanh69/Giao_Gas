@@ -51,12 +51,13 @@
                     </button>
                 </div>
 
-                <!-- <div class="">
-                    <button class="form-submit form-submit-user login-user-google">
-                        <i class="fa-brands fa-google"></i>
+                <div class="form-submit form-submit-google">
+                    <a href="{{route('login-by-google')}}" class="login-googe-customer">
+                        <i class="fa-brands fa-google-plus-g"></i>
+                        <!-- <img src="{{asset('frontend/img/icon_google.png')}}" width="20px">    -->
                         Đăng nhập với google
-                    </button>
-                </div> -->
+                    </a>
+                </div>
 
                 <div class="login-user-register">
                     Bạn chưa có tài khoản? 
