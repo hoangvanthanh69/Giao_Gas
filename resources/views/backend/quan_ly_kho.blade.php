@@ -14,7 +14,16 @@
                 <div class="search-infor-amdin-form-staff">
                   <a class="add-product" href="{{route('add-product-warehouse')}}">Nhập kho sản phẩm</a>
                 </div>
-                <div class=" search-infor-amdin-form-staff">
+
+                <!-- lọc đơn hàng theo ngày tháng năm -->
+                <div class="search-infor-amdin-form-staff search-product-admin-form">
+                  <form action="{{route('filters-date-warehouse')}}" class="form-filter-date-order" method="GET">
+                    <i class="fa-solid fa-calendar-days icon-filter-date-order"></i>
+                    <input class="date-filter-order" type="text" id="date_Filter_warehouse" name="date_Filter_warehouse" placeholder="dd-mm-yy • mm-yy • yy" value="{{$date_Filter_warehouse}}"/>
+                  </form>
+                </div>
+
+                <div class="search-infor-amdin-form-staff search-product-admin-form">
                   <form action="{{route('search-warehouse')}}" method="GET" class="header-with-search-form ">
                     @csrf
                     <i class="search-icon-discount fas fa-search"></i>
@@ -71,12 +80,12 @@
                             </button>
                           </form>
                           
-                          <form action="">
-                            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="">
+                          <form action="{{route('delete-warehouse', $val['id'])}}">
+                            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">
                               <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
                             </button>
                               <!-- Modal -->
-                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal fade" id="exampleModal{{$val['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -98,7 +107,7 @@
                 </tbody>
                 <h1 id="showtext">
               </table>
-              @if (!$search)
+              @if (!$search && (!$date_Filter_warehouse))
                 <nav aria-label="Page navigation example" class="nav-link-page">
                   <ul class="pagination">
                     @for ($i = 1; $i <= $product_warehouse->lastPage(); $i++)

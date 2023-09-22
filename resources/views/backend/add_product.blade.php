@@ -3,46 +3,39 @@
 @section('content')
 
       <div class="col-10 nav-row-10 ">
-        <div class="add-product-each w-50 ">
-          <form id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-product')}}">
+        <div class="mb-4 product-list-staff-add">
+          <span class="product-list-name fs-5">
+            <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-sp')}}">Danh sách sản phẩm bán</a> / <a class="text-decoration-none color-name-admin-add" href="{{route('add-product-admin')}}">Thêm sản phẩm mới</a>
+          </span>
+        </div>
+        <div class="add-staff-form">
+          <div class="add-staff-heading-div">
+            <span>Thêm sản phẩm mới</span>
+          </div>
+          <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-product')}}">
             @csrf
-            <div class="row">
-              <label class="name-add-product-all col-3" for="">Tên sản phẩm:</label>
-              <input class="input-add-product col-9" type="text" name="name_product">
+            <div class="col-4">
+              <span class="name-add-product-all" for="">Tên sản phẩm:</span>
+              <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="name_product">
             </div>
-            <br>
-            <div class="delivery-location form-product-specials product-type row">
-              <label class="name-add-product-all col-3" for="loai" class="form-label">Loại bình gas:</label>
-              <div class='col-9 p-0'>
-                <select id="loai" name="loai" class="form-select " aria-label="Default select example">
-                  <option value="0">Chọn loại gas</option>
+
+            <div class="col-4">
+              <span class="name-add-product-all" for="loai" class="form-label">Loại bình gas:</span>
+              <div class="mt-2 p-0">
+                <select id="loai" name="loai" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
+                  <option value="">Chọn loại gas</option>
                   <option value="1" name="cn">Gas công nghiệp</option>
                   <option value="2" name="dd">Gas dân dụng</option>
                 </select>    
               </div>
             </div>
 
-            <div class="row mt-4">
-              <label class="name-add-product-all col-3" for="">Thêm ảnh:</label>
-              <input  class="input-add-product name-add-product-all-img col-9" type="file" name="image">
+            <div class="col-4">
+              <span class="name-add-product-all col-4 " for="">Thêm ảnh:</span>
+              <input class="input-add-product name-add-product-all-img col-11 mt-2" type="file" name="image">
             </div>
 
-            <div class="row mt-4">
-              <label class="name-add-product-all col-3" for="">Giá ban đầu:</label>
-              <input class="input-add-product col-9" type="text" name="price">
-            </div>
-
-            <div class="row mt-4">
-              <label class="name-add-product-all col-3" for="">Giá bán:</label>
-              <input class="input-add-product col-9" type="text" name="original_price">
-            </div>
-
-            <!-- <div class="row mt-4">
-              <label class="name-add-product-all col-3" for="">Số lượng:</label>
-              <input class="input-add-product col-9" type="text" name="quantity">
-            </div> -->
-
-            <div class="back-add-product">
+            <div class="text-center mt-4">
               <a class="back-product" href="{{route('quan-ly-sp')}}">Trở lại</a>
               <button class="add-product button-add-product-save" type="submit">Lưu</button>
             </div>
@@ -57,27 +50,21 @@
 		$(document).ready(function(){
 			$("#signupForm").validate({
 				rules: {
-					name_product: "required",
-					cn: "required",
-					dd: "required",
+					name_product: {required: true, maxlength: 100},
 					image: "required",
-          price: "required",
-          original_price: "required",
-          quantity: "required",         
+          loai: "required"
 				},
 				messages: {
-					name_product: "Nhập tên sản phẩm",
-					cn: "Chọn loại",
-					dd: "Chọn loại",
+					name_product: {
+            required: "Nhập tên sản phẩm",
+            maxlength: "Không quá 100 kí tự",
+          },
 					image: "Thêm ảnh",
-					price: "Nhập Giá",
-					original_price: "Nhập giá bán",
-					quantity: "Nhập mã",
-
+          loai: "Chọn loại gas"
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {
-					error.addClass("invalid-feedback-product");
+					error.addClass("invalid-feedback-staff");
 					if (element.prop("type") === "checkbox"){
 						error.insertAfter(element.siblings("label"));
 					} else {
@@ -93,11 +80,6 @@
 			});
     });
 </script>
-
       </div>
-
-    </div>
-
-
-    
+    </div> 
   </div>

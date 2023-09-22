@@ -50,7 +50,7 @@ class index extends Controller
       }
       $users = users::find($user_id);
       $counts_processing = order_product::where('user_id', $user_id)->count();
-      $products = product::get();
+      $products = product::where('price', '>', 0)->get(); // chỉ hiển thị những sản phẩm có giá lớn hơn 0
       $tbl_discount = tbl_discount::get();
       $ma_giam = session()->get('ma_giam');
       $ma_giam = session()->get('gia_tri');

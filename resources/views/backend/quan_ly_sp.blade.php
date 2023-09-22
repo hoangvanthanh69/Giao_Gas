@@ -6,19 +6,41 @@
 
         <div class="card mb-3 product-list element_column " data-item="product">
           <div class="card-header">
-            <span class="product-list-name btnbtn">Admin / Sản Phẩm</span>
+            <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-sp')}}">Sản phẩm</a></span>
           </div>
           <div class="card-body">
             <div class="table-responsive table-list-product">
               <div class="search-option-infor-amdin">
                 <div class="search-infor-amdin-form-staff">
-                  <a class="add-product" href="{{route('add-product-admin')}}">Nhập sản phẩm</a>
+                  <a class="add-product" href="{{route('add-product-admin')}}">Thêm sản phẩm</a>
                 </div>
-                <div class=" search-infor-amdin-form-staff">
+                <div class="form-check-radio-product">
+                  <form action="{{route('filters-product-type')}}" method="get"> 
+                    <div id="loai" class="d-flex ">
+                      <div class="form-check">
+                        <input class="form-check-input form-check-input-type" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
+                        <label class="form-check-label" for="type1">Gas công nghiệp</label>
+                      </div>
+
+                      <div class="form-check ms-5">
+                        <input class="form-check-input form-check-input-type" type="radio" name="loai" value="2" id="type2" {{ ($filters['loai'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
+                        <label class="form-check-label" for="type2">Gas dân dụng</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="export-file-excel export-file-excel-prodcut">
+                  <a href="{{route('export-excel-product', ['loai' => $filters['loai'], 'search' => $search])}}" class="export-file-excel-button">
+                    <i class="fa-solid fa-file-export"></i>Xuất Excel
+                  </a>
+                </div>
+
+                <div class="search-infor-amdin-form-staff search-product-admin-form">
                   <form action="{{ route('admin.search_product') }}" method="GET" class="header-with-search-form ">
                     @csrf
                     <i class="search-icon-discount fas fa-search"></i>
-                    <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                    <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="ID, tên Sản Phẩm" name="search">
                     <span class="header_search button" onclick="startRecognition()">
                       <i class="fas fa-microphone" id="microphone-icon"></i> 
                     </span>
@@ -52,55 +74,66 @@
                 </thead>
                 
                 <tbody class="infor">
-                  @foreach($product as $key => $val)
-                    <tr class="hover-color">
-                      <td class="name-product-td infor-product">{{$key+1}}</td>
-                      <td class="name-product-td infor-product">ID: {{$val['id']}} - {{$val['name_product']}}</td>
-                      <td class="img-product-td">
-                        <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image'])}}" width="100px"  alt="">
-                      </td>
-                      <td class="name-product-td infor-product">
-                        <?php if($val['loai']==1){echo "<span style='color: #ef5f0e; font-weight: 500'>Gas công nghiệp</span>";}
-                        else{echo "<span style='color: #09b6a6; font-weight: 500'>Gas dân dụng</span>";} ?>
-                      </td>
-                      <td class="name-product-td infor-product">{{$val['quantity']}}</td>
-                      <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
-                      <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
-                      <td class="name-product-td infor-product">{{$val['created_at']}}</td>
-                      <td class="function-icon infor-product">
-                        <form action="{{route('edit-product', $val['id'])}}">
-                          <button class="summit-add-product-button" type='submit'>
-                            <i class="fa-solid fa-pen-to-square"></i>
-                          </button>
-                        </form>
-                        
-                        <form action="{{route('delete-product', $val['id'])}}">
-                          <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">
-                            <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-                          </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal{{$val['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa sản phẩm này</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
+                  @php
+                    $typeFilter = $filters['loai'] ?? 'all';
+                    $orderNumber = 0;
+                  @endphp
 
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
-                                    <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                  @foreach($product as $key => $val)
+                    @if($typeFilter == 'all' || $val['loai'] == $typeFilter)
+                      @php
+                        $orderNumber++;
+                      @endphp
+                      <tr class="hover-color">
+                        <td class="name-product-td infor-product">{{$orderNumber}}</td>
+                        <td class="name-product-td infor-product">ID: {{$val['id']}} - {{$val['name_product']}}</td>
+                        <td class="img-product-td">
+                          <img class="image-admin-product-edit"  src="{{asset('uploads/product/'.$val['image'])}}" width="100px"  alt="">
+                        </td>
+                        <td class="name-product-td infor-product">
+                          <?php if($val['loai']==1){echo "<span style='color: #ef5f0e; font-weight: 500'>Gas công nghiệp</span>";}
+                          else{echo "<span style='color: #09b6a6; font-weight: 500'>Gas dân dụng</span>";} ?>
+                        </td>
+                        <td class="name-product-td infor-product">{{$val['quantity']}}</td>
+                        <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
+                        <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
+                        <td class="name-product-td infor-product">{{$val['created_at']}}</td>
+                        <td class="function-icon infor-product">
+                          <form action="{{route('edit-product', $val['id'])}}">
+                            <button class="summit-add-product-button" type='submit'>
+                              <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                          </form>
+                          
+                          <form action="{{route('delete-product', $val['id'])}}">
+                            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">
+                              <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
+                            </button>
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModal{{$val['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa sản phẩm này</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                                      <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                        </form>
-                      </td>
-                    </tr>
+                          </form>
+                        </td>
+                      </tr>
+                    @endif
                   @endforeach 
                 </tbody>
                 <h1 id="showtext">
               </table>
+              @if (!$search && (!$filters || $filters['loai'] == 'all'))
               <nav aria-label="Page navigation example" class="nav-link-page">
                 <ul class="pagination">
                   @for ($i = 1; $i <= $product->lastPage(); $i++)
@@ -110,6 +143,7 @@
                   @endfor
                 </ul>
               </nav>
+              @endif
             </div>
             
           </div>

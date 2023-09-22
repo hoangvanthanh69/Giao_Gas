@@ -5,12 +5,12 @@
         <div class="col-10 nav-row-10 ">
             <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name fs-5">
-                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Danh sách nhân viên</a> / <a class="text-decoration-none color-name-admin-add" href="{{route('add-staff')}}">Thêm nhân viên mới</a>
+                    <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-nv')}}">Danh sách nhân viên</a> / <a class="text-decoration-none color-name-admin-add" href="">Cập nhật thông tin nhân viên</a>
                 </span>
             </div>
             <div class="add-staff-form">
                 <div class="add-staff-heading-div">
-                    <span>Tạo mới nhân viên</span>
+                    <span>Cập nhật nhân viên</span>
                 </div>
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('update-staff',$staff->id)}}">
                     @csrf

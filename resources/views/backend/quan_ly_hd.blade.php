@@ -8,81 +8,10 @@
           <div class="card-header">
             <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a></span>
           </div>
+
           <div class="d-flex justify-content-between pt-3">
-            <form method="get"> 
-              <div class="d-flex">
-                <select name="status" id="status" class="select-form-option" onchange="this.form.submit()">
-                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Tất cả</option>
-                  <option value="1" {{ ($filters['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
-                  <option value="2" {{ ($filters['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
-                  <option value="3" {{ ($filters['status'] == '3') ? 'selected' : '' }}>Đã giao</option>
-                  <option value="4" {{ ($filters['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
-                </select>
-
-                <div id="loai" class="d-flex mt-3">
-                  <div class="form-check me-3 ms-3">
-                    <input class="form-check-input" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
-                    <label class="form-check-label" for="type1">Gas công nghiệp</label>
-                  </div>
-
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="loai" value="2" id="type2" {{ ($filters['loai'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
-                    <label class="form-check-label" for="type2">Gas dân dụng</label>
-                  </div>
-                </div>
-              </div>
-            </form>
-
-            <!-- lọc đơn hàng từ a-z và z-a -->
-            <form method="GET" action="{{ route('sort_order') }}">
-              <div class="div-filter-down mb-1">
-                <span>Tên khách hàng</span>
-                <span class="filter-data-created-at">
-                  <i class="fa-solid fa-sort-down ms-1 fs-4 "></i>
-                </span>
-              </div>
-
-              <div class="filter-button-near-distant ms-5">
-                <button type="submit" class="sort-az" name="sort_order" value="asc">
-                  <i class="fa-solid fa-arrow-down-a-z"></i>
-                </button>
-                <button type="submit" class="sort-za" name="sort_order" value="desc">
-                  <i class="fa-solid fa-arrow-down-z-a"></i>
-                </button>
-              </div>
-            </form>
-
-            <!-- lọc đơn hàng theo ngày gần nhất và xa nhất -->
-            <form method="GET" action="{{ route('data_created_at') }}">
-              <div class="div-filter-down mb-1">
-                <span>Ngày tạo</span>
-                <span class="filter-data-created-at">
-                  <i class="fa-solid fa-sort-down ms-1 fs-4 "></i>
-                </span>
-              </div>
-              <div class="filter-button-near-distant">
-                <button type="submit" class="sort-near" name="data_created_at" value="near">
-                  <i class="fa-solid fa-arrow-down-wide-short"></i>
-                </button>
-                <button type="submit" class="sort-distant" name="data_created_at" value="distant">
-                  <i class="fa-solid fa-arrow-down-short-wide"></i>
-                </button>
-              </div>
-            </form>
-                      
-            <div class="export-file-pdf">
-              <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
-            </div>
-
-            <div class="export-file-excel">
-              <a href="{{ route('export-excel', ['status' => $filters['status'], 
-                'loai' => $filters['loai'], 'search' => $search]) }}" class="export-file-excel-button">
-                <i class="fa-solid fa-file-export"></i>Xuất Excel
-              </a>
-            </div>
-            
-            <div class="search-infor-amdin-form mt-2 me-4">
-              <form action="{{ route('admin.search_hd') }}" method="GET" class="header-with-search-form ">
+            <div class="mt-2 ms-3">
+              <form action="{{route('admin.search_hd')}}" method="GET" class="header-with-search-form ">
                 @csrf
                 <i class="search-icon-discount fas fa-search"></i>
                 <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Mã ĐH, Tên KH" name="search">
@@ -97,21 +26,104 @@
                 </div>
               @endif
             </div>
+            <!-- lọc đơn hàng theo ngày tháng năm -->
+            <div class="mt-2">
+              <form action="{{route('date-order-product')}}" class="form-filter-date-order" method="GET">
+                <i class="fa-solid fa-calendar-days icon-filter-date-order"></i>
+                <input class="date-filter-order" type="text" id="dateFilter" name="dateFilter" placeholder="dd-mm-yy • mm-yy • yy" value="{{$dateFilter}}"/>
+              </form>
+            </div>
+
+            <form method="get" action="{{ route('filters-status-type') }}"> 
+              <div>
+                <select name="status" id="status" class="select-form-option select-form-option-status" onchange="this.form.submit()">
+                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Tất cả</option>
+                  <option value="1" {{ ($filters['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
+                  <option value="2" {{ ($filters['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
+                  <option value="3" {{ ($filters['status'] == '3') ? 'selected' : '' }}>Đã giao</option>
+                  <option value="4" {{ ($filters['status'] == '4') ? 'selected' : '' }}>Đã hủy</option>
+                </select>
+              </div>
+                <div id="loai" class="d-flex form-check-type-order">
+                  <div class="form-check ms-5 mb-1">
+                    <input class="form-check-input" type="radio" name="loai" value="1" id="type1" {{ ($filters['loai'] == '1') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <label class="form-check-label" for="type1">Gas công nghiệp</label>
+                  </div>
+
+                  <div class="form-check ms-4">
+                    <input class="form-check-input" type="radio" name="loai" value="2" id="type2" {{ ($filters['loai'] == '2') ? 'checked' : '' }} onclick="this.form.submit();">
+                    <label class="form-check-label" for="type2">Gas dân dụng</label>
+                  </div>
+                </div>
+            </form>
+
+            <!-- lọc đơn hàng từ a-z và z-a -->
+            <div>
+              <form method="GET" action="{{ route('sort_order') }}">
+                <div class="div-filter-down mb-1">
+                  <span>Tên khách hàng</span>
+                  <span class="filter-data-created-at">
+                    <i class="fa-solid fa-sort-down ms-1 fs-4 "></i>
+                  </span>
+                </div>
+
+                <div class="filter-button-near-distant ms-5">
+                  <button type="submit" class="sort-az" name="sort_order" value="asc">
+                    <i class="fa-solid fa-arrow-down-a-z"></i>
+                  </button>
+                  <button type="submit" class="sort-za" name="sort_order" value="desc">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- lọc đơn hàng theo ngày gần nhất và xa nhất -->
+            <div>
+              <form method="GET" action="{{ route('data_created_at') }}">
+                <div class="div-filter-down me-4">
+                  <span>Ngày tạo</span>
+                  <span class="filter-data-created-at">
+                    <i class="fa-solid fa-sort-down ms-1 fs-4 "></i>
+                  </span>
+                </div>
+                <div class="filter-button-near-distant">
+                  <button type="submit" class="sort-near" name="data_created_at" value="near">
+                    <i class="fa-solid fa-arrow-down-wide-short"></i>
+                  </button>
+                  <button type="submit" class="sort-distant" name="data_created_at" value="distant">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- <div class="export-file-pdf">
+              <a href=""> <i class="fa-solid fa-file-export"></i> Xuất PDF</a>
+            </div> -->
+
           </div>
           
           <div class="card-body">
             <div class="table-responsive table-list-product">
-            @if (session('success'))
+              <div class="export-file-excel export-file-excel-order mb-2">
+                <a href="{{ route('export-excel', ['status' => $filters['status'], 
+                  'loai' => $filters['loai'], 'search' => $search, 'dateFilter' => $dateFilter]) }}" class="export-file-excel-button">
+                  <i class="fa-solid fa-file-export me-1"></i>Xuất Excel
+                </a>
+              </div>
+              @if (session('success'))
                 <div class="notification-order">
                   {{ session('success') }}
                 </div>
-            @endif
+              @endif
             
-            @if (session('mesages'))
-              <div class="notification-search">
-                {{ session('mesages') }}
-              </div>
-            @endif
+              @if (session('mesage'))
+                <div class="notification-date">
+                  {{ session('mesage') }}
+                </div>
+              @endif
+
               <table class="table table-bordered" id="dataTable" cellspacing="0" style="width: 100%">
                 <thead>
                   <tr class="tr-name-table">
@@ -130,8 +142,8 @@
                 
                 <tbody class="infor">
                   @php
-                      $statusFilter = $filters['status'] ?? 'all';
-                      $typeFilter = $filters['loai'] ?? 'all';
+                    $statusFilter = $filters['status'] ?? 'all';
+                    $typeFilter = $filters['loai'] ?? 'all';
                   @endphp
                   
                   @foreach($order_product as $key => $val)
@@ -170,7 +182,7 @@
                           <a class="browse-products" href="{{route('chitiet-hd', $val['id'])}}">
                             Xem chi tiết
                           </a>
-                          <form action="{{route('delete-client', $val['id'])}}">
+                          <form action="{{route('delete-order', $val['id'])}}">
                             <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">
                               <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
                             </button>

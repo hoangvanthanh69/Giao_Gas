@@ -8,10 +8,12 @@ use App\Models\order_product;
 use App\Models\tbl_admin;
 use App\Models\product_warehouse;
 use Session;
+use App\Exports\ExcelExports_product;
+use Excel;
 class ProductController extends Controller
 {
     // quản lý sản phẩm
-    function quan_ly_sp(){
+    function quan_ly_sp(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
@@ -23,8 +25,11 @@ class ProductController extends Controller
         elseif($chuc_vu == '3'){
             $product = product::orderByDesc('id')->paginate(10);
         }
-        $order_product = order_product::get()->toArray();
-        return view('backend.quan_ly_sp', ['product' => $product, 'order_product' => $order_product]);
+        $filters = [
+            'loai' => $request->input('loai', 'all')
+        ];
+        $search = $request->input('search');
+        return view('backend.quan_ly_sp', ['product' => $product, 'filters' => $filters, 'search' => $search, ]);
     }
 
     // hiển thị giao diện chỉnh sửa sản phẩm
@@ -78,9 +83,9 @@ class ProductController extends Controller
         $product = new product;
         $product -> name_product = $data['name_product'];
         $product -> loai = $data['loai'];
-        $product -> price =  $data['price'];
+        $product -> price =  0;
         $product -> quantity = 0;
-        $product -> original_price =  $data['original_price'];
+        $product -> original_price =  0;
         $get_image = $request->image;
         $path = 'uploads/product/';
         $get_name_image = $get_image -> getClientOriginalName();
@@ -101,23 +106,23 @@ class ProductController extends Controller
 
     // tìm kiếm sản phẩm
     function search_product(Request $request){
-        if(!Session::get('admin')){
-            return redirect()->route('login');
-        }
         if ($request->isMethod('get')) {
             $search = $request->input('search');
-            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->paginate(10);
-            if(empty($product->items())){
+            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get();
+            if($product->isEmpty()){
                 return back()->with('mesages', 'Không tìm thấy kết quả');
             } else {
-                return view('backend.quan_ly_sp', ['product' => $product, 'search' => $search]);
+                $filters = array(
+                    'loai' => $request->input('loai', 'all')
+                );
+                return view('backend.quan_ly_sp', compact('product', 'search', 'filters'));
             }
         } else {
             return redirect()->back();
         }
     }
 
-    // quản lý kho
+    // quản lý nhập kho
     function quan_ly_kho(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
@@ -132,8 +137,11 @@ class ProductController extends Controller
             $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
         }
         $search = $request->input('search');
+        $date_Filter_warehouse = $request->input('date_Filter_warehouse');
         return view('backend.quan_ly_kho', ['product_warehouse' => $product_warehouse,
-        'productNames' => $productNames, 'admin_Names' => $admin_Names, 'search' => $search]);
+        'productNames' => $productNames, 'admin_Names' => $admin_Names, 'search' => $search,
+        'date_Filter_warehouse' => $date_Filter_warehouse
+        ]);
     }
 
     //giao diện nhập kho sản phẩm
@@ -182,7 +190,7 @@ class ProductController extends Controller
         return redirect()->route('quan-ly-kho');
     }
 
-    // tìm kiếm kho 
+    // tìm kiếm nhập kho 
     function search_warehouse(Request $request){
         if (!Session::get('admin')) {
             return redirect()->route('login');
@@ -216,6 +224,128 @@ class ProductController extends Controller
             }
         } else {
             return redirect()->back();
+        }
+    }
+
+    //xóa nhập kho
+    function delete_warehouse($id){
+        $warehouse = product_warehouse::find($id);
+        $warehouse -> delete();
+        return redirect()->route('quan-ly-kho')->with('success', 'Xóa sản phẩm thành công');
+    }
+
+    // quản lý tồn kho
+    function quan_ly_ton_kho(){
+        $product = product::get();
+        $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
+        ->groupBy('product_id')->get();
+        $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
+        $totalPriceProductId = product_warehouse::select('product_id', \DB::raw('sum(total) as total_price'))
+        ->groupBy('product_id')->get();
+        $totalPrice = $totalPriceProductId->pluck('total_price', 'product_id')->toArray();
+        $quantity_sold = [];
+        foreach ($product as $item) {
+            $quantity_sold[$item->id] = ($totalQuantity[$item->id] ?? 0) - $item->quantity;
+        }
+        return view('backend.quan_ly_ton_kho', [
+            'product' => $product,
+            'totalQuantity' => $totalQuantity,
+            'totalPrice' => $totalPrice,
+            'quantity_sold' => $quantity_sold,
+        ]);
+    }
+
+    // tìm kiếm tồn kho
+    function search_inventory(Request $request){
+        $product = product::get();
+        $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
+        ->groupBy('product_id')->get();
+        $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
+        $totalPriceProductId = product_warehouse::select('product_id', \DB::raw('sum(total) as total_price'))
+        ->groupBy('product_id')->get();
+        $totalPrice = $totalPriceProductId->pluck('total_price', 'product_id')->toArray();
+        $quantity_sold = [];
+        foreach ($product as $item) {
+            $quantity_sold[$item->id] = ($totalQuantity[$item->id] ?? 0) - $item->quantity;
+        }
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get();
+            if($product->isEmpty()){
+                return back()->with('mesages', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.quan_ly_ton_kho', ['product' => $product, 'search' => $search, 
+                'totalPrice' => $totalPrice, 'totalQuantity' => $totalQuantity, 'quantity_sold' => $quantity_sold]);
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    // lọc sản phẩm theo loại
+    function filters_product_type(Request $request){
+        $product = product::get();
+        $filters = [
+            'loai' => $request->input('loai', 'all')
+        ];
+        $search = $request->input('search');
+        return view('backend.quan_ly_sp', ['filters' => $filters, 'product' => $product, 'search' => $search,
+        ]);
+    }
+
+    // xuất file excel cho ds kho sản phẩm
+    function export_excel_product(Request $request) {
+        $search = $request->input('search');
+        $productQuery = product::query();
+        if (!empty($search)) {
+            $productQuery->where(function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%$search%")
+                ->orWhere('name_product', 'LIKE', "%$search%");
+            });
+        }
+        $product = $productQuery->get();
+        $loai = $request->input('loai', 'all');
+        if ($product->isEmpty()) {
+            return back()->with('mesage', 'Không có dữ liệu để xuất');
+        } else {
+            return Excel::download(new ExcelExports_product($loai, $search), 'ds_san_pham.xlsx');
+        }
+    }
+
+    function filters_date_warehouse(Request $request){
+        $date_Filter_warehouse = $request->input('date_Filter_warehouse');
+        $pattern = '/^(\d{2}-\d{2}-\d{4}|\d{2}-\d{4}|\d{4})$/';
+        if (preg_match($pattern, $date_Filter_warehouse)) {
+            $dateParts = explode('-', $date_Filter_warehouse);
+            if (count($dateParts) === 3) {
+                $query = product_warehouse::whereDate('created_at', '=', date('Y-m-d', strtotime($date_Filter_warehouse)));
+            } elseif (count($dateParts) === 2) {
+                $query = product_warehouse::whereYear('created_at', '=', $dateParts[1])
+                    ->whereMonth('created_at', '=', $dateParts[0]);
+            } else {
+                $query = product_warehouse::whereYear('created_at', '=', $date_Filter_warehouse);
+            }
+            $product_warehouse = $query->get();
+            // 
+            $productNames = [];
+            foreach ($product_warehouse as $name) {
+                $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+            }
+            $admin_Names=[];
+            foreach($product_warehouse as $name){
+                $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+            }
+            // 
+            $search = $request->input('search');
+            return view('backend.quan_ly_kho', [
+                'product_warehouse' => $product_warehouse,
+                'date_Filter_warehouse' => $date_Filter_warehouse,
+                'search' => $search,
+                'productNames' => $productNames,
+                'admin_Names' => $admin_Names
+            ]);
+        } else {
+            return redirect()->route('quan-ly-kho')->with('mesages', 'Nhập không đúng định dạng');
         }
     }
 }

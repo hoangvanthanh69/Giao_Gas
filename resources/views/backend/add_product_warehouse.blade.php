@@ -8,6 +8,9 @@
                 <div class="add-staff-heading-div">
                     <span>Nhập kho sản phẩm</span>
                 </div>
+                <div class="ms-4 mb-3">
+                    <a class="add-product fs-6" href="{{route('add-product-admin')}}"><i class="fa-solid fa-plus"></i> Sản phẩm</a>
+                </div>
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='POST' action="{{route('add-warehouse')}}">
                     @csrf
                     <div class="col-4">
@@ -84,13 +87,19 @@
                     $("#signupForm").validate({
                         rules: {
                             product_id: "required",
-                            price: "required",
+                            price: {
+                                required: true,
+                                number: true
+                            },
                             quantity: {required: true, number: true, maxlength: 10},                   
                             staff_id: "required"
                         },
                         messages: {
                             product_id: "Chọn sản phẩm",
-                            price: "Nhập giá",
+                            price: {
+                                required: "Nhập giá",
+                                number: "Vui lòng nhập số"
+                            },
                             quantity: {
                                 required: "Nhập số lượng",
                                 number: "Vui lòng nhập số",

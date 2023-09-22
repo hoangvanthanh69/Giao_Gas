@@ -115,7 +115,7 @@ td.name-product-td {
     border: 1px solid rgb(147, 147, 156);
     padding: 7px;
     background-color: rgb(241, 241, 238);
-    border-radius: 4px;
+    border-radius: 3px;
 }
 .add-staffs{
     text-decoration: none;
@@ -240,6 +240,12 @@ td.function-icon {
     right: 48px;
     animation: ease .3s, fadeout linear 5s 0.8s forwards;
 }
+.notification-date{
+    color: red;
+    position: absolute;
+    top: 120px;
+    animation: ease .3s, fadeout linear 5s 0.8s forwards;
+}
 .notification-order {
     color: red;
     position: absolute;
@@ -299,7 +305,7 @@ table#dataTable {
 .header-with-search-input-discount{
     outline: none;
     border: 1px solid #d0c8c8;
-    border-radius: 4px;
+    border-radius: 3px;
     line-height: 14px;
     height: 43px;
     margin-right: -30px;
@@ -418,8 +424,7 @@ tr.order-product-height.hover-color {
 .select-form-option {
     height: 43px;
     margin-top: 8px;
-    margin-left: 18px;
-    border-radius: 4px;
+    border-radius: 3px;
     border: 1px solid #cfc4c4;
     font-size: 17px;
     padding: 8px;
@@ -442,7 +447,7 @@ select#status {
     margin-top: 30px;
 }
 .search-infor-amdin-form {
-    margin-right: 25px;
+    margin-right: 30px;
 }
 .order-product-infor-admin{
     line-height: 60px;
@@ -1026,7 +1031,7 @@ button.button-delete-order {
     text-decoration: none;
 }
 .export-file-excel{
-    background-color: #90edba;
+    background-color: #1f7244;
     border: 1px solid #1f7244;
     padding: 7px 10px;
     border-radius: 3px;
@@ -1034,12 +1039,17 @@ button.button-delete-order {
     height: 38px;
     line-height: 23px;
 }
+.export-file-excel-order{
+    width: 9%;
+    float: right;
+    margin-top: 1px;
+}
 .export-file-excel a {
-    color: #1f7244;
+    color: white;
     text-decoration: none;
 }
 .export-file-excel a:hover {
-    color: #1D6B40;
+    color: white;
 }
 .icon-line-height{
     line-height: 72px;
@@ -1213,4 +1223,48 @@ span.carousel-control-next-icon {
 }
 .width-stt{
     width: 10px;
+}
+.filters-date-order{
+    font-size: 1rem;
+    color: #212529;
+}
+.icon-filter-date-order{
+    position: absolute;
+    top: 13px;
+    left: 0;
+    padding-left: 10px;
+}
+.date-filter-order{
+    outline: none;
+    border: 1px solid #d0c8c8;
+    border-radius: 3px;
+    line-height: 14px;
+    height: 43px;
+    padding-left: 35px;
+    font-size: 17px;
+}
+.form-filter-date-order{
+    position: relative;
+}
+.form-check-type-order {
+    top: 0;
+    margin-top: -36px;
+    margin-left: 130px;
+}
+.select-form-option-status{
+    margin-left: -12px;
+}
+.form-check-radio-product {
+    margin-top: -20px;
+    margin-left: -30%;
+}
+.form-check-input-type{
+    margin-top: 10px !important;
+}
+.export-file-excel-prodcut {
+    margin-top: -21px !important;
+    margin-left: -29%;
+}
+.search-product-admin-form {
+    margin-top: -24px;
 }

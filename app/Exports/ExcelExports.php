@@ -10,35 +10,53 @@ class ExcelExports implements FromCollection, WithHeadings, WithMapping
 {
     // protected $filters;
 
-    public function __construct($status, $loai, $search = null){
+    public function __construct($status, $loai, $search = null, $dateFilter){
         $this->status = $status;
         $this->loai = $loai;
         $this->search = $search;
+        $this->dateFilter = $dateFilter;
     }
 
     public function collection(){
         $query = order_product::query();
-    
-        // Sử dụng $this->search nếu cần
         if (!is_null($this->search)) {
             $query->where(function ($query) {
                 $query->where('nameCustomer', 'LIKE', "%$this->search%")
                     ->orWhere('order_code', 'LIKE', "%$this->search%");
             });
         }
-    
         if ($this->status != 'all') {
             $query->where('status', $this->status);
         }
-    
         if ($this->loai != 'all') {
             $query->where('loai', $this->loai);
         }
-    
+        if (!empty($this->dateFilter)) {
+            $dateParts = explode('-', $this->dateFilter);
+            $day = null;
+            $month = null;
+            $year = null;
+            if (count($dateParts) >= 1) {
+                $year = $dateParts[count($dateParts) - 1];
+            }
+            if (count($dateParts) >= 2) {
+                $month = $dateParts[count($dateParts) - 2];
+            }
+            if (count($dateParts) >= 3) {
+                $day = $dateParts[count($dateParts) - 3];
+            }
+            if ($day) {
+                $query->whereDate('created_at', '=', "$year-$month-$day");
+            } elseif ($month) {
+                $query->whereYear('created_at', '=', $year)
+                      ->whereMonth('created_at', '=', $month);
+            } else {
+                $query->whereYear('created_at', '=', $year);
+            }
+        }
         return $query->get();
     }
     
-
     public function headings(): array{
         return [
             'ID',
