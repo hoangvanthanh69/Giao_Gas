@@ -10,20 +10,41 @@
           </div>
           <div class="card-body">
             <div class="table-responsive table-list-product">
-              <div class="search-option-infor-amdin">
-                <div class="search-infor-amdin-form-staff">
+              <div class="d-flex mt-5">
+                <div class="add-warehouse-product">
                   <a class="add-product" href="{{route('add-product-warehouse')}}">Nhập kho sản phẩm</a>
                 </div>
 
                 <!-- lọc đơn hàng theo ngày tháng năm -->
-                <div class="search-infor-amdin-form-staff search-product-admin-form">
-                  <form action="{{route('filters-date-warehouse')}}" class="form-filter-date-order" method="GET">
-                    <i class="fa-solid fa-calendar-days icon-filter-date-order"></i>
-                    <input class="date-filter-order" type="text" id="date_Filter_warehouse" name="date_Filter_warehouse" placeholder="dd-mm-yy • mm-yy • yy" value="{{$date_Filter_warehouse}}"/>
+                <div class="search-product-admin-form">
+                  <form action="{{ route('filters-date-warehouse') }}" class="form-filter-date-order d-flex" method="GET">
+                    <div class="d-block date-period-warehouse">
+                      <label for="" class="ps-2">Thời gian:</label>
+                      <div>
+                        <i class="fa-solid fa-calendar-days icon-filter-date-order"></i>
+                        <input class="date-filter-order pb-1" type="text" id="date_Filter_warehouse" name="date_Filter_warehouse" placeholder="dd-mm-yy • mm-yy • yy" value="{{$date_Filter_warehouse}}"/>
+                      </div>
+                    </div>
+                    <div class="date-period-warehouse d-flex">
+                      <div class=" padding-left-warehouse">
+                        <label for="" class="ps-2">Từ ngày:</label>
+                        <div>
+                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_warehouse_start" name="date_Filter_warehouse_start" placeholder="• dd-mm-yy"/>
+                        </div>
+                      </div>
+
+                      <div class="padding-left-warehouse">
+                        <label for="" class="ps-2">Đến ngày:</label>
+                        <div>
+                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_warehouse_end" name="date_Filter_warehouse_end" placeholder="• dd-mm-yy"/>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="d-none"></button>
                   </form>
                 </div>
 
-                <div class="search-infor-amdin-form-staff search-product-admin-form">
+                <div class="search-product-admin-form padding-left-warehouse">
                   <form action="{{route('search-warehouse')}}" method="GET" class="header-with-search-form ">
                     @csrf
                     <i class="search-icon-discount fas fa-search"></i>
@@ -33,18 +54,29 @@
                     </span>
                   </form>
                 </div>
-              </div>
-                @if (session('success'))
-                  <div class="notification">
-                    {{ session('success') }}
-                  </div>
-                @endif
 
-                @if (session('mesages'))
-                  <div class="notification-search">
-                    {{ session('mesages') }}
-                  </div>
-                @endif
+                <div class="export-file-excel export-file-excel-warehouse">
+                  <a href="{{route('export-excel-warehouse', ['search' => $search, 'date_Filter_warehouse' => $date_Filter_warehouse, 
+                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
+                    ])}}" class="export-file-excel-button">
+                    <i class="fa-solid fa-file-export"></i>Xuất Excel
+                  </a>
+                </div>
+              </div>
+              @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                  <i class="far fa-check-circle icon-check-success"></i>
+                  {{ session('success') }}
+                </div>
+              @endif
+
+              @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                  <i class="fas fa-ban icon-check-cancel"></i>
+                  {{ session('message') }}
+                </div>
+              @endif
+
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr class="tr-name-table">
@@ -107,7 +139,7 @@
                 </tbody>
                 <h1 id="showtext">
               </table>
-              @if (!$search && (!$date_Filter_warehouse))
+              @if (!$search && (!$date_Filter_warehouse) && (!$date_Filter_warehouse_start))
                 <nav aria-label="Page navigation example" class="nav-link-page">
                   <ul class="pagination">
                     @for ($i = 1; $i <= $product_warehouse->lastPage(); $i++)

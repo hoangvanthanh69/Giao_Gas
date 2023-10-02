@@ -9,6 +9,7 @@ use App\Models\tbl_admin;
 use App\Models\product_warehouse;
 use Session;
 use App\Exports\ExcelExports_product;
+use App\Exports\ExcelExports_warehouse;
 use Excel;
 class ProductController extends Controller
 {
@@ -94,7 +95,7 @@ class ProductController extends Controller
         $get_image -> move($path,$new_image);
         $product -> image = $new_image;
         $product -> save();  
-        return redirect()->route('quan-ly-sp');
+        return redirect()->route('quan-ly-sp')->with('success', 'Thêm sản phẩm thành công');
     }
 
     // xóa sản phẩm
@@ -110,7 +111,7 @@ class ProductController extends Controller
             $search = $request->input('search');
             $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get();
             if($product->isEmpty()){
-                return back()->with('mesages', 'Không tìm thấy kết quả');
+                return back()->with('message', 'Không tìm thấy kết quả');
             } else {
                 $filters = array(
                     'loai' => $request->input('loai', 'all')
@@ -138,9 +139,12 @@ class ProductController extends Controller
         }
         $search = $request->input('search');
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
+        $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
+        $date_Filter_warehouse_start = $request->input('date_Filter_warehouse');
         return view('backend.quan_ly_kho', ['product_warehouse' => $product_warehouse,
         'productNames' => $productNames, 'admin_Names' => $admin_Names, 'search' => $search,
-        'date_Filter_warehouse' => $date_Filter_warehouse
+        'date_Filter_warehouse' => $date_Filter_warehouse, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
+        'date_Filter_warehouse_start' => $date_Filter_warehouse_start
         ]);
     }
 
@@ -200,10 +204,8 @@ class ProductController extends Controller
             $productIds = product::where('name_product', 'LIKE', "%$search%")->pluck('id')->toArray();
             $staffIds = tbl_admin::where('admin_name', 'LIKE', "%$search%")->pluck('id')->toArray();
             $product_warehouse = product_warehouse::whereIn('product_id', $productIds)
-                ->orWhereIn('staff_id', $staffIds)
-                ->orWhere('batch_code', 'LIKE', "%$search%")
-                ->orWhere('product_id', 'LIKE', "%$search%")
-                ->get();
+                ->orWhereIn('staff_id', $staffIds)->orWhere('batch_code', 'LIKE', "%$search%")
+                ->orWhere('product_id', 'LIKE', "%$search%")->get();
             $productNames = [];
             foreach ($product_warehouse as $name) {
                 $productNames[$name->product_id] = product::find($name->product_id)->name_product;
@@ -213,13 +215,16 @@ class ProductController extends Controller
                 $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
             }
             if ($product_warehouse->isEmpty()) {
-                return back()->with('mesages', 'Không tìm thấy kết quả');
+                return back()->with('message', 'Không tìm thấy kết quả');
             }else {
+                $date_Filter_warehouse = $request->input('date_Filter_warehouse');
+                $date_Filter_warehouse_start = $request->input('date_Filter_warehouse');
+                $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
                 return view('backend.quan_ly_kho', [
-                    'product_warehouse' => $product_warehouse,
-                    'search' => $search,
-                    'productNames' => $productNames,
-                    'admin_Names' => $admin_Names,
+                    'product_warehouse' => $product_warehouse, 'search' => $search,
+                    'productNames' => $productNames, 'admin_Names' => $admin_Names,
+                    'date_Filter_warehouse' => $date_Filter_warehouse, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
+                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start
                 ]);
             }
         } else {
@@ -238,20 +243,18 @@ class ProductController extends Controller
     function quan_ly_ton_kho(){
         $product = product::get();
         $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
-        ->groupBy('product_id')->get();
+            ->groupBy('product_id')->get();
         $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
         $totalPriceProductId = product_warehouse::select('product_id', \DB::raw('sum(total) as total_price'))
-        ->groupBy('product_id')->get();
+            ->groupBy('product_id')->get();
         $totalPrice = $totalPriceProductId->pluck('total_price', 'product_id')->toArray();
         $quantity_sold = [];
         foreach ($product as $item) {
             $quantity_sold[$item->id] = ($totalQuantity[$item->id] ?? 0) - $item->quantity;
         }
         return view('backend.quan_ly_ton_kho', [
-            'product' => $product,
-            'totalQuantity' => $totalQuantity,
-            'totalPrice' => $totalPrice,
-            'quantity_sold' => $quantity_sold,
+            'product' => $product, 'totalQuantity' => $totalQuantity,
+            'totalPrice' => $totalPrice, 'quantity_sold' => $quantity_sold,
         ]);
     }
 
@@ -259,10 +262,10 @@ class ProductController extends Controller
     function search_inventory(Request $request){
         $product = product::get();
         $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
-        ->groupBy('product_id')->get();
+            ->groupBy('product_id')->get();
         $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
         $totalPriceProductId = product_warehouse::select('product_id', \DB::raw('sum(total) as total_price'))
-        ->groupBy('product_id')->get();
+            ->groupBy('product_id')->get();
         $totalPrice = $totalPriceProductId->pluck('total_price', 'product_id')->toArray();
         $quantity_sold = [];
         foreach ($product as $item) {
@@ -299,8 +302,7 @@ class ProductController extends Controller
         $productQuery = product::query();
         if (!empty($search)) {
             $productQuery->where(function ($query) use ($search) {
-                $query->where('id', 'LIKE', "%$search%")
-                ->orWhere('name_product', 'LIKE', "%$search%");
+                $query->where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%");
             });
         }
         $product = $productQuery->get();
@@ -312,40 +314,124 @@ class ProductController extends Controller
         }
     }
 
+    // lọc theo khoảng thời gian
     function filters_date_warehouse(Request $request){
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
+        $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
+        $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
         $pattern = '/^(\d{2}-\d{2}-\d{4}|\d{2}-\d{4}|\d{4})$/';
-        if (preg_match($pattern, $date_Filter_warehouse)) {
-            $dateParts = explode('-', $date_Filter_warehouse);
-            if (count($dateParts) === 3) {
-                $query = product_warehouse::whereDate('created_at', '=', date('Y-m-d', strtotime($date_Filter_warehouse)));
-            } elseif (count($dateParts) === 2) {
-                $query = product_warehouse::whereYear('created_at', '=', $dateParts[1])
-                    ->whereMonth('created_at', '=', $dateParts[0]);
-            } else {
-                $query = product_warehouse::whereYear('created_at', '=', $date_Filter_warehouse);
+        if (!empty($date_Filter_warehouse_start) && !empty($date_Filter_warehouse_end)) {
+            // Lọc theo khoảng thời gian
+            if (preg_match($pattern, $date_Filter_warehouse_start) && preg_match($pattern, $date_Filter_warehouse_end)) {
+                $startParts = explode('-', $date_Filter_warehouse_start);
+                $endParts = explode('-', $date_Filter_warehouse_end);
+                if (count($startParts) === 3 && count($endParts) === 3) {
+                    $start = date('Y-m-d', strtotime($date_Filter_warehouse_start));
+                    $end = date('Y-m-d', strtotime($date_Filter_warehouse_end .'+1 day'));
+                    $query = product_warehouse::whereBetween('created_at', [$start, $end])->get();
+                    // Lấy tên sản phẩm và tên người quản lý
+                    $productNames = [];
+                    foreach ($query as $name) {
+                        $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+                    }
+                    $admin_Names=[];
+                    foreach($query as $name){
+                        $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                    }
+                    foreach ($query as $record) {
+                        $productNames[$record->product_id] = product::find($record->product_id)->name_product;
+                        $adminNames[$record->staff_id] = tbl_admin::find($record->staff_id)->admin_name;
+                    }
+                    $search = $request->input('search');
+                    return view('backend.quan_ly_kho', [
+                        'product_warehouse' => $query, 'date_Filter_warehouse' => $date_Filter_warehouse,
+                        'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
+                        'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
+                        'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names
+                    ]);
+                }
             }
-            $product_warehouse = $query->get();
-            // 
-            $productNames = [];
-            foreach ($product_warehouse as $name) {
-                $productNames[$name->product_id] = product::find($name->product_id)->name_product;
-            }
-            $admin_Names=[];
-            foreach($product_warehouse as $name){
-                $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
-            }
-            // 
-            $search = $request->input('search');
-            return view('backend.quan_ly_kho', [
-                'product_warehouse' => $product_warehouse,
-                'date_Filter_warehouse' => $date_Filter_warehouse,
-                'search' => $search,
-                'productNames' => $productNames,
-                'admin_Names' => $admin_Names
-            ]);
         } else {
-            return redirect()->route('quan-ly-kho')->with('mesages', 'Nhập không đúng định dạng');
+            // Lọc theo ngày/tháng/năm, tháng/năm hoặc năm
+            if (preg_match($pattern, $date_Filter_warehouse)) {
+                $dateParts = explode('-', $date_Filter_warehouse);
+                if (count($dateParts) === 3) {
+                    $query = product_warehouse::whereDate('created_at', '=', date('Y-m-d', strtotime($date_Filter_warehouse)));
+                } elseif (count($dateParts) === 2) {
+                    $query = product_warehouse::whereYear('created_at', '=', $dateParts[1])
+                        ->whereMonth('created_at', '=', $dateParts[0]);
+                } else {
+                    $query = product_warehouse::whereYear('created_at', '=', $date_Filter_warehouse);
+                }
+                $product_warehouse = $query->get();
+                $productNames = [];
+                    foreach ($product_warehouse as $name) {
+                        $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+                    }
+                $admin_Names=[];
+                    foreach($product_warehouse as $name){
+                        $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                    }
+
+                $search = $request->input('search');
+                $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
+                $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
+                return view('backend.quan_ly_kho', [
+                    'product_warehouse' => $query, 'product_warehouse' => $product_warehouse,
+                    'date_Filter_warehouse' => $date_Filter_warehouse,
+                    'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
+                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
+                    'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names
+                ]);
+            }
+        }
+        return redirect()->route('quan-ly-kho')->with('message', 'Nhập không đúng định dạng');
+    }
+
+    function export_excel_warehouse(Request $request) {
+        $search = $request->input('search');
+        $date_Filter_warehouse = $request->input('date_Filter_warehouse');
+        $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
+        $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
+        $productIds = product::where('name_product', 'LIKE', "%$search%")->pluck('id')->toArray();
+        $staffIds = tbl_admin::where('admin_name', 'LIKE', "%$search%")->pluck('id')->toArray();
+        $pattern = '/^(\d{2}-\d{2}-\d{4}|\d{2}-\d{4}|\d{4})$/';
+        $productQuery = product_warehouse::query();
+        $product_warehouse = product_warehouse::whereIn('product_id', $productIds)
+            ->orWhereIn('staff_id', $staffIds)->orWhere('batch_code', 'LIKE', "%$search%")
+            ->orWhere('product_id', 'LIKE', "%$search%")->get();
+        if (!empty($date_Filter_warehouse_start) && !empty($date_Filter_warehouse_end)) {
+            if (preg_match($pattern, $date_Filter_warehouse_start) && preg_match($pattern, $date_Filter_warehouse_end)) {
+                $startParts = explode('-', $date_Filter_warehouse_start);
+                $endParts = explode('-', $date_Filter_warehouse_end);
+                if (count($startParts) === 3 && count($endParts) === 3) {
+                    $start = date('Y-m-d', strtotime($date_Filter_warehouse_start));
+                    $end = date('Y-m-d', strtotime($date_Filter_warehouse_end .'+1 day'));
+                    $productQuery->whereBetween('created_at', [$start, $end]);
+                }
+            }
+        }
+        if (!empty($date_Filter_warehouse)) {
+            if (preg_match($pattern, $date_Filter_warehouse)) {
+                $dateParts = explode('-', $date_Filter_warehouse);
+                if (count($dateParts) === 3) {
+                    $productQuery->whereDate('created_at', '=', date('Y-m-d', strtotime($date_Filter_warehouse)));
+                } elseif (count($dateParts) === 2) {
+                    $productQuery->whereYear('created_at', '=', $dateParts[1])
+                        ->whereMonth('created_at', '=', $dateParts[0]);
+                } else {
+                    $productQuery->whereYear('created_at', '=', $date_Filter_warehouse);
+                }
+            }
+        }
+        $product_warehouse = $productQuery->get();
+        if ($product_warehouse->isEmpty()) {
+            return back()->with('message', 'Không có dữ liệu để xuất');
+        } else {
+            return Excel::download(new ExcelExports_warehouse($date_Filter_warehouse, $search, $productIds, $staffIds,
+                $date_Filter_warehouse_start, $date_Filter_warehouse_end
+            ), 'ds_nhap_kho_san_pham.xlsx');
         }
     }
+     
 }

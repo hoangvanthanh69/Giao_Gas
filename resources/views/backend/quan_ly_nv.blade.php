@@ -36,15 +36,17 @@
           
           <div class="card-body">
             <div class="table-responsive table-list-product">
-              @if (session('mesage'))
-                <div class="notification">
-                  {{ session('mesage') }}
+              @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                  <i class="far fa-check-circle icon-check-success"></i>
+                  {{ session('success') }}
                 </div>
               @endif
 
-              @if (session('mesages'))
-                <div class="notification-search">
-                  {{ session('mesages') }}
+              @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                  <i class="fas fa-ban icon-check-cancel"></i>
+                  {{ session('message') }}
                 </div>
               @endif
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

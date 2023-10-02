@@ -289,3 +289,6 @@ Route::get('admin/quan-ly-hd/filters-status-type', [OrderController::class, 'fil
 
 // lọc nhập kho theo ngày mua hàng
 Route::get('admin/quan-ly-nhap-kho/filters-date-warehouse',[ProductController::class, 'filters_date_warehouse'])->name('filters-date-warehouse');
+
+// xuat excel cho nhap kho
+Route::get('export-excel-warehouse', [ProductController::class, 'export_excel_warehouse'])->name('export-excel-warehouse');

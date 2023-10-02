@@ -43,7 +43,7 @@ class DiscountController extends Controller
         $add_discount -> Prerequisites = $data['Prerequisites'];
         $add_discount->status = 1;
         $add_discount -> save();  
-        return redirect()->route('quan-ly-giam-gia');
+        return redirect()->route('quan-ly-giam-gia')->with('success', 'Thêm mã giảm giá thành công');
     }
 
     // giao diện edit thêm mã giảm 
@@ -67,7 +67,7 @@ class DiscountController extends Controller
         $tbl_discount -> type = $request -> type;
         $tbl_discount -> Prerequisites = $request -> Prerequisites;
         $tbl_discount -> save();
-        return redirect()->route('quan-ly-giam-gia');
+        return redirect()->route('quan-ly-giam-gia')->with('success', 'Cập nhật mã giảm giá thành công');
     }
 
     // tìm kiếm mã giảm giá
@@ -76,7 +76,7 @@ class DiscountController extends Controller
             $search = $request->input('search');
             $tbl_discount = tbl_discount::where('ma_giam', 'LIKE', "%$search%")->orWhere('name_voucher', 'LIKE', "%$search%")->paginate(10);
             if(empty($tbl_discount->items())){
-                return back()->with('mesage', 'Không tìm thấy kết quả');
+                return back()->with('message', 'Không tìm thấy kết quả');
             } else {
                 return view('backend.quan_ly_giam_gia', ['tbl_discount' => $tbl_discount, 'search' => $search]);
             }
@@ -102,7 +102,7 @@ class DiscountController extends Controller
     function delete_discount($id){
         $tbl_discount = tbl_discount::find($id);
         $tbl_discount -> delete();
-        return redirect()->back();
+        return redirect()->route('quan-ly-giam-gia')->with('success', 'Xóa mã giảm giá thành công');
     }
     
     // kiểm tra mã giảm giá

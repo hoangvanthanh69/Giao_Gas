@@ -19,11 +19,19 @@
                   <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
-                @if (session('mesage'))
-                  <div class="notification-discount">
-                    {{ session('mesage') }}
-                  </div>
-                @endif
+              @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                  <i class="far fa-check-circle icon-check-success"></i>
+                  {{ session('success') }}
+                </div>
+              @endif
+
+              @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                  <i class="fas fa-ban icon-check-cancel"></i>
+                  {{ session('message') }}
+                </div>
+              @endif
             </div>
         </div>
         <div class="card-body">

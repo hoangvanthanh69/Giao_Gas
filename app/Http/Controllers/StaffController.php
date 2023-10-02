@@ -60,7 +60,7 @@ class StaffController extends Controller
             $staff->image_staff = $new_image;
         }
         $staff->save();
-        return redirect()->route('quan-ly-nv');
+        return redirect()->route('quan-ly-nv')->with('success', 'Cập nhật nhân viên thành công');;
     }
 
     // trang thêm nv
@@ -93,14 +93,14 @@ class StaffController extends Controller
         $add_staff->image_staff = $name;
         // print_r($get_image);die;
         $add_staff -> save();  
-        return redirect()->route('quan-ly-nv');
+        return redirect()->route('quan-ly-nv')->with('success', 'Thêm nhân viên thành công');
     }
 
     // xóa nv
     function delete_staff($id){
         $staff_add = add_staff::find($id);
         $staff_add->delete();
-        return redirect()->route('quan-ly-nv')->with('mesage','Xóa nhân viên thành công');
+        return redirect()->route('quan-ly-nv')->with('success','Xóa nhân viên thành công');
     }
 
     // tìm kiếm nhân viên
@@ -109,7 +109,7 @@ class StaffController extends Controller
             $search = $request->input('search');
             $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->paginate(6);
             if(empty($staff->items())){
-                return back()->with('mesages', 'Không tìm thấy kết quả');
+                return back()->with('message', 'Không tìm thấy kết quả');
             } else {
                 return view('backend.quan_ly_nv', ['staff' => $staff, 'search' => $search]);
             }

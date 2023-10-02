@@ -70,7 +70,7 @@ class OrderController extends Controller
     function delete_order($id){
         $order_product = order_product::find($id);
         $order_product->delete();
-        return redirect()->route('quan-ly-hd')->with('mesage','Xóa đơn hàng thành công');;
+        return redirect()->route('quan-ly-hd')->with('message','Xóa đơn hàng thành công');;
     }
 
     //lọc đơn hàng theo loại và trạng thái
@@ -136,7 +136,7 @@ class OrderController extends Controller
                 ->orWhere('order_code', 'LIKE', "%$search%")
                 ->get();
             if ($order_product->isEmpty()) {
-                return back()->with('mesage', 'Không tìm thấy kết quả');
+                return back()->with('message', 'Không tìm thấy kết quả');
             } else {
                 $filters = array(
                     'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
@@ -177,7 +177,7 @@ class OrderController extends Controller
                 'filters' => $filters
             ]);
         } else {
-            return redirect()->route('quan-ly-hd')->with('mesage', 'Nhập không đúng định dạng');
+            return redirect()->route('quan-ly-hd')->with('message', 'Nhập không đúng định dạng');
         }
     }
     
@@ -320,7 +320,7 @@ class OrderController extends Controller
         $status = $request->input('status', 'all');
         $loai = $request->input('loai', 'all');
         if ($order_product->isEmpty()) {
-            return back()->with('mesage', 'Không có dữ liệu để xuất');
+            return back()->with('message', 'Không có dữ liệu để xuất');
         } else {
             return Excel::download(new ExcelExports($status, $loai, $search, $dateFilter), 'ds_don_hang.xlsx');
         }

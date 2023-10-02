@@ -19,10 +19,17 @@
                   <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
-              @if (session('mesage'))
+              @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                  <i class="far fa-check-circle icon-check-success"></i>
+                  {{ session('success') }}
+                </div>
+              @endif
+
+              @if (session('message'))
                 <div class="success-customer-home-notification d-flex">
                   <i class="fas fa-ban icon-check-cancel"></i>
-                  {{ session('mesage') }}
+                  {{ session('message') }}
                 </div>
               @endif
             </div>
@@ -37,7 +44,7 @@
             <form method="get" action="{{ route('filters-status-type') }}"> 
               <div>
                 <select name="status" id="status" class="select-form-option select-form-option-status" onchange="this.form.submit()">
-                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Tất cả</option>
+                  <option value="all" {{ ($filters['status'] == 'all') ? 'selected' : '' }}>Theo trạng thái</option>
                   <option value="1" {{ ($filters['status'] == '1') ? 'selected' : '' }}>Đang xử lý</option>
                   <option value="2" {{ ($filters['status'] == '2') ? 'selected' : '' }}>Đang giao</option>
                   <option value="3" {{ ($filters['status'] == '3') ? 'selected' : '' }}>Đã giao</option>

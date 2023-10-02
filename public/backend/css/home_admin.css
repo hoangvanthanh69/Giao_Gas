@@ -304,7 +304,7 @@ table#dataTable {
 }
 .header-with-search-input-discount{
     outline: none;
-    border: 1px solid #d0c8c8;
+    border: 1px solid rgb(147, 147, 156);
     border-radius: 3px;
     line-height: 14px;
     height: 43px;
@@ -425,7 +425,7 @@ tr.order-product-height.hover-color {
     height: 43px;
     margin-top: 8px;
     border-radius: 3px;
-    border: 1px solid #cfc4c4;
+    border: 1px solid rgb(147, 147, 156);
     font-size: 17px;
     padding: 8px;
     padding-right: -6px;
@@ -1032,7 +1032,7 @@ button.button-delete-order {
 }
 .export-file-excel{
     background-color: #1f7244;
-    border: 1px solid #1f7244;
+    border: 1px solid rgb(147, 147, 156);
     padding: 7px 10px;
     border-radius: 3px;
     margin-top: 10px;
@@ -1230,13 +1230,13 @@ span.carousel-control-next-icon {
 }
 .icon-filter-date-order{
     position: absolute;
-    top: 13px;
+    top: 32%;
     left: 0;
     padding-left: 10px;
 }
 .date-filter-order{
     outline: none;
-    border: 1px solid #d0c8c8;
+    border: 1px solid rgb(147, 147, 156);
     border-radius: 3px;
     line-height: 14px;
     height: 43px;
@@ -1267,4 +1267,29 @@ span.carousel-control-next-icon {
 }
 .search-product-admin-form {
     margin-top: -24px;
+}
+.date-period-warehouse {
+    margin-top: -36px;
+}
+.padding-left-warehouse{
+    margin-left: 20px !important;
+}
+.export-file-excel-warehouse {
+    height: 43px;
+    line-height: 28px;
+    margin-top: -23px;
+    padding-left: 17px;
+    padding-right: 17px;
+    margin-left: 30px;
+}
+.notification-date-warehouse {
+    color: red;
+    position: absolute;
+    top: 14%;
+    left: 248px;
+    animation: ease .3s, fadeout linear 5s 0.8s forwards;
+}
+.add-warehouse-product{
+    margin-right: 20px;
+    margin-top: -20px;
 }
