@@ -292,3 +292,25 @@ Route::get('admin/quan-ly-nhap-kho/filters-date-warehouse',[ProductController::c
 
 // xuat excel cho nhap kho
 Route::get('export-excel-warehouse', [ProductController::class, 'export_excel_warehouse'])->name('export-excel-warehouse');
+
+// lọc theo loại quản lý tồn kho
+Route::get('admin/quan-ly-ton-kho/filters-inventory-type', [ProductController::class, 'filters_inventory_type'])->name('filters-inventory-type');
+
+// xuất excel cho tồn kho
+Route::get('export-excel-inventory', [ProductController::class, 'export_excel_inventory'])->name('export-excel-inventory');
+
+// import file excel cho sản phẩm
+Route::post('import-excel-product', [ProductController::class, 'import_excel_product'])->name('import-excel-product');
+
+// import file excel cho nhập kho sản phẩm
+Route::post('import-excel-warehouse', [ProductController::class, 'import_excel_warehouse'])->name('import-excel-warehouse');
+
+// nhắn tin
+Route::post('/send-message', [index::class,'send_message'])->name('send-message');
+Route::post('/load-message', [index::class,'load_message'])->name('load-message');
+
+// quản lý tin nhắn
+Route::get('quan-ly-tin-nhan', [index_backend::class, 'quan_ly_tin_nhan'])->name('quan-ly-tin-nhan');
+
+// trả lời tin nhắn
+Route::post('/reply-message', [index_backend::class, 'reply_message'])->name('reply-message');

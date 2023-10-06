@@ -15,8 +15,6 @@ class ExcelExports_product implements FromCollection, WithHeadings, WithMapping
 
     public function collection(){
         $query = product::query();
-    
-        // Sử dụng $this->search nếu cần
         if (!is_null($this->search)) {
             $query->where(function ($query) {
                 $query->where('id', 'LIKE', "%$this->search%")

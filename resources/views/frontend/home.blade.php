@@ -201,15 +201,21 @@
                                     <form id="changepassforms" enctype="multipart/form-data" method="post" action="{{ route('update-password-customer', $users->id) }}">
                                         @csrf
                                         <div class="mb-3">
-                                            <label class="col-5" for="">Nhập Mật khẩu củ: </label>
+                                            <label class="col-5" for="">Nhập mật khẩu củ: 
+                                                <span class="ms-1 color-required fw-bolder">*</span>
+                                            </label>
                                             <input type="password" name="old_password" class="input-password-customer-change col-6 ps-2">
                                         </div>
                                         <div class="mb-3">
-                                            <label class="col-5" for="">Nhập Mật khẩu mới: </label>
+                                            <label class="col-5" for="">Nhập mật khẩu mới: 
+                                                <span class="ms-1 color-required fw-bolder">*</span>
+                                            </label>
                                             <input type="password" name="new_password" id="new_password" class="input-password-customer-change col-6 ps-2">
                                         </div>
                                         <div  class="mb-3">
-                                            <label class="col-5" for="">Nhập lại Mật khẩu: </label>
+                                            <label class="col-5" for="">Nhập lại mật khẩu: 
+                                                <span class="ms-1 color-required fw-bolder">*</span>
+                                            </label>
                                             <input type="password" name="confirm_password" class="input-password-customer-change col-6 ps-2">
                                         </div>
                                         <div class="">
@@ -364,15 +370,21 @@
                             <form id="signupForm" method="post" class="form-horizontal" action="{{route('order-product')}}">
                                 @csrf
                                 <div class="form-gas-delivery-information" >
-                                    <label class="form-label" for="firstname">Tên khách hàng:</label>
+                                    <label class="form-label" for="firstname">Tên khách hàng: 
+                                        <span class="ms-1 color-required fw-bolder">*</span>
+                                    </label>
                                     <input type="text" class="form-control form-product-specials nameCustomer" id="firstname" name="nameCustomer" value="{{ Session::get('home')['name'] }}" required/>
-                                    <label class="form-label" for="number">Số điện thoại khách hàng:</label>
+                                    <label class="form-label" for="number">Số điện thoại khách hàng:
+                                        <span class="ms-1 color-required fw-bolder">*</span>
+                                    </label>
                                     @if (empty($order_product))
                                         <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ Session::get('home')['phone'] }}" />
                                     @else
                                         <input type="text" class="form-control form-product-specials phoneCustomer" id="number" name="phoneCustomer" value="{{ $order_product[0]['phoneCustomer'] }}" />
                                     @endif
-                                    <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:</label>
+                                    <label for="exampleFormControlInput1" class="form-label" >Đỉa chỉ:
+                                        <span class="ms-1 color-required fw-bolder">*</span>
+                                    </label>
                                     <div class="delivery-location form-product-specials form-product-specials-location">
                                         @if (empty($order_product))
                                             <div >
@@ -425,7 +437,9 @@
                                         @endif
                                     </div>
                                     
-                                    <label for="loai" class="form-label">Loại bình gas:</label>
+                                    <label for="loai" class="form-label">Loại bình gas:
+                                        <span class="ms-1 color-required fw-bolder">*</span>
+                                    </label>
                                     <div class="delivery-location form-product-specials product-type">
                                         <div class="d-flex">
                                             <div class="col-8">
@@ -771,6 +785,34 @@
                 </div>
             </div>
     </footer>
+<!--  -->
+    
+<div class="contact-container">
+    <div class="contact-close">
+    <span class="close-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+        <div class="contact-show-message">
+            <div class="text-center mt-2 fs-5 logo-name-tech-gas">Chat</div>
+            <div class="message-customers">
+                <form action="">
+                    @csrf
+                    <div id="message_show"></div>
+                </form>
+            </div>
+        </div>
+        <div class="message-submit-customer">
+            <form action="" class="mt-3  d-flex">
+                @csrf
+                <div class="message-content-customer">
+                    <input class="message_content message_content-textarea" id="message_content" name="message_content" placeholder="Aa"></input>
+                </div>
+                <button type="submit" class="button-send-message send-message">Gửi</button>
+            </form>
+        </div>
+    </div>
+</div>
+<button class="contact-btn">Chat</button>
+<span class="message-hover-customer">Chat Ngay</span>
+<!--  -->
     <a href="tel:0837641469">
         <div class="hotline">
             <span>Hotline</span>
@@ -780,7 +822,6 @@
     <script src="{{asset('frontend/js/style.js')}}"></script>
     <script src="{{asset('frontend/js/doigas.js')}}"></script>
     <script language="javascript">print_country("country");</script>
-    <!-- <script language="javascript">print_type("type");</script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -1166,7 +1207,7 @@
             }
 
             function updateDiscountedTotal(newTotal, discountAmount) {
-                var formattedDiscountAmount = numberFormat(discountAmount);
+                var formattedDiscountAmount = numberFormat(Math.round(discountAmount));
                 var formattedNewTotal = numberFormat(newTotal);
                 document.getElementById("tong").value = newTotal;
                 document.getElementById("reduced_value").value = discountAmount;
@@ -1336,6 +1377,62 @@
             $('#staticBackdrop').on('shown.bs.modal', function () {
                 $('#orderInfoModal').modal('hide');
             });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            load_message();
+            function load_message() {
+                $.ajax({
+                    url: "{{ route('load-message') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(data) {
+                        $('#message_show').html(data);
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            }
+
+            // thêm message
+            $('.send-message').click(function(e){
+                e.preventDefault();
+                var message_content = $('.message_content').val();
+                $.ajax({
+                    url: "{{ route('send-message') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        message_content: message_content,
+                    },
+                    success: function(data) {
+                        load_message();
+                        $('.message_content').val('');
+                    },
+                    error: function(xhr, status, error) {
+
+                    }
+                });
+            })
+
+        });
+
+    </script>
+
+    <script>
+        const contact_btn = document.querySelector('.contact-btn');
+        const close_btn = document.querySelector('.close-btn');
+        const contact_container = document.querySelector('.contact-container');
+        contact_btn.addEventListener('click', () => {
+            contact_container.classList.toggle('visibless')
+        });
+        close_btn.addEventListener('click', () => {
+            contact_container.classList.remove('visibless')
+        });
+
     </script>
 </body>
 </html>

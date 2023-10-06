@@ -31,6 +31,11 @@
                 </div>
 
                 <div class="col-4">
+                  <span class="name-add-product-all" for="">Đơn vị:</span>
+                  <input class="input-add-product col-11 mt-2 ps-2" type="text" name="unit" value="{{ $product->unit}}">
+                </div>
+
+                <div class="col-4 mt-3">
                   <span class="name-add-product-all col-4" for="">Thêm ảnh:</span>
                   <div class="">
                     <input class="input-add-product name-add-product-all-img col-8 mt-2" type="file" name="image" >

@@ -72,6 +72,9 @@ class DiscountController extends Controller
 
     // tìm kiếm mã giảm giá
     function searchDiscount(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         if ($request->isMethod('get')) {
             $search = $request->input('search');
             $tbl_discount = tbl_discount::where('ma_giam', 'LIKE', "%$search%")->orWhere('name_voucher', 'LIKE', "%$search%")->paginate(10);
@@ -107,6 +110,9 @@ class DiscountController extends Controller
     
     // kiểm tra mã giảm giá
     function check_coupon(Request $request) {
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $couponCode = $request->input('coupon');
         $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
         if ($coupon) {

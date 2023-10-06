@@ -15,8 +15,7 @@ class StaffController extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
-        $staff = add_staff::paginate(6);
-        // $staff = add_staff::get()->toArray();
+        $staff = add_staff::paginate(8);
         return view('backend.quan_ly_nv',['staff' => $staff]);
     }
 
@@ -105,6 +104,9 @@ class StaffController extends Controller
 
     // tìm kiếm nhân viên
     function searchStaff(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         if ($request->isMethod('get')) {
             $search = $request->input('search');
             $staff = add_staff::where('id', 'LIKE', "%$search%")->orWhere('last_name', 'LIKE', "%$search%")->paginate(6);

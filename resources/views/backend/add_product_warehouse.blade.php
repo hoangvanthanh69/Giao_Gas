@@ -14,7 +14,9 @@
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='POST' action="{{route('add-warehouse')}}">
                     @csrf
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Chọn sản phẩm</span>
+                        <span class="name-add-product-all" for="">Chọn sản phẩm
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <div class='mt-2 p-0'>
                             <select name="product_id" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
                                 <option value="">Chọn sản phẩm</option>
@@ -26,17 +28,23 @@
                     </div>
 
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Số lượng</span>
+                        <span class="name-add-product-all" for="">Số lượng
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="number" name="quantity" id="quantity">
                     </div>
 
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Giá nhập</span>
+                        <span class="name-add-product-all" for="">Giá nhập
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="price" id="price">
                     </div>
                     
                     <div class="col-4 mt-3">
-                        <span class="name-add-product-all " for="">Nhân viên nhập kho</span>
+                        <span class="name-add-product-all " for="">Nhân viên nhập kho
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <div class='mt-2 p-0'>
                             <select name="staff_id" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
                                 <option value="">Chọn nhân viên</option>

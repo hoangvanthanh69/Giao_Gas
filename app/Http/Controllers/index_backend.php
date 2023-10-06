@@ -12,6 +12,7 @@ use App\Models\danh_gia;
 use App\Models\add_order;
 use App\Models\tbl_discount;
 use App\Models\tbl_comment;
+use App\Models\tbl_message;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Session;
 use DB;
@@ -89,6 +90,9 @@ class index_backend extends Controller
     }
 
     function chitiet(Request $request, $id){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $order_product = order_product::find($id);
         return view('backend.chitiet' , ['order_product' => $order_product]);
     }
@@ -217,6 +221,9 @@ class index_backend extends Controller
 
     // giao diện chỉnh sửa tài khoản admin
     function edit_account_admin($id){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $account_admin = tbl_admin::find($id);
         return view('backend.edit_account_admin', ['account_admin' => $account_admin]);
     }
@@ -236,7 +243,6 @@ class index_backend extends Controller
         $filter = $request->input('filter');
         $users = users::orderByDesc('id')->get();
         $combinedData = [];
-        
         foreach ($users as $user) {
             $orderProductQuery = order_product::where('user_id', $user->id);
             if ($filter > 0) {
@@ -248,7 +254,6 @@ class index_backend extends Controller
             $orderProductSum = $orderProductQuery->sum('tong');
             $combinedData[] = [
                 'user' => $user,
-                // 'phoneCustomer' => $orderProductCount > 0 ? $orderProductQuery->first()->phoneCustomer : '',
                 'district' => $orderProductCount > 0 ? $orderProductQuery->first()->district : '',
                 'diachi' => $orderProductCount > 0 ? $orderProductQuery->first()->diachi : '',
                 'state' => $orderProductCount > 0 ? $orderProductQuery->first()->state : '',
@@ -258,10 +263,22 @@ class index_backend extends Controller
         }
 
         // cho khách hàng đặt qua số điện thoại có user_id == null
-        $order_products_null_user = order_product::where('user_id', 'NULL')->get()->toArray();
-        // print_r($orderProductsNullUser);die;
+        $order_products_null_user = order_product::where('user_id', 'NULL')->get();
+        $orderCounts = [];
+        foreach ($order_products_null_user as $order) {
+            $userId = $order->user_id;
+            if (array_key_exists($userId, $orderCounts)) {
+                $orderCounts[$userId]['orderCount']++;
+                $orderCounts[$userId]['totalValue'] += $order->tong;
+            } else {
+                $orderCounts[$userId] = [
+                    'orderCount' => 1,
+                    'totalValue' => $order->tong,
+                ];
+            }
+        }
         return view('backend.quan_ly_tk_user', ['combinedData' => $combinedData, 'filter' => $filter,
-        'order_products_null_user' => $order_products_null_user,]);
+            'order_products_null_user' => $order_products_null_user, 'orderCounts' => $orderCounts]);
     }
     
     
@@ -324,7 +341,7 @@ class index_backend extends Controller
         $tbl_discount = tbl_discount::get();
         $ma_giam = session()->get('ma_giam');
         $ma_giam = session()->get('gia_tri');
-        return view('backend.order_phone', ['products' => $products, 'tbl_discount' => $tbl_discount, 'ma_giam' => $ma_giam]);
+        return view('backend.order_phone', ['products' => $products, 'tbl_discount' => $tbl_discount, 'ma_giam' => $ma_giam,]);
     }
     
     // xử lý đặt hàng qua số đt
@@ -402,7 +419,6 @@ class index_backend extends Controller
         $order->save();
         return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
     }
-
     // cập nhật số lượng mã giảm giá
     function update_discount_quantitys($couponCode) {
         $coupon = tbl_discount::where('ma_giam', $couponCode)->first();
@@ -509,4 +525,26 @@ class index_backend extends Controller
         $replyComment->delete();
         return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Xóa bình luận thành công']);
     }
+
+    // quanr lys tin nhanw
+    function quan_ly_tin_nhan(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $message = tbl_message::where('message_parent_message', '=', 0)->orderByDesc('id')->get();
+        $message_rep = tbl_message::where('message_parent_message', '>', 0)->orderByDesc('id')->get();
+        return view('backend.quan_ly_tin_nhan', ['message' => $message, 'message_rep' => $message_rep]);
+    }
+
+    // trả lời tin nhắn
+    function reply_message(Request $request){
+        $data = $request -> all();
+        $message = new tbl_message;
+        $message -> message_content = $data['message_content'];
+        $message -> message_parent_message = $data['id'];
+        $message -> message_name = 'GasTech';
+        $message -> user_id = $data['user_id'];
+        $message -> save();
+    }
+
 }

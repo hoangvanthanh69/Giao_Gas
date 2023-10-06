@@ -1084,8 +1084,10 @@ i.fa-solid.fa-pen-to-square {
 }
 .add-account-admin-approved {
     border: 1px solid #b9c8f3;
-    background-color: #d9e1f9;
-    border-radius: 2px;
+    background-color: #2679A0;
+    color: white;
+    border-radius: 3px;
+    padding: 0 10px;
 }
 .accordion-layouts-product :hover{
     color: #68B3D6;
@@ -1256,14 +1258,14 @@ span.carousel-control-next-icon {
 }
 .form-check-radio-product {
     margin-top: -20px;
-    margin-left: -30%;
+    /* margin-left: -30%; */
 }
 .form-check-input-type{
     margin-top: 10px !important;
 }
 .export-file-excel-prodcut {
     margin-top: -21px !important;
-    margin-left: -29%;
+    /* margin-left: -29%; */
 }
 .search-product-admin-form {
     margin-top: -24px;
@@ -1272,7 +1274,7 @@ span.carousel-control-next-icon {
     margin-top: -36px;
 }
 .padding-left-warehouse{
-    margin-left: 20px !important;
+    margin-left: 56px !important;
 }
 .export-file-excel-warehouse {
     height: 43px;
@@ -1280,7 +1282,8 @@ span.carousel-control-next-icon {
     margin-top: -23px;
     padding-left: 17px;
     padding-right: 17px;
-    margin-left: 30px;
+    margin-left: 56px;
+    width: 130px;
 }
 .notification-date-warehouse {
     color: red;
@@ -1290,6 +1293,140 @@ span.carousel-control-next-icon {
     animation: ease .3s, fadeout linear 5s 0.8s forwards;
 }
 .add-warehouse-product{
-    margin-right: 20px;
+    margin-right: 56px;
     margin-top: -20px;
+}
+.export-excel-inventory {
+    margin-top: -19px !important;
+    margin-left: -43%;
+}
+.color-required{
+    color: red;
+}
+.import-excel-product {
+    margin-top: -21px !important;
+    height: 43px;
+}
+input.choose-file-import-product {
+    padding: 7px 0px;
+    border-radius: 3px;
+    height: 38px;
+    line-height: 23px;
+    width: 223px;
+}
+.submit-file-import-product {
+    background-color: #f96c0e;
+    color: white;
+    border: 1px solid rgb(147, 147, 156);
+    padding: 7px 10px;
+    border-radius: 3px;
+    height: 38px;
+    line-height: 23px;
+    margin-left: 10px;
+    width: 112px;
+}
+.submit-file-import-product input {
+    color: white;
+    border: none;
+    background-color: #f96c0e;
+    margin-left: -3px;
+    margin-right: -10px;
+    padding-left: 2px;
+}
+.icon-file-import {
+    margin-left: -4px;
+}
+.invalid-feedback-import {
+    display: none;
+    margin-top: 29px;
+    font-size: .875em;
+    position: absolute;
+    color: #dc3545;
+}
+
+.message-orange:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid transparent;
+    border-top: 15px solid #77d020;
+    bottom: -15px;
+    right: 10px;
+}
+.message-orange {
+    position: relative;
+    margin-bottom: 30px;
+    background-color: #77d020 ;
+    min-width: 300px;
+    min-height: 70px;
+    text-align: left;
+    font: 400 0.9em 'Open Sans', sans-serif;
+    border: 1px solid #77d020 ;
+    border-radius: 10px;
+    font-family: cursive;
+    float: right;
+    color: white;
+}
+.message-content {
+    padding-left: 10px;
+    padding-top: 10px;
+    line-height: 25px;
+}
+.message-timestamp-right {
+    position: absolute;
+    font-size: 13px;
+    font-weight: 300;
+    bottom: -13px;
+    right: 8px;
+}
+.message-timestamp-left {
+    position: relative;
+    font-size: 13px;
+    font-weight: 300;
+    bottom: -13px;
+    left: 152px;
+}
+.message-blue:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 15px solid #2679A0;
+    border-right: 15px solid transparent;
+    top: -15px;
+    left: 10px;
+}
+.message-blue {
+    margin-bottom: 30px;
+    background-color: #2679A0;
+    max-width: 300px;
+    min-height: 60px;
+    font: 400 0.9em 'Open Sans', sans-serif;
+    border: 1px solid #2679A0;
+    border-radius: 10px;
+    position: relative;
+    font-family: cursive;
+    text-align: left;
+    margin-top: 16px;
+    color: white;
+}
+.input-reply-message-admin{
+    width: 70% !important;
+    outline: none;
+    border: 1px solid #b99a9a !important;
+    border-radius: 30px !important;
+    box-shadow: none !important;
+    height: 43px;
+}
+.btn-reply-message {
+    border: 1px solid #b99a9a;
+    border-radius: 6px;
+    padding: 0 9px;
+    height: 40px;
+    margin-left: 14px;
+    background-color: #2679A0;
+    margin-top: 3px;
 }

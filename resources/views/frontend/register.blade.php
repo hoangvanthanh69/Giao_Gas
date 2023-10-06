@@ -45,7 +45,9 @@
                 @csrf
                 <h3 class="heading-login-user">Đăng ký</h3>
                 <div class="form-group form-submit-user-register">
-                    <label for="name" class="form-label">Họ tên</label>
+                    <label for="name" class="form-label">Họ tên
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                     <input id="name" type="text" name="name" class="form-control name" value="{{ old('name') }}" required autofocus>
                 </div>
 
@@ -55,23 +57,31 @@
                 </div>
 
                 <div class="form-group form-submit-user-register">
-                    <label for="phone" class="form-label">SĐT</label>
+                    <label for="phone" class="form-label">SĐT
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                     <input id="phone" type="text" name="phone" class="form-control" value="{{ old('phone') }}" required>
                 </div>
                 
                 <div class="form-group form-submit-user-register">
-                    <label for="password" class="form-label">Mật khẩu</label>
+                    <label for="password" class="form-label">Mật khẩu
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                     <input id="password" type="password" name="password" class="form-control" required>
                 </div>
 
                 <div class="form-group form-submit-user-register">
-                    <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                    <label for="password_confirmation" class="form-label">Nhập lại mật khẩu
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                     <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
                 </div>
 
                 <div class="form-submit-user-register form-users-checkbox">
                     <input class="form-check-input" type="checkbox" id="agree" name="agree" value="agree" />
-                    <label class="form-check-label" for="agree">Đồng ý các quy định của chúng tôi</label>
+                    <label class="form-check-label" for="agree">Đồng ý các quy định của chúng tôi
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                 </div>
                 
                 <div>

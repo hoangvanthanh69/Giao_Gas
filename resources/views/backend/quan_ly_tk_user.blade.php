@@ -25,9 +25,9 @@
                            <th class="">Họ tên</th>
                            <th class="">SĐT</th>
                            <th class="">Tài khoản</th>
-                           <th>Địa chỉ</th>
-                           <th>Số đơn</th>
-                           <th>Tổng tiền
+                           <th class="">Địa chỉ</th>
+                           <th class="">Số đơn</th>
+                           <th class="">Tổng tiền
                               <select aria-label="Default select example" class="select-filter-month-total" onchange="filterOrderHistory(this.value)">
                                  <option value="0" {{ ($filter == 0) ? 'selected' : '' }}>Tất cả</option>
                                  <option value="1" {{ ($filter == 1) ? 'selected' : '' }}>1 tháng gần nhất</option>
@@ -57,7 +57,7 @@
                               </td>
                               <td class="product-order-quantity">{{$val['order_count']}}</td>
                               <td>
-                                 {{number_format($val['orderProductSum'])}} VNĐ
+                                 {{number_format($val['orderProductSum'])}} <span class="text-decoration-underline">đ</span>
                               </td>
                               <td class="product-order-quantity">
                                  <form action="{{route('delete_account_users', $val['user']['id'])}}">
@@ -89,12 +89,12 @@
                </div>
                <div class="carousel-item">
                   <div class="float-end d-flex">
-                     <h5 class="list-account-admin color-logo-gas">Danh sách thông tin khách hàng</h5> 
+                     <h5 class="list-account-admin color-logo-gas">Danh sách khách hàng đặt online</h5> 
                      <button class="carousel-next-list-customer ms-2" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                      </button>
                   </div>
-                     <h5 class="list-account-admin ">Danh sách đặt qua số điện thoại</h5> 
+                     <h5 class="list-account-admin ">Danh sách khách hàng đặt qua số điện thoại</h5> 
                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead class="">
                            <tr class="tr-name-table">
@@ -120,16 +120,10 @@
                               <tr class="">
                                  <td>{{$key+1}}</td>
                                  <td class="product-order-quantity">{{$val['nameCustomer']}}</td>
-                                 <td>
-                                    {{$val['phoneCustomer']}}
-                                 </td>
-                                 <td> 
-                                    {{$val['diachi']}}, {{$val['district']}}, {{$val['state']}}
-                                 </td>
-                                 <td class="product-order-quantity">1234</td>
-                                 <td>
-                                    123 VNĐ
-                                 </td>
+                                 <td>{{$val['phoneCustomer']}}</td>
+                                 <td> {{$val['diachi']}}, {{$val['district']}}, {{$val['state']}}</td>
+                                 <td class="product-order-quantity"> {{ $orderCounts[$val->user_id]['orderCount'] ?? 0 }}</td>
+                                 <td>{{ number_format($orderCounts[$val->user_id]['totalValue'] ?? 0) }} <span class="text-decoration-underline">đ</span></td>
                                  <td class="product-order-quantity">
                                     <form action="">
                                        <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal">

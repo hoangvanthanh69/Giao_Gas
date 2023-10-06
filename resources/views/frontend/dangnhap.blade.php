@@ -35,12 +35,16 @@
                 @csrf
                 <h3 class="heading-login-user">Đăng Nhập</h3>
                 <div class="form-group form-submit-user">
-                    <label for="email" class="form-label">Email hoặc Phone</label>
+                    <label for="email" class="form-label">Email hoặc Phone
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                     <input id="phone" type="phone" name="user_name" class="form-control" placeholder="" required autofocus>
                     <span class="form-mesage"></span>
                 </div>
                 <div class="form-group form-submit-user">
-                    <label for="password" class="form-label">Mật khẩu</label>
+                    <label for="password" class="form-label">Mật khẩu
+                        <span class="color-required fw-bolder">*</span>
+                    </label>
                     <input id="password" type="password" name="password" class="form-control" required>
                     <span class="form-mesage"></span>
                 </div>

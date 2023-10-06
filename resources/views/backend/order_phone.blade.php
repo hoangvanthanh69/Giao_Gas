@@ -34,17 +34,23 @@
                 <div class="col-5 text-light ">
                     <div class="p-3 me-2 bg-order-product">
                         <div class="">
-                            <label class="name-add-product-customer-all" for="">Số điện thoại:</label>
+                            <label class="name-add-product-customer-all mb-1" for="">Số điện thoại:
+                                <span class="text-danger fw-bolder">*</span>
+                            </label>
                             <input class="infor-customer-input col-12" type="text" name="phoneCustomer" id="phoneCustomer">
                         </div>
 
                         <div class="mt-4">
-                            <label class="name-add-product-customer-all" for="">Họ và Tên:</label>
+                            <label class="name-add-product-customer-all mb-1" for="">Họ và Tên:
+                                <span class="text-danger fw-bolder">*</span>
+                            </label>
                             <input class="infor-customer-input col-12" type="text" name="nameCustomer" id="nameCustomer">
                         </div>
 
                         <div class="mt-4">
-                            <label class="name-add-product-customer-all" for="">Đỉa chỉ:</label>
+                            <label class="name-add-product-customer-all mb-1" for="">Đỉa chỉ:
+                                <span class="text-danger fw-bolder">*</span>
+                            </label>
                             <div class="d-flex address-customer-form">
                                 <div>
                                     <input class="address-customer-input" type="text" name="country" id="country" placeholder="Tỉnh/TP">
@@ -65,7 +71,9 @@
                         </div>
 
                         <div class="mt-4">
-                            <label class="name-add-product-customer-all" for="">Loại gas:</label>
+                            <label class="name-add-product-customer-all mb-1" for="">Loại gas:
+                                <span class="fw-bolder text-danger">*</span>
+                            </label>
                             <div class= "p-0">
                                 <select class="form-select handle_order select-option" id="loai" name="loai" aria-label="Default select example" onchange="showProductsByType(this)">
                                     <option value="">Chọn loại gas</option>
@@ -77,7 +85,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <label class="name-add-product-customer-all" for="">Giảm giá:</label>
+                            <label class="name-add-product-customer-all mb-1" for="">Giảm giá:</label>
                             <div class= "p-0">
                                 <select name="admin_name" id="admin_name" class="form-control form-select"  onchange="displaySelectedProducts()">
                                     <option value="">Chọn voucher</option>
@@ -91,7 +99,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <label class="name-add-product-customer-all" for="">Ghi chú:</label>
+                            <label class="name-add-product-customer-all mb-1" for="">Ghi chú:</label>
                             <input class="infor-customer-input col-12" type="text" name="ghichu" id="ghichu">
                         </div>
                         
@@ -366,11 +374,16 @@
                     for (var i = 0; i < tbl_discount.length; i++) {
                         var discount = tbl_discount[i];
                         if (discount.ma_giam === selectedVoucher) {
-                            if (discount.type === 1) {
-                                discountPercent = discount.gia_tri;
-                                discountAmount = totalPrice * (discountPercent / 100);
-                            } else if (discount.type === 2) {
-                                discountAmount = discount.gia_tri;
+                            if(totalPrice >= discount.Prerequisites){
+                                if (discount.type === 1) {
+                                    discountPercent = discount.gia_tri;
+                                    discountAmount = totalPrice * (discountPercent / 100);
+                                } else if (discount.type === 2) {
+                                    discountAmount = discount.gia_tri;
+                                }
+                            }
+                            else{
+                                discountAmount = 0;
                             }
                             break;
                         }
@@ -388,7 +401,7 @@
 
                     <div class="row mb-2">
                         <span class="col-4 infor-customer-order text-light fs-6">Giảm giá: </span>
-                        <span class="col selected-products-total fs-6 text-light">${numberFormat(discountAmount)} đ</span>
+                        <span class="col selected-products-total fs-6 text-light">${numberFormat(Math.round(discountAmount))} đ</span>
                     </div>
 
                     <div class="row mb-2 border-button-order-phone-admin">

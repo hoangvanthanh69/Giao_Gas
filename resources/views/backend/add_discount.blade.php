@@ -16,27 +16,37 @@
                     @csrf
                     
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Tên mã</span>
+                        <span class="name-add-product-all" for="">Tên mã
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="name_voucher">
                     </div>
 
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Mã giảm</span>
+                        <span class="name-add-product-all" for="">Mã giảm
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="ma_giam">
                     </div>
 
                     <div class="col-4">
-                        <span class="name-add-product-all " for="">Số lượng</span>
+                        <span class="name-add-product-all " for="">Số lượng
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="number" name="so_luong">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Điều kiện (VNĐ)</span>
+                        <span class="name-add-product-all " for="">Điều kiện (VNĐ)
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="Prerequisites">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Loại giảm</span>
+                        <span class="name-add-product-all " for="">Loại giảm
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <select id="type" name="type" class="input-add-product col-11 ps-2 pe-2 mt-2" aria-label="Default select example">
                             <option value="">Chọn Loại</option>
                             <option value="1">Giảm theo phần trăm (%)</option>
@@ -45,17 +55,23 @@
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Giá trị giảm</span>
+                        <span class="name-add-product-all " for="">Giá trị giảm
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="gia_tri">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Giảm từ ngày</span>
+                        <span class="name-add-product-all " for="">Giảm từ ngày
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2 pe-2" type="datetime-local" name="thoi_gian_giam">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Ngày hết hạn giảm</span>
+                        <span class="name-add-product-all " for="">Ngày hết hạn giảm
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2 pe-2" type="datetime-local" name="het_han">
                     </div>
 

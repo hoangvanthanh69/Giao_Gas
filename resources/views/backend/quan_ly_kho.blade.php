@@ -10,7 +10,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive table-list-product">
-              <div class="d-flex mt-5">
+              <div class="d-flex mt-5 ">
                 <div class="add-warehouse-product">
                   <a class="add-product" href="{{route('add-product-warehouse')}}">Nhập kho sản phẩm</a>
                 </div>
@@ -29,14 +29,14 @@
                       <div class=" padding-left-warehouse">
                         <label for="" class="ps-2">Từ ngày:</label>
                         <div>
-                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_warehouse_start" name="date_Filter_warehouse_start" placeholder="• dd-mm-yy"/>
+                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_warehouse_start" name="date_Filter_warehouse_start" placeholder="• dd-mm-yy" value="{{$date_Filter_warehouse_start}}"/>
                         </div>
                       </div>
 
                       <div class="padding-left-warehouse">
                         <label for="" class="ps-2">Đến ngày:</label>
                         <div>
-                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_warehouse_end" name="date_Filter_warehouse_end" placeholder="• dd-mm-yy"/>
+                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_warehouse_end" name="date_Filter_warehouse_end" placeholder="• dd-mm-yy" value="{{$date_Filter_warehouse_end}}"/>
                         </div>
                       </div>
                     </div>
@@ -54,6 +54,19 @@
                     </span>
                   </form>
                 </div>
+              </div>
+
+              <div class="d-flex mt-4 pt-3">
+                <div class="import-excel-product">
+                  <form action="{{route('import-excel-warehouse')}}" id="submit_import_product" method="POST" enctype="multipart/form-data" class="d-flex">
+                    @csrf
+                    <input type="file" name="file" accept=".xlsx" class="choose-file-import-product">
+                    <div class="submit-file-import-product">
+                      <i class="fa-solid fa-file-import icon-file-import"></i>
+                      <input type="submit" value="Nhập Excel" name="import_csv" >
+                    </div>
+                  </form>
+                </div>
 
                 <div class="export-file-excel export-file-excel-warehouse">
                   <a href="{{route('export-excel-warehouse', ['search' => $search, 'date_Filter_warehouse' => $date_Filter_warehouse, 
@@ -63,6 +76,7 @@
                   </a>
                 </div>
               </div>
+
               @if (session('success'))
                 <div class="change-password-customer-home d-flex">
                   <i class="far fa-check-circle icon-check-success"></i>
@@ -82,9 +96,9 @@
                   <tr class="tr-name-table">
                     <th class="width-stt">STT</th>
                     <th>Mã Nhập</th>
-                    <th>ID SP</th>
-                    <th>Tên SP</th>
+                    <th>Tên Sản Phẩm</th>
                     <th>SL</th>
+                    <th>Đơn vị</th>
                     <th>Giá Nhập</th>
                     <th>Tổng</th>
                     <th>Nhân Viên Nhập</th>
@@ -98,9 +112,9 @@
                     <tr class="">
                         <td class="">{{ $key + 1 }}</td>
                         <td class="">{{ $val['batch_code'] }}</td>
-                        <td>{{ $val['product_id'] }}</td>
-                        <td class="">{{ $productNames[$val['product_id']] }}</td>
+                        <td class="">ID: {{ $val['product_id'] }} - {{ $productNames[$val['product_id']] }}</td>
                         <td class="">{{ $val['quantity'] }}</td>
+                        <td>{{$productUnit[$val['product_id']]}}</td>
                         <td>{{ number_format($val['price']) }} đ</td>
                         <td>{{ number_format($val['total']) }} đ</td>
                         <td class="">{{ $admin_Names[$val['staff_id']] }}</td>
@@ -155,5 +169,33 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#submit_import_product").validate({
+              rules: {
+                file: "required",
+              },
+              messages: {
+                file: "Chọn file cần import",
+              },
+              errorElement: "div",
+              errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback-import");
+                if (element.prop("type") === "checkbox"){
+                  error.insertAfter(element.siblings("label"));
+                } else {
+                  error.insertAfter(element);
+                }
+              },
+              highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+              },
+              unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+              } 
+            });
+          });
+        </script>
 @endsection
         

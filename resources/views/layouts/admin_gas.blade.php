@@ -175,6 +175,13 @@
                                  Quản lý bình luận
                               </a>
                            </div>
+
+                           <div class="btnbtn home-filter-button mb-4">
+                              <a class="@yield('sidebar-active-message')" href="{{route('quan-ly-tin-nhan')}}">
+                                 <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
+                                 Quản lý nhắn tin
+                              </a>
+                           </div>
                         </div>
                      <?php }
 

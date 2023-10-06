@@ -15,22 +15,30 @@
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('staff_add')}}">
                     @csrf
                     <div class="col-4">
-                        <span class="name-add-product-all col-4 " for="">Thêm ảnh</span>
+                        <span class="name-add-product-all col-4 " for="">Thêm ảnh
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product name-add-product-all-img col-11 mt-2" type="file" name="image_staff">
                     </div>
 
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Họ và Tên</span>
+                        <span class="name-add-product-all" for="">Họ và Tên
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="last_name">
                     </div>
 
                     <div class="col-4">
-                        <span class="name-add-product-all" for="">Năm sinh</span>
+                        <span class="name-add-product-all" for="">Năm sinh
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="date" name="birth">
                     </div>
 
                     <div class="col-4 mt-4 ">
-                        <span class="name-add-product-all" for="">Chức vụ</span>
+                        <span class="name-add-product-all" for="">Chức vụ
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <div class='mt-2 p-0'>
                             <select id="chuc_vu" name="chuc_vu" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
                                 <option value="">Chọn chức vụ</option>
@@ -42,22 +50,30 @@
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all" for="">Tài khoản @</span>
+                        <span class="name-add-product-all" for="">Tài khoản @
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="taikhoan">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all" for="">Địa chỉ thường trú</span>
+                        <span class="name-add-product-all" for="">Địa chỉ thường trú
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="dia_chi">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">CCCD</span>
+                        <span class="name-add-product-all " for="">CCCD
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="CCCD">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Giới tính</span>
+                        <span class="name-add-product-all " for="">Giới tính
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <select id="gioi_tinh" name="gioi_tinh" class="input-add-product col-11 mt-2 ps-2 pe-2" aria-label="Default select example">
                             <option value="">Chọn giới tính</option>
                             <option value="1" >Nam</option>
@@ -66,17 +82,23 @@
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all " for="">Ngày vào làm</span>
+                        <span class="name-add-product-all " for="">Ngày vào làm
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2 pe-2" type="date" name="date_input">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all" for="">Số điện thoại</span>
+                        <span class="name-add-product-all" for="">Số điện thoại
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="phone">
                     </div>
 
                     <div class="col-4 mt-4">
-                        <span class="name-add-product-all" for="">Lương/tháng</span>
+                        <span class="name-add-product-all" for="">Lương/tháng
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
                         <input class="input-add-product col-11 mt-2 ps-2" type="text" name="luong">
                     </div>
 

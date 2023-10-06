@@ -11,7 +11,7 @@ class product extends Model
     public $timestamps = false;
     protected $table = 'tbl_product';
     protected $fillable = [
-        'name_product', 'loai', 'price', 'quantity', 'original_price', "image", "new_quantity",
+        'name_product', 'loai', 'price', 'quantity', 'original_price', "image", "new_quantity", "unit"
     ];
 
     function product_total() {

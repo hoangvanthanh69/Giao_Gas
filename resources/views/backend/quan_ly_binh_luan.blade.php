@@ -91,7 +91,7 @@
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa nhân viên này</h5>
+                                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa bình luận này</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
 

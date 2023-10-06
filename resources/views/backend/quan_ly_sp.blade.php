@@ -30,6 +30,17 @@
                   </form>
                 </div>
 
+                <div class="import-excel-product">
+                  <form action="{{route('import-excel-product')}}" id="submit_import_product" method="POST" enctype="multipart/form-data" class="d-flex">
+                    @csrf
+                    <input type="file" name="file" accept=".xlsx" class="choose-file-import-product">
+                    <div class="submit-file-import-product">
+                      <i class="fa-solid fa-file-import icon-file-import"></i>
+                      <input type="submit" value="Nhập Excel" name="import_csv" >
+                    </div>
+                  </form>
+                </div>
+
                 <div class="export-file-excel export-file-excel-prodcut">
                   <a href="{{route('export-excel-product', ['loai' => $filters['loai'], 'search' => $search])}}" class="export-file-excel-button">
                     <i class="fa-solid fa-file-export"></i>Xuất Excel
@@ -64,11 +75,11 @@
                 <thead>
                   <tr class="tr-name-table">
                     <th class="width-stt">STT</th>
-                    <th>Tên SP</th>
+                    <th>Tên Sản Phẩm</th>
                     <th>Ảnh</th>
                     <th>Loại Gas</th>
                     <th>SL</th>
-                    <th>Giá Ban Đầu</th>
+                    <th>Đơn Vị</th>
                     <th>Giá Bán</th>
                     <th>Ngày Tạo</th>
                     <th>Chức Năng</th>
@@ -97,7 +108,7 @@
                           else{echo "<span style='color: #09b6a6; font-weight: 500'>Gas dân dụng</span>";} ?>
                         </td>
                         <td class="name-product-td infor-product">{{$val['quantity']}}</td>
-                        <td class="name-product-td infor-product">{{number_format($val['original_price'])}} đ</td>
+                        <td class="name-product-td infor-product">{{$val['unit']}}</td>
                         <td class="name-product-td infor-product">{{number_format($val['price'])}} đ</td>
                         <td class="name-product-td infor-product">{{$val['created_at']}}</td>
                         <td class="function-icon infor-product">
@@ -162,5 +173,34 @@
         </script>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#submit_import_product").validate({
+              rules: {
+                file: "required",
+              },
+              messages: {
+                file: "Chọn file cần import",
+              },
+              errorElement: "div",
+              errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback-import");
+                if (element.prop("type") === "checkbox"){
+                  error.insertAfter(element.siblings("label"));
+                } else {
+                  error.insertAfter(element);
+                }
+              },
+              highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+              },
+              unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+              } 
+            });
+          });
+        </script>
 @endsection
         

@@ -10,6 +10,7 @@ use App\Models\tbl_discount;
 use App\Models\tbl_vnpay;
 use App\Models\users;
 use App\Models\tbl_comment;
+use App\Models\tbl_message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -573,6 +574,55 @@ class index extends Controller
          $tbl_comment->delete();
       }
       return redirect()->back();
+   }
+
+   // nhắn tin khách hàng
+   function send_message(Request $request){
+      $message_content = $request->message_content;
+      $message = new tbl_message;
+      $message -> message_content = $message_content; 
+      $user_id = Session::get('home')['id'];
+      $message -> user_id = $user_id;
+      $user = users::find($user_id);
+      $user_name = $user->name;
+      $message -> message_name = $user_name;
+      $message -> message_parent_message = 0;
+      $message -> save();
+   }
+
+   function load_message(Request $request){
+      $user_id = Session::get('home')['id'];
+      $message = tbl_message::where('user_id', $user_id)->where('message_parent_message', '=', 0)->get();
+      $message_rep = tbl_message::where('message_parent_message', '>', 0)->orderByDesc('id')->get();
+      $message_id = tbl_message::get()->toArray();
+      $output = '';
+      foreach($message as $key => $messages){
+         $user = users::find($messages->user_id);
+         if ($user) {
+            $avatar = asset('frontend/img/logo-login.png');
+            if ($user->img) {
+               $avatar = asset('uploads/users/' . $user->img);
+            }
+            $output .= '
+            <div class="message-orange">
+               <div class="message-content pb-4">'. $messages->message_content .'</div>
+               <p class="message-timestamp-right">'. $messages->created_at .'</p>
+            </div>
+            ';
+         }
+         foreach($message_rep as $key => $rep_message ){
+            if($rep_message->message_parent_message == $messages->id){
+               $output .= '
+               <div class="message-blue">
+                  <div class="message-content">'. $rep_message->message_content .'</div>
+                  <p class=" message-timestamp-left ">'. $rep_message->created_at .'</p>
+               </div>
+               ';
+            }
+         }
+         
+      }
+      echo $output;
    }
 
 }

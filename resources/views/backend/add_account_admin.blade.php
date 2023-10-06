@@ -44,9 +44,9 @@
                         </td>
                         <td>
                            @if($val['status_add'])
-                              <span class="status-add-admin">Đã thêm</span>
+                              <span class="text-success">Đã thêm</span>
                            @else
-                              <button class="status-add-button add-account-admin-approved" type='submit'>
+                              <button class="add-account-admin-approved" type='submit'>
                                  Lưu tài khoản
                               </button>
                            @endif

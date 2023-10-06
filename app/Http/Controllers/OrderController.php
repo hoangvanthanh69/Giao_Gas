@@ -75,6 +75,9 @@ class OrderController extends Controller
 
     //lọc đơn hàng theo loại và trạng thái
     function filters_status_type(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $filters = [
             'status' => $request->input('status', 'all'),
             'loai' => $request->input('loai', 'all')
@@ -89,6 +92,9 @@ class OrderController extends Controller
 
      //lọc đơn hàng theo tên a-z, z-a
     function sort_order(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $query = order_product::query();
         $sortOrder = $request->input('sort_order', 'asc');
         if ($sortOrder == 'asc') {
@@ -109,6 +115,9 @@ class OrderController extends Controller
 
     //lọc đơn hàng theo ngày gần nhất và xa nhất
     function data_created_at(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $query = order_product::query();
         $dateOrder = $request->input('data_created_at', 'near');
         if ($dateOrder == 'near') {
@@ -130,6 +139,9 @@ class OrderController extends Controller
 
     //tìm kiếm hóa đơn
     function search_hd(Request $request) {
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         if ($request->isMethod('get')) {
             $search = $request->input('search');
             $order_product = order_product::where('nameCustomer', 'LIKE', "%$search%")
@@ -152,6 +164,9 @@ class OrderController extends Controller
 
     // lọc ngày mua hóa đơn 
     function date_order_product(Request $request) {
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $dateFilter = $request->input('dateFilter');
         $pattern = '/^(\d{2}-\d{2}-\d{4}|\d{2}-\d{4}|\d{4})$/';
         if (preg_match($pattern, $dateFilter)) {

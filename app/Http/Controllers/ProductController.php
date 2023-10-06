@@ -10,6 +10,9 @@ use App\Models\product_warehouse;
 use Session;
 use App\Exports\ExcelExports_product;
 use App\Exports\ExcelExports_warehouse;
+use App\Exports\ExcelExports_inventory;
+use App\Imports\Imports_product;
+use App\Imports\Imports_warehouse;
 use Excel;
 class ProductController extends Controller
 {
@@ -47,6 +50,7 @@ class ProductController extends Controller
         $product = product::find($id);
         $product->name_product = $request->name_product;
         $product->loai = $request->loai;
+        $product->unit = $request->unit;
         // $get_image = $request->image;
         $get_image = $request->image;
         if($get_image){
@@ -64,9 +68,8 @@ class ProductController extends Controller
             $product->image = $new_image;
         }
         $product->price = $request->price;
-        $product->original_price = $request->original_price;
         $product->save();
-        return redirect()->route('quan-ly-sp');
+        return redirect()->route('quan-ly-sp')->with('success', 'Cập nhật sản phẩm thành công');
     }
 
     // hiển thị giao diện thêm sản phẩm mới
@@ -79,11 +82,15 @@ class ProductController extends Controller
 
     // xử lý thêm sản phẩm mới
     function add_products(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $data = $request->all();
         //    print_r($data);
         $product = new product;
         $product -> name_product = $data['name_product'];
         $product -> loai = $data['loai'];
+        $product -> unit = $data['unit'];
         $product -> price =  0;
         $product -> quantity = 0;
         $product -> original_price =  0;
@@ -107,6 +114,9 @@ class ProductController extends Controller
 
     // tìm kiếm sản phẩm
     function search_product(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         if ($request->isMethod('get')) {
             $search = $request->input('search');
             $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get();
@@ -132,6 +142,7 @@ class ProductController extends Controller
         $productNames = [];
         foreach ($product_warehouse as $name) {
             $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+            $productUnit[$name->product_id] = product::find($name->product_id)->unit;
         }
         $admin_Names=[];
         foreach($product_warehouse as $name){
@@ -140,11 +151,11 @@ class ProductController extends Controller
         $search = $request->input('search');
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
         $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
-        $date_Filter_warehouse_start = $request->input('date_Filter_warehouse');
+        $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
         return view('backend.quan_ly_kho', ['product_warehouse' => $product_warehouse,
         'productNames' => $productNames, 'admin_Names' => $admin_Names, 'search' => $search,
         'date_Filter_warehouse' => $date_Filter_warehouse, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
-        'date_Filter_warehouse_start' => $date_Filter_warehouse_start
+        'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'productUnit' => $productUnit
         ]);
     }
 
@@ -164,6 +175,9 @@ class ProductController extends Controller
 
     // nhập kho sản phẩm
     function add_warehouse(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $data = $request->all();
         $add_warehouse = new product_warehouse;
         $product_id = $request->input('product_id');
@@ -209,22 +223,24 @@ class ProductController extends Controller
             $productNames = [];
             foreach ($product_warehouse as $name) {
                 $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+                
             }
             $admin_Names = [];
             foreach ($product_warehouse as $name) {
                 $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                $productUnit[$name->product_id] = product::find($name->product_id)->unit;
             }
             if ($product_warehouse->isEmpty()) {
                 return back()->with('message', 'Không tìm thấy kết quả');
             }else {
                 $date_Filter_warehouse = $request->input('date_Filter_warehouse');
-                $date_Filter_warehouse_start = $request->input('date_Filter_warehouse');
+                $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
                 $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
                 return view('backend.quan_ly_kho', [
                     'product_warehouse' => $product_warehouse, 'search' => $search,
                     'productNames' => $productNames, 'admin_Names' => $admin_Names,
                     'date_Filter_warehouse' => $date_Filter_warehouse, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
-                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start
+                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'productUnit' => $productUnit
                 ]);
             }
         } else {
@@ -240,8 +256,11 @@ class ProductController extends Controller
     }
 
     // quản lý tồn kho
-    function quan_ly_ton_kho(){
-        $product = product::get();
+    function quan_ly_ton_kho(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $product = product::orderByDesc('created_at')->paginate(10);
         $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
             ->groupBy('product_id')->get();
         $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
@@ -252,14 +271,22 @@ class ProductController extends Controller
         foreach ($product as $item) {
             $quantity_sold[$item->id] = ($totalQuantity[$item->id] ?? 0) - $item->quantity;
         }
+        $search = $request->input('search');
+        $filters = [
+            'loai' => $request->input('loai', 'all')
+        ];
         return view('backend.quan_ly_ton_kho', [
             'product' => $product, 'totalQuantity' => $totalQuantity,
             'totalPrice' => $totalPrice, 'quantity_sold' => $quantity_sold,
+            'search' => $search, 'filters' => $filters
         ]);
     }
 
     // tìm kiếm tồn kho
     function search_inventory(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $product = product::get();
         $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
             ->groupBy('product_id')->get();
@@ -273,12 +300,17 @@ class ProductController extends Controller
         }
         if ($request->isMethod('get')) {
             $search = $request->input('search');
+            $filters = [
+                'loai' => $request->input('loai', 'all')
+            ];
             $product = product::where('id', 'LIKE', "%$search%")->orWhere('name_product', 'LIKE', "%$search%")->get();
             if($product->isEmpty()){
-                return back()->with('mesages', 'Không tìm thấy kết quả');
+                return back()->with('message', 'Không tìm thấy kết quả');
             } else {
                 return view('backend.quan_ly_ton_kho', ['product' => $product, 'search' => $search, 
-                'totalPrice' => $totalPrice, 'totalQuantity' => $totalQuantity, 'quantity_sold' => $quantity_sold]);
+                    'totalPrice' => $totalPrice, 'totalQuantity' => $totalQuantity, 
+                    'quantity_sold' => $quantity_sold, 'filters' => $filters
+                ]);
             }
         } else {
             return redirect()->back();
@@ -287,6 +319,9 @@ class ProductController extends Controller
 
     // lọc sản phẩm theo loại
     function filters_product_type(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $product = product::get();
         $filters = [
             'loai' => $request->input('loai', 'all')
@@ -316,6 +351,9 @@ class ProductController extends Controller
 
     // lọc theo khoảng thời gian
     function filters_date_warehouse(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
         $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
         $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
@@ -333,6 +371,7 @@ class ProductController extends Controller
                     $productNames = [];
                     foreach ($query as $name) {
                         $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+                        $productUnit[$name->product_id] = product::find($name->product_id)->unit;
                     }
                     $admin_Names=[];
                     foreach($query as $name){
@@ -347,7 +386,8 @@ class ProductController extends Controller
                         'product_warehouse' => $query, 'date_Filter_warehouse' => $date_Filter_warehouse,
                         'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
                         'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
-                        'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names
+                        'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names,
+                        'productUnit' => $productUnit
                     ]);
                 }
             }
@@ -367,6 +407,7 @@ class ProductController extends Controller
                 $productNames = [];
                     foreach ($product_warehouse as $name) {
                         $productNames[$name->product_id] = product::find($name->product_id)->name_product;
+                        $productUnit[$name->product_id] = product::find($name->product_id)->unit;
                     }
                 $admin_Names=[];
                     foreach($product_warehouse as $name){
@@ -381,13 +422,15 @@ class ProductController extends Controller
                     'date_Filter_warehouse' => $date_Filter_warehouse,
                     'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
                     'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
-                    'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names
+                    'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names,
+                    'productUnit' => $productUnit
                 ]);
             }
         }
         return redirect()->route('quan-ly-kho')->with('message', 'Nhập không đúng định dạng');
     }
 
+    // xuất file excel cho nhập kho
     function export_excel_warehouse(Request $request) {
         $search = $request->input('search');
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
@@ -433,5 +476,82 @@ class ProductController extends Controller
             ), 'ds_nhap_kho_san_pham.xlsx');
         }
     }
-     
+
+    // lọc theo loại cho tồn kho
+    function filters_inventory_type(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $product = product::get();
+        $filters = [
+            'loai' => $request->input('loai', 'all')
+        ];
+        $search = $request->input('search');
+        $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
+            ->groupBy('product_id')->get();
+        $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
+        $totalPriceProductId = product_warehouse::select('product_id', \DB::raw('sum(total) as total_price'))
+            ->groupBy('product_id')->get();
+        $totalPrice = $totalPriceProductId->pluck('total_price', 'product_id')->toArray();
+        $quantity_sold = [];
+        foreach ($product as $item) {
+            $quantity_sold[$item->id] = ($totalQuantity[$item->id] ?? 0) - $item->quantity;
+        }
+        return view('backend.quan_ly_ton_kho', ['product' => $product, 'search' => $search, 
+            'totalPrice' => $totalPrice, 'totalQuantity' => $totalQuantity, 
+            'quantity_sold' => $quantity_sold, 'filters' => $filters
+        ]);
+    }
+
+    // Xuất excel cho tồn kho
+    function export_excel_inventory(Request $request){
+        $search = $request->input('search');
+        $loai = $request->input('loai', 'all');
+        $productQuery = product::query()
+            ->when(!empty($search), function ($query) use ($search) {
+                $query->where(function ($innerQuery) use ($search) {
+                    $innerQuery->where('id', 'LIKE', "%$search%")
+                        ->orWhere('name_product', 'LIKE', "%$search%");
+                });
+            });
+        $product = $productQuery->get();
+        if ($product->isEmpty()) {
+            return back()->with('message', 'Không có dữ liệu để xuất');
+        } else {
+            $totalQuantityByProductId = product_warehouse::select('product_id', \DB::raw('sum(quantity) as total'))
+                ->groupBy('product_id')->get();
+            $totalQuantity = $totalQuantityByProductId->pluck('total', 'product_id')->toArray();
+            $totalPriceProductId = product_warehouse::select('product_id', \DB::raw('sum(total) as total_price'))
+                ->groupBy('product_id')->get();
+            $totalPrice = $totalPriceProductId->pluck('total_price', 'product_id')->toArray();
+            $quantity_sold = [];
+            foreach ($product as $item) {
+                $quantity_sold[$item->id] = ($totalQuantity[$item->id] ?? 0) - $item->quantity;
+            }
+            return Excel::download(new ExcelExports_inventory($loai, $search, $totalQuantity, $totalPrice, $quantity_sold, $product), 'ds_ton_kho_sp.xlsx');
+        }
+    }
+
+    // import file excel cho sản phẩm
+    function import_excel_product(Request $request){
+        try {
+            $path = $request->file('file')->getRealPath();
+            Excel::import(new Imports_product, $path);
+            return redirect()->route('quan-ly-sp')->with('success', 'Import file thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('quan-ly-sp')->with('message', 'Lỗi Import file');
+        }
+    }
+
+    // import file excel cho nhập kho sản phẩm
+    function import_excel_warehouse(Request $request){
+        try {
+            $path = $request->file('file')->getRealPath();
+            Excel::import(new Imports_warehouse, $path);
+            return redirect()->route('quan-ly-kho')->with('success', 'Import file thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('quan-ly-kho')->with('message', 'Lỗi Import file');
+        }
+    }
+
 }

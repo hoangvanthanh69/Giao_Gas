@@ -15,12 +15,16 @@
           <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-product')}}">
             @csrf
             <div class="col-4">
-              <span class="name-add-product-all" for="">Tên sản phẩm:</span>
+              <span class="name-add-product-all" for="">Tên sản phẩm:
+                <span class="color-required fw-bolder">*</span>
+              </span>
               <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="name_product">
             </div>
 
             <div class="col-4">
-              <span class="name-add-product-all" for="loai" class="form-label">Loại bình gas:</span>
+              <span class="name-add-product-all" for="loai" class="form-label">Loại bình gas:
+                <span class="color-required fw-bolder">*</span>
+              </span>
               <div class="mt-2 p-0">
                 <select id="loai" name="loai" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
                   <option value="">Chọn loại gas</option>
@@ -31,7 +35,16 @@
             </div>
 
             <div class="col-4">
-              <span class="name-add-product-all col-4 " for="">Thêm ảnh:</span>
+              <span class="name-add-product-all" for="">Đơn vị:
+                <span class="color-required fw-bolder">*</span>
+              </span>
+              <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="unit">
+            </div>
+
+            <div class="col-4 mt-3">
+              <span class="name-add-product-all col-4 " for="">Thêm ảnh:
+                <span class="color-required fw-bolder">*</span>
+              </span>
               <input class="input-add-product name-add-product-all-img col-11 mt-2" type="file" name="image">
             </div>
 
@@ -52,7 +65,8 @@
 				rules: {
 					name_product: {required: true, maxlength: 100},
 					image: "required",
-          loai: "required"
+          loai: "required",
+          unit: {required: true, maxlength: 30}
 				},
 				messages: {
 					name_product: {
@@ -60,7 +74,11 @@
             maxlength: "Không quá 100 kí tự",
           },
 					image: "Thêm ảnh",
-          loai: "Chọn loại gas"
+          loai: "Chọn loại gas",
+          unit: {
+            required: "Nhập đơn vị",
+            maxlength: "Không quá 30 kí tự",
+          },
 				},
 				errorElement: "div",
 				errorPlacement: function (error, element) {
