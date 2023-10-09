@@ -1491,11 +1491,12 @@ select.selected-option-date-customer {
     border: 1px solid #99d75c;
     border-radius: 10px;
     font-family: cursive;
+    word-wrap: break-word;
 }
 .message-content {
-    padding-left: 10px;
-    padding-top: 10px;
+    padding: 10px;
     line-height: 25px;
+    word-wrap: break-word;
 }
 .message-timestamp-right {
     position: absolute;
@@ -1567,11 +1568,10 @@ select.selected-option-date-customer {
 .contact-close {    
     background-color: #f0f0f0;
     border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2);
-    border: 5px solid #2679A0;
+    border-left: 5px solid #2679A0;
+    border-right: 5px solid #2679A0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -1579,20 +1579,15 @@ select.selected-option-date-customer {
     position: relative;
     width: 400px;
     max-width: calc(100% - 10px);
-    max-height: 430px;
+    max-height: 400px;
     overflow-y: auto; 
     
     margin-bottom: 117px;
 }
 .contact-close span.close-btn {
-    width: 20px;
-    height: 20px;
-    border: 0;
-    cursor: pointer;
-    position: fixed;
-    z-index: 99999;
-    top: 9px;
-    right: 42px;
+    float: right;
+    margin-right: 17px;
+    margin-top: 4px;
 }
 .contact-close span.close-btn svg {
     stroke: #2679A0;
@@ -1685,6 +1680,23 @@ select.selected-option-date-customer {
 .message-hover-customer{
     display: none;
 }
-.logo-name-tech-gas{
+.logo-name-tech-gas {
     color: #337AB7;
+    
+}
+.close-heading-chat {
+    position: fixed;
+    z-index: 99999;
+    height: 40px;
+    min-width: calc(100% - 10px);
+    background-color: #f0f0f0;
+    box-shadow: 0 0px 6px rgba(0,0,0,0.2), 0 0px 1px rgba(0,0,0,0.2);
+    top: -35px;
+    border-left: 5px solid #2679A0;
+    border-top: 5px solid #2679A0;
+    border-right: 5px solid #2679A0;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-top: -5px;
 }

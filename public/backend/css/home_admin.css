@@ -1258,14 +1258,12 @@ span.carousel-control-next-icon {
 }
 .form-check-radio-product {
     margin-top: -20px;
-    /* margin-left: -30%; */
 }
 .form-check-input-type{
     margin-top: 10px !important;
 }
 .export-file-excel-prodcut {
     margin-top: -21px !important;
-    /* margin-left: -29%; */
 }
 .search-product-admin-form {
     margin-top: -24px;
@@ -1359,7 +1357,7 @@ input.choose-file-import-product {
     position: relative;
     margin-bottom: 30px;
     background-color: #77d020 ;
-    min-width: 300px;
+    width: 300px;
     min-height: 70px;
     text-align: left;
     font: 400 0.9em 'Open Sans', sans-serif;
@@ -1386,7 +1384,8 @@ input.choose-file-import-product {
     font-size: 13px;
     font-weight: 300;
     bottom: -13px;
-    left: 152px;
+    float: right;
+    padding-right: 10px;
 }
 .message-blue:after {
     content: '';
@@ -1414,19 +1413,80 @@ input.choose-file-import-product {
     color: white;
 }
 .input-reply-message-admin{
-    width: 70% !important;
+    width: 86% !important;
     outline: none;
     border: 1px solid #b99a9a !important;
     border-radius: 30px !important;
     box-shadow: none !important;
     height: 43px;
+    padding: 0 20px;
 }
 .btn-reply-message {
     border: 1px solid #b99a9a;
     border-radius: 6px;
     padding: 0 9px;
     height: 40px;
-    margin-left: 14px;
+    margin-left: 10px;
     background-color: #2679A0;
     margin-top: 3px;
+    color: white;
+    font-weight: 500;
+}
+.user-conversation {
+    margin-bottom: 4%;
+}
+.toggle-messages-button {
+    border: 1px solid rgb(147, 147, 156);
+    border-radius: 5px;
+    padding: 5px 14px;
+    max-height: 80px !important;
+    background-color: rgb(251 249 247);
+    width: 29% !important;
+    margin-right: 143px;
+}
+.messages-container {
+    background-color: rgb(251 249 247);
+    width: 59% !important;
+    border: 1px solid rgb(147, 147, 156);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2);
+}
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.submit-message-input-button {
+    float: right;
+    width: 59%;
+}
+.toggle-messages-button img {
+    width: 60px;
+    height: 63px;
+    border-radius: 40px;
+}
+.message-reply-admin span.reply-trigger {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+.message-reply-admin span.reply-trigger:hover {
+    text-decoration: none;
+}
+.message-customer-reply-admin {
+    border: 1px solid rgb(147, 147, 156);
+    border-radius: 10px;
+    padding: 10px;
+    min-width: 100px;
+    max-width: 310px;
+    min-height: 45px;
+    margin-right: -25px !important;
+    margin-top: 40px !important;
+    background-color: rgba(0,0,0,.03);
+    margin-left: 40px;
+}
+.message-reply-admin {
+    margin-top: -10px;
 }

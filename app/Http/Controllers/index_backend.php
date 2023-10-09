@@ -526,14 +526,38 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Xóa bình luận thành công']);
     }
 
-    // quanr lys tin nhanw
-    function quan_ly_tin_nhan(){
-        if(!Session::get('admin')){
+    // // quản lý tin nhắn
+    function quan_ly_tin_nhan() {
+        if (!Session::get('admin')) {
             return redirect()->route('login');
         }
-        $message = tbl_message::where('message_parent_message', '=', 0)->orderByDesc('id')->get();
-        $message_rep = tbl_message::where('message_parent_message', '>', 0)->orderByDesc('id')->get();
-        return view('backend.quan_ly_tin_nhan', ['message' => $message, 'message_rep' => $message_rep]);
+        $userIds = tbl_message::select('user_id')->distinct()->orderByDesc('created_at')->get();
+        $conversations = [];
+        foreach ($userIds as $userId) {
+            $user = users::find($userId->user_id);
+            $messages = tbl_message::where('user_id', $userId->user_id)
+                ->where('message_parent_message', '=', 0)->orderByDesc('created_at')->get();
+            $conversation = ['user' => $user, 'messages' => []];
+            foreach ($messages as $message) {
+                $replies1 = tbl_message::where('message_parent_message', '>', 0)
+                    ->where('message_parent_message', $message->id)->orderBy('created_at')->get();
+                $replies2 = tbl_message::whereNull('message_parent_message')
+                    ->where('user_id', $userId->user_id)->orderBy('created_at')->get();
+                $replies = $replies1->concat($replies2)->sortBy('created_at');
+                $parentMessageContent = 0;
+                if ($message->message_parent_message) {
+                    $parentMessage = tbl_message::find($message->message_parent_message);
+                    if ($parentMessage) {
+                        $parentMessageContent = $parentMessage->message_content;
+                    }
+                }
+                $message->parentMessageContent = $parentMessageContent;
+                $message->replies = $replies;
+                $conversation['messages'][] = $message;
+            }
+            $conversations[$userId->user_id] = $conversation;
+        }
+        return view('backend.quan_ly_tin_nhan', ['conversations' => $conversations, 'parentMessageContent' => $parentMessageContent]);
     }
 
     // trả lời tin nhắn
@@ -541,7 +565,11 @@ class index_backend extends Controller
         $data = $request -> all();
         $message = new tbl_message;
         $message -> message_content = $data['message_content'];
-        $message -> message_parent_message = $data['id'];
+        if (isset($data['id']) && !empty($data['id'])) {
+            $message -> message_parent_message = $data['id'];
+        } else {
+            $message -> message_parent_message = null;
+        }
         $message -> message_name = 'GasTech';
         $message -> user_id = $data['user_id'];
         $message -> save();

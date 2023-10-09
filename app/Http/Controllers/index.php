@@ -604,9 +604,11 @@ class index extends Controller
                $avatar = asset('uploads/users/' . $user->img);
             }
             $output .= '
-            <div class="message-orange">
-               <div class="message-content pb-4">'. $messages->message_content .'</div>
-               <p class="message-timestamp-right">'. $messages->created_at .'</p>
+            <div class="message-reply-admin">
+               <div class="message-orange">
+                  <div class="message-content pb-4">'. $messages->message_content .'</div>
+                  <p class="message-timestamp-right">'. $messages->created_at .'</p>
+               </div>
             </div>
             ';
          }

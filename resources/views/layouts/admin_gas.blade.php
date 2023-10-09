@@ -178,8 +178,8 @@
 
                            <div class="btnbtn home-filter-button mb-4">
                               <a class="@yield('sidebar-active-message')" href="{{route('quan-ly-tin-nhan')}}">
-                                 <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
-                                 Quản lý nhắn tin
+                                 <i class="fa-brands fa-rocketchat icon-all-admin-nav"></i>
+                                 Quản lý tin nhắn
                               </a>
                            </div>
                         </div>

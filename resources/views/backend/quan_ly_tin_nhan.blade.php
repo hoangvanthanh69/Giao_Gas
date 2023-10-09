@@ -24,81 +24,81 @@
                 @endif
             </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive table-list-product">
-              <table class="table table-bordered" id="" width="100%" cellspacing="0">
-                <thead>
-                  <tr class="tr-name-table">
-                    <th class="col-6">Nội dung tin nhắn</th>
-                    <th class="">Tên người gửi</th>
-                    <th class="">Thời gian</th>
-                    <th class="">Chức năng</th>
-                  </tr>
-                </thead>
-                
-                <tbody class="infor">
-                  @foreach($message as $key => $val)
-                    <tr class="hover-color">
-                      <td class="product-order-quantity">
-                        <div class="message-blue ms-3">
-                          <div class="message-content pb-4">{{$val['message_content']}}</div>
-                          <p class="message-timestamp-left">{{$val['created_at']}}</p>
-                        </div>
-                        <br>
-                        <div class="list-rep-comment mb-2">
-                          @foreach($message_rep as $key => $message_reply)
-                            @if($message_reply -> message_parent_message == $val->id)
-                              <div class="message-orange me-3">
-                                <p class="message-content">{{$message_reply->message_content}}</p>
-                                <p class=" message-timestamp-right">{{$message_reply->created_at}}</p>
+      <div class="p-4">
+        <div class="card">
+          @foreach ($conversations as $userId => $conversation)
+          <div class="row g-0 ps-5 pe-5 pt-3 pb-3">
+            <button class="toggle-messages-button" data-user_id="{{$userId}}">
+              @if ($conversation['user'] -> img)
+                <img class="me-2" src="{{ asset('uploads/users/' .  $conversation['user']->img) }}" alt="" width="52px">
+              @else
+                <img class="me-2" src="{{ asset('frontend/img/logo-login.png') }}" alt="..." width="52px">
+              @endif
+              <span>ID: {{$userId}}</span>
+              <span>{{$conversation['user']->name }}</span>
+            </button>
+            <div class="position-relative messages-container" style="display:;">
+              <div class="chat-messages p-4">
+                @foreach($conversation['messages'] as $message)
+                  <div class="message-reply-admin">
+                    <div class="message-blue ms-3 col-6" data-comment_id="{{$message->id}}" data-user_id="{{$message->user_id}}">
+                      <div class="message-content pb-4">
+                        {{ $message->message_content }}
+                      </div>
+                      <p class="message-timestamp-right">{{$message->created_at}}</p>
+                    </div>
+                    <!-- Hiển thị tin nhắn trả lời -->
+                    @foreach($message->replies as $reply)
+                      <div class="message-reply-admin">
+                        <div class="message-orange ms-3 col-6" data-comment_id="{{$reply->id}}">
+                          <div class="message-content pb-4">
+                            @if ($reply->message_parent_message !== null)
+                              <div class="message-customer-reply-admin">
+                                <span class="">
+                                  <!-- Hiển thị nội dung tin nhắn được phản hồi -->
+                                  {{ $message->message_content}}
+                                </span>
                               </div>
                             @endif
-                          @endforeach
-                        </div>
-                        <div class="d-flex w-100 ms-5">
-                          <input class="input-reply-message-admin reply_message_{{$val->id}} mb-1 ps-4" placeholder="Trả lời bình luận"></input>
-                          <button class="btn-reply-message" data-id="{{$val->id}}" data-user_id="{{$val->user_id}}">Trả lời</button>
-                        </div>
-                      </td>
-                      <td class="product-order-quantity">{{$val['message_name']}}</td>
-                      <td class="product-order-quantity">{{$val['created_at']}}</td>
-                      <td class="product-order-quantity">
-                        <form action="">
-                          <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-                          </button>
-                          <!-- Modal -->
-                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa tin nhắn này</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
-                                  <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
-                                </div>
-                              </div>
-                            </div>
+                            {{ $reply->message_content }}
                           </div>
-                        </form>
-                      </td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                          <p class="message-timestamp-right">{{$reply->created_at}}</p>
+                        </div>
+                      </div>
+                    @endforeach   
+                  </div>
+                @endforeach
+              </div>
             </div>
+          </div>
+          <div class="flex-grow-0 py-3 px-4 border-top">
+            <div class="submit-message-input-button">
+              <span class="reply-message-admin-span" data-user_id="{{$userId}}"></span>
+              <input class="input-reply-message-admin_{{$message->user_id}} reply_message" data-user_id="{{$userId}}"  placeholder="Trả lời bình luận"></input>
+              <button class="btn-reply-message" data-user_id="{{$userId}}">Trả lời</button>
+            </div>
+          </div>
+          @endforeach 
         </div>
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-      $('.btn-reply-message').click(function(){
-        var id = $(this).data('id');
-        var message_content = $('.reply_message_'+id).val();
-        var user_id = $(this).data('user_id');
+      var selectedCommentId = null;
+      var selectedUserId = null;
+      $('.message-reply-admin').on('click', '.message-blue', function() {
+        selectedCommentId = $(this).data('comment_id');
+        selectedUserId = $(this).data('user_id');
+        var messageContent = $(this).find('.message-content').text();
+        $('.reply-message-admin-span[data-user_id="' + selectedUserId + '"]').text(messageContent);
+        $('.message-blue').css('background-color', '');
+        $(this).css('background-color', 'yellow');
+      });
+
+      $('.btn-reply-message').click(function() {
+        var userId = $(this).data('user_id');
+        var messageContent = $('.input-reply-message-admin_'+userId).val();
         $.ajax({
           url: "{{ route('reply-message') }}",
           method: "POST",
@@ -106,17 +106,38 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           data: {
-            message_content: message_content, 
-            id:id,  
-            user_id:user_id
+            message_content: messageContent,
+            user_id: userId,
+            id: selectedCommentId 
           },
           success: function(data) {
-            $('.reply_message_'+id).val('');
+            $('.input-reply-message-admin').val('');
+            $('.reply-message-admin-span').text(''); 
+            $('.message-blue').css('background-color', '');
+            selectedCommentId = null;
             location.reload();
           },
           error: function(xhr, status, error) {
           }
         });
-      })
-    </script>
+      });
+  </script>
+  <script>
+    // Xử lý sự kiện khi click vào nút "user ID"
+    $('.toggle-messages-button').click(function() {
+        var userId = $(this).data('user_id');
+        var messagesContainer = $(this).siblings('.messages-container');
+        if (messagesContainer.is(':visible')) {
+            messagesContainer.hide();
+        } else {
+            messagesContainer.show();
+        }
+    });
+
+  function scrollToBottom() {
+    var chatMessages = document.querySelector('.chat-messages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+  scrollToBottom();
+  </script>
 @endsection
