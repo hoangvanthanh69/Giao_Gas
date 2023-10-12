@@ -21,14 +21,7 @@ class ProductController extends Controller
         if(!Session::get('admin')){
             return redirect()->route('login');
         }
-        $admin_name = Session::get('admin')['admin_name'];
-        $chuc_vu = Session::get('admin')['chuc_vu'];
-        if($chuc_vu == '2'){
-            $product = product::orderByDesc('id')->paginate(10);
-        }
-        elseif($chuc_vu == '3'){
-            $product = product::orderByDesc('id')->paginate(10);
-        }
+        $product = product::orderByDesc('id')->paginate(10);
         $filters = [
             'loai' => $request->input('loai', 'all')
         ];

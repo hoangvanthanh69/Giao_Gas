@@ -1412,7 +1412,7 @@ input.choose-file-import-product {
     margin-top: 16px;
     color: white;
 }
-.input-reply-message-admin{
+.reply_message{
     width: 86% !important;
     outline: none;
     border: 1px solid #b99a9a !important;
@@ -1455,12 +1455,8 @@ input.choose-file-import-product {
 .chat-messages {
     display: flex;
     flex-direction: column;
-    max-height: 500px;
+    max-height: 460px;
     overflow-y: auto;
-}
-.submit-message-input-button {
-    float: right;
-    width: 59%;
 }
 .toggle-messages-button img {
     width: 60px;
@@ -1476,17 +1472,25 @@ input.choose-file-import-product {
     text-decoration: none;
 }
 .message-customer-reply-admin {
-    border: 1px solid rgb(147, 147, 156);
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     min-width: 100px;
     max-width: 310px;
     min-height: 45px;
     margin-right: -25px !important;
-    margin-top: 40px !important;
-    background-color: rgba(0,0,0,.03);
-    margin-left: 40px;
+    background-color: #b8f67c;
+    color: #2679A0;
+    margin-bottom: 6px;
+    margin-right: 8px !important;
 }
 .message-reply-admin {
     margin-top: -10px;
+}
+.reply-message-admin-span {
+    max-width: 319px;
+    min-height: 6px;
+    padding-left: 6px;
+    border-radius: 5px;
+    margin-bottom: 13px;
+    font-family: cursive;
 }

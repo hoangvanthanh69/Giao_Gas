@@ -99,7 +99,7 @@ class AuthController extends Controller
         return view('frontend.login');
     }
 
-    // xử lý đăng nhập cho admin
+    // xử lý đăng nhập cho quản trị viên
     function getlogin(Request $request){
         $data = $request -> all();
         $password = $data['admin_password'];
@@ -108,22 +108,14 @@ class AuthController extends Controller
             Session::put('admin_img', $result->image_staff);
             Session::put('admin_name', $result->admin_name);
             Session::put('admin',[
-                'admin_id' => $result->admin_id,
+                'admin_id' => $result->id,
                 'username' => $result->admin_email,
                 'password' => $result->admin_password,
                 'admin_name' => $result->admin_name,
                 'chuc_vu' => $result->chuc_vu,
             ]);
             if(Session::get('admin') != NULL){
-                if(Session::get('admin')['chuc_vu'] == "2"){
-                    return redirect()->route('admin');
-                }
-                elseif(Session::get('admin')['chuc_vu'] == "3"){
-                    return redirect()->route('quan-ly-sp');
-                }
-                elseif(Session::get('admin')['chuc_vu'] == "1"){
-                    return redirect()->route('quan-ly-hd');
-                }
+                return redirect()->route('admin');
             }
             else{
                 return redirect()->back();

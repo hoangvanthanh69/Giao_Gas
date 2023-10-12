@@ -17,11 +17,19 @@
                   <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
-                @if (session('message'))
-                  <div class="notification-discount">
-                    {{ session('message') }}
-                  </div>
-                @endif
+              @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                  <i class="far fa-check-circle icon-check-success"></i>
+                  {{ session('success') }}
+                </div>
+              @endif
+
+              @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                  <i class="fas fa-ban icon-check-cancel"></i>
+                  {{ session('message') }}
+                </div>
+              @endif
             </div>
         </div>
       <div class="p-4">
@@ -60,7 +68,7 @@
                                 </span>
                               </div>
                             @endif
-                            {{ $reply->message_content }}
+                            <span class="ps-1">{{ $reply->message_content }}</span>
                           </div>
                           <p class="message-timestamp-right">{{$reply->created_at}}</p>
                         </div>
@@ -69,15 +77,40 @@
                   </div>
                 @endforeach
               </div>
+              <div class="flex-grow-0 py-3 px-4 border-top">
+                <div class="">
+                  <div class="reply-message-admin-span" data-user_id="{{$userId}}">
+                    
+                  </div>
+                  <div>
+                    <input class="input-reply-message-admin_{{$message->user_id}} reply_message" data-user_id="{{$userId}}"  placeholder="Trả lời bình luận"></input>
+                    <button class="btn-reply-message" data-user_id="{{$userId}}">Trả lời</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="flex-grow-0 py-3 px-4 border-top">
-            <div class="submit-message-input-button">
-              <span class="reply-message-admin-span" data-user_id="{{$userId}}"></span>
-              <input class="input-reply-message-admin_{{$message->user_id}} reply_message" data-user_id="{{$userId}}"  placeholder="Trả lời bình luận"></input>
-              <button class="btn-reply-message" data-user_id="{{$userId}}">Trả lời</button>
+          <form action="{{route('delete-message', $message['user_id'])}}">
+            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa bình luận này</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </form>
           @endforeach 
         </div>
       </div>
@@ -93,7 +126,7 @@
         var messageContent = $(this).find('.message-content').text();
         $('.reply-message-admin-span[data-user_id="' + selectedUserId + '"]').text(messageContent);
         $('.message-blue').css('background-color', '');
-        $(this).css('background-color', 'yellow');
+        // $(this).css('background-color', 'yellow');
       });
 
       $('.btn-reply-message').click(function() {

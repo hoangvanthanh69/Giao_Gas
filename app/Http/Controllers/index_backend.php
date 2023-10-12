@@ -536,28 +536,18 @@ class index_backend extends Controller
         foreach ($userIds as $userId) {
             $user = users::find($userId->user_id);
             $messages = tbl_message::where('user_id', $userId->user_id)
-                ->where('message_parent_message', '=', 0)->orderByDesc('created_at')->get();
+                ->where('message_parent_message', '=', 0)->get();
             $conversation = ['user' => $user, 'messages' => []];
+            $parentMessageContentMap = [];
             foreach ($messages as $message) {
-                $replies1 = tbl_message::where('message_parent_message', '>', 0)
+                $replies = tbl_message::where('message_parent_message', '>', 0)
                     ->where('message_parent_message', $message->id)->orderBy('created_at')->get();
-                $replies2 = tbl_message::whereNull('message_parent_message')
-                    ->where('user_id', $userId->user_id)->orderBy('created_at')->get();
-                $replies = $replies1->concat($replies2)->sortBy('created_at');
-                $parentMessageContent = 0;
-                if ($message->message_parent_message) {
-                    $parentMessage = tbl_message::find($message->message_parent_message);
-                    if ($parentMessage) {
-                        $parentMessageContent = $parentMessage->message_content;
-                    }
-                }
-                $message->parentMessageContent = $parentMessageContent;
                 $message->replies = $replies;
                 $conversation['messages'][] = $message;
             }
             $conversations[$userId->user_id] = $conversation;
         }
-        return view('backend.quan_ly_tin_nhan', ['conversations' => $conversations, 'parentMessageContent' => $parentMessageContent]);
+        return view('backend.quan_ly_tin_nhan', ['conversations' => $conversations]);
     }
 
     // trả lời tin nhắn
@@ -574,5 +564,12 @@ class index_backend extends Controller
         $message -> user_id = $data['user_id'];
         $message -> save();
     }
+
+    function delete_message($user_id){
+        $tbl_message = tbl_message::where('user_id', $user_id);
+        $tbl_message -> delete();
+        return redirect()->route('quan-ly-tin-nhan')->with(['message' => 'Xóa thành công']);
+    }
+    
 
 }

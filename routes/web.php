@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PermissionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +48,7 @@ Route::get('/add-product-admin', [ProductController::class, 'add_product'] )->na
 Route::get('/chitiet-hd/{id}', [OrderController::class, 'chitiet_hd'] )->name('chitiet-hd');
 Route::get('/chitiet/{id}', [index_backend::class, 'chitiet'] )->name('chitiet');
 
-//  quản lý sản phẩm
-Route:: get('/admin/quan-ly-kho-sp', [ProductController::class, 'quan_ly_sp'] )->name('quan-ly-sp');
+
 
 Route::post('/add-product', [ProductController::class, 'add_products'] )->name('add-product');
 
@@ -56,7 +56,7 @@ Route::post('/add-product', [ProductController::class, 'add_products'] )->name('
 Route::get('/delete/{id}/product', [ProductController::class, 'delete_product'] )->name('delete-product');
 
 // edit sản phẩm
-Route::get('/edit-product/{id}', [ProductController::class, 'edit_product'] )->name('edit-product');
+// Route::get('/edit-product/{id}', [ProductController::class, 'edit_product'] )->name('edit-product');
 
 // cập nhật sản phẩm
 Route::post('/update-product/{id}', [ProductController::class, 'update_product'] )->name('update-product');
@@ -259,9 +259,6 @@ Route::get('quan-ly-hd/data_created_at', [OrderController::class, 'data_created_
 Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('login-by-google');
 Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-// quản lý kho
-Route::get('admin/quan-ly-nhap-kho', [ProductController::class, 'quan_ly_kho'])->name('quan-ly-kho');
-
 // nhập kho sản phẩm
 Route::get('/add-product-warehouse', [ProductController::class, 'add_product_warehouse'])->name('add-product-warehouse');
 Route::post('/add-warehouse', [ProductController::class, 'add_warehouse'])->name('add-warehouse');
@@ -314,3 +311,36 @@ Route::get('quan-ly-tin-nhan', [index_backend::class, 'quan_ly_tin_nhan'])->name
 
 // trả lời tin nhắn
 Route::post('/reply-message', [index_backend::class, 'reply_message'])->name('reply-message');
+Route::get('/delete-message/{user_id}/tbl_message', [index_backend::class, 'delete_message'] )->name('delete-message');
+
+// quản lý phân quyền
+Route::get('quan-ly-phan-quyen',[PermissionsController::class, 'quan_ly_phan_quyen'])->name('quan-ly-phan-quyen');
+
+// thêm quyền 
+Route::get('add-permissions', [PermissionsController::class, 'add_permissions'])->name('add-permissions');
+Route::post('add-permission', [PermissionsController::class, 'add_permission'])->name('add-permission');
+
+
+
+Route::post('/update-role-permissions/{id}', [PermissionsController::class, 'updateRolePermissions'])->name('update-role-permissions');
+
+// giao diện gán quyền cho quản tị viên 
+Route::get('admin/add-role-permission', [PermissionsController::class, 'add_role_permission'])->name('add-role-permission');
+
+// gán quyền cho quản trị viên
+Route::post('role-permissions', [PermissionsController::class, 'role_permissions'])->name('role-permissions');
+
+// hiển thị giao diện chỉnh sủa gán qyền
+Route::get('edit-role-permissions/{id_admin}', [PermissionsController::class, 'edit_role_permissions'])->name('edit-role-permissions');
+
+
+
+//  quản lý sản phẩm
+Route:: get('/admin/quan-ly-kho-sp', [ProductController::class, 'quan_ly_sp'] )->name('quan-ly-sp')->middleware('check.permission:1');
+
+
+// quản lý kho
+Route::get('admin/quan-ly-nhap-kho', [ProductController::class, 'quan_ly_kho'])->name('quan-ly-kho')->middleware('check.permission:2');
+
+Route::get('/edit-product/{id}', [ProductController::class, 'edit_product'])
+    ->name('edit-product')->middleware('check.permission:1');

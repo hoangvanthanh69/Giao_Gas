@@ -48,7 +48,7 @@
                         </span>
                      </div>
                      
-                     <?php if(Session::get('admin')['chuc_vu'] == "2"){?>
+                     
                         <div class="home-filter border-filet-butoon" id="filter_button">
                            <div class="btnbtn home-filter-button mb-1" data-filter="all">
                               <a class="@yield('sidebar-active-home')" href="{{route('admin')}}">
@@ -182,32 +182,16 @@
                                  Quản lý tin nhắn
                               </a>
                            </div>
-                        </div>
-                     <?php }
 
-                     elseif(Session::get('admin')['chuc_vu'] == "3"){?>
-                        <div class="btnbtn home-filter-button mb-4" data-filter="all">
-                           
-                           <div class="btnbtn home-filter-button mb-4" data-filter="product">
-                              <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
-                                 <i class="fas fa-box icon-all-admin-nav"></i>
-                                 Quản lý xuất sản phẩm 
+                           <div class="btnbtn home-filter-button mb-4">
+                              <a class="@yield('sidebar-active-permissions')" href="{{route('quan-ly-phan-quyen')}}">
+                                 <i class="fa-brands fa-rocketchat icon-all-admin-nav"></i>
+                                 Quản lý phân quyền
                               </a>
                            </div>
                         </div>
-                     <?php }
 
-                     elseif(Session::get('admin')['chuc_vu'] == "1"){ ?>
-                        <div class="btnbtn home-filter-button mb-4 " data-filter="all">
-                           <div class="btnbtn home-filter-button" data-filter="receipt">
-                              <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
-                                 <i class="fas fa-file-invoice-dollar"></i>
-                                 Đơn hàng
-                              </a>
-                           </div>
-                           <br>
-                        </div>
-                     <?php } ?>
+                     
                   </ul>
                </div>
             </div>
