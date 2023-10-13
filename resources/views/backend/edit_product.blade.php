@@ -12,7 +12,7 @@
           <div class="add-staff-heading-div">
             <span>Cập nhật nhân viên</span>
           </div>
-            <form class="row container" enctype="multipart/form-data" method='post' action="{{route('update-product',$product->id)}}">
+            <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('update-product',$product->id)}}">
               @csrf
                 <div class="col-4">
                   <span class="name-add-product-all" for="">Tên sản phẩm:</span>
@@ -62,4 +62,32 @@
 
     
   </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    	$("#signupForm").validate({
+            rules: {
+                loai: "required",      
+            },
+            messages: {
+                loai: "Chọn loại gas",
+            },
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback-staff");
+                if (element.prop("type") === "checkbox"){
+                    error.insertAfter(element.siblings("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            } 
+        });
+    });
+</script>

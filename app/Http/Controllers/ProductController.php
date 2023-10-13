@@ -245,7 +245,7 @@ class ProductController extends Controller
     function delete_warehouse($id){
         $warehouse = product_warehouse::find($id);
         $warehouse -> delete();
-        return redirect()->route('quan-ly-kho')->with('success', 'Xóa sản phẩm thành công');
+        return redirect()->route('quan-ly-kho')->with('success', 'Xóa nhập kho thành công');
     }
 
     // quản lý tồn kho

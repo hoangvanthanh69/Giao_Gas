@@ -4,8 +4,8 @@
 
         <div class="col-10 nav-row-10 ">   
             <div class="mb-4 product-list-staff-add">
-                <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-phan-quyen')}}">Quản lý phân quyền /</a>
-                <a class="text-decoration-none color-name-admin-add" href="{{route('add-permissions')}}">Thêm quyền</a>
+                <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('danh-sach-quyen')}}">Danh sách quyền /</a>
+                <a class="text-decoration-none color-name-admin-add" href="">Thêm quyền</a>
                 </span>
             </div>
             <div class="add-staff-form">
@@ -26,29 +26,29 @@
                     <a class="add-product" href="{{route('add-rights-group')}}">Thêm nhóm quyền</a>
                     </div>
                 </div>
-                <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-permission')}}">
+                <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('update-permissions', $tbl_permissions -> permission_id)}}">
                     @csrf
+                    <div class="col-4">
+                        <span class="name-add-product-all" for="">Tên quyền
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="permission_name" value="{{$tbl_permissions->permission_name}}">
+                    </div>
+
                     <div class="col-4">
                         <span class="name-add-product-all" for="">Nhóm quyền
                             <span class="color-required fw-bolder">*</span>
                         </span>
                         <select name="id_rights_group" class="form-select-delivery mt-2">
                             <option value="">--- Chọn ---</option>
-                            @foreach($tbl_rights_group as $rights_group)
-                                <option value="{{$rights_group->id}}">{{$rights_group->id}} - {{$rights_group->name_rights_group}}</option>
-                            @endforeach
+                                @foreach($tbl_rights_group as $rights_group)
+                                    <option value="{{$rights_group->id}}" <?php echo  $rights_group->id==$tbl_permissions->id_rights_group?'selected':'' ?>>{{$rights_group->id}} - {{$rights_group->name_rights_group}}</option>
+                                @endforeach
                         </select>
                     </div>
 
-                    <div class="col-4">
-                        <span class="name-add-product-all" for="">Tên quyền
-                            <span class="color-required fw-bolder">*</span>
-                        </span>
-                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="permission_name">
-                    </div>
-
                     <div class="text-center mt-4">
-                        <a class="back-product" href="{{route('add-role-permission')}}">Trở lại</a>
+                        <a class="back-product" href="{{route('danh-sach-quyen')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
                 </form>
@@ -60,14 +60,9 @@
     $(document).ready(function(){
     	$("#signupForm").validate({
             rules: {
-                permission_name: {required: true, maxlength: 30},
                 id_rights_group: "required",      
             },
             messages: {
-                permission_name: {
-                    required: "Nhập tên quyền",
-                    maxlength: "Nhập tên ngắn hơn"
-                },
                 id_rights_group: "Chọn nhóm quyền",
             },
             errorElement: "div",

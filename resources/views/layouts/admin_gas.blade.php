@@ -48,7 +48,7 @@
                         </span>
                      </div>
                      
-                     
+                     <?php if(Session::get('admin')['chuc_vu'] == "2"){?>
                         <div class="home-filter border-filet-butoon" id="filter_button">
                            <div class="btnbtn home-filter-button mb-1" data-filter="all">
                               <a class="@yield('sidebar-active-home')" href="{{route('admin')}}">
@@ -94,13 +94,11 @@
                                     </div>
                                  </div>
                               </div>
-                           </div>
 
-                           <div class="mb-1" id="accordionFlushExample">
                               <div class="">
                                  <div id="flush-headingTwo">
                                     <button class="accordion-button accordion-layouts-product pt-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" onclick="toggleArrow()">
-                                       <div class="@yield('sidebar-active-orders') @yield('sidebar-active-add-order') d-flex" >
+                                       <div class="@yield('sidebar-active-orders') @yield('sidebar-active-add-order') @yield('sidebar-active-giao-hang') d-flex" >
                                           <i class="fas fa-file-invoice-dollar icon-all-admin-nav icon-accordion-layouts"></i>
                                           Quản lý đơn hàng
                                           <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
@@ -117,10 +115,17 @@
                                        </a>
                                     </div>
 
-                                    <div class="mb-3 ms-4 home-filter-button fw-light" data-filter="product">
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
                                        <a class="@yield('sidebar-active-add-order')" href="{{route('order_phone')}}">
                                           <i class="fa-solid fa-cart-plus icon-all-admin-nav"></i>
                                           Thêm đơn hàng mới
+                                       </a>
+                                    </div>
+
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
+                                          <i class="fa-solid fa-truck icon-all-admin-nav"></i>
+                                          Quản lý giao hàng
                                        </a>
                                     </div>
                                  </div>
@@ -134,12 +139,7 @@
                               </a>
                            </div>
 
-                           <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
-                              <a class="@yield('sidebar-active-giao-hang')" href="{{route('quan-ly-giao-hang')}}">
-                                 <i class="fa-solid fa-truck icon-all-admin-nav"></i>
-                                 Quản lý giao hàng
-                              </a>
-                           </div>
+                           
 
                            <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-danh-gia-giao-hang')" href="{{route('danh-gia-giao-hang')}}">
@@ -171,27 +171,75 @@
 
                            <div class="btnbtn home-filter-button mb-4">
                               <a class="@yield('sidebar-active-comment')" href="{{route('quan-ly-binh-luan')}}">
-                                 <i class="fa-sharp fa-solid fa-money-check-dollar icon-all-admin-nav"></i>
+                                 <i class="fa-solid fa-comment icon-all-admin-nav"></i>
                                  Quản lý bình luận
                               </a>
                            </div>
 
-                           <div class="btnbtn home-filter-button mb-4">
+                           <div class="btnbtn home-filter-button">
                               <a class="@yield('sidebar-active-message')" href="{{route('quan-ly-tin-nhan')}}">
-                                 <i class="fa-brands fa-rocketchat icon-all-admin-nav"></i>
-                                 Quản lý tin nhắn
+                                 <i class="fa-solid fa-message icon-all-admin-nav"></i>
+                                 Quản lý nhắn tin
                               </a>
                            </div>
 
-                           <div class="btnbtn home-filter-button mb-4">
-                              <a class="@yield('sidebar-active-permissions')" href="{{route('quan-ly-phan-quyen')}}">
-                                 <i class="fa-brands fa-rocketchat icon-all-admin-nav"></i>
-                                 Quản lý phân quyền
+                           <div class="" id="accordionFlushExample">
+                              <div class="">
+                                 <div id="flush-headingThree">
+                                    <button class="accordion-button accordion-layouts-product " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseOne" onclick="toggleArrow()">
+                                       <div class="@yield('sidebar-active-list-permissions') @yield('sidebar-active-permissions') d-flex" >
+                                          <i class="fa-solid fa-user-shield icon-all-admin-nav  icon-accordion-layouts"></i>
+                                             Quản lý phân quyền
+                                          <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
+                                          <i class="fa-solid fa-angle-up ms-2 arrow-up"></i>
+                                       </div>
+                                       
+                                    </button>
+                                 </div>
+
+                                 <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-list-permissions')" href="{{route('quan-ly-phan-quyen')}}">
+                                          <i class="fa-solid fa-lock icon-all-admin-nav"></i>
+                                          Danh sách phân quyền
+                                       </a>
+                                    </div>
+
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-permissions')" href="{{route('danh-sach-quyen')}}">
+                                       <i class="fa-solid fa-users-gear icon-all-admin-nav"></i>
+                                          Danh sách quyền
+                                       </a>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     <?php }
+
+                     elseif(Session::get('admin')['chuc_vu'] == "3"){?>
+                        <div class="btnbtn home-filter-button mb-4" data-filter="all">
+                           
+                           <div class="btnbtn home-filter-button mb-4" data-filter="product">
+                              <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
+                                 <i class="fas fa-box icon-all-admin-nav"></i>
+                                 Quản lý xuất sản phẩm 
                               </a>
                            </div>
                         </div>
+                     <?php }
 
-                     
+                     elseif(Session::get('admin')['chuc_vu'] == "1"){ ?>
+                        <div class="btnbtn home-filter-button mb-4 " data-filter="all">
+                           <div class="btnbtn home-filter-button" data-filter="receipt">
+                              <a class="@yield('sidebar-active-orders')" href="{{route('quan-ly-hd')}}">
+                                 <i class="fas fa-file-invoice-dollar"></i>
+                                 Đơn hàng
+                              </a>
+                           </div>
+                           <br>
+                        </div>
+                     <?php } ?>
                   </ul>
                </div>
             </div>
@@ -218,7 +266,6 @@
             arrowDown.classList.toggle('buttons');
             arrowUp.classList.toggle('buttons');
          }
-
          var buttons = document.querySelectorAll('.accordion-button');
          buttons.forEach(function(button) {
             button.addEventListener('click', function() {

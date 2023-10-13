@@ -91,11 +91,11 @@
             </div>
           </div>
           <form action="{{route('delete-message', $message['user_id'])}}">
-            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$message['user_id']}}">
               <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
             </button>
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal{{$message['user_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">

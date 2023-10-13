@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 
 
-class tbl_permissions extends Model
+class tbl_rights_group extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'tbl_permissions';
-    protected $primaryKey = 'permission_id';
+    protected $table = 'tbl_rights_group';
     protected $fillable = [
-        'permission_name', 'id_rights_group'
+        'name_rights_group',
     ];
 
 }

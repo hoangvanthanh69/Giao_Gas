@@ -120,14 +120,16 @@
                 </a>
               </div>
               @if (session('success'))
-                <div class="notification-order">
+                <div class="change-password-customer-home d-flex">
+                  <i class="far fa-check-circle icon-check-success"></i>
                   {{ session('success') }}
                 </div>
               @endif
-            
-              @if (session('mesage'))
-                <div class="notification-date">
-                  {{ session('mesage') }}
+
+              @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                  <i class="fas fa-ban icon-check-cancel"></i>
+                  {{ session('message') }}
                 </div>
               @endif
 

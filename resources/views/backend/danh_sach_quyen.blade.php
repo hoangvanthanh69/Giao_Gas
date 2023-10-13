@@ -1,17 +1,14 @@
 @extends('layouts.admin_gas')
-@section('sidebar-active-list-permissions', 'active' )
+@section('sidebar-active-permissions', 'active' )
 @section('content')
 
     <div class="col-10 nav-row-10 ">   
 
         <div class="card mb-3 product-list element_column " data-item="product">
             <div class="card-header">
-                <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-phan-quyen')}}">Danh sách phân quyền</a></span>
+                <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="">Danh sách quyền</a></span>
             </div>
             <div class="card-body">
-                <div class="search-infor-amdin-form-staff mt-3">
-                  <a class="add-product" href="{{route('add-role-permission')}}">Gán quyền cho nhân viên</a>
-                </div>
                 @if (session('success'))
                     <div class="change-password-customer-home d-flex">
                     <i class="far fa-check-circle icon-check-success"></i>
@@ -28,37 +25,30 @@
                     <thead>
                         <tr class="tr-name-table">
                             <th class="width-stt">STT</th>
-                            <th>Tên Nhân Viên</th>
-                            <th>Thiết lập quyền</th>
+                            <th>Tên Quyền</th>
+                            <th>Nhóm Quyền</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody class="infor">
-                        @php
-                            $count = 1;
-                        @endphp
-                        @foreach ($admin_Names as $admin_id => $admin_name)
+                        @foreach ($tbl_permissions as $key => $val)
                             <tr class="hover-color">
-                                <td>{{$count++}}</td>
-                                <td>ID: {{$admin_id}} - {{$admin_name }} </td>
-                                <td>
-                                    @foreach ($permissionsNames[$admin_id] as $permission)
-                                        <span class="ms-2">{{ $permission }}</span>
-                                    @endforeach
-                                </td>
+                                <td>{{$key+1}}</td>
+                                <td>{{$val->permission_name}}</td>
+                                <td>{{$rights_group[$val['id_rights_group']]}}</td>
                                 <td class="function-icon">
-                                    <form action="{{ route('edit-role-permissions', ['id_admin' => $admin_id]) }}">
+                                    <form action="{{route('edit-permissions', $val['permission_id'])}}">
                                         <button class="summit-add-product-button" type='submit'>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </form>
-                            
-                                    <form action="">
-                                        <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
+                
+                                    <form action="{{route('delete-permissions', $val['permission_id'])}}">
+                                        <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['permission_id']}}">
+                                            <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModal{{$val['permission_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">

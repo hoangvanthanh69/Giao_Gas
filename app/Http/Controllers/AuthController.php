@@ -26,8 +26,6 @@ class AuthController extends Controller
     function dangnhap(Request $request){
         $data = $request -> all();
         $password = $data['password'];
-        // $user = users::where(['email' => $data['email'], 'password' => $password])->first();
-        // dd(is_numeric( $data['user_name']));
         if(is_numeric( $data['user_name'])){
             $user = users::where(['phone' => $data['user_name'],'password' => $password])->first();
         }
@@ -69,11 +67,6 @@ class AuthController extends Controller
             if ($existingEmailUser) {
                 return redirect()->route('register')->with('mesage', 'Email đã tồn tại, Vui lòng sử dụng email khác.');
             }
-            // if ($existingEmailUser) {
-            //     dd(true, 'email đã tồn tại'); // Email đã tồn tại
-            // } else {
-            //     dd(false, 'email k tồn tại');// Email chưa tồn tại
-            // }
         }
         if ($existingPhoneUser) {
             return redirect()->route('register')->with('mesage', 'Số điện thoại đã tồn tại');
@@ -140,12 +133,8 @@ class AuthController extends Controller
     public function handleGoogleCallback(Request $request){
         try {
             $user = Socialite::driver('google')->user();
-
-            // Kiểm tra xem người dùng đã đăng nhập trước đó bằng Google hay chưa
             $findUser = users::where('google_id', $user->id)->first();
-
             if ($findUser) {
-                // Đăng nhập người dùng
                 Session::put('home', [
                     'id' => $findUser->id,
                     'email' => $findUser->email,

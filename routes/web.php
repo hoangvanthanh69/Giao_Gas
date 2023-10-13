@@ -333,11 +333,24 @@ Route::post('role-permissions', [PermissionsController::class, 'role_permissions
 // hiển thị giao diện chỉnh sủa gán qyền
 Route::get('edit-role-permissions/{id_admin}', [PermissionsController::class, 'edit_role_permissions'])->name('edit-role-permissions');
 
+// hiển thị thêm nhóm quyền
+Route::get('/add-rights-group', [PermissionsController::class, 'add_rights_group'])->name('add-rights-group');
 
+// xử lý thêm nhóm quyền
+Route::post('/add-rights-groups', [PermissionsController::class, 'add_rights_groups'])->name('add-rights-groups');
+
+// dánh sách quyền
+Route::get('/danh-sach-quyen', [PermissionsController::class, 'danh_sach_quyen'])->name('danh-sach-quyen');
+
+// chỉnh sửa quyền
+Route::get('/edit-permissions/{permission_id}', [PermissionsController::class, 'edit_permissions'])->name('edit-permissions');
+Route::post('/update-permissions/{permission_id}', [PermissionsController::class, 'update_permissions'])->name('update-permissions');
+
+// xóa quyền
+Route::get('/delete-permissions/{permission_id}', [PermissionsController::class, 'delete_permissions'])->name('delete-permissions');
 
 //  quản lý sản phẩm
-Route:: get('/admin/quan-ly-kho-sp', [ProductController::class, 'quan_ly_sp'] )->name('quan-ly-sp')->middleware('check.permission:1');
-
+Route::get('/admin/quan-ly-kho-sp', [ProductController::class, 'quan_ly_sp'] )->name('quan-ly-sp')->middleware('check.permission:1');
 
 // quản lý kho
 Route::get('admin/quan-ly-nhap-kho', [ProductController::class, 'quan_ly_kho'])->name('quan-ly-kho')->middleware('check.permission:2');

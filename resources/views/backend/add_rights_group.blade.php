@@ -5,7 +5,7 @@
         <div class="col-10 nav-row-10 ">   
             <div class="mb-4 product-list-staff-add">
                 <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-phan-quyen')}}">Quản lý phân quyền /</a>
-                <a class="text-decoration-none color-name-admin-add" href="{{route('add-permissions')}}">Thêm quyền</a>
+                    <a class="text-decoration-none color-name-admin-add" href="">Thêm nhóm quyền</a>
                 </span>
             </div>
             <div class="add-staff-form">
@@ -22,33 +22,19 @@
                     </div>
                 @endif
                 <div class="add-staff-heading-div">
-                    <div class="search-infor-amdin-form-staff mt-3">
-                    <a class="add-product" href="{{route('add-rights-group')}}">Thêm nhóm quyền</a>
-                    </div>
+                    <span>Tạo mới nhóm quyền</span>
                 </div>
-                <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-permission')}}">
+                <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-rights-groups')}}">
                     @csrf
                     <div class="col-4">
                         <span class="name-add-product-all" for="">Nhóm quyền
                             <span class="color-required fw-bolder">*</span>
                         </span>
-                        <select name="id_rights_group" class="form-select-delivery mt-2">
-                            <option value="">--- Chọn ---</option>
-                            @foreach($tbl_rights_group as $rights_group)
-                                <option value="{{$rights_group->id}}">{{$rights_group->id}} - {{$rights_group->name_rights_group}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-4">
-                        <span class="name-add-product-all" for="">Tên quyền
-                            <span class="color-required fw-bolder">*</span>
-                        </span>
-                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="permission_name">
+                        <input class="input-add-product col-11 mt-2 ps-2" type="text" name="name_rights_group">
                     </div>
 
                     <div class="text-center mt-4">
-                        <a class="back-product" href="{{route('add-role-permission')}}">Trở lại</a>
+                        <a class="back-product" href="{{route('add-permissions')}}">Trở lại</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
                 </form>
@@ -60,15 +46,13 @@
     $(document).ready(function(){
     	$("#signupForm").validate({
             rules: {
-                permission_name: {required: true, maxlength: 30},
-                id_rights_group: "required",      
+                name_rights_group: {required: true, maxlength: 30},
             },
             messages: {
-                permission_name: {
-                    required: "Nhập tên quyền",
-                    maxlength: "Nhập tên ngắn hơn"
+                name_rights_group: {
+                    required: "Nhập tên nhóm quyền",
+                    maxlength: "Nhập ngắn hơn"
                 },
-                id_rights_group: "Chọn nhóm quyền",
             },
             errorElement: "div",
             errorPlacement: function (error, element) {

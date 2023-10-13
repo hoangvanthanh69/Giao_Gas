@@ -515,7 +515,7 @@ class index_backend extends Controller
             $reply->delete();
         }
         $tbl_comment->delete();
-        return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Xóa thành công']);
+        return redirect()->route('quan-ly-binh-luan')->with(['success' => 'Xóa thành công']);
     }
 
     //xóa trả lời bình luận
@@ -523,7 +523,7 @@ class index_backend extends Controller
         $replyComment = tbl_comment::find($id);
         // print_r($replyComment);die;
         $replyComment->delete();
-        return redirect()->route('quan-ly-binh-luan')->with(['message' => 'Xóa bình luận thành công']);
+        return redirect()->route('quan-ly-binh-luan')->with(['success' => 'Xóa bình luận thành công']);
     }
 
     // // quản lý tin nhắn
@@ -568,7 +568,7 @@ class index_backend extends Controller
     function delete_message($user_id){
         $tbl_message = tbl_message::where('user_id', $user_id);
         $tbl_message -> delete();
-        return redirect()->route('quan-ly-tin-nhan')->with(['message' => 'Xóa thành công']);
+        return redirect()->route('quan-ly-tin-nhan')->with(['success' => 'Xóa thành công']);
     }
     
 

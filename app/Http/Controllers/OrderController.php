@@ -43,8 +43,6 @@ class OrderController extends Controller
             return redirect()->route('login');
         }
         $order_product = order_product::find($id);
-        //    echo " <pre>";
-        //    print_r($staff);
         if (!$order_product) {
             return redirect()->route('quan_ly_hd')->with('error', 'Không tìm thấy đơn hàng.');
         }
@@ -70,7 +68,7 @@ class OrderController extends Controller
     function delete_order($id){
         $order_product = order_product::find($id);
         $order_product->delete();
-        return redirect()->route('quan-ly-hd')->with('message','Xóa đơn hàng thành công');;
+        return redirect()->route('quan-ly-hd')->with('success','Xóa đơn hàng thành công');;
     }
 
     //lọc đơn hàng theo loại và trạng thái
