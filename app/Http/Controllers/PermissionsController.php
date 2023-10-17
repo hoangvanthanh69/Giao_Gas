@@ -20,21 +20,24 @@ class PermissionsController extends Controller
         $permissionsNames = [];
         foreach ($tbl_role_permissions as $name) {
             $admin_id = $name->id_admin;
-            $admin_name = tbl_admin::find($admin_id)->admin_name;
-            if (!isset($admin_Names[$admin_id])) {
-                $admin_Names[$admin_id] = $admin_name;
-                $permissionsNames[$admin_id] = [];
-            }
-            $infor_permission = json_decode($name->id_permissions, true);
-            if (is_array($infor_permission)) {
-                foreach ($infor_permission as $infor) {
-                    $permission = tbl_permissions::find($infor);
-                    if ($permission) {
-                        $rightsGroup = tbl_rights_group::find($permission->id_rights_group);
-                        if ($rightsGroup) {
-                            $rightsGroupName = $rightsGroup->name_rights_group;
-                            if (!in_array($rightsGroupName, $permissionsNames[$admin_id])) {
-                                $permissionsNames[$admin_id][] = $rightsGroupName;
+            $tbl_admin = tbl_admin::find($admin_id);
+            if ($tbl_admin) {
+                $admin_name = $tbl_admin;
+                if (!isset($admin_Names[$admin_id])) {
+                    $admin_Names[$admin_id] = $admin_name;
+                    $permissionsNames[$admin_id] = [];
+                }
+                $infor_permission = json_decode($name->id_permissions, true);
+                if (is_array($infor_permission)) {
+                    foreach ($infor_permission as $infor) {
+                        $permission = tbl_permissions::find($infor);
+                        if ($permission) {
+                            $rightsGroup = tbl_rights_group::find($permission->id_rights_group);
+                            if ($rightsGroup) {
+                                $rightsGroupName = $rightsGroup->name_rights_group;
+                                if (!in_array($rightsGroupName, $permissionsNames[$admin_id])) {
+                                    $permissionsNames[$admin_id][] = $rightsGroupName;
+                                }
                             }
                         }
                     }
@@ -107,7 +110,7 @@ class PermissionsController extends Controller
         return redirect()->route('quan-ly-phan-quyen')->with('success', 'gán quyền thành công');
     }
 
-    // giao diện edit quyền cho quản trị viên
+    // giao diện edit gán quyền cho quản trị viên
     function edit_role_permissions($id_admin){
         if (!Session::get('admin')) {
             return redirect()->route('login');
@@ -116,9 +119,17 @@ class PermissionsController extends Controller
         $admin = tbl_admin::find($id_admin);
         $admin_name = $admin->admin_name;
         $tbl_permissions = tbl_permissions::get();
+        $permissionsByRightsGroup = [];
+        foreach ($tbl_permissions as $permission) {
+            $rightsGroupName = tbl_rights_group::find($permission->id_rights_group)->name_rights_group;
+            if (!isset($permissionsByRightsGroup[$rightsGroupName])) {
+                $permissionsByRightsGroup[$rightsGroupName] = [];
+            }
+            $permissionsByRightsGroup[$rightsGroupName][] = $permission;
+        }
         $selectedPermissions = json_decode($role_permissions->id_permissions, true);
         return view('backend.edit_role_permissions', ['role_permissions' => $role_permissions, 'admin_name' => $admin_name, 
-        'tbl_permissions' => $tbl_permissions, 'selectedPermissions' => $selectedPermissions]);
+        'tbl_permissions' => $tbl_permissions, 'selectedPermissions' => $selectedPermissions, 'permissionsByRightsGroup' => $permissionsByRightsGroup]);
     }
 
     // hiển thị thêm nhóm quyền
@@ -170,6 +181,106 @@ class PermissionsController extends Controller
         $tbl_permissions = tbl_permissions::find($id);
         $tbl_permissions -> delete();
         return redirect()->route('danh-sach-quyen')->with('success', 'Xóa quyền thành công');
+    }
+    
+    // xóa gán quyền
+    function delete_role_permissions($id_admin){
+        $role_permissions = tbl_role_permissions::where('id_admin', $id_admin)->first();
+        $role_permissions -> delete();
+        return redirect()->route('quan-ly-phan-quyen')->with('success', 'Xóa gán quyền thành công');
+    }
+
+    // danh sách nhóm quyền
+    function danh_sach_nhom_quyen(){
+        $tbl_rights_group = tbl_rights_group::get();
+        return view('backend.danh_sach_nhom_quyen', ['tbl_rights_group' => $tbl_rights_group]);
+    }
+
+    // giao diện chỉnh sửa nhóm quyền
+    function edit_tbl_rights_group($id){
+        $tbl_rights_group = tbl_rights_group::find($id);
+        return view('backend.edit_tbl_rights_group', ['tbl_rights_group' => $tbl_rights_group]);
+    }
+
+    // xử lý chỉnh sửa nhóm quyền
+    function update_tbl_rights_group(Request $request, $id){
+        $tbl_rights_group = tbl_rights_group::find($id);
+        $tbl_rights_group -> name_rights_group = $request->name_rights_group;
+        $tbl_rights_group -> save();
+        return redirect()->route('danh-sach-nhom-quyen')->with('success', 'Cập nhật nhóm quyền thành công');
+    }
+
+    // tìm kiếm quyền
+    function search_permissions(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $tbl_permissions = tbl_permissions::where(function($query) use ($search) {
+                $query->where('permission_id', 'LIKE', "%$search%")
+                      ->orWhere('permission_name', 'LIKE', "%$search%");
+            })->get();
+            $rights_group = [];
+            foreach ($tbl_permissions as $name_group) {
+                $rights_group[$name_group->	id_rights_group] = tbl_rights_group::find($name_group->id_rights_group)->name_rights_group;
+            }
+            if($tbl_permissions->isEmpty()){
+                return back()->with('message', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.danh_sach_quyen', ['tbl_permissions' => $tbl_permissions, 'search' => $search, 'rights_group'=>$rights_group]);
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    // tìm kiếm gán quyền
+    function search_role_permissions(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $tbl_role_permissions = tbl_role_permissions::where(function($query) use ($search) {
+                $query->where('id_admin', 'LIKE', "%$search%");
+            })->get();
+            $admin_Names = [];
+            $permissionsNames = [];
+            foreach ($tbl_role_permissions as $name) {
+                $admin_id = $name->id_admin;
+                $tbl_admin = tbl_admin::find($admin_id);
+                if ($tbl_admin) {
+                    $admin_name = $tbl_admin;
+                    if (!isset($admin_Names[$admin_id])) {
+                        $admin_Names[$admin_id] = $admin_name;
+                        $permissionsNames[$admin_id] = [];
+                    }
+                    $infor_permission = json_decode($name->id_permissions, true);
+                    if (is_array($infor_permission)) {
+                        foreach ($infor_permission as $infor) {
+                            $permission = tbl_permissions::find($infor);
+                            if ($permission) {
+                                $rightsGroup = tbl_rights_group::find($permission->id_rights_group);
+                                if ($rightsGroup) {
+                                    $rightsGroupName = $rightsGroup->name_rights_group;
+                                    if (!in_array($rightsGroupName, $permissionsNames[$admin_id])) {
+                                        $permissionsNames[$admin_id][] = $rightsGroupName;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if($tbl_role_permissions->isEmpty()){
+                return back()->with('message', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.quan_ly_phan_quyen', ['tbl_role_permissions' => $tbl_role_permissions, 'search' => $search, 'admin_Names' => $admin_Names, 'permissionsNames' => $permissionsNames]);
+            }
+        } else {
+            return redirect()->back();
+        }
     }
     
 }

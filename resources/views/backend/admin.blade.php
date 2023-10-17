@@ -7,6 +7,18 @@
     <div class="row">
         <!-- sản phẩm -->
         <div class="col-4 min-height-prodcuct">
+            @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                <i class="far fa-check-circle icon-check-success"></i>
+                {{ session('success') }}
+                </div>
+            @endif
+            @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                <i class="fas fa-ban icon-check-cancel"></i>
+                {{ session('message') }}
+                </div>
+            @endif
             <div class="statistical-all img-admin-chart">
                 <img class="img-statistical-admin img-statistical-product" src="{{asset('backend/img/png-clipart-line-chart-graph-of-a-function-line-angle-text-thumbnail.png')}}" alt="">
                 <div class="row no-gutters infor-statisticala-admin">

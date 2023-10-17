@@ -92,6 +92,7 @@
                                         @foreach($tbl_discount as $discount)
                                             @if($discount -> status != 2)
                                                 <option value="{{$discount->ma_giam}}">{{$discount -> ma_giam}} - {{number_format($discount -> gia_tri)}}</option>
+                                                <input type="hidden" name="reduced_value" value="{{$discount -> gia_tri}}">
                                             @endif
                                         @endforeach
                                 </select>
@@ -106,6 +107,7 @@
                         <div class="mt-4">
                             <div id="selectedProducts"></div>
                             <input type="hidden" name="tong" id="tong" value="">
+                            <!-- <input type="hidden" name="reduced_value" id="tong" value=""> -->
                         </div>
 
                         <div class="mt-4 sumbmit-order-product" id="show_infor">

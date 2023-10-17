@@ -18,6 +18,18 @@
                 </div>
             </form>
             <div class="card-body">
+            @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                <i class="far fa-check-circle icon-check-success"></i>
+                {{ session('success') }}
+                </div>
+            @endif
+            @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                <i class="fas fa-ban icon-check-cancel"></i>
+                {{ session('message') }}
+                </div>
+            @endif
                 <div class="table-responsive table-list-product">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>

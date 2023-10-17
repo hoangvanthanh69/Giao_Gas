@@ -13,6 +13,7 @@ use App\Models\add_order;
 use App\Models\tbl_discount;
 use App\Models\tbl_comment;
 use App\Models\tbl_message;
+use App\Models\product_warehouse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Session;
 use DB;
@@ -45,9 +46,11 @@ class index_backend extends Controller
         $tong_gia=order_product::where('status','=',3)->sum('tong');
         $product_all=product::sum('quantity');
         $count_order = order_product::count();
-        $data_price = product::select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        $data_price1 = product::where('loai','=',1)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
-        $data_price2 = product::where('loai','=',2)->select(DB::raw('sum(quantity * price) as total')) ->first()->total;
+        $data_price = product_warehouse::select(DB::raw('sum(total) as total')) ->first()->total;
+        $data_price1 = DB::table('product_warehouse')->join('tbl_product', 'product_warehouse.product_id', '=', 'tbl_product.id')
+            ->where('tbl_product.loai', 1)->sum('total');
+        $data_price2 = DB::table('product_warehouse')->join('tbl_product', 'product_warehouse.product_id', '=', 'tbl_product.id')
+            ->where('tbl_product.loai', 2)->sum('total');
         $orders = order_product::all();
         $productsData = [];
         foreach ($orders as $order) {
@@ -122,8 +125,6 @@ class index_backend extends Controller
         $staff = add_staff::get()->toArray();
         foreach ($tbl_admin as &$tbl_admins) {
             $admin_name = $tbl_admins['admin_name'];
-            $order_count = order_product::where('admin_name', $admin_name)->count();
-            $tbl_admins['order_count'] = $order_count;
         }
         return view('backend.quan_ly_tk_admin', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
     }
@@ -216,7 +217,7 @@ class index_backend extends Controller
         $admin->save();
         $staff->status_add = true;
         $staff->save();
-        return redirect()->route('quan-ly-tk-admin');
+        return redirect()->route('quan-ly-tk-admin')->with('success','Thêm tài khoản thành công');
     }
 
     // giao diện chỉnh sửa tài khoản admin
@@ -263,7 +264,7 @@ class index_backend extends Controller
         }
 
         // cho khách hàng đặt qua số điện thoại có user_id == null
-        $order_products_null_user = order_product::where('user_id', 'NULL')->get();
+        $order_products_null_user = order_product::where('user_id', 'null')->get();
         $orderCounts = [];
         foreach ($order_products_null_user as $order) {
             $userId = $order->user_id;
@@ -296,7 +297,6 @@ class index_backend extends Controller
         }
         $dates = now()->setTimezone('Asia/Ho_Chi_Minh');;
         $total_price_today = order_product::where('status', '=', 3)->whereDate('created_at', '=', $dates)->sum('tong');
-        // print_r($total_price_today);die;
         $date = $request->input('date', date('d-m-Y'));
         $tong_gia_ngay = order_product::where('status', '=', 3)->whereDate('created_at', '=', $date)->sum('tong');
         $month = $request->input('month', date('m-Y'));
@@ -406,6 +406,8 @@ class index_backend extends Controller
         // $order->tong = $totalPrice;
         $tong = $request->input('tong');
         $order->tong = $tong;
+        $reduced_value = $request->input('reduced_value');
+        $order->reduced_value = $reduced_value;
         $order->payment_status = 1;
         // giảm số lượng mã giảm giá
         $couponCode = $request->input('admin_name');
@@ -414,8 +416,6 @@ class index_backend extends Controller
                 $order->save();
                 $this->update_discount_quantitys($couponCode);
             }
-
-        // print_r($tong);die;
         $order->save();
         return redirect()->route('order_phone')->with('success', 'Đặt giao gas thành công');
     }
@@ -570,6 +570,33 @@ class index_backend extends Controller
         $tbl_message -> delete();
         return redirect()->route('quan-ly-tin-nhan')->with(['success' => 'Xóa thành công']);
     }
+
+    // tìm kiếm bình luận
+    function search_comment(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $tbl_comment = tbl_comment::where(function($query) use ($search) {
+                $query->where('id', 'LIKE', "%$search%")
+                      ->orWhere('comment_name', 'LIKE', "%$search%");
+            })->get();
+            $comment_rep = tbl_comment::where('comment_parent_comment', '>', 0)->orderByDesc('id')->get();
+            $staffNames = [];
+            foreach ($tbl_comment as $comment) {
+                $staffNames[$comment->staff_id] = tbl_admin::find($comment->staff_id)->admin_name;
+            }
+            if($tbl_comment->isEmpty()){
+                return back()->with('message', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.quan_ly_binh_luan', ['tbl_comment' => $tbl_comment, 'search' => $search, 'comment_rep' => $comment_rep, 'staffNames' => $staffNames]);
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+    
     
 
 }

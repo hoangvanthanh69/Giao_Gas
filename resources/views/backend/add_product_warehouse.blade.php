@@ -11,6 +11,18 @@
                 <div class="ms-4 mb-3">
                     <a class="add-product fs-6" href="{{route('add-product-admin')}}"><i class="fa-solid fa-plus"></i> Sản phẩm</a>
                 </div>
+                @if (session('success'))
+                    <div class="change-password-customer-home d-flex">
+                    <i class="far fa-check-circle icon-check-success"></i>
+                    {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('message'))
+                    <div class="success-customer-home-notification d-flex">
+                    <i class="fas fa-ban icon-check-cancel"></i>
+                    {{ session('message') }}
+                    </div>
+                @endif
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='POST' action="{{route('add-warehouse')}}">
                     @csrf
                     <div class="col-4">

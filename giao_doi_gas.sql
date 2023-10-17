@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2023 at 04:04 PM
+-- Generation Time: Oct 16, 2023 at 06:39 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -79,7 +79,7 @@ CREATE TABLE `add_staff` (
 --
 
 INSERT INTO `add_staff` (`id`, `last_name`, `birth`, `chuc_vu`, `date_input`, `phone`, `luong`, `taikhoan`, `dia_chi`, `status_add`, `image_staff`, `CCCD`, `gioi_tinh`) VALUES
-(44, 'Lê Văn Xuân', '2001-03-28', '2', '2022-01-14', '0837641469', 10000000, 'vanxuan@gmail.com', 'xã Tân Hải, huyện Phú Tân, tỉnh Cà Mau', 1, 'vanthanh34.jpg', 11223311, 1),
+(44, 'Lê Văn Xuân', '2001-03-28', '1', '2022-01-14', '0837641469', 80000000, 'vanxuan@gmail.com', 'xã Tân Hải, huyện Phú Tân, tỉnh Cà Mau', 1, 'vanthanh34.jpg', 11223311, 1),
 (45, 'Nguyễn Văn Anh', '1999-07-22', '3', '2021-08-26', '0848828730', 6000000, 'anh12@gmail.com', 'xã Hòa An, huyện Phụng Hiệp, tỉnh Hậu Giang', 1, 'chaien93.jpg', 114422334, 1),
 (46, 'Lê Ngọc Quan', '2000-11-06', '1', '2022-06-22', '0919954639', 6000000, 'quan13@gmail.com', 'phường Thới Hòa, quận Ô Môn, thành phố Cần Thơ', 1, 'dekisugi42.jpg', 368741235, 1),
 (47, 'Hồ Xuân Minh', '1998-02-14', '1', '2022-01-19', '0717756873', 6000000, 'minh14@gmail.com', 'xã Phú Hưng, huyện Cái Nước, tỉnh Cà Mau', 1, 'doraemon27.png', 887462354, 1),
@@ -89,7 +89,7 @@ INSERT INTO `add_staff` (`id`, `last_name`, `birth`, `chuc_vu`, `date_input`, `p
 (62, 'Hà Văn Ý', '1997-12-30', '1', '2022-08-04', '0837641469', 6000000, 'vany114@gmail.com', 'Phước Long, Bạc Liêu', 1, 'z2067482415178_9d8517f9c18dd8cfb626717a14eceba712.jpg', 230474149, 1),
 (66, 'Hoàng Văn Thanh', '2001-03-08', '2', '2023-03-03', '0837641469', 11000000, 'thanh@gmail.com', '672, đường 30/4, phường Hưng Lợi Quận Ninh Kiều, Cần Thơ', 1, 'ưu60.jpg', 88747469, 1),
 (68, 'Lý Minh Tâm', '1999-03-12', '1', '2022-03-02', '0783382169', 6000000, 'tam@gmai.com', 'xã Tân Hải, huyện Phú Tân, tình Cà Mau', 0, 'nobita266.png', 11235986, 1),
-(70, 'Hà Ngọc Ý', '2002-05-20', '3', '2023-03-01', '0848875631', 6000000, 'ngocy@gmai.com', 'Mang Thích, Vĩnh Long', 0, 'hình chỉnh42.jpg', 124789865, 2),
+(70, 'Hà Ngọc Ý', '2002-05-20', '3', '2023-03-01', '0848875631', 6000000, 'ngocy@gmai.com', 'Mang Thích, Vĩnh Long', 1, 'hình chỉnh42.jpg', 124789865, 2),
 (82, 'Ngô Văn Minh Khôi', '2001-08-06', '3', '2023-08-15', '0847968769', 6000000, 'vankhoi86@gmail.com', 'trà ôn, Vĩnh Long', 0, 'nobita20.png', 88457456, 2),
 (86, 'Haaaaaa', '2023-08-28', '1', '2023-09-05', '0837641468', 93333, 'aa@gmai.com', 'Cà Mau', 0, 'chaien21.jpg', 11223311, 1);
 
@@ -114,7 +114,8 @@ CREATE TABLE `danh_gia` (
 --
 
 INSERT INTO `danh_gia` (`id`, `Comment`, `created_at`, `staff_id`, `order_id`, `rating`, `user_id`) VALUES
-(101, 'null', '2023-10-03 05:23:53', 25, 292, 5, 62);
+(101, 'null', '2023-10-03 05:23:53', 25, 292, 5, 62),
+(102, 'null', '2023-10-14 05:50:51', 31, 299, 5, 15);
 
 -- --------------------------------------------------------
 
@@ -189,12 +190,14 @@ CREATE TABLE `order_product` (
 --
 
 INSERT INTO `order_product` (`id`, `nameCustomer`, `phoneCustomer`, `diachi`, `country`, `state`, `district`, `ghichu`, `loai`, `tong`, `status`, `user_id`, `admin_name`, `order_code`, `created_at`, `infor_gas`, `reduced_value`, `coupon`, `payment_status`) VALUES
-(291, 'Thanh Hoàng', '0837641469', 'đường 30/4, hẻm 672, 127/78', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'giao hàng nhanh', '2', 526900, '3', '62', 'Nguyễn Văn Anh', '650bab0303a8e', '2023-08-20 02:31:31', '[{\"product_id\":182,\"product_name\":\"Gas Petrolimex Van Ch\\u1ee5p 12kg\",\"product_price\":536900,\"quantity\":\"1\"}]', '10000', 'CNM0012', 1),
 (292, 'Thanh Hoàng', '0837641469', 'đường 30/4', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'null', '1', 2457000, '3', '62', 'Nguyễn Văn Anh', '650bab6358558', '2023-09-21 02:33:07', '[{\"product_id\":208,\"product_name\":\"Gas Petrolimex xanh 48kg\",\"product_price\":2457000,\"quantity\":\"1\"}]', '0', NULL, 2),
 (293, 'Nguyên Mỹ Lan', '0123764789', 'Lý Thái Tổ 234/12', 'Cần Thơ', 'Cái Răng', 'Hưng Phú', 'null', '1', 1755000, '3', '44', 'Hồ Xuân Minh', '650bac18b4299', '2023-09-21 02:36:08', '[{\"product_id\":222,\"product_name\":\"gas m\\u1edbi\",\"product_price\":585000,\"quantity\":\"3\"}]', '0', NULL, 1),
 (296, 'Hồ Quỳnh Như', '0868741452', '178/673', 'Cần Thơ', 'Ô Môn', 'Thới Hòa', 'giao hàng nhanh', '1', 1483300, '3', '56', 'Nguyễn Văn Anh', '651a1e5abeec6', '2023-10-02 01:35:22', '[{\"product_id\":172,\"product_name\":\"Gas B\\u00ecnh Minh 45kg v\\u00e0ng\",\"product_price\":1483300,\"quantity\":\"1\"}]', '0', NULL, 1),
 (297, 'Thanh Hoàng', '0837641469', 'đường 30/4', 'Cần Thơ', 'Ninh Kiều', 'Hưng Lợi', 'null', '2', 578500, '4', '62', 'Chưa có người giao', '651b854c1ee02', '2023-10-03 03:06:52', '[{\"product_id\":185,\"product_name\":\"Gas B\\u00ecnh Minh V\\u00e0ng 12kg\",\"product_price\":578500,\"quantity\":\"1\"}]', '0', NULL, 1),
-(298, 'Kim Văn Tính', '0918827649', '364/986/76A', 'Cần Thơ', 'Bình thủy', 'Trà Nóc', 'null', '1', 1677000, '1', 'null', 'Chưa có người giao', '651bae1238034', '2023-10-03 06:00:50', '[{\"product_id\":176,\"product_name\":\"gas Petro Limex xanh 45kg\",\"product_price\":838500,\"quantity\":\"2\"}]', NULL, NULL, 1);
+(298, 'Kim Văn Tính', '0918827649', '364/986/76A', 'Cần Thơ', 'Bình thủy', 'Trà Nóc', 'null', '1', 1677000, '1', 'null', 'Chưa có người giao', '651bae1238034', '2023-10-03 06:00:50', '[{\"product_id\":176,\"product_name\":\"gas Petro Limex xanh 45kg\",\"product_price\":838500,\"quantity\":\"2\"}]', NULL, NULL, 1),
+(299, 'Hoàng Văn Thanh', '0837641477', 'đường 30 số nhà N12', 'Cần Thơ', 'Bình Thủy', 'Bùi Hữu Nghĩa', 'null', '2', 568500, '3', '15', 'Lê Văn Duy', '652509a0135ca', '2023-10-10 08:21:52', '[{\"product_id\":185,\"product_name\":\"Gas B\\u00ecnh Minh V\\u00e0ng 12kg\",\"product_price\":578500,\"quantity\":\"1\"}]', '10000', 'NGAYMOI365', 1),
+(300, 'Kim Văn Tính', '0918827649', '364/986/76A', 'Cần Thơ', 'Bình thủy', 'Trà Nóc', 'null', '1', 1615000, '1', 'null', 'Chưa có người giao', '652b609ae27d8', '2023-10-15 03:46:34', '[{\"product_id\":171,\"product_name\":\"Gas D\\u1ea7u Kh\\u00ed 45kg\",\"product_price\":1625000,\"quantity\":\"1\"}]', NULL, 'HOANGTHANH', 1),
+(303, 'Kim Văn Tính', '0918827649', '364/986/76A', 'Cần Thơ', 'Bình thủy', 'Trà Nóc', 'null', '1', 1680000, '1', 'null', 'Chưa có người giao', '652b6483325b0', '2023-10-15 04:03:15', '[{\"product_id\":170,\"product_name\":\"Gas Magic Flame 45kg\",\"product_price\":1690000,\"quantity\":\"1\"}]', NULL, 'HOANGTHANH', 1);
 
 -- --------------------------------------------------------
 
@@ -265,8 +268,7 @@ INSERT INTO `product_warehouse` (`id`, `quantity`, `product_id`, `staff_id`, `cr
 (53, 50, 176, 27, '2023-09-21 02:25:04', NULL, '650ba9802ec67', 645000, 32250000),
 (54, 16, 170, 26, '2023-09-21 02:26:18', NULL, '650ba9ca4ae31', 1300000, 20800000),
 (55, 2, 211, 25, '2023-09-21 02:27:20', NULL, '650baa08c0d5a', 1450000, 2900000),
-(56, 1, 208, 25, '2023-09-21 02:27:45', NULL, '650baa21ae340', 1890000, 1890000),
-(59, 10, 228, 33, '2023-10-04 04:22:55', NULL, '651ce89fe0da8', 150000, 1500000);
+(56, 1, 208, 25, '2023-09-21 02:27:45', NULL, '650baa21ae340', 1890000, 1890000);
 
 -- --------------------------------------------------------
 
@@ -291,12 +293,13 @@ INSERT INTO `tbl_admin` (`id`, `admin_email`, `admin_password`, `admin_name`, `c
 (2, 'admin@gmail.com', '123456', 'admin', '2', 'vanthanh34.jpg'),
 (25, 'anh12@gmail.com', '222222', 'Nguyễn Văn Anh', '1', 'chaien93.jpg'),
 (26, 'quan13@gmail.com', 'quan123', 'Lê Ngọc Quan', '1', 'dekisugi42.jpg'),
-(27, 'minh14@gmail.com', 'minh123', 'Hồ Xuân Minh', '1', 'doraemon27.png'),
+(27, 'minh14@gmail.com', '123456', 'Hồ Xuân Minh', '1', 'doraemon27.png'),
 (30, 'huong17@gmail.com', 'camhuong17', 'Lê Thị Cẩm Hường', '3', 'shiduku38.png'),
 (31, 'duy15@gmail.com', 'vanduy15', 'Lê Văn Duy', '1', 'shenio3.png'),
 (33, 'vany114@gmail.com', '111111', 'Hà Văn Ý', '1', 'z2067482415178_9d8517f9c18dd8cfb626717a14eceba712.jpg'),
-(36, 'vanxuan@gmail.com', '111111', 'Lê Văn Xuân', '2', 'vanthanh34.jpg'),
-(37, 'thanh@gmail.com', '11223344', 'Hoàng Văn Thanh', '2', 'ưu60.jpg');
+(37, 'thanh@gmail.com', '11223344', 'Hoàng Văn Thanh', '2', 'ưu60.jpg'),
+(40, 'ngocy@gmai.com', '123456', 'Hà Ngọc Ý', '3', 'hình chỉnh42.jpg'),
+(41, 'vanxuan@gmail.com', '111111', 'Lê Văn Xuân', '1', 'vanthanh34.jpg');
 
 -- --------------------------------------------------------
 
@@ -320,10 +323,7 @@ CREATE TABLE `tbl_comment` (
 --
 
 INSERT INTO `tbl_comment` (`id`, `comment`, `comment_name`, `comment_date`, `staff_id`, `user_id`, `status_comment`, `comment_parent_comment`) VALUES
-(142, 'nhân viên vui vẻ thân thiện, giao hàng nhanh', 'Hồ Quỳnh Như', '2023-10-02 04:17:51', 25, 56, 1, 0),
-(143, 'cảm ơn bạn đã đánh giá', 'GasTech', '2023-10-02 04:18:06', 25, 56, 0, 142),
-(144, 'Sản phẩm ổn định ok', 'Thanh Hoàng', '2023-10-04 06:25:31', 25, 62, 1, 0),
-(145, 'Nhân viên hoạt bát', 'Thanh Hoàng', '2023-10-06 03:55:14', 25, 62, 0, 0);
+(144, 'Sản phẩm ổn định ok', 'Thanh Hoàng', '2023-10-04 06:25:31', 25, 62, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -350,14 +350,13 @@ CREATE TABLE `tbl_discount` (
 --
 
 INSERT INTO `tbl_discount` (`id`, `name_voucher`, `ma_giam`, `so_luong`, `gia_tri`, `thoi_gian_giam`, `created_at`, `het_han`, `status`, `type`, `Prerequisites`) VALUES
-(2, 'HOANGTHANH', 'VT002', 2, '20000', '2023-08-01 10:00:00', '2023-08-01 02:59:36', '2023-08-08 10:00:00', 2, 2, 10000),
 (3, 'KHACHHANGMOI', 'HT001', 10, '5', '2023-08-01 10:00:00', '2023-08-01 03:04:22', '2023-08-08 10:00:00', 2, 1, 10000),
 (8, 'NGAYVUI', 'NV131', 11, '20000', '2023-08-10 13:26:00', '2023-08-10 06:26:27', '2023-08-11 13:26:00', 2, 2, 10000),
 (9, 'Gas Tech', 'GT128', 0, '10', '2023-08-12 10:21:00', '2023-08-12 03:21:13', '2023-08-17 10:21:00', 2, 1, 10000),
 (10, 'VANTHANH', 'VANTHANH2803', 6, '50000', '2023-08-12 21:22:00', '2023-08-12 14:23:03', '2023-08-14 21:22:00', 2, 2, 1000000),
 (11, 'VUIVUI', 'VUIVUI11', 8, '1', '2023-08-16 13:44:00', '2023-08-16 06:44:37', '2023-08-24 13:44:00', 2, 1, 20000),
 (13, 'gas tech xin chaos', 'GTXINCHAO1', 1, '10', '2023-08-25 10:08:00', '2023-08-25 03:08:07', '2023-08-31 10:08:00', 2, 1, 20000),
-(15, 'Ngày mới', 'NGAYMOI365', 10, '10000', '2023-10-03 12:32:00', '2023-10-03 05:33:08', '2023-12-30 12:32:00', 1, 2, 20000);
+(16, 'Hoàng Thanh', 'HOANGTHANH', 9, '10', '2023-10-15 10:45:00', '2023-10-15 03:45:24', '2023-12-20 10:45:00', 1, 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -368,9 +367,9 @@ INSERT INTO `tbl_discount` (`id`, `name_voucher`, `ma_giam`, `so_luong`, `gia_tr
 CREATE TABLE `tbl_message` (
   `id` int(11) NOT NULL,
   `message_content` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `message_name` varchar(30) NOT NULL,
-  `message_parent_message` int(11) DEFAULT NULL,
+  `message_parent_message` varchar(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -379,19 +378,46 @@ CREATE TABLE `tbl_message` (
 --
 
 INSERT INTO `tbl_message` (`id`, `message_content`, `user_id`, `message_name`, `message_parent_message`, `created_at`) VALUES
-(1, 'hello', 62, 'Thanh Hoàng', 0, '2023-10-04 06:00:27'),
-(2, 'xin chào bạn', 62, 'GasTech', 1, '2023-10-04 06:59:10'),
-(3, 'cho mình hỏi có giao tận nhà không ạ', 62, 'Thanh Hoàng', 0, '2023-10-04 11:25:03'),
-(4, 'Phí ship làm sao', 62, 'Thanh Hoàng', 0, '2023-10-04 12:14:36'),
-(5, '2aaa', 62, 'Thanh Hoàng', 0, '2023-10-05 03:42:34'),
-(6, '2aaaaa', 62, 'Thanh Hoàng', 0, '2023-10-05 03:42:41'),
-(7, '123', 62, 'Thanh Hoàng', 0, '2023-10-05 03:42:51'),
-(8, '😍', 62, 'Thanh Hoàng', 0, '2023-10-06 03:51:25'),
-(9, 'hello', 62, 'Thanh Hoàng', 0, '2023-10-06 03:51:40'),
-(10, 'xin chao a', 62, 'GasTech', 8, '2023-10-06 03:52:03'),
-(26, 'xin chào', 62, 'Thanh Hoàng', 0, '2023-10-06 07:07:34'),
-(27, 'mình có bình nhỏ không ạ', 62, 'Thanh Hoàng', 0, '2023-10-06 07:37:48'),
-(29, 'This html snippet was created to help web designers, web developers, front-end and back-end developer save time. Use it for free in your project and build your app faster, You can also download the HTML, CSS, and JS code.', 62, 'Thanh Hoàng', 0, '2023-10-06 07:38:41');
+(157, 'helo', 44, 'Nguyên Mỹ Lan', '0', '2023-10-13 14:35:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_permissions`
+--
+
+CREATE TABLE `tbl_permissions` (
+  `permission_id` int(11) NOT NULL,
+  `permission_name` varchar(100) NOT NULL,
+  `id_rights_group` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_permissions`
+--
+
+INSERT INTO `tbl_permissions` (`permission_id`, `permission_name`, `id_rights_group`, `created_at`) VALUES
+(2, 'Chỉnh sửa sản phẩm', 1, '2023-10-12 03:25:36'),
+(3, 'Xóa sản phẩm', 1, '2023-10-13 07:30:46'),
+(4, 'Thêm nhập kho sản phẩm', 2, '2023-10-13 08:01:44'),
+(5, 'Chỉnh sửa nhập kho sp', 2, '2023-10-13 09:21:16'),
+(6, 'Xóa nhập kho sản phẩm', 2, '2023-10-13 09:21:34'),
+(7, 'Xem danh sách tồn kho', 3, '2023-10-13 09:31:00'),
+(8, 'Xem danh sách đơn hàng', 4, '2023-10-13 09:34:03'),
+(9, 'Xóa đơn hàng', 4, '2023-10-13 09:34:14'),
+(10, 'Thêm đơn hàng mới', 4, '2023-10-13 09:34:41'),
+(11, 'Thêm nhân viên', 5, '2023-10-13 09:35:38'),
+(12, 'Chỉnh sửa nhân viên', 5, '2023-10-13 09:35:49'),
+(13, 'Xóa nhân viên', 5, '2023-10-13 09:36:00'),
+(15, 'Thêm sản phẩm', 1, '2023-10-13 14:41:46'),
+(16, 'Gán quyền cho nhân viên', 7, '2023-10-16 04:10:46'),
+(17, 'Cập nhật gán quyền cho nv', 7, '2023-10-16 04:11:30'),
+(18, 'Xóa gán quyền', 7, '2023-10-16 04:11:44'),
+(19, 'Xem ds quyền', 7, '2023-10-16 04:12:48'),
+(20, 'Chỉnh sửa quyền', 7, '2023-10-16 04:13:21'),
+(21, 'Thêm quyền mới', 7, '2023-10-16 04:15:12'),
+(22, 'Xem ds nhóm quyền', 7, '2023-10-16 04:15:39');
 
 -- --------------------------------------------------------
 
@@ -416,20 +442,20 @@ CREATE TABLE `tbl_product` (
 --
 
 INSERT INTO `tbl_product` (`id`, `name_product`, `loai`, `original_price`, `price`, `image`, `quantity`, `unit`, `created_at`) VALUES
-(170, 'Gas Magic Flame 45kg', '1', NULL, 1690000, 'binh-gas-cong-nghiep-45kg43.jpg', 16, 'bình', '2023-09-17 14:09:32'),
-(171, 'Gas Dầu Khí 45kg', '1', NULL, 1625000, 'binh-gas-dau-khi-45kg85.png', 50, 'bình', '2023-09-17 14:09:32'),
+(170, 'Gas Magic Flame 45kg', '1', NULL, 1690000, 'binh-gas-cong-nghiep-45kg43.jpg', 8, 'bình', '2023-09-17 14:09:32'),
+(171, 'Gas Dầu Khí 45kg', '1', NULL, 1625000, 'binh-gas-dau-khi-45kg85.png', 49, 'bình', '2023-09-17 14:09:32'),
 (172, 'Gas Bình Minh 45kg vàng', '1', NULL, 1483300, 'gas-binhminh-45kg57.png', 49, 'bình', '2023-09-17 14:09:32'),
 (174, 'Gas Gia Đình xám 45kg', '1', NULL, 1547000, 'gas-giadinh-45kg22.png', 50, 'bình', '2023-09-17 14:09:32'),
-(175, 'Gas Petro Hồng Hà 45kg', '1', NULL, 1560000, 'gas-hongha-45kg50.jpg', 50, 'bình', '2023-09-17 14:09:32'),
+(175, 'Gas Petro Hồng Hà 45kg', '1', NULL, 1560000, 'gas-hongha-45kg50.jpg', 48, 'bình', '2023-09-17 14:09:32'),
 (176, 'gas Petro Limex xanh 45kg', '1', NULL, 838500, 'Petrolimex 48kg51.jpg', 48, 'bình', '2023-09-17 14:09:32'),
 (177, 'Gas SaiGon Petro xám 45kg', '1', NULL, 1651000, 'gas-saigon-petro-45kg39.jpg', 50, 'bình', '2023-09-17 14:09:32'),
 (178, 'Gas Vạn Lộc Petro hồng 45kg', '1', NULL, 1530100, 'gas-van-loc-45kg71.png', 50, 'bình', '2023-09-17 14:09:32'),
-(179, 'Gas Petro Limex xanh 48kg', '1', NULL, 2147600, 'Petrolimex 48kg97.jpg', 50, 'bình', '2023-09-17 14:09:32'),
+(179, 'Gas Petro Limex xanh 48kg', '1', NULL, 2147600, 'Petrolimex 48kg97.jpg', 49, 'bình', '2023-09-17 14:09:32'),
 (180, 'Gas Petro Limex hồng 45kg', '1', NULL, 2210000, 'PetroVietNam 45kg màu hồng88.jpg', 50, 'bình', '2023-09-17 14:09:32'),
 (181, 'Gas Total 45kg xám', '1', NULL, 1677000, 'total-gas-45kg42.png', 50, 'bình', '2023-09-17 14:09:32'),
-(182, 'Gas Petrolimex Van Chụp 12kg', '2', NULL, 536900, 'gas_petrolimex_van-chup-12kg41.jpg', 48, 'bình', '2023-09-17 14:09:32'),
+(182, 'Gas Petrolimex Van Chụp 12kg', '2', NULL, 536900, 'gas_petrolimex_van-chup-12kg41.jpg', 44, 'bình', '2023-09-17 14:09:32'),
 (183, 'Gas SH Petro xanh 12kg', '2', NULL, 494000, 'gas_shp_petro_12kg84.jpg', 50, 'bình', '2023-09-17 14:09:32'),
-(185, 'Gas Bình Minh Vàng 12kg', '2', NULL, 578500, 'gas-binh-minh-mau-vang-12kg16.jpg', 50, 'bình', '2023-09-17 14:09:32'),
+(185, 'Gas Bình Minh Vàng 12kg', '2', NULL, 578500, 'gas-binh-minh-mau-vang-12kg16.jpg', 49, 'bình', '2023-09-17 14:09:32'),
 (186, 'Gas Bình Minh Xanh 12kg', '2', NULL, 534300, 'gas-binh-minh-mau-xanh_12kg98.jpg', 50, 'bình', '2023-09-17 14:09:32'),
 (187, 'Gas Mini đỏ', '2', NULL, 10400, 'gas-mini-đỏ50.jpg', 50, 'bình', '2023-09-17 14:09:32'),
 (188, 'Gas Mini vàng', '2', NULL, 10400, 'gas-mini-max-vang18.png', 50, 'bình', '2023-09-17 14:09:32'),
@@ -444,8 +470,54 @@ INSERT INTO `tbl_product` (`id`, `name_product`, `loai`, `original_price`, `pric
 (208, 'Gas Petrolimex xanh 48kg', '1', NULL, 2457000, 'gas-petrolimex-48kg 16.jpg', 0, 'bình', '2023-09-17 14:09:32'),
 (211, 'Gas Bình Minh vàng 45kg', '1', NULL, 1885000, 'gas-binhminh-45kg17.png', 2, 'bình', '2023-09-17 14:09:32'),
 (222, 'gas mới', '1', NULL, 500000, 'total-gas-45kg83.png', 5, 'bình', '2023-09-17 14:09:32'),
-(223, 'Gas Anpha Petrol 12kg', '2', NULL, 490100, 'Binh-gas-Alpha-Petro-Gas-12kg55.jpg', 50, 'bình', '2023-09-20 09:57:27'),
-(228, 'gas 123', '1', 150000, 195000, 'gas_petrolimex_van-chup-12kg52.jpg', 10, 'bình', '2023-10-03 02:40:51');
+(223, 'Gas Anpha Petrol 12kg', '2', NULL, 490100, 'Binh-gas-Alpha-Petro-Gas-12kg55.jpg', 50, 'bình', '2023-09-20 09:57:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_rights_group`
+--
+
+CREATE TABLE `tbl_rights_group` (
+  `id` int(11) NOT NULL,
+  `name_rights_group` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_rights_group`
+--
+
+INSERT INTO `tbl_rights_group` (`id`, `name_rights_group`, `created_at`) VALUES
+(1, 'Quản lý kho sản phẩm', '2023-10-16 02:45:08'),
+(2, 'Quản lý nhập kho sản phẩm', '2023-10-16 02:45:08'),
+(3, 'Quản lý tồn kho', '2023-10-16 02:45:08'),
+(4, 'Quản lý đơn hàng', '2023-10-16 02:45:08'),
+(5, 'Quản lý nhân viên', '2023-10-16 02:45:08'),
+(6, 'Quản lý giao hàng', '2023-10-16 02:45:08'),
+(7, 'Quản lý phân quyền', '2023-10-16 04:09:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_role_permissions`
+--
+
+CREATE TABLE `tbl_role_permissions` (
+  `id` int(11) NOT NULL,
+  `id_admin` int(11) NOT NULL,
+  `id_permissions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`id_permissions`)),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_role_permissions`
+--
+
+INSERT INTO `tbl_role_permissions` (`id`, `id_admin`, `id_permissions`, `created_at`) VALUES
+(5, 25, '[\"8\"]', '2023-10-16 04:08:34'),
+(8, 2, '[\"2\",\"3\",\"15\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\"]', '2023-10-14 04:11:58'),
+(10, 37, '[\"2\",\"3\",\"15\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\"]', '2023-10-16 04:38:41');
 
 -- --------------------------------------------------------
 
@@ -605,9 +677,27 @@ ALTER TABLE `tbl_message`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_permissions`
+--
+ALTER TABLE `tbl_permissions`
+  ADD PRIMARY KEY (`permission_id`);
+
+--
 -- Indexes for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_rights_group`
+--
+ALTER TABLE `tbl_rights_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_role_permissions`
+--
+ALTER TABLE `tbl_role_permissions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -648,7 +738,7 @@ ALTER TABLE `add_staff`
 -- AUTO_INCREMENT for table `danh_gia`
 --
 ALTER TABLE `danh_gia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -666,7 +756,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=299;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=308;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -678,13 +768,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `product_warehouse`
 --
 ALTER TABLE `product_warehouse`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `tbl_comment`
@@ -696,19 +786,37 @@ ALTER TABLE `tbl_comment`
 -- AUTO_INCREMENT for table `tbl_discount`
 --
 ALTER TABLE `tbl_discount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_message`
 --
 ALTER TABLE `tbl_message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+
+--
+-- AUTO_INCREMENT for table `tbl_permissions`
+--
+ALTER TABLE `tbl_permissions`
+  MODIFY `permission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+
+--
+-- AUTO_INCREMENT for table `tbl_rights_group`
+--
+ALTER TABLE `tbl_rights_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbl_role_permissions`
+--
+ALTER TABLE `tbl_role_permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_vnpay`

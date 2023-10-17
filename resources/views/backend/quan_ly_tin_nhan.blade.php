@@ -79,38 +79,36 @@
               </div>
               <div class="flex-grow-0 py-3 px-4 border-top">
                 <div class="">
-                  <div class="reply-message-admin-span" data-user_id="{{$userId}}">
-                    
-                  </div>
+                  <div class="reply-message-admin-span" data-user_id="{{$userId}}"></div>
                   <div>
                     <input class="input-reply-message-admin_{{$message->user_id}} reply_message" data-user_id="{{$userId}}"  placeholder="Trả lời bình luận"></input>
                     <button class="btn-reply-message" data-user_id="{{$userId}}">Trả lời</button>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <form action="{{route('delete-message', $message['user_id'])}}">
-            <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$message['user_id']}}">
-              <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal{{$message['user_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="exampleModalLabel">Bạn có chắc muốn xóa bình luận này</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
+              <form action="{{route('delete-message', $message['user_id'])}}">
+                <button type="button" class="button-delete-order m-2" data-bs-toggle="modal" data-bs-target="#exampleModal{{$message['user_id']}}">
+                  <i class="fa fa-trash function-icon-delete" aria-hidden="true"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{$message['user_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-danger fs-6" id="exampleModalLabel">Bạn có chắc muốn xóa tin nhắn của <span class="text-info">{{$conversation['user']->name }}</span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
 
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
-                    <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                        <button class="summit-add-room-button btn btn-primary" type='submit'>Xóa</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
-          </form>
+          </div>
           @endforeach 
         </div>
       </div>

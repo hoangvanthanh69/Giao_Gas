@@ -63,9 +63,7 @@
                     <th>Tên Sản Phẩm</th>
                     <th>Loại SP</th>
                     <th>SL Trong Kho</th>
-                    <th>Giá bán</th>
                     <th>Tổng SL Nhập</th>
-                    <th>Tổng Giá Trong Kho</th>
                     <th>Tổng Giá Nhập</th>
                     <th>SL Đã Bán</th>
                   </tr>
@@ -86,11 +84,9 @@
                       </td>
                       <!-- số lượng trong kho -->
                       <td class="">{{$products->quantity}}</td>
-                      <td>{{number_format($products->price)}} đ</td>
+                      <!-- <td>{{number_format($products->price)}} đ</td> -->
                       <!-- Tổng số lượng nhập -->
                       <td>{{$totalQuantity[$products->id] ?? 0}}</td>
-                      <!-- Tổng giá trong kho -->
-                      <td>{{number_format(($totalQuantity[$products->id] ?? 0) * $products->price)}} đ</td>
                       <!-- Tổng giá nhập -->
                       <td>{{number_format($totalPrice[$products->id] ?? 0)}} đ</td>
                       <!-- số lượng đã bán -->

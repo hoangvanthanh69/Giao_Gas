@@ -34,7 +34,8 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <a class="back-product" href="{{route('add-permissions')}}">Trở lại</a>
+                        <a class="back-product" href="{{route('add-permissions')}}">Trở lại thêm quyền</a>
+                        <a class="back-product" href="{{route('danh-sach-nhom-quyen')}}">Trở lại ds nhóm quyền</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
                 </form>

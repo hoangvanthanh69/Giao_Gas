@@ -3,6 +3,18 @@
 @section('content')
         <div class="col-10 nav-row-10 ">
             <div class="add-product-each w-50 ">
+                @if (session('success'))
+                    <div class="change-password-customer-home d-flex">
+                    <i class="far fa-check-circle icon-check-success"></i>
+                    {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('message'))
+                    <div class="success-customer-home-notification d-flex">
+                    <i class="fas fa-ban icon-check-cancel"></i>
+                    {{ session('message') }}
+                    </div>
+                @endif
                 <form enctype="multipart/form-data" method='post' action="{{route('update-account-admin', $account_admin->id)}}">
                     <h5 class="text-center ms-5 mb-5 text-success">Thay đổi mật khẩu cho tài khoản quản trị</h5>
                     @csrf

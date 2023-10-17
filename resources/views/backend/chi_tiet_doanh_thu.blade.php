@@ -4,9 +4,21 @@
 
 <div class="col-10 nav-row-10 ">
     <div class="container-fluid">
+        @if (session('success'))
+            <div class="change-password-customer-home d-flex">
+              <i class="far fa-check-circle icon-check-success"></i>
+              {{ session('success') }}
+            </div>
+        @endif
+        @if (session('message'))
+            <div class="success-customer-home-notification d-flex">
+              <i class="fas fa-ban icon-check-cancel"></i>
+              {{ session('message') }}
+            </div>
+        @endif
         <div class="row">
             <a class="text-primary text-decoration-none mb-3" href="{{route('admin')}}"><i class="fa-solid fa-angles-left"></i> Quay lại</a>
-            <h5 class="order-detail-overview">Thống kê chi tiết doanh thu</h5>
+            <a href="{{route('chi_tiet_doanh_thu')}}" class="order-detail-overviews">Thống kê chi tiết doanh thu</a>
             <!-- tổng doanh thu  -->
             <div class="col-6">
                 <div class="card statistical-all statistical-all-delivered">

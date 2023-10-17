@@ -23,7 +23,7 @@
                 @endif
                 <div class="add-staff-heading-div">
                     <div class="search-infor-amdin-form-staff mt-3">
-                    <a class="add-product" href="{{route('add-rights-group')}}">Thêm nhóm quyền</a>
+                        <a class="add-product" href="{{route('add-rights-group')}}">Thêm nhóm quyền</a>
                     </div>
                 </div>
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-permission')}}">
@@ -48,7 +48,8 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <a class="back-product" href="{{route('add-role-permission')}}">Trở lại</a>
+                        <a class="back-product" href="{{route('add-role-permission')}}">Trở lại gán quyền</a>
+                        <a class="back-product" href="{{route('danh-sach-quyen')}}">Trở lại ds quyền</a>
                         <button class="add-product button-add-product-save" type="submit">Lưu</button>
                     </div>
                 </form>

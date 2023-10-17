@@ -9,7 +9,7 @@
         <div class="search-option-infor-amdin mt-3 me-1">
             <div id="notify_comment"></div>
             <div class="search-infor-amdin-form">
-              <form action="" method="GET" class="header-with-search-form">
+              <form action="{{route('search-comment')}}" method="GET" class="header-with-search-form">
                 @csrf
                 <i class="search-icon-discount fas fa-search"></i>
                 <input type="text" autocapitalize="off" class="header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
@@ -17,11 +17,18 @@
                   <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
-                @if (session('message'))
-                  <div class="notification-discount">
+              @if (session('success'))
+                  <div class="change-password-customer-home d-flex">
+                    <i class="far fa-check-circle icon-check-success"></i>
+                    {{ session('success') }}
+                  </div>
+              @endif
+              @if (session('message'))
+                  <div class="success-customer-home-notification d-flex">
+                    <i class="fas fa-ban icon-check-cancel"></i>
                     {{ session('message') }}
                   </div>
-                @endif
+              @endif
             </div>
         </div>
         <div class="card-body">

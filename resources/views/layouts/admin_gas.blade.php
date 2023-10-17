@@ -57,7 +57,7 @@
                               </a>
                            </div>
                            
-                           <div class="mb-" id="accordionFlushExample">
+                           <div class="" id="accordionFlushExample">
                               <div class="">
                                  <div id="flush-headingOne">
                                     <button class="accordion-button accordion-layouts-product " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" onclick="toggleArrow()">
@@ -94,7 +94,8 @@
                                     </div>
                                  </div>
                               </div>
-
+                           </div>
+                           <div class="" id="accordionFlushExample">
                               <div class="">
                                  <div id="flush-headingTwo">
                                     <button class="accordion-button accordion-layouts-product pt-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" onclick="toggleArrow()">
@@ -132,15 +133,36 @@
                               </div>
                            </div>
 
-                           <div class="btnbtn home-filter-button mb-4" data-filter="staff">
-                              <a class="@yield('sidebar-active-customer')" href="{{route('quan-ly-nv')}}">
-                                 <i class="fas fa-clipboard-user icon-all-admin-nav"></i>
-                                 Quản lý nhân viên
-                              </a>
+                           <div class="" id="accordionFlushExample">
+                              <div class="">
+                                 <div id="flush-headingFour">
+                                    <button class="accordion-button accordion-layouts-product pt-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour" onclick="toggleArrow()">
+                                       <div class="@yield('sidebar-active-customer') @yield('sidebar-active-shipper') d-flex" >
+                                          <i class="fa-solid fa-people-group icon-all-admin-nav icon-accordion-layouts"></i>
+                                          Quản lý nhân viên
+                                          <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
+                                          <i class="fa-solid fa-angle-up ms-2 arrow-up"></i>
+                                       </div>
+                                    </button>
+                                 </div>
+
+                                 <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-customer')" href="{{route('quan-ly-nv')}}">
+                                          <i class="fas fa-clipboard-user icon-all-admin-nav"></i>
+                                          Danh sách nhân viên
+                                       </a>
+                                    </div>
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-shipper')" href="{{route('nhan-vien-giao-hang')}}">
+                                          <i class="fa-solid fa-truck icon-all-admin-nav"></i>
+                                          Quản lý nv giao hàng
+                                       </a>
+                                    </div>
+                                 </div>
+                              </div>
                            </div>
-
                            
-
                            <div class="btnbtn home-filter-button mb-4" data-filter="receipt">
                               <a class="@yield('sidebar-active-danh-gia-giao-hang')" href="{{route('danh-gia-giao-hang')}}">
                                  <i class="fa-solid fa-star icon-all-admin-nav"></i>
@@ -176,7 +198,7 @@
                               </a>
                            </div>
 
-                           <div class="btnbtn home-filter-button">
+                           <div class="btnbtn home-filter-button mb-2">
                               <a class="@yield('sidebar-active-message')" href="{{route('quan-ly-tin-nhan')}}">
                                  <i class="fa-solid fa-message icon-all-admin-nav"></i>
                                  Quản lý nhắn tin
@@ -187,7 +209,7 @@
                               <div class="">
                                  <div id="flush-headingThree">
                                     <button class="accordion-button accordion-layouts-product " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseOne" onclick="toggleArrow()">
-                                       <div class="@yield('sidebar-active-list-permissions') @yield('sidebar-active-permissions') d-flex" >
+                                       <div class="@yield('sidebar-active-list-permissions') @yield('sidebar-active-permissions') @yield('sidebar-active-group-permissions') d-flex" >
                                           <i class="fa-solid fa-user-shield icon-all-admin-nav  icon-accordion-layouts"></i>
                                              Quản lý phân quyền
                                           <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
@@ -207,8 +229,15 @@
 
                                     <div class="mb-3 ms-4 home-filter-button fw-light">
                                        <a class="@yield('sidebar-active-permissions')" href="{{route('danh-sach-quyen')}}">
-                                       <i class="fa-solid fa-users-gear icon-all-admin-nav"></i>
+                                          <i class="fa-solid fa-users-gear icon-all-admin-nav"></i>
                                           Danh sách quyền
+                                       </a>
+                                    </div>
+
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-group-permissions')" href="{{route('danh-sach-nhom-quyen')}}">
+                                          <i class="fa-solid fa-users-rays icon-all-admin-nav"></i>
+                                          Danh sách nhóm quyền
                                        </a>
                                     </div>
                                  </div>

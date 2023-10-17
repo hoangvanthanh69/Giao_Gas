@@ -30,21 +30,36 @@
                 </div>
                 <form enctype="multipart/form-data" method="post" action="{{ route('update-role-permissions', $role_permissions->id) }}">
                     @csrf
-                    <div class="col-4">
-                        <span class="name-add-product-all" for="">Nhân viên:
-                            <span name="id_admin">{{ $admin_name }}</span>
-                        </span>
-                    </div>
-                    <div class="col-4">
-                        <span class="name-add-product-all" for="">Thiết lập quyền
-                            <span class="color-required fw-bolder">*</span>
-                        </span>
-                        @foreach($tbl_permissions as $permission)
-                            <label>
-                                <input type="checkbox" name="permissions[]" value="{{ $permission->permission_id }}" @if(in_array($permission->permission_id, $selectedPermissions)) checked @endif>
-                                {{ $permission->permission_name }}
-                            </label>
-                        @endforeach
+                    <div class="edit-role-pemission">
+                        <div class="text-center">
+                            <label class="fs-5 me-2" for="">Cập nhật thiết lập quyền:</label>
+                            <span name="id_admin" class="color-name-admin-add fw-bolder fs-5">{{ $admin_name }}</span>
+                        </div>
+                        <div class="">
+                            <div class="ms-3 me-3">
+                                @foreach ($permissionsByRightsGroup as $rightsGroupName => $permissions)
+                                    <div class="border-buttom-permission">
+                                        <label class="right-group-name">{{ $rightsGroupName }}</label>
+                                        <div class="row ms-3 me-3">
+                                            @foreach($permissions as $permission)
+                                                <div class="col-4">
+                                                    <input type="checkbox" name="permissions[]" value="{{ $permission->permission_id }}" data-group="{{$rightsGroupName}}" @if(in_array($permission->permission_id, $selectedPermissions)) checked @endif>
+                                                    {{ $permission->permission_name }}
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="check-rights-group-name color-logo-gas">
+                                            <input type="checkbox" class="check-group" data-group="{{ $rightsGroupName}}">
+                                            <span>Check tất cả trong nhóm</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="name-add-product-all mt-3">
+                                    <span>Check tất cả</span>
+                                    <input type="checkbox" class="check-all">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="text-center mt-4">
                         <a class="back-product" href="{{ route('quan-ly-phan-quyen') }}">Trở lại</a>
@@ -53,4 +68,28 @@
                 </form>
             </div>
 @endsection
-        
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('input[type="checkbox"].check-group').change(function() {
+            const group = $(this).data('group');
+            const checkboxesInGroup = $(`input[type="checkbox"][data-group="${group}"]`);
+            checkboxesInGroup.prop('checked', $(this).prop('checked'));
+        });
+
+        $('input[type="checkbox"].check-all').change(function() {
+            $('input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+        });
+
+        $('input[type="checkbox"]').not('.check-group, .check-all').change(function() {
+            const group = $(this).data('group');
+            const allCheckboxesInGroup = $(`input[type="checkbox"][data-group="${group}"]`);
+            const checkedCheckboxesInGroup = $(`input[type="checkbox"][data-group="${group}"]:checked`);
+            if (allCheckboxesInGroup.length === checkedCheckboxesInGroup.length) {
+                $(`input[type="checkbox"].check-group[data-group="${group}"]`).prop('checked', true);
+            } else {
+                $(`input[type="checkbox"].check-group[data-group="${group}"]`).prop('checked', false);
+            }
+        });
+    });
+</script>

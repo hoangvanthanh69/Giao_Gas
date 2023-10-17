@@ -5,7 +5,19 @@
 <div class="col-10 nav-row-10 ">
 <div class="card mb-3 product-list element_column" data-item="staff">
    <div class="card-body">
-      <div class="table-responsive table-list-product">
+        @if (session('success'))
+            <div class="change-password-customer-home d-flex">
+              <i class="far fa-check-circle icon-check-success"></i>
+              {{ session('success') }}
+            </div>
+        @endif
+        @if (session('message'))
+            <div class="success-customer-home-notification d-flex">
+              <i class="fas fa-ban icon-check-cancel"></i>
+              {{ session('message') }}
+            </div>
+        @endif
+        <div class="table-responsive table-list-product">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <h5 class="list-account-admin">Số điểm đánh giá của nhân viên</h5>

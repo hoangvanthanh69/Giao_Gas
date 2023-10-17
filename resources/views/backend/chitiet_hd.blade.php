@@ -18,6 +18,18 @@
                     <span class="product-list-name"><a class="text-decoration-none" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-hd')}}">Đơn hàng</a> / <a href="" class="text-decoration-none text-dark">Chi tiết hóa đơn</a></span>
                 </div>   
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="change-password-customer-home d-flex">
+                        <i class="far fa-check-circle icon-check-success"></i>
+                        {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('message'))
+                        <div class="success-customer-home-notification d-flex">
+                        <i class="fas fa-ban icon-check-cancel"></i>
+                        {{ session('message') }}
+                        </div>
+                    @endif
                     <div class="table-responsive ">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>

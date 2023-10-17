@@ -12,6 +12,18 @@
                 <div class="add-staff-heading-div">
                     <span>Cập nhật nhân viên</span>
                 </div>
+                @if (session('success'))
+                    <div class="change-password-customer-home d-flex">
+                    <i class="far fa-check-circle icon-check-success"></i>
+                    {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('message'))
+                    <div class="success-customer-home-notification d-flex">
+                    <i class="fas fa-ban icon-check-cancel"></i>
+                    {{ session('message') }}
+                    </div>
+                @endif
                 <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('update-staff',$staff->id)}}">
                     @csrf
                     <div class="col-4">

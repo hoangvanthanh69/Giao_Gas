@@ -4,6 +4,18 @@
 <div class="col-10 nav-row-10 ">
 <div class="card mb-3 product-list element_column" data-item="staff">
    <div class="card-body">
+      @if (session('success'))
+         <div class="change-password-customer-home d-flex">
+            <i class="far fa-check-circle icon-check-success"></i>
+            {{ session('success') }}
+         </div>
+      @endif
+      @if (session('message'))
+         <div class="success-customer-home-notification d-flex">
+            <i class="fas fa-ban icon-check-cancel"></i>
+            {{ session('message') }}
+         </div>
+      @endif
       <div class="table-responsive table-list-product">
          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -29,7 +41,7 @@
                      <td class="name-product-td">{{$val['last_name']}}</td>
                      <td class="product-order-quantity">{{$val['taikhoan']}}</td>
                      <td><?php 
-                        if($val['chuc_vu']==1){echo "<span style='color: #d0c801; font-weight: 500'>Giao hàng</span>";} 
+                        if($val['chuc_vu']==1){echo "<span style='color: #2679A0; font-weight: 500'>Giao hàng</span>";} 
                         elseif($val['chuc_vu']==3){echo "<span style='color: #1bd64b; font-weight: 500'>Biên tập</span>";} 
                         else{echo "<span style='color: #e7055c; font-weight: 500'>Quản lý</span>";}  ?>
                      </td>

@@ -230,10 +230,13 @@ class OrderController extends Controller
                     text-align: center;
                 }
                 td.product_name{
-                    width: 260px;
+                    width: 180px;
                 }
                 td.quantity{
-                    width: 80px;
+                    width: 50px;
+                }
+                td.product-price{
+                    width: 120px;
                 }
                 .total-payment-price{
                     width: 150px;
@@ -278,6 +281,7 @@ class OrderController extends Controller
                         <th>Tên sản phẩm</th>
                         <th>SL</th>
                         <th>Giá</th>
+                        <th>Giảm giá</th>
                         <th>Tổng</th>
                     </tr>
                 </thead>
@@ -291,7 +295,8 @@ class OrderController extends Controller
                             <tr class="tbody-tr-td">
                                 <td class="product_name">'.$infor['product_name'].'</td>
                                 <td class="quantity">'.$infor['quantity'].'</td>
-                                <td>'.number_format($infor['product_price']).' VNĐ</td>';
+                                <td class="product-price">'.number_format($infor['product_price']).' VNĐ</td>
+                                <td class="product-price">'.number_format($order_product['reduced_value']).' VNĐ</td>';
                     }
                 }
                 $output .= '<div class="total-payment-price"><strong>'.number_format($order_product['tong']).' VNĐ</strong></div>

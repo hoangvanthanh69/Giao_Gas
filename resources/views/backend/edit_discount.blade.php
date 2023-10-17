@@ -7,6 +7,18 @@
                     <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-giam-gia')}}">Danh sách mã giảm</a> / <a class="text-decoration-none" href="">Chỉnh sửa mã</a>
                 </span>
             </div>
+            @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                <i class="far fa-check-circle icon-check-success"></i>
+                {{ session('success') }}
+                </div>
+            @endif
+            @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                <i class="fas fa-ban icon-check-cancel"></i>
+                {{ session('message') }}
+                </div>
+            @endif
             <div class="add-staff-form">
                 <div class="add-staff-heading-div">
                     <span>Cập nhật mã</span>

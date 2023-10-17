@@ -1517,3 +1517,22 @@ input.choose-file-import-product {
     background-color: darkgrey;
     outline: 1px solid slategrey;
 }
+.border-buttom-permission{
+    border-bottom: 1px solid #1cd611;
+}
+.edit-role-pemission {
+    line-height: 38px;
+}
+.check-rights-group-name {
+    margin-left: 28px;
+}
+.icon-filter-date-delivery-staff {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    padding-left: 10px;
+}
+.order-detail-overviews{
+    font-size: 20px;
+    color: #2679A0 ;
+}

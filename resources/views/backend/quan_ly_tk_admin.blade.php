@@ -3,6 +3,19 @@
 @section('content')
 <div class="col-10 nav-row-10 ">
 <div class="card mb-3 product-list element_column" data-item="staff">
+   @if (session('success'))
+      <div class="change-password-customer-home d-flex">
+         <i class="far fa-check-circle icon-check-success"></i>
+         {{ session('success') }}
+      </div>
+     @endif
+
+     @if (session('message'))
+      <div class="success-customer-home-notification d-flex">
+         <i class="fas fa-ban icon-check-cancel"></i>
+         {{ session('message') }}
+      </div>
+   @endif
    <div class="card-body">
       <div class="table-responsive table-list-product">
          <div class="add-account-admin-a float-end">
@@ -18,7 +31,6 @@
                   <th>Email</th>
                   <th>Password</th>
                   <th>Chức vụ</th>
-                  <th>Số đơn</th>
                   <th>Chức năng</th>
                </tr>
             </thead>
@@ -37,7 +49,6 @@
                      elseif($val['chuc_vu']==3){echo "<span style='color: #77d020; font-weight: 500'>Biên tập</span>";} 
                      else{echo "<span style='color: red; font-weight: 500'>Quản lý</span>";}  ?>
                   </td>
-                  <td class="product-order-quantity">{{$val['order_count']}}</td>
                   <td class="product-order-quantity function-icon icon-line-height">
                      <form action="{{route('edit-account-admin', $val['id'])}}">
                         <button class="summit-add-product-button" type='submit'>

@@ -12,6 +12,18 @@
           <div class="add-staff-heading-div">
             <span>Thêm sản phẩm mới</span>
           </div>
+          @if (session('success'))
+            <div class="change-password-customer-home d-flex">
+              <i class="far fa-check-circle icon-check-success"></i>
+              {{ session('success') }}
+            </div>
+          @endif
+          @if (session('message'))
+            <div class="success-customer-home-notification d-flex">
+              <i class="fas fa-ban icon-check-cancel"></i>
+              {{ session('message') }}
+            </div>
+          @endif
           <form class="row container" id="signupForm" enctype="multipart/form-data" method='post' action="{{route('add-product')}}">
             @csrf
             <div class="col-4">
@@ -49,7 +61,8 @@
             </div>
 
             <div class="text-center mt-4">
-              <a class="back-product" href="{{route('quan-ly-sp')}}">Trở lại</a>
+              <a class="back-product" href="{{route('add-product-warehouse')}}">Trở lại thêm nhập kho</a>
+              <a class="back-product" href="{{route('quan-ly-sp')}}">Trở lại kho sản phẩm</a>
               <button class="add-product button-add-product-save" type="submit">Lưu</button>
             </div>
           </form>

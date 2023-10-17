@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use App\Models\add_staff;
+use App\Models\tbl_admin;
+use App\Models\order_product;
 use App\Exports\ExcelExports;
 use App\Exports\ExcelExportsStaff;
 use Excel;
@@ -124,5 +126,69 @@ class StaffController extends Controller
     function export_excel_staff(){
         return Excel::download(new ExcelExportsStaff , 'ds_nhan_vien.xlsx');
     }
+
+    // giao diện nhân viên giao hàng
+    function nhan_vien_giao_hang(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $tbl_admin = tbl_admin::where('chuc_vu','1')->get()->toArray();
+        $staff = add_staff::get()->toArray();
+        foreach ($tbl_admin as &$tbl_admins) {
+            $admin_name = $tbl_admins['admin_name'];
+            $order_count = order_product::where('admin_name', $admin_name)->count();
+            $total_sales = order_product::where('admin_name', $admin_name)->sum('tong');
+            $tbl_admins['order_count'] = $order_count;
+            $tbl_admins['total_sales'] = $total_sales;
+        }
+        return view('backend.nhan_vien_giao_hang', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
+    }
+
+    // lọc số đơn giao theo ngày tháng năm nhân viên giao hàng
+    function data_filter_shiper(Request $request){
+        if (!Session::get('admin')) {
+            return redirect()->route('login');
+        }
+        $tbl_admin = tbl_admin::where('chuc_vu', '1')->get();
+        $staff = add_staff::get();
+        // Lấy các thông tin từ form
+        $date_Filter = $request->input('date_Filter');
+        $date_Filter_start = $request->input('date_Filter_start');
+        $date_Filter_end = $request->input('date_Filter_end');
+        foreach ($tbl_admin as &$tbl_admins) {
+            $admin_name = $tbl_admins->admin_name;
+            $query = order_product::where('admin_name', $admin_name);
+            if (!empty($date_Filter)) {
+                $dateParts = explode('-', $date_Filter);
+                if (count($dateParts) == 3) {
+                    $year = $dateParts[2];
+                    $month = $dateParts[1];
+                    $day = $dateParts[0];
+                    $query->whereDate('created_at', date('Y-m-d', strtotime("$year-$month-$day")));
+                } elseif (count($dateParts) == 2) {
+                    $year = $dateParts[1];
+                    $month = $dateParts[0];
+                    $query->whereYear('created_at', $year)->whereMonth('created_at', $month);
+                } elseif (count($dateParts) == 1) {
+                    $year = $dateParts[0];
+                    $query->whereYear('created_at', $year);
+                }
+            }
+            // Lọc theo khoảng thời gian
+            if (!empty($date_Filter_start) && !empty($date_Filter_end)) {
+                $query->whereBetween('created_at', [
+                    date('Y-m-d', strtotime($date_Filter_start)),
+                    date('Y-m-d', strtotime($date_Filter_end)),
+                ]);
+            }
+            $order_count = $query->count();
+            $total_sales = $query->sum('tong');
+            $tbl_admins->order_count = $order_count;
+            $tbl_admins->total_sales = $total_sales;
+        }
+        return view('backend.nhan_vien_giao_hang', ['tbl_admin' => $tbl_admin]);
+    }
+    
+    
 
 }

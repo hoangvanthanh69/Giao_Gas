@@ -14,7 +14,18 @@
                 <div class="add-warehouse-product">
                   <a class="add-product" href="{{route('add-product-warehouse')}}">Nhập kho sản phẩm</a>
                 </div>
-
+                @if (session('success'))
+                  <div class="change-password-customer-home d-flex">
+                    <i class="far fa-check-circle icon-check-success"></i>
+                    {{ session('success') }}
+                  </div>
+                @endif
+                @if (session('message'))
+                  <div class="success-customer-home-notification d-flex">
+                    <i class="fas fa-ban icon-check-cancel"></i>
+                    {{ session('message') }}
+                  </div>
+                @endif
                 <!-- lọc đơn hàng theo ngày tháng năm -->
                 <div class="search-product-admin-form">
                   <form action="{{ route('filters-date-warehouse') }}" class="form-filter-date-order d-flex" method="GET">
@@ -117,14 +128,21 @@
                         <td>{{$productUnit[$val['product_id']]}}</td>
                         <td>{{ number_format($val['price']) }} đ</td>
                         <td>{{ number_format($val['total']) }} đ</td>
-                        <td class="">{{ $admin_Names[$val['staff_id']] }}</td>
+                        <td class="">
+                          @if (isset($admin_Names[$val['staff_id']]))
+                            {{ $admin_Names[$val['staff_id']] }}
+                          @else
+                            {{ 'Giá trị không tồn tại' }}
+                          @endif
+                        </td>
+
                         <td class="">{{$val['created_at']}}</td>
                         <td class="function-icon ">
-                          <form action="">
+                          <!-- <form action="">
                             <button class="summit-add-product-button" type='submit'>
                               <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                          </form>
+                          </form> -->
                           
                           <form action="{{route('delete-warehouse', $val['id'])}}">
                             <button type="button" class="button-delete-order" data-bs-toggle="modal" data-bs-target="#exampleModal{{$val['id']}}">

@@ -9,7 +9,18 @@
         <h5 class="order-detail-overview">Thống kê chi tiết đơn hàng</h5>
         <!-- hóa đơn -->
         <div class="col-4 mb-2 total-product-initial">
-            
+            @if (session('success'))
+                <div class="change-password-customer-home d-flex">
+                <i class="far fa-check-circle icon-check-success"></i>
+                {{ session('success') }}
+                </div>
+            @endif
+            @if (session('message'))
+                <div class="success-customer-home-notification d-flex">
+                <i class="fas fa-ban icon-check-cancel"></i>
+                {{ session('message') }}
+                </div>
+            @endif
             <div class="card statistical-all bg-warning">
                 <div class="row no-gutters ">
                     <div class="col mr-2 p-3 text-light center-total-product">

@@ -139,7 +139,11 @@ class ProductController extends Controller
         }
         $admin_Names=[];
         foreach($product_warehouse as $name){
-            $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+            // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+            $admin = tbl_admin::find($name->staff_id);
+            if ($admin) {
+                $admin_Names[$name->staff_id] = $admin->admin_name;
+            }
         }
         $search = $request->input('search');
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
@@ -220,7 +224,11 @@ class ProductController extends Controller
             }
             $admin_Names = [];
             foreach ($product_warehouse as $name) {
-                $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                $admin = tbl_admin::find($name->staff_id);
+                if ($admin) {
+                    $admin_Names[$name->staff_id] = $admin->admin_name;
+                }
                 $productUnit[$name->product_id] = product::find($name->product_id)->unit;
             }
             if ($product_warehouse->isEmpty()) {
@@ -368,11 +376,20 @@ class ProductController extends Controller
                     }
                     $admin_Names=[];
                     foreach($query as $name){
-                        $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                        // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                        $admin = tbl_admin::find($name->staff_id);
+                        if ($admin) {
+                            $admin_Names[$name->staff_id] = $admin->admin_name;
+                        }
                     }
                     foreach ($query as $record) {
                         $productNames[$record->product_id] = product::find($record->product_id)->name_product;
-                        $adminNames[$record->staff_id] = tbl_admin::find($record->staff_id)->admin_name;
+                        // $adminNames[$record->staff_id] = tbl_admin::find($record->staff_id)->admin_name;
+                        $admin = tbl_admin::find($name->staff_id);
+                        if ($admin) {
+                            $admin_Names[$name->staff_id] = $admin->admin_name;
+                        }
+                        
                     }
                     $search = $request->input('search');
                     return view('backend.quan_ly_kho', [
@@ -404,7 +421,11 @@ class ProductController extends Controller
                     }
                 $admin_Names=[];
                     foreach($product_warehouse as $name){
-                        $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                        // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
+                        $admin = tbl_admin::find($name->staff_id);
+                        if ($admin) {
+                            $admin_Names[$name->staff_id] = $admin->admin_name;
+                        }
                     }
 
                 $search = $request->input('search');
