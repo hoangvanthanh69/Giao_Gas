@@ -3,7 +3,11 @@
 @section('content')
 
         <div class="col-10 nav-row-10 ">
-            
+            <div class="mb-4 product-list-staff-add">
+            <span class="product-list-name fs-5">
+                <a class="text-decoration-none color-logo-gas" href="{{route('quan-ly-kho')}}">Danh sách nhập kho</a> / <a class="text-decoration-none color-name-admin-add" href="{{route('add-product-warehouse')}}">Nhập kho sản phẩm</a>
+            </span>
+            </div>
             <div class="add-staff-form">
                 <div class="add-staff-heading-div">
                     <span>Nhập kho sản phẩm</span>
@@ -40,20 +44,34 @@
                     </div>
 
                     <div class="col-4">
+                        <span class="name-add-product-all" for="">Chọn nhà cung cấp
+                            <span class="color-required fw-bolder">*</span>
+                        </span>
+                        <div class='mt-2 p-0'>
+                            <select name="supplier_id" class="input-add-product col-11 ps-2 pe-2" aria-label="Default select example">
+                                <option value="">Chọn nhà cung cấp</option>
+                                @foreach($tbl_supplier as $supplier)
+                                    <option value="{{$supplier->id}}">{{$supplier->id}} - {{$supplier->name_supplier}}</option>
+                                @endforeach
+                            </select>    
+                        </div>
+                    </div>
+
+                    <div class="col-4">
                         <span class="name-add-product-all" for="">Số lượng
                             <span class="color-required fw-bolder">*</span>
                         </span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="number" name="quantity" id="quantity">
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-4 mt-4">
                         <span class="name-add-product-all" for="">Giá nhập
                             <span class="color-required fw-bolder">*</span>
                         </span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="price" id="price">
                     </div>
                     
-                    <div class="col-4 mt-3">
+                    <div class="col-4 mt-4">
                         <span class="name-add-product-all " for="">Nhân viên nhập kho
                             <span class="color-required fw-bolder">*</span>
                         </span>
@@ -67,7 +85,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4 mt-3">
+                    <div class="col-4 mt-4">
                         <span class="name-add-product-all" for="">Tổng cộng</span>
                         <input class="input-add-product ps-2 col-11 mt-2 ps-2 pe-2" type="text" name="total" id="total" readonly>
                     </div>
@@ -112,10 +130,13 @@
                                 number: true
                             },
                             quantity: {required: true, number: true, maxlength: 10},                   
-                            staff_id: "required"
+                            staff_id: "required",
+                            supplier_id: "required",
+
                         },
                         messages: {
                             product_id: "Chọn sản phẩm",
+                            supplier_id: "Chọn nhà cung cấp",
                             price: {
                                 required: "Nhập giá",
                                 number: "Vui lòng nhập số"

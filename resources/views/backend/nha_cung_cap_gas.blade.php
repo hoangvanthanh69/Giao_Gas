@@ -1,12 +1,12 @@
 @extends('layouts.admin_gas')
-@section('sidebar-active-group-permissions', 'active' )
+@section('sidebar-active-supplier', 'active' )
 @section('content')
 
     <div class="col-10 nav-row-10 ">   
 
         <div class="card mb-3 product-list element_column " data-item="product">
             <div class="card-header">
-                <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="">Danh sách quyền</a></span>
+                <span class="product-list-name"><a class="text-decoration-none color-name-admin" href="{{route('admin')}}">Admin</a> / <a class="text-decoration-none color-logo-gas" href="{{route('nha-cung-cap')}}">Danh sách nhà cung cấp</a></span>
             </div>
             <div class="card-body">
                 @if (session('success'))
@@ -22,25 +22,25 @@
                     </div>
                 @endif
                 <div class="search-infor-amdin-form-staff mt-3">
-                    <a class="add-product" href="{{route('add-rights-group')}}">Thêm nhóm quyền</a>
+                    <a class="add-product" href="{{route('add-supplier')}}">Thêm nhà cung cấp</a>
                 </div>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="tr-name-table">
                             <th class="width-stt">STT</th>
-                            <th>Nhóm Quyền</th>
+                            <th>Nhà cung cấp</th>
                             <th>Ngày tạo</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody class="infor">
-                        @foreach ($tbl_rights_group as $key => $val)
+                        @foreach ($tbl_supplier as $key => $val)
                             <tr class="hover-color">
                                 <td>{{$key+1}}</td>
-                                <td>{{$val->name_rights_group}}</td>
+                                <td>{{$val->name_supplier}}</td>
                                 <td>{{$val['created_at']}}</td>
                                 <td class="function-icon">
-                                    <form action="{{route('edit-tbl-rights-group', $val['id'])}}">
+                                    <form action="{{route('edit-suppliers', $val['id'])}}">
                                         <button class="summit-add-product-button" type='submit'>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                         </button>

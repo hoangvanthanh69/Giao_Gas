@@ -394,7 +394,7 @@ tr.order-product-height.hover-color {
     margin-right: -2px;
     padding: 13px;
     min-height: 89%;
-    margin-top: 19px;
+    /* margin-top: 19px; */
     font-size: 18px; 
 }
 .count-all{
@@ -510,8 +510,10 @@ img.image-admin-product-edit {
 .center-total-product{
     text-align: center;
 }
-.min-height-prodcuct{
+.min-height-prodcuct {
     min-height: 234px;
+    margin-top: -17px !important;
+    margin-left: -14px;
 }
 .order-detail-overview {
     color: #0f4c7b;
@@ -1535,4 +1537,35 @@ input.choose-file-import-product {
 .order-detail-overviews{
     font-size: 20px;
     color: #2679A0 ;
+}
+.loyal-customers {
+    margin-left: -28px;
+}
+.total-product-selling {
+    height: 208px;
+    overflow: auto;
+    margin: 0px !important;
+}
+.width-admin{
+    width: 102%;
+    margin-left: 22px;
+}
+.revenue-chart-months{
+    width: 882px !important;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    margin-right: 25px;
+    margin-left: -1px;
+}
+.total-loyal-customers{
+    height: 250px;
+    overflow: auto;
+    margin: 0px !important;
+}
+.border-loyal-customers {
+    border-top-right-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+}
+.bg-product-selling {
+    background-color: #a6b5b8 !important;
 }

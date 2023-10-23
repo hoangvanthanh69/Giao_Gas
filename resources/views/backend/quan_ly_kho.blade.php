@@ -108,6 +108,7 @@
                     <th class="width-stt">STT</th>
                     <th>Mã Nhập</th>
                     <th>Tên Sản Phẩm</th>
+                    <th>Nhà cung cấp</th>
                     <th>SL</th>
                     <th>Đơn vị</th>
                     <th>Giá Nhập</th>
@@ -124,6 +125,13 @@
                         <td class="">{{ $key + 1 }}</td>
                         <td class="">{{ $val['batch_code'] }}</td>
                         <td class="">ID: {{ $val['product_id'] }} - {{ $productNames[$val['product_id']] }}</td>
+                        <td>
+                          @if (isset($supplierNames[$val['supplier_id']]))
+                            {{ $supplierNames[$val['supplier_id']] }}
+                          @else
+                            {{ 'Giá trị không tồn tại' }}
+                          @endif
+                        </td>
                         <td class="">{{ $val['quantity'] }}</td>
                         <td>{{$productUnit[$val['product_id']]}}</td>
                         <td>{{ number_format($val['price']) }} đ</td>

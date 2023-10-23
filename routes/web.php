@@ -163,6 +163,21 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
     // xuất excel cho tồn kho
     Route::get('export-excel-inventory', [ProductController::class, 'export_excel_inventory'])->name('export-excel-inventory');
 
+    // giao diện nhà cung cấp gas
+    Route::get('nha-cung-cap', [ProductController::class, 'nha_cung_cap_gas'])->name('nha-cung-cap');
+
+    // giao diện thêm nhà cung cấp gas
+    Route::get('add-supplier', [ProductController::class, 'add_supplier'])->name('add-supplier');
+
+    // xử lý thêm nhà cung cấp gas
+    Route::post('add-suppliers', [ProductController::class, 'add_suppliers'])->name('add-suppliers');
+
+    // giao diện chỉnh sửa nhà cung cấp gas
+    Route::get('edit-suppliers/{id}', [ProductController::class, 'edit_suppliers'])->name('edit-suppliers');
+    
+    // xử lý nhà cung cấp
+    Route::post('update-suppliers/{id}', [ProductController::class, 'update_suppliers'])->name('update-suppliers');
+
 // 
 
 // Đơn hàng
@@ -428,5 +443,14 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
     // tìm kiếm gán quyền
     Route::get('/search-role-permissions', [PermissionsController::class, 'search_role_permissions'])->name('search-role-permissions');
     
+
+// 
+
+// biểu đồ
+    // biểu đồ doanh thu
+    Route::get('/revenue-chart', [index_backend::class, 'revenueChart'])->name('revenue-chart');
+    
+    // Lấy doanh thu cho tháng hiện tại
+    Route::get('/revenue-for-current-month', [index_backend::class, 'getCurrentMonthRevenue'])->name('revenue-for-current-month');
 
 // 

@@ -10,7 +10,7 @@
           </div>
         <div class="add-staff-form">
           <div class="add-staff-heading-div">
-            <span>Cập nhật nhân viên</span>
+            <span>Cập nhật sản phẩm</span>
           </div>
           @if (session('success'))
             <div class="change-password-customer-home d-flex">

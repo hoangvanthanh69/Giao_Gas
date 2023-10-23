@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\tbl_discount;
 use App\Models\order_product;
+use App\Models\users;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Mail;
 class DiscountController extends Controller
 {
     // quản lý giảm giá
@@ -42,7 +44,17 @@ class DiscountController extends Controller
         $add_discount -> type = $data['type'];
         $add_discount -> Prerequisites = $data['Prerequisites'];
         $add_discount->status = 1;
-        $add_discount -> save();  
+        $add_discount -> save(); 
+        $customers = users::where('email', '<>', '')->get();
+        // Gửi email cho từng khách hàng
+        foreach ($customers as $customer) {
+            if (!empty($customer->email)){
+                Mail::send('backend.send_mail_discount', compact('add_discount', 'customer'), function($email) use($customer) {
+                    $email->subject('Thông báo mã giảm giá mới');
+                    $email->to($customer->email, $customer->name);
+                });
+            }
+        }
         return redirect()->route('quan-ly-giam-gia')->with('success', 'Thêm mã giảm giá thành công');
     }
 

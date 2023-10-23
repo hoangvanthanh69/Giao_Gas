@@ -596,6 +596,41 @@ class index_backend extends Controller
             return redirect()->back();
         }
     }
+
+
+    // biểu đồ doanh thu 12 tháng
+    function revenueChart(){
+        $months = [];
+        $revenue = [];
+        for ($i = 0; $i < 12; $i++) {
+            $month = date('n', strtotime("-$i months"));
+            $year = date('Y', strtotime("-$i months"));
+            $revenue[] = order_product::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)->where('status', 3)->sum('tong');
+            $months[] = date('M Y', strtotime("-$i months"));
+        }
+        $currentMonth = date('n');
+        $currentYear = date('Y');
+        $currentMonthRevenue = order_product::whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)->where('status', 3)->sum('tong');
+        $revenue[] = $currentMonthRevenue;
+        $months[] = date('M Y');
+        return response()->json([
+            'months' => array_slice(array_reverse($months), 1, 12), 
+            'revenue' => array_slice(array_reverse($revenue), 1, 12), 
+        ]);
+    }
+    // Lấy doanh thu cho tháng hiện tại
+    function getCurrentMonthRevenue() {
+        $currentMonth = date('n');
+        $currentYear = date('Y');
+        $currentMonthRevenue = order_product::whereYear('created_at', $currentYear)
+            ->whereMonth('created_at', $currentMonth)
+            ->where('status', 3)
+            ->sum('tong');
+        return response()->json($currentMonthRevenue);
+    }
+    
     
     
 

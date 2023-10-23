@@ -1640,7 +1640,7 @@ select.selected-option-date-customer {
     }
     50% {
         transform: scale(1.1);
-        box-shadow: 0 0 1px 5px rgba(51, 122, 183, 0.5), 0 0 1px 11px rgb(199 223 234);
+        box-shadow: 0 0 1px 7px rgba(51, 122, 183, 0.5), 0 0 1px 11px rgb(199 223 234);
     }
     100% {
         transform: scale(1);
@@ -1649,8 +1649,8 @@ select.selected-option-date-customer {
 }
 .contact-btn {
     border-radius: 50%;
-    height: 50px;
-    width: 54px;
+    height: 54px;
+    width: 56px;
     background-color: rgb(77 143 174);
     border: 2px solid #2679A0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2);
@@ -1666,7 +1666,7 @@ select.selected-option-date-customer {
     font-family: Verdana, sans-serif;      
     text-transform: uppercase;
     transition: all 0.4s ease-in-out;
-    animation: pulse 3s ease infinite;
+    animation: pulse 2s ease infinite;
 }
 .contact-btn:focus {
     outline: none;

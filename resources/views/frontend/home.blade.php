@@ -307,8 +307,6 @@
     
                                 <div>
                                     <p class="name-trademark">Nhanh chóng tiện lợi niềm tin của mọi nhà</p>
-                                    <p class="text-info name-trademark">Giảm 50k cho khách hàng đầu tiên đổi gas</p>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -324,7 +322,6 @@
     
                                 <div>
                                     <p class="name-trademark">Miễn phí giao hàng</p>
-                                    <p class="text-info name-trademark">Nhập mã hoangthanh để được giảm 20k cho đơn hàng</p>
                                 </div>
                             </div>
                         </div>
@@ -816,7 +813,6 @@
     </div>
 </div>
 <button class="contact-btn">Chat</button>
-<span class="message-hover-customer">Chat Ngay</span>
 <!--  -->
     <a href="tel:0837641469">
         <div class="hotline">

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-10 nav-row-10 ">
-    <div class="container-fluid">
+    <div class="width-admin">
     <div class="row">
         <!-- sản phẩm -->
         <div class="col-4 min-height-prodcuct">
@@ -141,28 +141,8 @@
             </div>
         </div>
 
-        <!-- tong sp ban ra -->
-        <div class="col-4 ">
-            <div class="statistical-all img-admin-chart">
-            <img class="img-statistical-admin img-statistical-sell-products" src="{{asset('backend/img/candlestick-trading-graph-isolated-png-transparent-background-investing-stocks-market-buy-sell-sign-vector-illustration-224529770.jpg')}}" alt="">
-                <div class="row no-gutters infor-statisticala-admin">
-                    <div class="col mr-2 p-3 text-light">
-                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-light">
-                            Tổng giá sản phẩm bán ra
-                        </div> 
-                        <div class="h5 mb-0 font-weight-bold ">
-                            <span class="count-all saleprice-product">{{number_format($data_original_price)}} VNĐ</span> 
-                        </div>
-                    </div>
-                    <div class="col-auto card-icon text-Warning" style="font-size: 38px;">
-                        <i class="fa-solid fa-money-bill"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- tong gia sp ban dau -->
-        <div class="col-4  total-product-initial">
+        <div class="col-4 min-height-prodcuct total-product-initial">
             <div class="statistical-all img-admin-chart">
                 <img class="img-statistical-admin img-statistical-total-products" src="{{asset('backend/img/lovepik-pie-chart-png-image_400509540_wh1200.png')}}" alt="">
                 <div class="row no-gutters infor-statisticala-admin ">
@@ -191,9 +171,9 @@
         </div>
 
         <!-- sản phẩm bán chạy -->
-        <div class="col-6">
-            <div class="card statistical-all">
-                <div class="row no-gutters ">
+        <div class="col-4 min-height-prodcuct">
+            <div class="card border-loyal-customers bg-product-selling">
+                <div class="row no-gutters total-product-selling">
                     <div class="col mr-2 text-light center-total-product m-3">
                         <div class="text-xs fw-bolder text-uppercase mb-1 text-dark">
                             Sản phẩm bán chạy nhất hệ thống
@@ -201,16 +181,14 @@
                         <table class="table">
                             <thead>
                                 <tr class="text-center">
-                                    <th>STT</th>
-                                    <th>Mã SP</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Số lượng bán</th>
+                                    <th>Mã</th>
+                                    <th>Tên SP</th>
+                                    <th>SL bán</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="">
                                 @foreach ($popularProducts as $key  => $product)
                                     <tr class="text-center">
-                                        <td>1</td>
                                         <td>{{ $product['product_id'] }}</td>
                                         <td>{{ $product['product_name'] }}</td>
                                         <td>{{ $product['quantity'] }}</td>
@@ -222,35 +200,101 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- biểu đồ doanh thu 12 tháng gần đây -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+        <div class="revenue-chart-months min-height-prodcuct">
+            <canvas id="revenueChart"></canvas>
+        </div>
         <!-- khách hàng thân thiết -->
-        <div class="col-6">
-            <div class="card statistical-all">
-                <div class="row no-gutters ">
+        <div class="col-4 min-height-prodcuct loyal-customers">
+            <div class="card border-loyal-customers">
+                <div class="row no-gutters total-loyal-customers">
                     <div class="col mr-2 text-light center-total-product m-3">
                         <div class="text-xs fw-bolder text-uppercase mb-1 text-dark">
                             Khách hàng thân thiết
                         </div>
-                        <table class="table">
+                        <table class="table text-dark">
+                            <thead>
+                                <tr class="text-center ">
+                                    <th>Tên Khách hàng</th>
+                                    <th>SĐT</th>
+                                    <th>Số đơn hàng</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                                <thead>
-                                    <tr class="text-center ">
-                                        <th>STT</th>
-                                        <th>Tên Khách hàng</th>
-                                        <th>SĐT</th>
-                                        <th>Số đơn hàng</th>
-                                    </tr>
-                                </thead>
-                               
-                                
+                                <tr class="text-center">
+                                    <td>11111111</td>
+                                    <td>11111111</td>
+                                    <td>11111111</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+
+       
     </div>
 </div>
 @endsection
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    fetch('/revenue-chart')
+    .then(response => response.json())
+    .then(data => {
+        let months = data.months;
+        let revenue = data.revenue;
+        months = months.map(month => {
+            const date = new Date(month);
+            const formattedMonth = `${date.getMonth() + 1}/${date.getFullYear()}`;
+            return formattedMonth;
+        });
+        fetch('/revenue-for-current-month')
+        .then(response => response.json())
+        .then(currentMonthRevenue => {
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1;
+            const currentYear = currentDate.getFullYear();
+            const currentMonthString = `${currentMonth}/${currentYear}`;
+            revenue.push(currentMonthRevenue);
+            // months.push(currentMonthString);
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Doanh thu',
+                            data: revenue,
+                            fill: false,
+                            borderColor: '#2679A0',
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tháng',
+                            },
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Doanh thu',
+                            },
+                        },
+                    },
+                },
+            });
+        });
+    });
+</script>

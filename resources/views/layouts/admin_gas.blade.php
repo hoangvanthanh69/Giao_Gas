@@ -61,7 +61,7 @@
                               <div class="">
                                  <div id="flush-headingOne">
                                     <button class="accordion-button accordion-layouts-product " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" onclick="toggleArrow()">
-                                       <div class="@yield('sidebar-active-product') @yield('sidebar-active-product-warehouse') @yield('sidebar-active-product-inventory') d-flex" >
+                                       <div class="@yield('sidebar-active-product') @yield('sidebar-active-product-warehouse') @yield('sidebar-active-product-inventory') @yield('sidebar-active-supplier') d-flex" >
                                           <i class="fa-solid icon-product-layout icon-accordion-layouts fa-bars icon-all-admin-nav"></i>
                                           Quản lý sản phẩm
                                           <i class="fa-solid fa-angle-down ms-2 arrow-down"></i>
@@ -90,6 +90,13 @@
                                        <a class="@yield('sidebar-active-product-inventory')" href="{{route('quan-ly-ton-kho')}}">
                                           <i class="fa-solid fa-warehouse icon-all-admin-nav"></i>
                                           Tồn kho sản phẩm
+                                       </a>
+                                    </div>
+
+                                    <div class="mb-3 ms-4 home-filter-button fw-light">
+                                       <a class="@yield('sidebar-active-supplier')" href="{{route('nha-cung-cap')}}">
+                                          <i class="fa-solid fa-suitcase icon-all-admin-nav"></i>
+                                          Nhà cung cấp
                                        </a>
                                     </div>
                                  </div>

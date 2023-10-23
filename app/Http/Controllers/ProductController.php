@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\product;
 use App\Models\order_product;
 use App\Models\tbl_admin;
+use App\Models\tbl_supplier;
 use App\Models\product_warehouse;
 use Session;
 use App\Exports\ExcelExports_product;
@@ -145,6 +146,13 @@ class ProductController extends Controller
                 $admin_Names[$name->staff_id] = $admin->admin_name;
             }
         }
+        $supplierNames = [];
+foreach ($product_warehouse as $name) {
+    $supplier = tbl_supplier::find($name->supplier_id);
+    if ($supplier) {
+        $supplierNames[$name->supplier_id] = $supplier->name_supplier;
+    }
+}
         $search = $request->input('search');
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
         $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
@@ -152,7 +160,7 @@ class ProductController extends Controller
         return view('backend.quan_ly_kho', ['product_warehouse' => $product_warehouse,
         'productNames' => $productNames, 'admin_Names' => $admin_Names, 'search' => $search,
         'date_Filter_warehouse' => $date_Filter_warehouse, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
-        'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'productUnit' => $productUnit
+        'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'productUnit' => $productUnit, 'supplierNames'=>$supplierNames
         ]);
     }
 
@@ -163,10 +171,11 @@ class ProductController extends Controller
         }
         $tbl_product = product::get();
         $tbl_admin = tbl_admin::get();
+        $tbl_supplier = tbl_supplier::get();
         $name_product = session()->get('name_product');
         $admin_name = session()->get('admin_name');
         return view('backend.add_product_warehouse', ['tbl_product' => $tbl_product, 'name_product' => $name_product,
-            'tbl_admin' => $tbl_admin, 'admin_name' => $admin_name
+            'tbl_admin' => $tbl_admin, 'admin_name' => $admin_name, 'tbl_supplier' => $tbl_supplier
         ]);
     }
 
@@ -178,10 +187,12 @@ class ProductController extends Controller
         $data = $request->all();
         $add_warehouse = new product_warehouse;
         $product_id = $request->input('product_id');
+        $supplier_id = $request->input('supplier_id');
         $staff_id = $request->input('staff_id');
         $quantity = $request->input('quantity');
-        $price = $request->input('price'); // giá nhập vào kho
+        $price = $request->input('price');
         $add_warehouse -> product_id = $product_id;
+        $add_warehouse -> supplier_id = $supplier_id;
         $add_warehouse -> staff_id = $staff_id;
         $add_warehouse -> quantity = $data['quantity'];
         $add_warehouse -> price = $data['price'];
@@ -202,7 +213,7 @@ class ProductController extends Controller
             }
             $product->save();
         }
-        return redirect()->route('quan-ly-kho');
+        return redirect()->route('quan-ly-kho')->with('success', 'Nhập sản phẩm thành công');
     }
 
     // tìm kiếm nhập kho 
@@ -566,6 +577,44 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('quan-ly-kho')->with('message', 'Lỗi Import file');
         }
+    }
+
+
+    // nhà cung cấp gas
+    function nha_cung_cap_gas(){
+        $tbl_supplier = tbl_supplier::get();
+        return view('backend.nha_cung_cap_gas', ['tbl_supplier' => $tbl_supplier]);
+    }
+
+    // giao diện thêm nhà cung cấp gas
+    function add_supplier(){
+        return view('backend.add_supplier');
+    }
+
+    // xử lý nhà cung cấp
+    function add_suppliers(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        $data = $request->all();
+        $tbl_supplier = new tbl_supplier();
+        $tbl_supplier -> name_supplier = $data['name_supplier'];
+        $tbl_supplier ->save();
+        return redirect()->route('nha-cung-cap')->with('success', 'Thêm nhà cung cấp thành công');
+    }
+
+    // giao diện chỉnh sửa nhà cung cấp
+    function edit_suppliers($id){
+        $tbl_supplier = tbl_supplier::find($id);
+        return view('backend.edit_suppliers', ['tbl_supplier' => $tbl_supplier]);
+    }
+
+    // xử lý nhà cung cấp
+    function update_suppliers(Request $request, $id){
+        $tbl_supplier = tbl_supplier::find($id);
+        $tbl_supplier->name_supplier = $request->name_supplier;
+        $tbl_supplier->save();
+        return redirect()->route('nha-cung-cap')->with('success', 'Cập nhật nhà cung cấp thành công');
     }
 
 }
