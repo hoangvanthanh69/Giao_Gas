@@ -552,7 +552,7 @@ img.image-admin-product-edit {
     margin-top: -14px;
     margin: -13px;
     position: absolute;
-    height: 207px;
+    height: 209px;
     width: 100%;
     background-size: cover;
 }
@@ -1539,10 +1539,10 @@ input.choose-file-import-product {
     color: #2679A0 ;
 }
 .loyal-customers {
-    margin-left: -28px;
+    margin-left: -27px;
 }
 .total-product-selling {
-    height: 208px;
+    height: 207.5px;
     overflow: auto;
     margin: 0px !important;
 }
@@ -1551,11 +1551,13 @@ input.choose-file-import-product {
     margin-left: 22px;
 }
 .revenue-chart-months{
-    width: 882px !important;
+    width: 866px !important;
+    height: 300px;
     border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.25rem;
-    margin-right: 25px;
-    margin-left: -1px;
+    border-radius: 3px;
+    margin-left: -2px;
+    margin-right: 24px;
+    background-color: white;
 }
 .total-loyal-customers{
     height: 250px;
@@ -1565,7 +1567,66 @@ input.choose-file-import-product {
 .border-loyal-customers {
     border-top-right-radius: 0px!important;
     border-bottom-right-radius: 0px!important;
+    border-top-left-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
 }
 .bg-product-selling {
     background-color: #a6b5b8 !important;
+}
+.chart-revenue-months-div {
+    height: 84%;
+}
+.pie-chart {
+    border: 1px solid rgba(0,0,0,.125);
+    width: 429px !important;
+    border-top-right-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+    border-top-left-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+    background-color: white;
+}
+.pie-chart-show {
+    height: 215px;
+}
+#selectedMonthYear {
+    border-radius: 3px;
+    border: 1px solid #474646;
+    outline: none;
+    height: 30px;
+    padding: 5px;
+}
+#selectedMonthYears {
+    border-radius: 3px;
+    border: 1px solid #474646;
+    outline: none;
+    height: 30px;
+    padding: 5px;
+}
+.select-month-year-chart {
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 2px 6px;
+    background-color: #ece9f0;
+}
+.statistical-alls{
+    margin-right: -2px;
+    padding: 13px;
+    height: 89%;
+    font-size: 18px; 
+}
+.date-start {
+    margin-left: -52px;
+}
+.column-chart-revenue-day{
+    border: 1px solid rgba(0,0,0,.125);
+    border-top-right-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+    border-top-left-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+    background-color: white;
+    width: 96% !important;
+    margin-left: -1px;
+}
+.custom-chart-revenue-day {
+    height: 76%;
 }

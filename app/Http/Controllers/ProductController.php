@@ -140,19 +140,18 @@ class ProductController extends Controller
         }
         $admin_Names=[];
         foreach($product_warehouse as $name){
-            // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
             $admin = tbl_admin::find($name->staff_id);
             if ($admin) {
                 $admin_Names[$name->staff_id] = $admin->admin_name;
             }
         }
         $supplierNames = [];
-foreach ($product_warehouse as $name) {
-    $supplier = tbl_supplier::find($name->supplier_id);
-    if ($supplier) {
-        $supplierNames[$name->supplier_id] = $supplier->name_supplier;
-    }
-}
+        foreach ($product_warehouse as $name) {
+            $supplier = tbl_supplier::find($name->supplier_id);
+            if ($supplier) {
+                $supplierNames[$name->supplier_id] = $supplier->name_supplier;
+            }
+        }
         $search = $request->input('search');
         $date_Filter_warehouse = $request->input('date_Filter_warehouse');
         $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
@@ -242,6 +241,13 @@ foreach ($product_warehouse as $name) {
                 }
                 $productUnit[$name->product_id] = product::find($name->product_id)->unit;
             }
+            $supplierNames = [];
+            foreach ($product_warehouse as $name) {
+                $supplier = tbl_supplier::find($name->supplier_id);
+                if ($supplier) {
+                    $supplierNames[$name->supplier_id] = $supplier->name_supplier;
+                }
+            }
             if ($product_warehouse->isEmpty()) {
                 return back()->with('message', 'Không tìm thấy kết quả');
             }else {
@@ -252,7 +258,7 @@ foreach ($product_warehouse as $name) {
                     'product_warehouse' => $product_warehouse, 'search' => $search,
                     'productNames' => $productNames, 'admin_Names' => $admin_Names,
                     'date_Filter_warehouse' => $date_Filter_warehouse, 'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
-                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'productUnit' => $productUnit
+                    'date_Filter_warehouse_start' => $date_Filter_warehouse_start, 'productUnit' => $productUnit, 'supplierNames' => $supplierNames
                 ]);
             }
         } else {
@@ -361,7 +367,7 @@ foreach ($product_warehouse as $name) {
         }
     }
 
-    // lọc theo khoảng thời gian
+    // lọc theo khoảng thời gian cho nhập kho
     function filters_date_warehouse(Request $request){
         if(!Session::get('admin')){
             return redirect()->route('login');
@@ -387,20 +393,24 @@ foreach ($product_warehouse as $name) {
                     }
                     $admin_Names=[];
                     foreach($query as $name){
-                        // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
                         $admin = tbl_admin::find($name->staff_id);
                         if ($admin) {
                             $admin_Names[$name->staff_id] = $admin->admin_name;
                         }
                     }
+                    $supplierNames = [];
+                    foreach ($query as $name) {
+                        $supplier = tbl_supplier::find($name->supplier_id);
+                        if ($supplier) {
+                            $supplierNames[$name->supplier_id] = $supplier->name_supplier;
+                        }
+                    }
                     foreach ($query as $record) {
                         $productNames[$record->product_id] = product::find($record->product_id)->name_product;
-                        // $adminNames[$record->staff_id] = tbl_admin::find($record->staff_id)->admin_name;
                         $admin = tbl_admin::find($name->staff_id);
                         if ($admin) {
                             $admin_Names[$name->staff_id] = $admin->admin_name;
                         }
-                        
                     }
                     $search = $request->input('search');
                     return view('backend.quan_ly_kho', [
@@ -408,7 +418,7 @@ foreach ($product_warehouse as $name) {
                         'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
                         'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
                         'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names,
-                        'productUnit' => $productUnit
+                        'productUnit' => $productUnit, 'supplierNames' => $supplierNames
                     ]);
                 }
             }
@@ -432,13 +442,18 @@ foreach ($product_warehouse as $name) {
                     }
                 $admin_Names=[];
                     foreach($product_warehouse as $name){
-                        // $admin_Names[$name->staff_id] = tbl_admin::find($name->staff_id)->admin_name;
                         $admin = tbl_admin::find($name->staff_id);
                         if ($admin) {
                             $admin_Names[$name->staff_id] = $admin->admin_name;
                         }
                     }
-
+                $supplierNames = [];
+                    foreach ($product_warehouse as $name) {
+                        $supplier = tbl_supplier::find($name->supplier_id);
+                        if ($supplier) {
+                            $supplierNames[$name->supplier_id] = $supplier->name_supplier;
+                        }
+                    }
                 $search = $request->input('search');
                 $date_Filter_warehouse_end = $request->input('date_Filter_warehouse_end');
                 $date_Filter_warehouse_start = $request->input('date_Filter_warehouse_start');
@@ -448,7 +463,7 @@ foreach ($product_warehouse as $name) {
                     'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
                     'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
                     'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names,
-                    'productUnit' => $productUnit
+                    'productUnit' => $productUnit, 'supplierNames' => $supplierNames
                 ]);
             }
         }

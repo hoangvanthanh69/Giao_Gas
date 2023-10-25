@@ -30,7 +30,7 @@ class CheckPermission
                     return $next($request);
                 }
             }
-            return redirect()->back()->with('message', 'Bạn không có quyền');
+            return redirect()->back()->with('message', 'Bạn không có quyền truy cập');
         } else {
             return redirect()->route('login');
         }

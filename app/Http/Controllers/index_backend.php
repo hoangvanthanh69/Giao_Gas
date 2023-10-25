@@ -630,8 +630,40 @@ class index_backend extends Controller
             ->sum('tong');
         return response()->json($currentMonthRevenue);
     }
+
+    // biểu đồ tròn trạng thái đơn hàng 
+    function statusChart(Request $request) {
+        $selectedMonth = $request->input('month');
+        $selectedYear = $request->input('year');
+        if ($selectedMonth && $selectedYear) {
+            $successfulDeliveries = order_product::whereMonth('created_at', $selectedMonth)
+                ->whereYear('created_at', $selectedYear)->where('status', 3)->count();
+            $canceledOrders = order_product::whereMonth('created_at', $selectedMonth)
+                ->whereYear('created_at', $selectedYear)->where('status', 4)->count();
+        } else {
+            $successfulDeliveries = order_product::where('status', 3)->count();
+            $canceledOrders = order_product::where('status', 4)->count();
+        }
+        return response()->json([
+            'successfulDeliveries' => $successfulDeliveries,
+            'canceledOrders' => $canceledOrders,
+        ]);
+    }
+
+    // biểu đồ cột doanh thu theo ngày
+    function getRevenueData(Request $request) {
+        $selectedMonthYear = $request->input('selectedMonthYears');
+        list($selectedYear, $selectedMonth) = explode('-', $selectedMonthYear);
     
+        $revenueData = DB::table('order_product')
+            ->whereYear('created_at', $selectedYear)
+            ->whereMonth('created_at', $selectedMonth)->where('status', 3)
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(tong) as total'))
+            ->get();
     
+        return response()->json($revenueData);
+    }
     
 
 }

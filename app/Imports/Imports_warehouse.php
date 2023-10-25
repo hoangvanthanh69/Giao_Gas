@@ -21,6 +21,7 @@ class Imports_warehouse implements ToModel
             'batch_code' => $row[5],
             'price' => $row[6],
             'total' => $row[7],
+            'supplier_id' => $row[8],
         ]);
     }
 }

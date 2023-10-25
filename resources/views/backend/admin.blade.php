@@ -2,8 +2,8 @@
 @section('sidebar-active-home', 'active' )
 @section('content')
 
-<div class="col-10 nav-row-10 ">
-    <div class="width-admin">
+<div class="col-10 nav-row-10 ps-5">
+    <div class="width-admin mt-3">
     <div class="row">
         <!-- sản phẩm -->
         <div class="col-4 min-height-prodcuct">
@@ -204,10 +204,38 @@
         <!-- biểu đồ doanh thu 12 tháng gần đây -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
         <div class="revenue-chart-months min-height-prodcuct">
-            <canvas id="revenueChart"></canvas>
+            <div class="text-center mt-3">Biểu đồ đường doanh thu 12 tháng gần đây</div>
+            <div class="chart-revenue-months-div">
+                <canvas id="revenueChart"></canvas>
+            </div>
         </div>
+
+        <!-- biểu đồ tròn trạng thái giao hàng -->
+        <div class="pie-chart min-height-prodcuct">
+            <div class="text-center mt-3">Biểu đồ tròn giao hàng thành công và đơn hàng hủy</div>
+            <div class="text-center mt-2">
+                <input type="month" id="selectedMonthYear" name="selectedMonthYear">
+                <button onclick="showRevenueChart()" class="select-month-year-chart">Hiển thị biểu đồ</button>
+            </div>
+            <div class="pie-chart-show">
+                <canvas id="deliveryStatusChart"></canvas>
+            </div>
+        </div>
+
+        <!-- biểu đồ cột doanh thu theo ngày  -->
+        <div class="mt-2 column-chart-revenue-day">
+            <div class="mt-3 text-center">Biểu đồ cột doanh thu theo ngày</div>
+            <div class="text-center mt-2">
+                <input type="month" id="selectedMonthYears">
+                <button onclick="displayCustomChart()" class="select-month-year-chart">Hiển thị biểu đồ</button>
+            </div>
+            <div class="custom-chart-revenue-day">
+                <canvas id="customChart"></canvas>
+            </div>
+        </div>
+
         <!-- khách hàng thân thiết -->
-        <div class="col-4 min-height-prodcuct loyal-customers">
+        <div class="col-4 mt-2 min-height-prodcuct loyal-customers">
             <div class="card border-loyal-customers">
                 <div class="row no-gutters total-loyal-customers">
                     <div class="col mr-2 text-light center-total-product m-3">
@@ -235,7 +263,6 @@
             </div>
         </div>
 
-       
     </div>
 </div>
 @endsection
@@ -298,3 +325,119 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        showRevenueChart();
+    });
+    function showRevenueChart() {
+        const selectedMonthYear = document.getElementById('selectedMonthYear').value;
+        const [selectedYear, selectedMonth] = selectedMonthYear.split('-');
+        fetch(`/status-chart?month=${selectedMonth}&year=${selectedYear}`)
+        .then(response => response.json())
+        .then(data => {
+            const successfulDeliveries = data.successfulDeliveries;
+            const canceledOrders = data.canceledOrders;
+            const totalOrders = successfulDeliveries + canceledOrders;
+            const successPercentage = (successfulDeliveries / totalOrders) * 100;
+            const cancelPercentage = (canceledOrders / totalOrders) * 100;
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+            const ctx = document.getElementById('deliveryStatusChart').getContext('2d');
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Giao hàng thành công', 'Đơn hàng hủy'],
+                    datasets: [{
+                        data: [successPercentage, cancelPercentage],
+                        backgroundColor: ['#198754', '#dc3545'],
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed + '%';
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+        });
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        displayCustomChart();
+    })
+    let customChart = null;
+    function displayCustomChart() {
+        const selectedMonthYear = document.getElementById('selectedMonthYears').value;
+        let selectedYear, selectedMonth;
+        if (selectedMonthYear) {
+            [selectedYear, selectedMonth] = selectedMonthYear.split('-');
+        } else {
+            const currentDate = new Date();
+            selectedYear = currentDate.getFullYear();
+            selectedMonth = currentDate.getMonth() + 1;
+        }
+        const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+        const labels = Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString());
+            fetch(`/get-revenue-data?selectedMonthYears=${selectedYear}-${selectedMonth}`)
+            .then(response => response.json())
+            .then(data => {
+                const values = Array(daysInMonth).fill(0);
+                data.forEach(item => {
+                    const day = new Date(item.date).getDate();
+                    values[day - 1] = item.total;
+                });
+                if (customChart) {
+                    customChart.destroy();
+                }
+                const ctx = document.getElementById('customChart').getContext('2d');
+                customChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels.map((label, index) => `${label}/${selectedMonth}/${selectedYear}`),
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: values,
+                            backgroundColor: '#2679A0',
+                            borderColor: '#2679A0',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Ngày',
+                                },
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Doanh thu',
+                                },
+                            },
+                        },
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Có lỗi xảy ra:', error);
+            });
+    }
+</script>
+
+
+

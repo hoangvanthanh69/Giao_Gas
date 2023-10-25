@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\product_warehouse;
 use App\Models\tbl_admin;
 use App\Models\product;
+use App\Models\tbl_supplier;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -73,6 +74,7 @@ class ExcelExports_warehouse implements FromCollection, WithHeadings, WithMappin
             'ID',
             'Mã nhập',
             'Tên sản phẩm',
+            'Nhà cung cấp',
             'Số lượng',
             'Giá nhập',
             'Tổng',
@@ -83,10 +85,12 @@ class ExcelExports_warehouse implements FromCollection, WithHeadings, WithMappin
     public function map($row): array{
         $productName = product::find($row->product_id)->name_product;
         $adminName = tbl_admin::find($row->staff_id)->admin_name;
+        $name_supplier = tbl_supplier::find($row->supplier_id)->name_supplier;
         return [
             $row->id,
             $row->batch_code,
             $productName,
+            $name_supplier,
             $row->quantity,
             $row->price,
             $row->total,

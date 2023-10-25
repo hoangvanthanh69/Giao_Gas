@@ -8,7 +8,7 @@
 
         <h5 class="order-detail-overview">Thống kê chi tiết đơn hàng</h5>
         <!-- hóa đơn -->
-        <div class="col-4 mb-2 total-product-initial">
+        <div class="col-4 mb-4 total-product-initial">
             @if (session('success'))
                 <div class="change-password-customer-home d-flex">
                 <i class="far fa-check-circle icon-check-success"></i>
@@ -41,7 +41,7 @@
 
 
 
-        <div class="col-4 mb-2">
+        <div class="col-4 mb-4">
                 <div class="card statistical-all statistical-all-delivery">
                     <div class="row no-gutters" >
                         <div class="col mr-2 p-3 text-light center-total-product" >
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="col-4 mb-2">
+            <div class="col-4 mb-4">
                 <div class="card statistical-all statistical-all-processing">
                     <div class="row no-gutters ">
                         <div class="col mr-2 p-3 text-light center-total-product">
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="col-6 mb-2">
+            <div class="col-6 mb-4">
                 <div class="card statistical-all statistical-all-canceled">
                     <div class="row no-gutters ">
                         <div class="col mr-2 p-3 text-light center-total-product">
@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            <div class="col-6 mb-2">
+            <div class="col-6 mb-4">
                 <div class="card statistical-all statistical-all-delivered">
                     <div class="row no-gutters ">
                         <div class="col mr-2 p-3 text-light center-total-product">

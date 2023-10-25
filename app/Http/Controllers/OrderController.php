@@ -242,6 +242,12 @@ class OrderController extends Controller
                     width: 150px;
                     text-align: center;
                 }
+                .bill-repeater{
+                    float: right;
+                }
+                .bill-repeater-p{
+                    text-align: center;
+                }
             </style>
             <div class="receipt-h3">
                 <h2>Gas Tech</h2>
@@ -305,7 +311,12 @@ class OrderController extends Controller
             $output .= '</tbody>
                         </table>
                         <p class="receipt-h3">Gas Tech xin chân thành cảm ơn quý khách,</p>
-                        <p class="receipt-h3">Hẹn gặp lại!</p>';
+                        <p class="receipt-h3">Hẹn gặp lại!</p>
+                        <div class="bill-repeater">
+                            <p class="bill-repeater-p">Người lập</p>
+                            <span>(ký, ghi họ tên)</span>
+                        </div>
+                        ';
             return $output;
     }
 

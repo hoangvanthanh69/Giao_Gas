@@ -145,7 +145,7 @@
                         </td>
 
                         <td class="">{{$val['created_at']}}</td>
-                        <td class="function-icon ">
+                        <td class=" ">
                           <!-- <form action="">
                             <button class="summit-add-product-button" type='submit'>
                               <i class="fa-solid fa-pen-to-square"></i>

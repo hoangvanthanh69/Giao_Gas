@@ -453,4 +453,10 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
     // Lấy doanh thu cho tháng hiện tại
     Route::get('/revenue-for-current-month', [index_backend::class, 'getCurrentMonthRevenue'])->name('revenue-for-current-month');
 
+    // biểu đồ tròn đơn hàng giao thành công và đã hủy
+    Route::get('/status-chart', [index_backend::class, 'statusChart'])->name('status-chart');
+
+    // biểu đồ cột doanh thu theo ngày
+    Route::get('/get-revenue-data', [index_backend::class, 'getRevenueData'])->name('get-revenue-data');
+
 // 
