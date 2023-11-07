@@ -134,6 +134,9 @@ class StaffController extends Controller
         }
         $tbl_admin = tbl_admin::where('chuc_vu','1')->get()->toArray();
         $staff = add_staff::get()->toArray();
+        $date_Filter = $request->input('date_Filter');
+        $date_Filter_start = $request->input('date_Filter_start');
+        $date_Filter_end = $request->input('date_Filter_end');
         foreach ($tbl_admin as &$tbl_admins) {
             $admin_name = $tbl_admins['admin_name'];
             $order_count = order_product::where('admin_name', $admin_name)->count();
@@ -141,7 +144,8 @@ class StaffController extends Controller
             $tbl_admins['order_count'] = $order_count;
             $tbl_admins['total_sales'] = $total_sales;
         }
-        return view('backend.nhan_vien_giao_hang', ['tbl_admin' => $tbl_admin, 'staff' =>$staff]);
+        return view('backend.nhan_vien_giao_hang', ['tbl_admin' => $tbl_admin, 'staff' =>$staff, 
+        'date_Filter' => $date_Filter, 'date_Filter_start' => $date_Filter_start, 'date_Filter_end' => $date_Filter_end]);
     }
 
     // lọc số đơn giao theo ngày tháng năm nhân viên giao hàng
@@ -151,7 +155,6 @@ class StaffController extends Controller
         }
         $tbl_admin = tbl_admin::where('chuc_vu', '1')->get();
         $staff = add_staff::get();
-        // Lấy các thông tin từ form
         $date_Filter = $request->input('date_Filter');
         $date_Filter_start = $request->input('date_Filter_start');
         $date_Filter_end = $request->input('date_Filter_end');
@@ -186,7 +189,8 @@ class StaffController extends Controller
             $tbl_admins->order_count = $order_count;
             $tbl_admins->total_sales = $total_sales;
         }
-        return view('backend.nhan_vien_giao_hang', ['tbl_admin' => $tbl_admin]);
+        return view('backend.nhan_vien_giao_hang', ['tbl_admin' => $tbl_admin, 'date_Filter' => $date_Filter,
+        'date_Filter_start' => $date_Filter_start, 'date_Filter_end' => $date_Filter_end]);
     }
     
     

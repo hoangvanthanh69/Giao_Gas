@@ -28,21 +28,21 @@
                   <label for="" class="ps-2">Thời gian:</label>
                   <div>
                      <i class="fa-solid fa-calendar-days icon-filter-date-delivery-staff"></i>
-                     <input class="date-filter-order pb-1" type="text" id="date_Filter" name="date_Filter" placeholder="dd-mm-yy • mm-yy • yy" value=""/>
+                     <input class="date-filter-order pb-1" type="text" id="date_Filter" name="date_Filter" placeholder="dd-mm-yy • mm-yy • yy" value="{{$date_Filter}}"/>
                   </div>
                </div>
                <div class="d-flex">
                   <div class=" padding-left-warehouse">
                      <label for="" class="ps-2">Từ ngày:</label>
                         <div>
-                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_start" name="date_Filter_start" placeholder="• dd-mm-yy" value=""/>
+                          <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_start" name="date_Filter_start" placeholder="• dd-mm-yy" value="{{$date_Filter_start}}"/>
                         </div>
                   </div>
 
                   <div class="padding-left-warehouse">
                      <label for="" class="ps-2">Đến ngày:</label>
                      <div>
-                        <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_end" name="date_Filter_end" placeholder="• dd-mm-yy" value=""/>
+                        <input class="date-filter-order ps-3 pb-1" type="text" id="date_Filter_end" name="date_Filter_end" placeholder="• dd-mm-yy" value="{{$date_Filter_end}}"/>
                      </div>
                   </div>
                </div>

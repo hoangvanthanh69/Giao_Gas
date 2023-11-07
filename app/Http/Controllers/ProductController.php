@@ -632,4 +632,22 @@ class ProductController extends Controller
         return redirect()->route('nha-cung-cap')->with('success', 'Cập nhật nhà cung cấp thành công');
     }
 
+    // tìm kiếm nhà cung cấp 
+    function searchsuppliers(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $tbl_supplier = tbl_supplier::where('id', 'LIKE', "%$search%")->orWhere('name_supplier', 'LIKE', "%$search%")->get();
+            if($tbl_supplier->isEmpty()){
+                return back()->with('message', 'Không tìm thấy kết quả');
+            } else {
+                return view('backend.nha_cung_cap_gas', compact('tbl_supplier', 'search'));
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+
 }

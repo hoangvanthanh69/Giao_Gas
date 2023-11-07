@@ -18,7 +18,7 @@
     text-align: center;
     align-items: center;
     padding-bottom: 16px;
-    /* margin-left: 14%; */
+    width: 228px;
 }
 .row.main-row.container-fluid {
     margin-left: -25px;
@@ -512,7 +512,7 @@ img.image-admin-product-edit {
 }
 .min-height-prodcuct {
     min-height: 234px;
-    margin-top: -17px !important;
+    margin-top: -16px !important;
     margin-left: -14px;
 }
 .order-detail-overview {
@@ -1557,7 +1557,7 @@ input.choose-file-import-product {
     border-radius: 3px;
     margin-left: -2px;
     margin-right: 24px;
-    background-color: white;
+    background-color: #dbecca;
 }
 .total-loyal-customers{
     height: 250px;
@@ -1583,7 +1583,7 @@ input.choose-file-import-product {
     border-bottom-right-radius: 0px!important;
     border-top-left-radius: 3px !important;
     border-bottom-left-radius: 3px !important;
-    background-color: white;
+    background-color: #f6f6f6;
 }
 .pie-chart-show {
     height: 215px;
@@ -1626,6 +1626,7 @@ input.choose-file-import-product {
     background-color: white;
     width: 96% !important;
     margin-left: -1px;
+    margin-top: 9px !important;
 }
 .custom-chart-revenue-day {
     height: 76%;

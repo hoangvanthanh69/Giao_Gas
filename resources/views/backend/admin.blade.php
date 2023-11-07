@@ -223,7 +223,7 @@
         </div>
 
         <!-- biểu đồ cột doanh thu theo ngày  -->
-        <div class="mt-2 column-chart-revenue-day">
+        <div class="column-chart-revenue-day">
             <div class="mt-3 text-center">Biểu đồ cột doanh thu theo ngày</div>
             <div class="text-center mt-2">
                 <input type="month" id="selectedMonthYears">

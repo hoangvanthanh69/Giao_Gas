@@ -245,7 +245,7 @@ class index_backend extends Controller
         $users = users::orderByDesc('id')->get();
         $combinedData = [];
         foreach ($users as $user) {
-            $orderProductQuery = order_product::where('user_id', $user->id);
+            $orderProductQuery = order_product::where('user_id', $user->id)->where('status', 3);
             if ($filter > 0) {
                 $startDate = now()->subMonths($filter)->startOfMonth();
                 $endDate = now()->endOfMonth();
@@ -262,24 +262,27 @@ class index_backend extends Controller
                 'orderProductSum' => $orderProductSum,
             ];
         }
-
         // cho khách hàng đặt qua số điện thoại có user_id == null
         $order_products_null_user = order_product::where('user_id', 'null')->get();
         $orderCounts = [];
-        foreach ($order_products_null_user as $order) {
-            $userId = $order->user_id;
-            if (array_key_exists($userId, $orderCounts)) {
-                $orderCounts[$userId]['orderCount']++;
-                $orderCounts[$userId]['totalValue'] += $order->tong;
-            } else {
-                $orderCounts[$userId] = [
-                    'orderCount' => 1,
-                    'totalValue' => $order->tong,
-                ];
+        $totalValue = [];
+        foreach ($order_products_null_user as $user) {
+            $phoneCustomer = $user->phoneCustomer;
+            if ($phoneCustomer) {
+                if ($user->status == 3) {
+                    // Kiểm tra xem số điện thoại đã xuất hiện trong mảng $orderCounts và $totalValue chưa
+                    if (array_key_exists($phoneCustomer, $orderCounts) && array_key_exists($phoneCustomer, $totalValue)) {
+                        $orderCounts[$phoneCustomer]++;
+                        $totalValue[$phoneCustomer] += $user->tong;
+                    } else {
+                        $orderCounts[$phoneCustomer] = 1;
+                        $totalValue[$phoneCustomer] = $user->tong;
+                    }
+                }
             }
         }
         return view('backend.quan_ly_tk_user', ['combinedData' => $combinedData, 'filter' => $filter,
-            'order_products_null_user' => $order_products_null_user, 'orderCounts' => $orderCounts]);
+            'order_products_null_user' => $order_products_null_user, 'orderCounts' => $orderCounts, 'totalValue' => $totalValue]);
     }
     
     
@@ -518,7 +521,7 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-binh-luan')->with(['success' => 'Xóa thành công']);
     }
 
-    //xóa trả lời bình luận
+    // xóa trả lời bình luận
     function delete_reply_comment($id){
         $replyComment = tbl_comment::find($id);
         // print_r($replyComment);die;
@@ -526,7 +529,7 @@ class index_backend extends Controller
         return redirect()->route('quan-ly-binh-luan')->with(['success' => 'Xóa bình luận thành công']);
     }
 
-    // // quản lý tin nhắn
+    // quản lý tin nhắn
     function quan_ly_tin_nhan() {
         if (!Session::get('admin')) {
             return redirect()->route('login');

@@ -21,8 +21,20 @@
                     {{ session('message') }}
                     </div>
                 @endif
-                <div class="search-infor-amdin-form-staff mt-3">
-                    <a class="add-product" href="{{route('add-supplier')}}">Thêm nhà cung cấp</a>
+                <div class="search-option-infor-amdin mt-2">
+                    <div class="">
+                        <a class="add-product" href="{{route('add-supplier')}}">Thêm nhà cung cấp</a>
+                    </div>
+                    <div class="me-3">
+                        <form action="{{ route('search-suppliers') }}" method="GET" class="header-with-search-form">
+                            @csrf
+                            <i class="search-icon-discount fas fa-search"></i>
+                            <input type="text" autocapitalize="off" class="header-with-search-input-discount" placeholder="Tìm kiếm" name="search">
+                            <span class="header_search button" onclick="startRecognition()">
+                                <i class="fas fa-microphone" id="microphone-icon"></i> 
+                            </span>
+                        </form>
+                    </div>
                 </div>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

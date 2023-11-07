@@ -18,7 +18,7 @@
               <i class="fas fa-ban icon-check-cancel"></i>
               {{ session('message') }}
             </div>
-          @endif
+         @endif
       <div class="table-responsive ">
          <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
             <div class="carousel-inner">
@@ -57,14 +57,24 @@
                               <td>{{$key+1}}</td>
                               <td class="product-order-quantity">{{$val['user']['name']}}</td>
                               <td>
+                                 @if($val['user']['phone'] != null && $val['user']['phone'] !=0)
                                     {{$val['user']['phone']}}
+                                 @else
+                                    <span class="text-decoration-underline">Không có</span>
+                                 @endif
                               </td>
-                              <td class="product-order-quantity">{{$val['user']['email']}}</td>
+                              <td class="product-order-quantity">
+                                 @if($val['user']['email'] != null)
+                                    {{$val['user']['email']}}
+                                 @else
+                                    <span class="text-decoration-underline">Không có</span>
+                                 @endif
+                              </td>
                               <td> 
                                  @if($val['state'] != null)
                                     {{$val['diachi']}}, {{$val['district']}}, {{$val['state']}}
                                  @else
-                                    Không có
+                                    <span class="text-decoration-underline">Không có</span>
                                  @endif
                               </td>
                               <td class="product-order-quantity">{{$val['order_count']}}</td>
@@ -121,6 +131,7 @@
                         <tbody class="infor table-list-product">
                            @php
                               $displayedPhoneNumbers = [];
+                              $count = 1;
                            @endphp
                            @foreach($order_products_null_user as $key => $val)
                               @if (!in_array($val['phoneCustomer'], $displayedPhoneNumbers))
@@ -128,12 +139,12 @@
                                     $displayedPhoneNumbers[] = $val['phoneCustomer'];
                                  @endphp
                                  <tr class="">
-                                    <td>{{$key+1}}</td>
+                                    <td>{{$count++}}</td>
                                     <td class="product-order-quantity">{{$val['nameCustomer']}}</td>
                                     <td>{{$val['phoneCustomer']}}</td>
                                     <td> {{$val['diachi']}}, {{$val['district']}}, {{$val['state']}}</td>
-                                    <td class="product-order-quantity"> {{ $orderCounts[$val->user_id]['orderCount'] ?? 0 }}</td>
-                                    <td>{{ number_format($orderCounts[$val->user_id]['totalValue'] ?? 0) }} <span class="text-decoration-underline">đ</span></td>
+                                    <td class="product-order-quantity">{{ $orderCounts[$val->phoneCustomer] ?? 0}}</td>
+                                    <td>{{number_format($totalValue[$val->phoneCustomer] ?? 0)}} <span class="text-decoration-underline">đ</span></td>
                                  </tr>
                               @endif
                            @endforeach 

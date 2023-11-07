@@ -178,6 +178,10 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
     // xử lý nhà cung cấp
     Route::post('update-suppliers/{id}', [ProductController::class, 'update_suppliers'])->name('update-suppliers');
 
+    // tìm kiếm nhà cung cấp
+    Route::get('nha-cung-cap/search-suppliers', [ProductController::class, 'searchsuppliers'])->name('search-suppliers');
+    
+
 // 
 
 // Đơn hàng
@@ -213,7 +217,7 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
     Route::get('/chitiet/{id}', [index_backend::class, 'chitiet'] )->name('chitiet');
 
     // giao diện đặt hàng cho khách hàng điện thoại
-    Route::get('/admin/order_phone', [index_backend::class, 'order_phone'])->name('order_phone')->middleware('check.permission:10');
+    Route::get('/order_phone', [index_backend::class, 'order_phone'])->name('order_phone')->middleware('check.permission:10');
 
     // xử lý đặt hàng cho khách hàng qua số điện thoại
     Route::post('add-order', [index_backend::class, 'add_orders'])->name('add-order');
