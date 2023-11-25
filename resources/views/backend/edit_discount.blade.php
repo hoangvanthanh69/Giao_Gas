@@ -80,6 +80,34 @@
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{asset('frontend/js/jquery.validate.js')}}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#signupForm").validate({
+			rules: {
+				type: "required",
+			},
+			messages: {
+				type: "Chọn loại giảm",
+			},
+			errorElement: "div",
+			errorPlacement: function (error, element) {
+				error.addClass("invalid-feedback-staff");
+				if (element.prop("type") === "checkbox"){
+					error.insertAfter(element.siblings("label"));
+				} else {
+					error.insertAfter(element);
+				}
+			},
+			highlight: function (element, errorClass, validClass) {
+				$(element).addClass("is-invalid").removeClass("is-valid");
+			},
+			unhighlight: function(element, errorClass, validClass) {
+				$(element).addClass("is-valid").removeClass("is-invalid");
+			} 
+		});
+    });
+</script>
         </div>
 
     </div>

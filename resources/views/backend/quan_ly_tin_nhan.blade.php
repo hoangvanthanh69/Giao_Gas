@@ -81,7 +81,7 @@
                 <div class="">
                   <div class="reply-message-admin-span" data-user_id="{{$userId}}"></div>
                   <div>
-                    <input class="input-reply-message-admin_{{$message->user_id}} reply_message" data-user_id="{{$userId}}"  placeholder="Trả lời bình luận"></input>
+                    <input class="input-reply-message-admin_{{$message->user_id}} reply_message" data-user_id="{{$userId}}"  placeholder="Trả lời"></input>
                     <button class="btn-reply-message" data-user_id="{{$userId}}">Trả lời</button>
                   </div>
                 </div>

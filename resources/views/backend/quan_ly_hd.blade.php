@@ -14,11 +14,20 @@
               <form action="{{route('admin.search_hd')}}" method="GET" class="header-with-search-form ">
                 @csrf
                 <i class="search-icon-discount fas fa-search"></i>
-                <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Mã ĐH, Tên KH" name="search">
+                <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount" placeholder="Mã ĐH, Tên KH, SĐT" name="search">
                 <span class="header_search button" onclick="startRecognition()">
                   <i class="fas fa-microphone" id="microphone-icon"></i> 
                 </span>
               </form>
+              @if(Session::get('admin')['chuc_vu'] == "1")
+                <div class="mt-2 bg-secondary">
+                  <form action="{{route('search-invoices-deliverie')}}" method="GET" class="header-with-search-form ">
+                    @csrf
+                    <i class="search-icon-discount fas fa-search"></i>
+                    <input type="text" autocapitalize="off" class="header-with-search-input header-with-search-input-discount " placeholder="Ô search cho nhân viên" name="search">
+                  </form>
+                </div>
+              @endif
               @if (session('success'))
                 <div class="change-password-customer-home d-flex">
                   <i class="far fa-check-circle icon-check-success"></i>

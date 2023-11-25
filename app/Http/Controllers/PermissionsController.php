@@ -134,6 +134,9 @@ class PermissionsController extends Controller
 
     // hiển thị thêm nhóm quyền
     function add_rights_group(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         return view('backend.add_rights_group');
     }
 
@@ -151,6 +154,9 @@ class PermissionsController extends Controller
 
     // dánh sách quyền
     function danh_sach_quyen(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $tbl_permissions = tbl_permissions::get();
         $rights_group = [];
         foreach ($tbl_permissions as $name_group) {
@@ -192,12 +198,18 @@ class PermissionsController extends Controller
 
     // danh sách nhóm quyền
     function danh_sach_nhom_quyen(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $tbl_rights_group = tbl_rights_group::get();
         return view('backend.danh_sach_nhom_quyen', ['tbl_rights_group' => $tbl_rights_group]);
     }
 
     // giao diện chỉnh sửa nhóm quyền
     function edit_tbl_rights_group($id){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $tbl_rights_group = tbl_rights_group::find($id);
         return view('backend.edit_tbl_rights_group', ['tbl_rights_group' => $tbl_rights_group]);
     }

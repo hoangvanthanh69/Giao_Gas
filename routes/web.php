@@ -39,7 +39,7 @@ Route::post('/get-product-by-id', [index::class, 'getProductByID'] )->name('get-
 
 // Route::post('/handle-order', [index::class, 'handle_order'] )->name('handle-order');
 
-Route::get('/admin', [index_backend::class, 'home'] )->name('admin');
+Route::get('/admin', [index_backend::class, 'home'] )->name('admin')->middleware('check.permission:23');
 
 //đăng nhập user
 Route::get('/dangnhap', [AuthController::class, 'showLoginForm'] )->name('dangnhap');
@@ -180,6 +180,9 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
 
     // tìm kiếm nhà cung cấp
     Route::get('nha-cung-cap/search-suppliers', [ProductController::class, 'searchsuppliers'])->name('search-suppliers');
+
+    // xóa nhà cung cấp
+    Route::get('delete-supplier/{id}', [ProductController::class, 'delete_supplier'])->name('delete-supplier');
     
 
 // 
@@ -192,22 +195,22 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
     Route::get('/delete-order/{id}', [OrderController::class, 'delete_order'] )->name('delete-order')->middleware('check.permission:9');
 
     // tìm kiếm hóa đơn
-    Route::get('/admin/quan-ly-hd/search_hd', [OrderController::class, 'search_hd'])->name('admin.search_hd');
+    Route::get('/admin/quan-ly-hd/search_hd', [OrderController::class, 'search_hd'])->name('admin.search_hd')->middleware('check.permission:26');
 
     //lọc đơn hàng theo tên a-z, z-a
-    Route::get('admin/quan-ly-hd/sort_order', [OrderController::class, 'sort_order'])->name('sort_order');
+    Route::get('admin/quan-ly-hd/sort_order', [OrderController::class, 'sort_order'])->name('sort_order')->middleware('check.permission:29');
 
     //lọc đơn hàng theo ngày gần nhất và xa nhất
-    Route::get('quan-ly-hd/data_created_at', [OrderController::class, 'data_created_at'])->name('data_created_at');
+    Route::get('quan-ly-hd/data_created_at', [OrderController::class, 'data_created_at'])->name('data_created_at')->middleware('check.permission:30');
 
     // lọc ngày mùa hàng
-    Route::get('admin/quan-ly-hd/date-order-product', [OrderController::class, 'date_order_product'])->name('date-order-product');
+    Route::get('admin/quan-ly-hd/date-order-product', [OrderController::class, 'date_order_product'])->name('date-order-product')->middleware('check.permission:27');
 
     // lọc đơn hàng theo loại và trạng thái
-    Route::get('admin/quan-ly-hd/filters-status-type', [OrderController::class, 'filters_status_type'])->name('filters-status-type');
+    Route::get('admin/quan-ly-hd/filters-status-type', [OrderController::class, 'filters_status_type'])->name('filters-status-type')->middleware('check.permission:28');
 
     // export_excel cho ds đơn hàng
-    Route::get('export-excel', [OrderController::class, 'export_excel'])->name('export-excel');
+    Route::get('export-excel', [OrderController::class, 'export_excel'])->name('export-excel')->middleware('check.permission:25');
 
     // in đơn hàng chi tiết đơn hàng pdf
     Route:: get('/print-order/{checkout_code}', [OrderController::class, 'print_order'] )->name('print-order');
@@ -236,6 +239,9 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
 
     // hủy giao hành cho nhân viên
     Route::get('/cancel-delivery/{id}', [OrderController::class, 'cancelDelivery'])->name('cancel_delivery');
+
+    // tìm kiếm hóa đơn cho nhân viên giao hàng
+    Route::get('search-invoices-deliverie', [OrderController::class, 'search_invoices_deliverie'])->name('search-invoices-deliverie');
 
 // 
 
@@ -283,7 +289,7 @@ Route::post('/update-password-customer/{id}', [index::class, 'update_password_cu
 
 // Tài khoản quản trị
     // tài khoản admin
-    Route::get('/admin/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin');
+    Route::get('/admin/quan-ly-tk-admin', [index_backend::class, 'quan_ly_tk_admin'] )->name('quan-ly-tk-admin')->middleware('check.permission:24');
 
     //cập nhật trạng thái cho admin
     Route::post('/status_admin/{id}', [OrderController::class, 'status_admin'])->name('status_admin');

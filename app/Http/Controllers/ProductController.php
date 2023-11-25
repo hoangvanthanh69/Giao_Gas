@@ -387,6 +387,7 @@ class ProductController extends Controller
                     $query = product_warehouse::whereBetween('created_at', [$start, $end])->get();
                     // Lấy tên sản phẩm và tên người quản lý
                     $productNames = [];
+                    $productUnit = [];
                     foreach ($query as $name) {
                         $productNames[$name->product_id] = product::find($name->product_id)->name_product;
                         $productUnit[$name->product_id] = product::find($name->product_id)->unit;
@@ -436,6 +437,7 @@ class ProductController extends Controller
                 }
                 $product_warehouse = $query->get();
                 $productNames = [];
+                $productUnit = [];
                     foreach ($product_warehouse as $name) {
                         $productNames[$name->product_id] = product::find($name->product_id)->name_product;
                         $productUnit[$name->product_id] = product::find($name->product_id)->unit;
@@ -463,7 +465,7 @@ class ProductController extends Controller
                     'date_Filter_warehouse_end' => $date_Filter_warehouse_end,
                     'date_Filter_warehouse_start' => $date_Filter_warehouse_start,
                     'search' => $search, 'productNames' => $productNames, 'admin_Names' => $admin_Names,
-                    'productUnit' => $productUnit, 'supplierNames' => $supplierNames
+                    'supplierNames' => $supplierNames, 'productUnit' => $productUnit
                 ]);
             }
         }
@@ -597,12 +599,18 @@ class ProductController extends Controller
 
     // nhà cung cấp gas
     function nha_cung_cap_gas(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         $tbl_supplier = tbl_supplier::get();
         return view('backend.nha_cung_cap_gas', ['tbl_supplier' => $tbl_supplier]);
     }
 
     // giao diện thêm nhà cung cấp gas
     function add_supplier(){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
         return view('backend.add_supplier');
     }
 
@@ -648,6 +656,12 @@ class ProductController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    function delete_supplier($id){
+        $tbl_supplier = tbl_supplier::find($id);
+        $tbl_supplier -> delete();
+        return redirect()->route('nha-cung-cap')->with('success', 'Xóa nhà cung cấp thành công');
     }
 
 }

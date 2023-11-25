@@ -108,7 +108,15 @@ class AuthController extends Controller
                 'chuc_vu' => $result->chuc_vu,
             ]);
             if(Session::get('admin') != NULL){
-                return redirect()->route('admin');
+                if(Session::get('admin')['chuc_vu'] == "2"){
+                    return redirect()->route('admin');
+                }
+                elseif(Session::get('admin')['chuc_vu'] == "3"){
+                    return redirect()->route('quan-ly-sp');
+                }
+                elseif(Session::get('admin')['chuc_vu'] == "1"){
+                    return redirect()->route('quan-ly-hd');
+                }
             }
             else{
                 return redirect()->back();

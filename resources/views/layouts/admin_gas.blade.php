@@ -255,11 +255,31 @@
 
                      elseif(Session::get('admin')['chuc_vu'] == "3"){?>
                         <div class="btnbtn home-filter-button mb-4" data-filter="all">
-                           
-                           <div class="btnbtn home-filter-button mb-4" data-filter="product">
+                           <div class="mb-3 home-filter-button fw-light">
                               <a class="@yield('sidebar-active-product')" href="{{route('quan-ly-sp')}}">
-                                 <i class="fas fa-box icon-all-admin-nav"></i>
-                                 Quản lý xuất sản phẩm 
+                                 <i class="fas fa-box icon-product-layout icon-all-admin-nav"></i>
+                                 Kho sản phẩm 
+                              </a>
+                           </div>
+
+                           <div class="mb-3 home-filter-button fw-light" data-filter="product">
+                              <a class="@yield('sidebar-active-product-warehouse')" href="{{route('quan-ly-kho')}}">
+                                 <i class="fa-solid fa-database icon-all-admin-nav"></i>
+                                 Danh sách nhập kho
+                              </a>
+                           </div>
+
+                           <div class="mb-3 home-filter-button fw-light">
+                              <a class="@yield('sidebar-active-product-inventory')" href="{{route('quan-ly-ton-kho')}}">
+                                 <i class="fa-solid fa-warehouse icon-all-admin-nav"></i>
+                                 Tồn kho sản phẩm
+                              </a>
+                           </div>
+
+                           <div class="mb-3 home-filter-button fw-light">
+                              <a class="@yield('sidebar-active-supplier')" href="{{route('nha-cung-cap')}}">
+                                 <i class="fa-solid fa-suitcase icon-all-admin-nav"></i>
+                                 Nhà cung cấp
                               </a>
                            </div>
                         </div>

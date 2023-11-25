@@ -143,7 +143,7 @@ class OrderController extends Controller
         if ($request->isMethod('get')) {
             $search = $request->input('search');
             $order_product = order_product::where('nameCustomer', 'LIKE', "%$search%")
-                ->orWhere('order_code', 'LIKE', "%$search%")
+                ->orWhere('order_code', 'LIKE', "%$search%")->orWhere('phoneCustomer', 'LIKE', "%$search%")
                 ->get();
             if ($order_product->isEmpty()) {
                 return back()->with('message', 'Không tìm thấy kết quả');
@@ -375,5 +375,33 @@ class OrderController extends Controller
     function cancelDelivery($id) {
         $order_product = order_product::where('id', $id)->update(['admin_name' => 'Người giao hủy']);
         return redirect()->back();
+    }
+
+    // tìm kiếm hóa đơn cho nhân viên giao hàng
+    function search_invoices_deliverie(Request $request){
+        if(!Session::get('admin')){
+            return redirect()->route('login');
+        }
+        if ($request->isMethod('get')) {
+            $search = $request->input('search');
+            $admin_name = Session::get('admin')['admin_name'];     
+            $order_product = order_product::where('admin_name', $admin_name)
+            ->where(function($query) use ($search) {
+                $query->where('nameCustomer', 'LIKE', "%$search%")
+                      ->orWhere('order_code', 'LIKE', "%$search%");
+            })->get();
+            if ($order_product->isEmpty()) {
+                return back()->with('message', 'Không tìm thấy kết quả');
+            } else {
+                $filters = array(
+                    'status' => isset($_GET['status']) ? $_GET['status'] : 'all',
+                    'loai' => isset($_GET['loai']) ? $_GET['loai'] : 'all'
+                );
+                $dateFilter = $request->input('dateFilter');
+                return view('backend.quan_ly_hd', compact('order_product', 'filters', 'search', 'dateFilter'));
+            }
+        } else {
+            return redirect()->back();
+        }
     }
 }
